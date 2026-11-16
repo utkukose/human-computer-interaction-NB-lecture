@@ -1,0 +1,1490 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User-Centred Design in Practice: Interviews, Personas and Tasks | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 6 of 14</p><h1>User-Centred Design in Practice: Interviews, Personas and Tasks</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-06">Week overview</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb">Colab notebook</a><a href="lab.html">Interactive lab</a><a href="Week06_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2 id="overview">Overview</h2><p>Week 1 introduced user-centred design and its cycle of four activities. This week puts the cycle to work with the methods of its first two activities: Understanding the context of use and specifying what users need. Interviews collect the needs of patients, and a model of saturation tells when enough interviews have been held. Personas condense the patients into a few vivid users, and the week builds them from data with the k-means method. Hierarchical task analysis breaks a booking into subtasks with plans. The keystroke-level model predicts how long an expert needs for it. The clinic app reaches stage 6: Three personas with predicted booking times before and after the redesign. The Python step prepares the grouping, and the week closes with synthetic users written by artificial intelligence (AI).</p><h2 id="week-at-a-glance">Week at a glance</h2><pre class="mermaid">flowchart LR
+  A[&quot;From the cycle to the methods&quot;] --&gt; B[&quot;Interviews and saturation&quot;]
+  B --&gt; C[&quot;Personas&quot;]
+  C --&gt; D[&quot;Hierarchical task analysis&quot;]
+  D --&gt; E[&quot;The keystroke-level model&quot;]
+  E --&gt; F[&quot;Interface clinic&quot;]
+  F --&gt; G[&quot;The human side&quot;]
+  G --&gt; S[&quot;The clinic app, stage 6&quot;]
+  S --&gt; H[&quot;Toward human-AI interaction&quot;]</pre><div class="callout"><b class="t">Python code of this week</b><p>Every method on this page is also written as Python code in the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb">Colab notebook of the week</a>. Its code is divided into numbered sections. Each orange box on this page names the section whose code carries out what the text above the box explains. The box says what to run and what to look at in that section, and its button opens the Colab notebook at that place. The games, the practice parts and the self-assessment of the week are in the <a href="lab.html">interactive lab</a>. Each violet box opens one part of the interactive lab. The part ends with a link back to its box on this page, and the Colab notebook is always opened from the orange boxes here.</p></div><h2 id="python-step">Python step 6: Scaling, distances and groups</h2><div class="colabbox" id="colab-python-step"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=python-step" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, right after Section 0 (setup).</b> Open the Colab notebook and run this step cell by cell: It consists of short pieces of Python code with their explanations, a quick check and three exercises. Topics: Profiles as a table · Scaling with z-scores · Distances between people · k-means with scikit-learn.</p></div><p>The step continues with Python <span class="cite" tabindex="0" data-refs="1">[1]</span>, NumPy <span class="cite" tabindex="0" data-refs="2">[2]</span> and pandas <span class="cite" tabindex="0" data-refs="3">[3]</span> and adds the library scikit-learn <span class="cite" tabindex="0" data-refs="4">[4]</span>. It describes people as the rows of a table and puts the columns on one scale with z-scores. It measures the distance between two people and ends by grouping people with k-means. Students who have never programmed start with the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/start-here/NB00_start_here.ipynb">start-here notebook</a> of the course.</p><div class="callout"><b class="t">The clinic app so far</b><p>Week 1 measured the booking flow and named three users: A pensioner with reading glasses, a parent with a sick child and a nurse at the front desk. Weeks 2 to 4 fitted colours, menus and targets to human abilities, and Week 5 ranked sixteen problems of the app.</p><p>This week asks who the patients are and what they do. Stage 6 builds three personas from data and predicts how long each of them needs to book at the kiosk.</p></div><figure><img src="figures/w06_project_roadmap.png" alt="The clinic app through the fourteen weeks of the course. The figure marks the stage of this week." loading="lazy"><figcaption>The clinic app through the fourteen weeks of the course. The figure marks the stage of this week.</figcaption></figure><h2 id="methods">From the cycle to the methods</h2><p>Week 1 described <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#system-centred-and-user-centred-design">human-centred design</a> as a cycle of four activities <span class="cite" tabindex="0" data-refs="5">[5]</span>. The team understands and specifies the context of use, specifies the requirements of the users, produces design solutions and evaluates them. Each activity has its own methods, and the course meets them week by week.</p><div class="tablewrap"><table><thead><tr><th>Activity of ISO 9241-210</th><th>Methods</th><th>Week</th></tr></thead><tbody><tr><td>Understand and specify the context of use</td><td>Interviews and personas</td><td>6</td></tr><tr><td>Specify the user requirements</td><td>Task analysis and predicted task times</td><td>6</td></tr><tr><td>Produce design solutions</td><td>Prototypes, navigation and visual design</td><td>7 and 8</td></tr><tr><td>Evaluate the designs against the requirements</td><td>Heuristic evaluation and usability tests</td><td>5 and 9</td></tr></tbody></table></div><p>Gould and Lewis asked for an early focus on users and their tasks <span class="cite" tabindex="0" data-refs="6">[6]</span>. The methods of this week turn this demand into data: What patients say in interviews, which groups they form and which steps a booking takes. Each method ends with a number that later weeks can test: The themes heard, the spread within the groups and the predicted time of a task.</p><div class="kc" data-answer="0" data-why="A persona condenses what the team learned about the users and their context, the first activity of the cycle."><p class="q">Check your understanding. Which activity of human-centred design does a persona serve first?</p><label><input type="radio" name="KC0" value="0"> Understanding and specifying the context of use</label><label><input type="radio" name="KC0" value="1"> Producing design solutions</label><label><input type="radio" name="KC0" value="2"> Evaluating the design</label><label><input type="radio" name="KC0" value="3"> Writing the code</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><h2 id="interviews">Interviews and saturation</h2><p>An interview is a conversation with a purpose. In a <i>semi-structured interview</i>, the interviewer follows a guide of topics but lets the person answer in their own words. The form of a question shapes the answer, as the table shows with three questions to a patient of the clinic.</p><div class="tablewrap"><table><thead><tr><th>Kind of question</th><th>Example</th><th>What it yields</th></tr></thead><tbody><tr><td>Open</td><td>Tell me about your last visit, from the moment you decided to book.</td><td>Stories with needs that the team did not expect</td></tr><tr><td>Closed</td><td>Did you book your last appointment at the kiosk?</td><td>One fact, quickly</td></tr><tr><td>Leading</td><td>The kiosk is hard to use, isn't it?</td><td>Agreement with the interviewer, not the view of the patient</td></tr></tbody></table></div><p>After the interviews, the team writes each need on a note and groups similar notes into <i>themes</i> on a wall, an <i>affinity diagram</i>. A study is <i>saturated</i> when further interviews bring no new themes. Guest and colleagues coded 60 interviews and found that saturation was reached within the first 12 <span class="cite" tabindex="0" data-refs="7">[7]</span>. The basic elements of the main themes were already present after 6 interviews. Francis and colleagues turned saturation into a rule: Analyse an initial sample, then stop after a fixed number of further interviews without new ideas <span class="cite" tabindex="0" data-refs="8">[8]</span>. They demonstrated the rule with an initial sample of 10 interviews and a stopping criterion of 3.</p><p>The model of discovery of <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-05/lecture.html#how-many-evaluators">Week 5</a> carries over from evaluators to interviews. Suppose that a need is shared by the share \(p_k\) of the patients, and each interview reveals all needs of one patient chosen at random. The expected number of themes heard after \(n\) interviews, and the interviews that hear a need of share \(p\) with the probability 0.9, are</p><div class="eq">\[E_n = \sum_{k=1}^{K} \left[1 - (1 - p_k)^n\right], \qquad n_{0.9} = \frac{\ln 0.1}{\ln (1 - p)}\]</div><p>\(K\) is the number of themes, and each term of the sum is the probability that at least one of the \(n\) interviews reveals theme \(k\). \(E_n\) counts themes and has no unit, and \(n_{0.9}\) is rounded up to a whole interview. The model assumes open questions that reveal all needs of a patient.</p><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pa" target="_blank" rel="noopener">Lab Part A</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> Suppose that five needs are shared by 60, 40, 30, 20 and 10 percent of the patients. After six interviews, the five needs are heard with the probabilities \(1 - 0.4^6 = 0.996\), \(1 - 0.6^6 = 0.953\), \(1 - 0.7^6 = 0.882\), \(1 - 0.8^6 = 0.738\) and \(1 - 0.9^6 = 0.469\). So \(E_6 \)​\({}= 0.996 \)​\({}+ 0.953 \)​\({}+ 0.882 \)​\({}+ 0.738 \)​\({}+ 0.469 \)​\({}= 4.04\) of the five themes. The rare need is heard in fewer than half of such studies. For a probability of 0.9 it needs \(n_{0.9} \)​\({}= \ln 0.1 / \ln 0.9 \)​\({}= -2.303 / \)​\({}-0.105 \)​\({}= 21.9\), rounded up to 22 interviews.</p><figure><img src="figures/w06_fig_saturation.png" alt="Left: The expected number of themes heard against the number of interviews. The curves show the five needs of the worked example and the eight needs of this week. Right: The probability of hearing one need against the number of interviews, for needs of 10, 30 and 50 percent, with the interviews needed for 0.9." loading="lazy"><figcaption>Left: The expected number of themes heard against the number of interviews. The curves show the five needs of the worked example and the eight needs of this week. Right: The probability of hearing one need against the number of interviews, for needs of 10, 30 and 50 percent, with the interviews needed for 0.9.</figcaption></figure><p>Saturation in the model depends on who is asked, not only on how many. A rare need, such as an interpreter, stays unheard if nobody who needs one is asked. Teams therefore choose interviewees on purpose, for example patients of different ages, distances and skills.</p><div class="kc" data-answer="1" data-why="A leading question suggests its answer, so the patient tends to agree, and the team hears its own opinion back."><p class="q">Check your understanding. Why is a leading question a poor question in an interview?</p><label><input type="radio" name="KC1" value="0"> It takes too long to answer</label><label><input type="radio" name="KC1" value="1"> It invites agreement with the interviewer instead of the view of the patient</label><label><input type="radio" name="KC1" value="2"> It cannot be written on a note</label><label><input type="radio" name="KC1" value="3"> It needs a recording device</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="kc" data-answer="1" data-why="\(1 - 0.8^4 = 1 - 0.410 = 0.590\)."><p class="q">Check your understanding. A need is shared by 20 percent of the patients. With what probability do four interviews with patients chosen at random hear it?</p><label><input type="radio" name="KC2" value="0"> 0.20</label><label><input type="radio" name="KC2" value="1"> 0.59</label><label><input type="radio" name="KC2" value="2"> 0.80</label><label><input type="radio" name="KC2" value="3"> 0.41</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part A of the interactive lab seats twelve patients in a waiting hall. Eight interviews are allowed, and each one starts with an open, a closed or a leading question. The needs that you hear appear as notes on an affinity wall.</p><div class="labbox" id="lab-pa"><a class="btn" href="lab.html#pa" target="_blank" rel="noopener">Open lab Part A</a><p><b>Interactive lab, Part A.</b> Interviews in the waiting room in 3D: Eight interviews with twelve patients, three kinds of questions and an affinity wall, with the model of saturation step by step. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-1"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-1" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 1.</b> Open Section 1 of the Colab notebook and run it. The functions <code>expected_themes</code> and <code>stopping_point</code> carry out the model of saturation and the rule of Francis and colleagues. The first is checked on the worked example. Paste the results of Part A into <code>MY_INTERVIEWS</code>, and the code counts the new themes of each interview. A figure compares your saturation curve with the model and shows the themes per interview for each kind of question.</p></div><div class="callout discuss"><b class="t">Discuss: Questions that open</b><ol><li>Rewrite the closed question "Do you like the app?" as an open question. What could the open version reveal?</li><li>Whom would you interview to hear a rare need, such as booking for a relative who does not speak Turkish?</li></ol></div><h2 id="personas">Personas</h2><p>A <i>persona</i> is a fictional user with a name, a face, goals and a context, who stands for a group of real users. Pruitt and Grudin trace the idea to the designer Alan Cooper <span class="cite" tabindex="0" data-refs="9">[9]</span>. They describe how teams at Microsoft built personas from data and kept them in view during development. A persona replaces "the user", whom every designer imagines differently, with a person whom the whole team knows.</p><p>Personas invented at a desk tend to mirror their designers. <i>Data-driven personas</i> start from measurements, so that each persona stands for a measured group of users <span class="cite" tabindex="0" data-refs="10">[10]</span>. Closeness needs numbers on one scale. Each attribute \(x\) is therefore turned into a <i>z-score</i>, and the distance between two people \(i\) and \(j\) adds the squared differences over all attributes:</p><div class="eq">\[z = \frac{x - \bar{x}}{s}, \qquad d_{ij} = \sqrt{\sum_{a} \left(z_{ia} - z_{ja}\right)^2}\]</div><p>\(\bar{x}\) is the mean and \(s\) the standard deviation of an attribute over all people, so \(z\) counts standard deviations from the mean and has no unit. The index \(a\) runs over the attributes, and \(d_{ij}\) is the <i>Euclidean distance</i> between the two people.</p><p><b>A worked example.</b> The twelve patients of the clinic have the mean age 51.33 years with the standard deviation 16.59. They make 6.25 visits a year (4.04), rate their digital skill 3.00 of 5 (1.35) and travel 45.00 minutes (27.76). Fatma is 74, visits 12 times, has the skill 1 and travels 20 minutes. Her z-scores are \((74 - 51.33)/16.59 = 1.37\), then 1.42, \(-1.48\) and \(-0.90\). Elif, 31 years, 2 visits, skill 5 and 25 minutes, has \(-1.23\), \(-1.05\), \(1.48\) and \(-0.72\). Their distance is \(\sqrt{2.60^2 + 2.47^2 + 2.96^2 + 0.18^2} \)​\({}= \sqrt{6.76 + 6.10 + 8.76 + 0.03} \)​\({}= \sqrt{21.65} \)​\({}= 4.65\).</p><p>Groups are found with <i>k-means</i>. It places \(k\) centres, assigns each person to the nearest centre and moves each centre to the mean of its members. It repeats the two steps until no person changes the group. The algorithm goes back to Lloyd <span class="cite" tabindex="0" data-refs="11">[11]</span>, and each round lowers the <i>within-group sum of squares</i></p><div class="eq">\[W = \sum_{c=1}^{k} \sum_{i \in C_c} \lVert z_i - \mu_c \rVert^2\]</div><p>\(C_c\) is the set of people in group \(c\), \(\mu_c\) the mean of their z-scores and \(\lVert \cdot \rVert\) the length of a vector. Each term is thus the squared distance of a person to the centre of the group, and a small \(W\) means tight groups. The team must choose \(k\), and a poor start can end in a poorer grouping. Implementations therefore restart the method several times and keep the best result <span class="cite" tabindex="0" data-refs="4">[4]</span>.</p><div class="anim" id="kmeans"><p class="small"><strong>Animation.</strong> The twelve patients by their age and their travel time as z-scores, so that the picture shows every distance. A new random start places \(k\) centres on random patients. Each step either lets every patient join the nearest centre or moves each centre to the mean of its members. Play runs the steps until no patient changes the group. Some starts end in a poorer grouping with a larger \(W\).</p><div class="row" id="km-sl"></div><p><button class="btn" id="km-new" type="button">New random start</button> <button class="btn ghost" id="km-step" type="button">One step</button> <button class="btn ghost" id="km-play" type="button">Play to the end</button></p><canvas class="paper" id="km-cv" aria-label="Twelve patients as points coloured by group, with the centres of k-means as crosses"></canvas><div id="km-ro"></div></div><p>For the twelve patients and \(k = 3\), k-means finds three groups of four, as the table shows. Their \(W\) is 5.31. A grouping by age alone gives 9.94: It puts Selin, a carer of 39, among the working patients and Murat, a working patient of 42, among the carers.</p><div class="tablewrap"><table><thead><tr><th>Persona</th><th>Members of the group</th><th>Mean of the group</th><th>Needs heard in the interviews</th></tr></thead><tbody><tr><td>Hasan, 69, the frequent visitor</td><td>Fatma, Hasan, Emine, Mehmet</td><td>73 years, 11.25 visits, skill 1.5, 22.5 min</td><td>Finding the department, small text, a forgotten patient number</td></tr><tr><td>Elif, 31, the busy professional</td><td>Elif, Burak, Zeynep, Murat</td><td>35 years, 2 visits, skill 4.5, 30 min</td><td>Booking after hours, waiting without information</td></tr><tr><td>Ayten, 45, the carer</td><td>Ayten, Ibrahim, Selin, Kemal</td><td>46 years, 5.5 visits, skill 3, 82.5 min</td><td>Long journeys, booking for a relative, an interpreter</td></tr></tbody></table></div><p>The persona adds a name, a picture, a short story and goals to the numbers. Week 1 named three users. The pensioner with reading glasses and the parent with a sick child return as Hasan and Ayten. The data found a third group that Week 1 had missed, working patients who book in the evening. The nurse at the front desk is not a patient, so she receives a persona of her own from interviews with staff.</p><figure><img src="figures/w06_fig_personas.png" alt="Left: The twelve patients on two of their four scaled attributes, coloured by the groups of k-means, with the centres as crosses. Right: The within-group sum of squares for k from 1 to 6. It falls steeply up to k = 3 and slowly after that." loading="lazy"><figcaption>Left: The twelve patients on two of their four scaled attributes, coloured by the groups of k-means, with the centres as crosses. Right: The within-group sum of squares for \(k\) from 1 to 6. It falls steeply up to \(k = 3\) and slowly after that.</figcaption></figure><div class="kc" data-answer="0" data-why="Without scaling, the attribute with the largest numbers, such as the travel time in minutes, would decide the groups alone."><p class="q">Check your understanding. Why are the attributes scaled before k-means?</p><label><input type="radio" name="KC3" value="0"> So that each attribute weighs the same in the distances</label><label><input type="radio" name="KC3" value="1"> To make the groups equal in size</label><label><input type="radio" name="KC3" value="2"> Because k-means needs whole numbers</label><label><input type="radio" name="KC3" value="3"> To remove the oldest patients</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="kc" data-answer="2" data-why="\(\sqrt{(1 - (-1))^2 + (0 - 1)^2} \)​\({}= \sqrt{4 + 1} \)​\({}= \sqrt{5} \)​\({}= 2.24\)."><p class="q">Check your understanding. Two patients have the z-scores (1, 0) and (−1, 1) on two attributes. What is their distance?</p><label><input type="radio" name="KC4" value="0"> 1.41</label><label><input type="radio" name="KC4" value="1"> 2.00</label><label><input type="radio" name="KC4" value="2"> 2.24</label><label><input type="radio" name="KC4" value="3"> 3.00</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part B of the interactive lab brings the twelve patients into a hall with three zones on the floor. You form the groups yourself, and the page computes their \(W\) after every move.</p><div class="labbox" id="lab-pb"><a class="btn" href="lab.html#pb" target="_blank" rel="noopener">Open lab Part B</a><p><b>Interactive lab, Part B.</b> Personas from the waiting hall in 3D: Twelve patients with profiles of four numbers, sorted into three groups on the floor, with the within-group sum of squares of your grouping. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-2"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-2" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 2.</b> Open Section 2 of the Colab notebook and run it. The functions <code>scale</code> and <code>within</code> carry out the formulas of this section, and the distance of Fatma and Elif is checked on the worked example. The code groups the patients with k-means. Paste the results of Part B into <code>MY_GROUPS</code>, and the code compares your groups with those of k-means. A table gives the means of each group, the skeleton of a persona.</p></div><div class="callout discuss"><b class="t">Discuss: A persona that misleads</b><ol><li>A team designs for "Hasan, 69" and forgets that some older patients use phones with ease. How can a persona hide the differences within its group?</li><li>Who in a design team should own the personas, and how often should they be checked against new data?</li></ol></div><h2 id="task-analysis">Hierarchical task analysis</h2><p>Personas say who uses the app, and task analysis says what they do. <i>Hierarchical task analysis</i> (HTA) describes a goal as a hierarchy of subtasks. Each level has a <i>plan</i> that says in which order and under which conditions its subtasks are done. The method dates from the late 1960s, and Stanton reviewed its development and uses over more than three decades <span class="cite" tabindex="0" data-refs="12">[12]</span>. The table gives the analysis of a booking in the clinic app.</p><div class="tablewrap"><table><thead><tr><th>Number</th><th>Subtask</th><th>Time</th><th>Plan or probability</th></tr></thead><tbody><tr><td>0</td><td>Book an appointment</td><td></td><td>Do 1, 2 and 3 in order; do 4 when stuck</td></tr><tr><td>1</td><td>Log in</td><td>20 s</td><td></td></tr><tr><td>2</td><td>Choose a department and a time</td><td></td><td>Do 2.1 and 2.2; do 2.3 when no time is free</td></tr><tr><td>2.1</td><td>Choose the department</td><td>15 s</td><td></td></tr><tr><td>2.2</td><td>Choose a time</td><td>12 s</td><td></td></tr><tr><td>2.3</td><td>Choose another day</td><td>18 s</td><td>25 percent of the bookings</td></tr><tr><td>3</td><td>Confirm</td><td>6 s</td><td></td></tr><tr><td>4</td><td>Ask for help at the desk</td><td>120 s</td><td>5 percent of the bookings</td></tr></tbody></table></div><p>A plan with a branch makes the time of the task uncertain. If the step \(j\) takes \(t_j\) seconds and happens with the probability \(q_j\), the expected time of the task is</p><div class="eq">\[E[T] = \sum_{j} q_j \, t_j\]</div><p>The sum runs over the lowest subtasks, those without subtasks of their own, and \(q_j = 1\) for the subtasks that are always done. For a subtask inside a branch, \(q_j\) is the product of the probabilities on the path to it.</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pc" target="_blank" rel="noopener">Lab Part C</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> In the booking above, the subtasks that are always done take \(20 + 15 + 12 + 6 = 53\) s. Another day is needed in 25 percent of the bookings, which adds \(0.25 \times 18 = 4.5\) s. Help at the desk adds \(0.05 \times 120 = 6\) s. So \(E[T] = 53 + 4.5 + 6 = 63.5\) s. The rare help at the desk costs more time on average than the frequent search for another day.</p><figure><img src="figures/w06_fig_hta.png" alt="Left: The hierarchical task analysis of a booking as a tree, with its plans, times and branches. Right: The expected time against the share of bookings without a free time on the first day, with help needed in 5 or in 1 percent of them." loading="lazy"><figcaption>Left: The hierarchical task analysis of a booking as a tree, with its plans, times and branches. Right: The expected time against the share of bookings without a free time on the first day, with help needed in 5 or in 1 percent of them.</figcaption></figure><div class="kc" data-answer="1" data-why="\(10 \)​\({}+ 20 \)​\({}+ 0.25 \times 40 \)​\({}= 30 \)​\({}+ 10 \)​\({}= 40\) s."><p class="q">Check your understanding. A task has steps of 10 s and 20 s that are always done and a step of 40 s that happens in one booking of four. What is its expected time?</p><label><input type="radio" name="KC5" value="0"> 30 s</label><label><input type="radio" name="KC5" value="1"> 40 s</label><label><input type="radio" name="KC5" value="2"> 50 s</label><label><input type="radio" name="KC5" value="3"> 70 s</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pc"><a class="btn" href="lab.html#pc" target="_blank" rel="noopener">Open lab Part C</a><p><b>Interactive lab, Part C.</b> The expected time of a task step by step: The booking with its two branches, with sliders for the times and the probabilities and three presets.</p></div><div class="colabbox" id="colab-sec-3"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-3" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 3.</b> Open Section 3 of the Colab notebook and run it. The function <code>expected_time</code> walks through a task tree and carries out the formula of this section, and it is checked on the worked example. The function <code>steps</code> prints the tree with the expected time of each subtask. A figure shows how the expected time grows with the share of full days.</p></div><div class="callout discuss"><b class="t">Discuss: Tasks behind a screen</b><ol><li>Break a task that you did today, such as paying a bill, into subtasks with a plan. Where is a branch?</li><li>Which branch of the booking would you remove first, and what would it cost the hospital?</li></ol></div><h2 id="keystroke-level-model">Predicting task times: The keystroke-level model</h2><p>Card, Moran and Newell proposed the <i>keystroke-level model</i> (KLM) to predict how long an expert needs for a task on a given system <span class="cite" tabindex="0" data-refs="13">[13]</span>. The method of the task is written as a sequence of operators, and the times of the operators are added. Tested against data on ten systems, the prediction error was 21 percent for single tasks. The KLM is the simplest member of the family of models of goals, operators, methods and selection rules (GOMS) <span class="cite" tabindex="0" data-refs="14,15">[14, 15]</span>.</p><div class="tablewrap"><table><thead><tr><th>Operator</th><th>Meaning</th><th>Time</th></tr></thead><tbody><tr><td>K</td><td>Pressing a key, for an average typist who is not a secretary</td><td>0.28 s</td></tr><tr><td>B</td><td>Clicking a mouse button, timed as a key of a skilled typist</td><td>0.20 s</td></tr><tr><td>P</td><td>Pointing with the mouse to a target on the screen</td><td>1.10 s</td></tr><tr><td>H</td><td>Moving the hand between the keyboard and the mouse</td><td>0.40 s</td></tr><tr><td>M</td><td>Preparing mentally for the next physical action</td><td>1.35 s</td></tr><tr><td>R</td><td>Waiting for the response of the system</td><td>measured</td></tr></tbody></table></div><p>Card, Moran and Newell count a click of a mouse button as a keystroke. This week writes it as B and gives it their time of a skilled typist, 0.20 s, while keys on the keyboard take 0.28 s. The time of a method is</p><div class="eq">\[T = n_K t_K + n_B t_B + n_P t_P + n_H t_H + n_M t_M + \sum R\]</div><p>Each \(n\) counts how often an operator occurs in the method, and each \(t\) is its time in seconds. The hard part is placing M. Card, Moran and Newell gave rules for it <span class="cite" tabindex="0" data-refs="13">[13]</span>. For example, an M comes before each command that the user must choose, but not inside a code typed as one unit.</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pd" target="_blank" rel="noopener">Lab Part D</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> A nurse at the front desk books an appointment in two ways. With the mouse, she opens the menu of departments, picks the department and a free time and clicks into the field of the ticket. She moves her hand to the keyboard, types the four digits of the ticket, returns to the mouse and clicks Book: <code>MPB MPB MPB PBHMKKKK HPB</code>. With the keyboard, she types the code of the department and Enter, accepts the first free time with Enter and types the ticket with Enter: <code>MKKKK MK MKKKKK</code>.</p><p>The mouse method has 4 M, 5 P, 5 B, 2 H and 4 K, so \(T \)​\({}= 5.40 \)​\({}+ 5.50 \)​\({}+ 1.00 \)​\({}+ 0.80 \)​\({}+ 1.12 \)​\({}= 13.82\) s. The keyboard method has 3 M and 10 K, so \(T = 4.05 + 2.80 = 6.85\) s. At 300 bookings a day on 250 working days, the codes save \(300 \times 250 \times 6.97 = 522{,}750\) s, about 145.2 hours a year.</p><figure><img src="figures/w06_fig_klm.png" alt="Left: The two methods of the front desk as timelines of operators. Right: The predicted time of both methods against the time of a keystroke, from the best typist to an unfamiliar keyboard. The codes stay faster over the whole range." loading="lazy"><figcaption>Left: The two methods of the front desk as timelines of operators. Right: The predicted time of both methods against the time of a keystroke, from the best typist to an unfamiliar keyboard. The codes stay faster over the whole range.</figcaption></figure><p>The KLM predicts the time of an expert who makes no errors <span class="cite" tabindex="0" data-refs="13">[13]</span>. Beginners are slower, especially with codes that they must first learn, and the model says nothing about learning or fatigue. Pointing need not use the average P either. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-04/lecture.html#fitts-law">Fitts' law</a> of Week 4 gives a time for each target from its distance and width.</p><p>Phones and kiosks need operators of their own. Holleis and colleagues adapted the times of the operators to mobile phones and added new ones <span class="cite" tabindex="0" data-refs="16">[16]</span>. Examples are gestures and shifts of attention between the phone and the surroundings. On the touch screen of the kiosk, this week uses a tap T that combines pointing and touching. The scene below plays a booking at the lobby kiosk operator by operator.</p><div class="scene" id="scene"><p class="small"><strong>Scene: Three personas at the kiosk.</strong> Hasan, Elif and Ayten book an appointment at the lobby kiosk. The buttons choose the persona and the kiosk, and Play runs the booking operator by operator at double speed. The label above the persona names the current operator, and the timeline below shows the operators of both kiosks with the times of the chosen persona. The times of M and T for each persona are the assumptions of stage 6.</p><div class="three" id="sk-3d"></div><div class="sn-btns" id="sk-who"></div><div class="sn-btns" id="sk-flow"></div><canvas class="paper" id="sk-cv" aria-label="Timelines of the operators of the current and the redesigned kiosk for the chosen persona"></canvas><p class="sn-say" id="sk-say" aria-live="polite"></p><div class="sn-ro" id="sk-ro"></div></div><div class="kc" data-answer="2" data-why="\(2 \times (1.35 + 1.10 + 0.20) \)​\({}= 2 \times 2.65 \)​\({}= 5.30\) s."><p class="q">Check your understanding. A method is <code>MPB MPB</code>. What is its predicted time with the operators of the table?</p><label><input type="radio" name="KC6" value="0"> 2.65 s</label><label><input type="radio" name="KC6" value="1"> 4.90 s</label><label><input type="radio" name="KC6" value="2"> 5.30 s</label><label><input type="radio" name="KC6" value="3"> 6.70 s</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="kc" data-answer="0" data-why="The model adds the times of skilled operators and leaves out learning, searching for keys and errors."><p class="q">Check your understanding. Why can the KLM not predict the time of a beginner?</p><label><input type="radio" name="KC7" value="0"> It assumes an expert who makes no errors</label><label><input type="radio" name="KC7" value="1"> It ignores the mouse</label><label><input type="radio" name="KC7" value="2"> It works only for phones</label><label><input type="radio" name="KC7" value="3"> It needs a finished prototype</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part D of the interactive lab seats you at the front desk. Patients come with a request and a ticket, and you book three of them with the mouse and three with the codes.</p><div class="labbox" id="lab-pd"><a class="btn" href="lab.html#pd" target="_blank" rel="noopener">Open lab Part D</a><p><b>Interactive lab, Part D.</b> The front desk race in 3D: Three bookings with the mouse and three with codes, timed and compared with the KLM, and the KLM step by step. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-4"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-4" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 4.</b> Open Section 4 of the Colab notebook and run it. The function <code>klm_time</code> carries out the formula of this section and is checked on the worked example. Paste the results of Part D into <code>MY_RACE</code>, and the code compares your times with the predictions. A figure shows how close each method came to the model from booking to booking.</p></div><div class="callout discuss"><b class="t">Discuss: Shortcuts and beginners</b><ol><li>The codes save seven seconds per booking. What do they cost a new nurse in her first week?</li><li>Which app on your phone offers a shortcut for experts, and how did you learn it?</li></ol></div><h2 id="interface-clinic">Interface clinic: Users and tasks on the clinic screens, before and after</h2><p>The four pairs below show screens of the clinic app before and after a redesign. Each redesign answers a need heard in the interviews or a step of the task analysis.</p><div class="uiclinic" id="ui-relative"><p class="small"><strong>Interface clinic: Booking for a relative.</strong> The first screen of a booking.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Only for the account holder</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Book an appointment</div><div class="bd"><div class="lbl">Patient</div><div class="card2">Ayten Kaya (you)</div><div class="muted">To book for another person, log out and log in with their patient number and password.</div><div class="pb">Continue</div></div></div><p class="ui-why">Carers book for a mother, a son or a wife, as two of the twelve patients said. The app forces them to log in as the other person.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Who is the appointment for?</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Book an appointment</div><div class="bd"><div class="lbl">Who is the appointment for?</div><div class="list"><div>Me, Ayten Kaya</div><div>My mother, Saliha Kaya</div><div>My son, Emre Kaya</div><div>+ Add a family member</div></div></div></div><p class="ui-why">Family members are linked once, with their consent, and the booking starts by choosing one.</p></div></div></div><div class="uiclinic" id="ui-hours"><p class="small"><strong>Interface clinic: Booking outside office hours.</strong> The app at 21:30 in the evening.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Closed after five</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="card2" style="border-color:#C0392B"><b>Online booking is closed.</b><br>Please call 0246 000 00 00 between 08:00 and 17:00.</div></div></div><p class="ui-why">Elif and other working patients can book only in the evening, a need of three of the twelve patients.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Booking at any hour</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="lbl">Book now, confirmed at once</div><div class="chips"><span class="chip">Tomorrow 08:20</span><span class="chip">Fri 17:40</span></div><div class="muted">The desk answers questions from 08:00; booking works at any time.</div></div></div><p class="ui-why">Free times come from the same calendar that the desk uses, so the app needs no staff at night.</p></div></div></div><div class="uiclinic" id="ui-again"><p class="small"><strong>Interface clinic: The next visit of a frequent visitor.</strong> The home screen for a patient with regular visits.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Every booking starts from zero</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="pb">Book an appointment</div><div class="muted">Choose the department, the doctor, the day and the time.</div></div></div><p class="ui-why">Hasan sees the same cardiologist ten times a year, yet each booking repeats every step of the task analysis.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Book again with one tap</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="card2"><b>Book again</b><br>Cardiology, Dr. Selin Arslan<br>Next free: Tue 10 March, 10:40</div><div class="pb">Book this time</div><div class="muted">Or choose another department</div></div></div><p class="ui-why">The redesign skips the department and the doctor, which removes two decisions M and several taps.</p></div></div></div><div class="uiclinic" id="ui-waiting"><p class="small"><strong>Interface clinic: Waiting in the hall.</strong> The screen of the app on the day of the visit.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>The time and nothing else</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="card2"><b>Your appointment</b><br>Cardiology, 10:40</div><div class="muted">Please wait to be called.</div></div></div><p class="ui-why">Waiting without information was the second most frequent theme, heard from five of twelve patients.</p></div><div class="ui-col"><h4><span class="tag good">After</span>The delay and the expected call</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="card2"><b>Dr. Arslan is 25 minutes late.</b><br>Expected call: 11:05. Two patients are before you.</div><div class="muted">A message comes 10 minutes before your call, so you can wait in the café.</div></div></div><p class="ui-why">The screen states the delay, the expected time and the queue, and it frees the patient from watching the door.</p></div></div></div><div class="callout discuss"><b class="t">Discuss: Read the clinic</b><ol><li>Which persona gains the most from each screen marked After?</li><li>Which redesign would the keystroke-level model favour, and which would it not see at all?</li></ol></div><h2 id="the-human-side">The human side: Whose voice is heard?</h2><p>Interviews reach the patients who come to the clinic and have time to talk. Patients who gave up, who cannot leave home or who do not speak the language are missing, although they may need the app most. A persona of the average patient hides them twice: Once in the interviews and once in the mean of the group.</p><p>Interviews with patients also need care. They ask for consent before recording and state that the answers do not affect any treatment. The notes must not identify the person. Patients in a waiting room are often worried or in pain, so interviews stay short and can be stopped at any time.</p><div class="callout life"><b class="t">In everyday life: Clothes in one size</b><p>A shop that sells trousers in one average size fits almost nobody well. Sizes from small to extra large are personas of the body: A few groups, each close to its members. A design for the average patient fails in the same way, which is why the clinic app needs several personas.</p></div><div class="callout discuss"><b class="t">Discuss: The missing patients</b><ol><li>Which patients of the clinic would never answer an invitation to an interview? How could the team reach them?</li><li>Should a hospital pay patients for interviews? What could payment change in the answers?</li></ol></div><h2 id="the-clinic-app-stage-6">The clinic app, stage 6: Personas, task analysis and predicted task times</h2><p>Stage 6 brings the methods of the week together for the kiosk of the lobby. The personas come from the groups of k-means, and the steps of the booking from the task analysis. The KLM predicts the time of the booking before and after the redesign of Weeks 3 to 5.</p><div class="tablewrap"><table><thead><tr><th>Step</th><th>Current kiosk</th><th>Operators</th><th>Redesigned kiosk</th><th>Operators</th></tr></thead><tbody><tr><td>Patient number</td><td>Typed: 11 digits and OK</td><td>M + 12 T</td><td>Card held at the reader</td><td>R = 2.0 s</td></tr><tr><td>Start</td><td>Tap Book an appointment</td><td>M + T</td><td>Tap Book an appointment</td><td>M + T</td></tr><tr><td>Department</td><td>Find it among forty names</td><td>M + S = 5.62 s</td><td>Split menu, frequent first</td><td>M + S = 3.55 s</td></tr><tr><td>Day and time</td><td>Tap a day, then a time</td><td>2 M + 2 T</td><td>Tap Tomorrow and a time on one screen</td><td>M + 2 T</td></tr><tr><td>Confirm</td><td>Slide to confirm</td><td>M + D = 0.80 s</td><td>Check, tap Confirm and Print the slip</td><td>M + 2 T</td></tr><tr><td>Total</td><td></td><td>6 M + 15 T + 6.42 s</td><td></td><td>4 M + 5 T + 5.55 s</td></tr></tbody></table></div><p>The search times of the menus come from <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-03/lecture.html#the-clinic-app-stage-3">stage 3</a> and the slide from <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-04/lecture.html#the-clinic-app-stage-4">stage 4</a>. The operators M and T take different times for the three personas. Elif has the time of Card, Moran and Newell for M and a quick tap of 0.6 s. Hasan needs 2.0 and 0.9 s, and Ayten 1.6 and 0.7 s. These values are assumptions of the stage, chosen in line with Weeks 3 and 4, and Week 9 measures them with patients.</p><p><b>The predicted times.</b> For Elif, the current kiosk takes \(6 \times 1.35 \)​\({}+ 15 \times 0.6 \)​\({}+ 5.62 \)​\({}+ 0.80 \)​\({}= 8.10 \)​\({}+ 9.00 \)​\({}+ 6.42 \)​\({}= 23.52\) s. The redesign takes \(4 \times 1.35 \)​\({}+ 5 \times 0.6 \)​\({}+ 3.55 \)​\({}+ 2.0 \)​\({}= 5.40 \)​\({}+ 3.00 \)​\({}+ 5.55 \)​\({}= 13.95\) s. Hasan needs 31.92 and 18.05 s, and Ayten 26.52 and 15.45 s. The savings of 9.57, 13.87 and 11.07 s have the mean 11.50 s. With the cost formula of <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#system-centred-and-user-centred-design">Week 1</a>, 600 bookings a day on 250 days save \(C \)​\({}= 600 \times 250 \times 11.50 \)​\({}= 1{,}725{,}000\) s, or 479.2 hours a year.</p><figure><img src="figures/w06_project_stage.png" alt="The clinic app, stage 6. Left: The predicted booking times of the three personas at the current and the redesigned kiosk. Right: The operators of both flows for Hasan as timelines. The values come from Section 5 of the Colab notebook." loading="lazy"><figcaption>The clinic app, stage 6. Left: The predicted booking times of the three personas at the current and the redesigned kiosk. Right: The operators of both flows for Hasan as timelines. The values come from Section 5 of the Colab notebook.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question of stage 6</th><th>Answer of the analysis</th><th>Where</th></tr></thead><tbody><tr><td>Who are the patients of the clinic?</td><td>Three groups of four: Frequent visitors, working patients and carers</td><td>Section 2</td></tr><tr><td>How long does a booking take on average?</td><td>63.5 s, with help at the desk as the costliest branch</td><td>Section 3</td></tr><tr><td>How much does the redesigned kiosk save?</td><td>11.50 s per booking, 479.2 hours a year</td><td>Section 5</td></tr><tr><td>Which persona gains the most?</td><td>Hasan: 13.87 s per booking</td><td>Section 5</td></tr></tbody></table></div><p>Stage 6 gives the redesign three users with names and a predicted time for each. The largest saving goes to Hasan, whose taps and decisions take the longest. The card reader removes his costliest step, the typed patient number of 12.8 s. Week 7 builds the redesigned flow as a prototype, and Week 9 measures the real times.</p><div class="kc" data-answer="0" data-why="The redesign removes 10 T and 2 M, and each of them costs Hasan more time than Elif."><p class="q">Check your understanding. Why does Hasan gain more from the redesign than Elif?</p><label><input type="radio" name="KC8" value="0"> His taps and decisions take longer, and the redesign removes ten taps and two decisions</label><label><input type="radio" name="KC8" value="1"> He books more often than Elif</label><label><input type="radio" name="KC8" value="2"> The split menu was made for him alone</label><label><input type="radio" name="KC8" value="3"> His card is read faster</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pe"><a class="btn" href="lab.html#pe" target="_blank" rel="noopener">Open lab Part E</a><p><b>Interactive lab, Part E.</b> Stage 6 by hand for Ayten: Her predicted times at both kiosks and the hours that her saving would bring in a year.</p></div><div class="colabbox" id="colab-sec-5"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-5" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 5.</b> Open Section 5 of the Colab notebook and run it. The code collects the results of stage 6 in the dictionary <code>STAGE6</code>. It holds the predicted times of the three personas at both kiosks, the mean saving, the hours saved a year and the expected time of the booking tree. A figure draws the two panels of the figure above.</p></div><h2 id="your-application">Your application</h2><p>The keystroke-level model applies to the frequent tasks of any app. The Colab notebook holds an application switch with four further apps: Online banking, an e-government service, food delivery and course registration at a university. Each has a current and a redesigned method for one frequent task.</p><div class="colabbox" id="colab-sec-6"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb#scrollTo=sec-6" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 6.</b> Open Section 6 of the Colab notebook, set <code>APP</code> to one of the five names in the comment and run the cell. The code predicts the time of both methods with <code>klm_time</code> and the hours that the redesign saves in a year.</p></div><h2 id="toward-human-ai-interaction">Toward human-AI interaction</h2><p>Large language models can write answers in the voice of a persona, and some teams consider asking them instead of real users. Hämäläinen and colleagues let the model Generative Pre-trained Transformer 3 (GPT-3) answer open questions about experiencing video games as art <span class="cite" tabindex="0" data-refs="17">[17]</span>. The synthetic answers were believable, and the authors see a use for them in piloting a study and finding ideas. They also warn that any finding must be checked with real people. Answers collected online may themselves come from such models.</p><p>A persona voiced by a model is still a persona: A summary of a group, not one of its members. The guideline of Amershi and colleagues to make clear how well the system can do what it does applies to such tools as well <span class="cite" tabindex="0" data-refs="18">[18]</span>.</p><div class="callout ai"><b class="t">A synthetic patient</b><p>Suppose that the team asks a language model to answer as Hasan, 69, a frequent visitor. The answers sound plausible, but they repeat what the model learned about older people in general. Used to draft the guide of an interview, they save time. Used instead of the interviews, they would invent the needs of the clinic.</p></div><div class="callout discuss"><b class="t">Discuss: Asking a model instead of a patient</b><ol><li>Which question of an interview guide could a language model help to draft, and which answers would you never trust from it?</li><li>How could a team notice that the answers to an online survey were written by a model?</li></ol></div><h2 id="review-cards">Review cards</h2><p class="small">Select a card to turn it over.</p><div class="cards"><div class="card" tabindex="0" role="button"><div class="f">Activities of human-centred design</div><div class="b">Understand the context of use, specify the requirements, produce design solutions and evaluate them <span class="cite" tabindex="0" data-refs="5">[5]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Semi-structured interview</div><div class="b">An interview that follows a guide of topics but lets the person answer in their own words.</div></div><div class="card" tabindex="0" role="button"><div class="f">Leading question</div><div class="b">A question that suggests its answer and invites agreement with the interviewer.</div></div><div class="card" tabindex="0" role="button"><div class="f">Affinity diagram</div><div class="b">Notes of needs grouped by similarity into themes on a wall.</div></div><div class="card" tabindex="0" role="button"><div class="f">Saturation</div><div class="b">The point after which further interviews bring no new themes <span class="cite" tabindex="0" data-refs="7">[7]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Stopping criterion</div><div class="b">A number of further interviews without new ideas after which a study stops <span class="cite" tabindex="0" data-refs="8">[8]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Expected themes</div><div class="b">\(E_n = \sum_k [1 - (1 - p_k)^n]\) for needs shared by the shares \(p_k\) of the users.</div></div><div class="card" tabindex="0" role="button"><div class="f">Persona</div><div class="b">A fictional user with a name, goals and a context who stands for a group of real users <span class="cite" tabindex="0" data-refs="9">[9]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Data-driven persona</div><div class="b">A persona built from measurements of a group of users <span class="cite" tabindex="0" data-refs="10">[10]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">z-score</div><div class="b">\(z = (x - \bar{x})/s\), the distance from the mean in standard deviations.</div></div><div class="card" tabindex="0" role="button"><div class="f">Euclidean distance</div><div class="b">The square root of the sum of squared differences over all attributes.</div></div><div class="card" tabindex="0" role="button"><div class="f">k-means</div><div class="b">Groups people by alternating two steps: Join the nearest centre, move each centre to the mean <span class="cite" tabindex="0" data-refs="11">[11]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Within-group sum of squares</div><div class="b">\(W\), the sum of the squared distances of all people to the centres of their groups.</div></div><div class="card" tabindex="0" role="button"><div class="f">Hierarchical task analysis (HTA)</div><div class="b">A goal broken into subtasks with plans that order them <span class="cite" tabindex="0" data-refs="12">[12]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Expected time of a task</div><div class="b">\(E[T] = \sum_j q_j t_j\) over the lowest subtasks, with their probabilities \(q_j\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Keystroke-level model (KLM)</div><div class="b">Predicts the time of an expert as the sum of the times of keystrokes, pointing, homing and mental preparation <span class="cite" tabindex="0" data-refs="13">[13]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Mental operator M</div><div class="b">The preparation for the next physical action, 1.35 s in the KLM.</div></div><div class="card" tabindex="0" role="button"><div class="f">GOMS</div><div class="b">A family of models of goals, operators, methods and selection rules <span class="cite" tabindex="0" data-refs="15">[15]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Synthetic user data</div><div class="b">Answers written by a language model in the voice of users <span class="cite" tabindex="0" data-refs="17">[17]</span>.</div></div></div><h2 id="references">References</h2><p class="small" id="ref-1">[1] Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.</p><p class="small" id="ref-2">[2] Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a></p><p class="small" id="ref-3">[3] McKinney, W. (2010). Data structures for statistical computing in Python. In <i>Proceedings of the 9th Python in Science Conference</i> (pp. 56-61). <a href="https://doi.org/10.25080/Majora-92bf1922-00a">https://doi.org/10.25080/Majora-92bf1922-00a</a></p><p class="small" id="ref-4">[4] Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., &amp; Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <i>Journal of Machine Learning Research</i>, <i>12</i>, 2825-2830. <a href="https://jmlr.org/papers/v12/pedregosa11a.html">https://jmlr.org/papers/v12/pedregosa11a.html</a></p><p class="small" id="ref-5">[5] International Organization for Standardization. (2019). <i>Ergonomics of human-system interaction - Part 210: Human-centred design for interactive systems</i> (ISO Standard No. 9241-210:2019). ISO. <a href="https://www.iso.org/standard/77520.html">https://www.iso.org/standard/77520.html</a></p><p class="small" id="ref-6">[6] Gould, J. D., &amp; Lewis, C. (1985). Designing for usability: Key principles and what designers think. <i>Communications of the ACM</i>, <i>28</i>(3), 300-311. <a href="https://doi.org/10.1145/3166.3170">https://doi.org/10.1145/3166.3170</a></p><p class="small" id="ref-7">[7] Guest, G., Bunce, A., &amp; Johnson, L. (2006). How many interviews are enough? An experiment with data saturation and variability. <i>Field Methods</i>, <i>18</i>(1), 59-82. <a href="https://doi.org/10.1177/1525822X05279903">https://doi.org/10.1177/1525822X05279903</a></p><p class="small" id="ref-8">[8] Francis, J. J., Johnston, M., Robertson, C., Glidewell, L., Entwistle, V., Eccles, M. P., &amp; Grimshaw, J. M. (2010). What is an adequate sample size? Operationalising data saturation for theory-based interview studies. <i>Psychology &amp; Health</i>, <i>25</i>(10), 1229-1245. <a href="https://doi.org/10.1080/08870440903194015">https://doi.org/10.1080/08870440903194015</a></p><p class="small" id="ref-9">[9] Pruitt, J., &amp; Grudin, J. (2003). Personas: Practice and theory. In <i>Proceedings of the 2003 Conference on Designing for User Experiences</i> (pp. 1-15). ACM. <a href="https://doi.org/10.1145/997078.997089">https://doi.org/10.1145/997078.997089</a></p><p class="small" id="ref-10">[10] McGinn, J., &amp; Kotamraju, N. (2008). Data-driven persona development. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1521-1524). ACM. <a href="https://doi.org/10.1145/1357054.1357292">https://doi.org/10.1145/1357054.1357292</a></p><p class="small" id="ref-11">[11] Lloyd, S. (1982). Least squares quantization in PCM. <i>IEEE Transactions on Information Theory</i>, <i>28</i>(2), 129-137. <a href="https://doi.org/10.1109/TIT.1982.1056489">https://doi.org/10.1109/TIT.1982.1056489</a></p><p class="small" id="ref-12">[12] Stanton, N. A. (2006). Hierarchical task analysis: Developments, applications, and extensions. <i>Applied Ergonomics</i>, <i>37</i>(1), 55-79. <a href="https://doi.org/10.1016/j.apergo.2005.06.003">https://doi.org/10.1016/j.apergo.2005.06.003</a></p><p class="small" id="ref-13">[13] Card, S. K., Moran, T. P., &amp; Newell, A. (1980). The keystroke-level model for user performance time with interactive systems. <i>Communications of the ACM</i>, <i>23</i>(7), 396-410. <a href="https://doi.org/10.1145/358886.358895">https://doi.org/10.1145/358886.358895</a></p><p class="small" id="ref-14">[14] Card, S. K., Moran, T. P., &amp; Newell, A. (2018). <i>The Psychology of Human-Computer Interaction</i>. CRC Press. Original work published 1983 by Lawrence Erlbaum Associates. <a href="https://doi.org/10.1201/9780203736166">https://doi.org/10.1201/9780203736166</a></p><p class="small" id="ref-15">[15] John, B. E., &amp; Kieras, D. E. (1996). The GOMS family of user interface analysis techniques: Comparison and contrast. <i>ACM Transactions on Computer-Human Interaction</i>, <i>3</i>(4), 320-351. <a href="https://doi.org/10.1145/235833.236054">https://doi.org/10.1145/235833.236054</a></p><p class="small" id="ref-16">[16] Holleis, P., Otto, F., Hussmann, H., &amp; Schmidt, A. (2007). Keystroke-level model for advanced mobile phone interaction. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1505-1514). ACM. <a href="https://doi.org/10.1145/1240624.1240851">https://doi.org/10.1145/1240624.1240851</a></p><p class="small" id="ref-17">[17] Hämäläinen, P., Tavast, M., &amp; Kunnari, A. (2023). Evaluating large language models in generating synthetic HCI research data: A case study. In <i>Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems</i> (Article 433, pp. 1-19). ACM. <a href="https://doi.org/10.1145/3544548.3580688">https://doi.org/10.1145/3544548.3580688</a></p><p class="small" id="ref-18">[18] Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., &amp; Horvitz, E. (2019). Guidelines for human-AI interaction. In <i>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-13). ACM. <a href="https://doi.org/10.1145/3290605.3300233">https://doi.org/10.1145/3290605.3300233</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="application/json" id="refdata">{"1": "Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.", "2": "Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href=\"https://doi.org/10.1038/s41586-020-2649-2\">https://doi.org/10.1038/s41586-020-2649-2</a>", "3": "McKinney, W. (2010). Data structures for statistical computing in Python. In <i>Proceedings of the 9th Python in Science Conference</i> (pp. 56-61). <a href=\"https://doi.org/10.25080/Majora-92bf1922-00a\">https://doi.org/10.25080/Majora-92bf1922-00a</a>", "4": "Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., &amp; Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <i>Journal of Machine Learning Research</i>, <i>12</i>, 2825-2830. <a href=\"https://jmlr.org/papers/v12/pedregosa11a.html\">https://jmlr.org/papers/v12/pedregosa11a.html</a>", "5": "International Organization for Standardization. (2019). <i>Ergonomics of human-system interaction - Part 210: Human-centred design for interactive systems</i> (ISO Standard No. 9241-210:2019). ISO. <a href=\"https://www.iso.org/standard/77520.html\">https://www.iso.org/standard/77520.html</a>", "6": "Gould, J. D., &amp; Lewis, C. (1985). Designing for usability: Key principles and what designers think. <i>Communications of the ACM</i>, <i>28</i>(3), 300-311. <a href=\"https://doi.org/10.1145/3166.3170\">https://doi.org/10.1145/3166.3170</a>", "7": "Guest, G., Bunce, A., &amp; Johnson, L. (2006). How many interviews are enough? An experiment with data saturation and variability. <i>Field Methods</i>, <i>18</i>(1), 59-82. <a href=\"https://doi.org/10.1177/1525822X05279903\">https://doi.org/10.1177/1525822X05279903</a>", "8": "Francis, J. J., Johnston, M., Robertson, C., Glidewell, L., Entwistle, V., Eccles, M. P., &amp; Grimshaw, J. M. (2010). What is an adequate sample size? Operationalising data saturation for theory-based interview studies. <i>Psychology &amp; Health</i>, <i>25</i>(10), 1229-1245. <a href=\"https://doi.org/10.1080/08870440903194015\">https://doi.org/10.1080/08870440903194015</a>", "9": "Pruitt, J., &amp; Grudin, J. (2003). Personas: Practice and theory. In <i>Proceedings of the 2003 Conference on Designing for User Experiences</i> (pp. 1-15). ACM. <a href=\"https://doi.org/10.1145/997078.997089\">https://doi.org/10.1145/997078.997089</a>", "10": "McGinn, J., &amp; Kotamraju, N. (2008). Data-driven persona development. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1521-1524). ACM. <a href=\"https://doi.org/10.1145/1357054.1357292\">https://doi.org/10.1145/1357054.1357292</a>", "11": "Lloyd, S. (1982). Least squares quantization in PCM. <i>IEEE Transactions on Information Theory</i>, <i>28</i>(2), 129-137. <a href=\"https://doi.org/10.1109/TIT.1982.1056489\">https://doi.org/10.1109/TIT.1982.1056489</a>", "12": "Stanton, N. A. (2006). Hierarchical task analysis: Developments, applications, and extensions. <i>Applied Ergonomics</i>, <i>37</i>(1), 55-79. <a href=\"https://doi.org/10.1016/j.apergo.2005.06.003\">https://doi.org/10.1016/j.apergo.2005.06.003</a>", "13": "Card, S. K., Moran, T. P., &amp; Newell, A. (1980). The keystroke-level model for user performance time with interactive systems. <i>Communications of the ACM</i>, <i>23</i>(7), 396-410. <a href=\"https://doi.org/10.1145/358886.358895\">https://doi.org/10.1145/358886.358895</a>", "14": "Card, S. K., Moran, T. P., &amp; Newell, A. (2018). <i>The Psychology of Human-Computer Interaction</i>. CRC Press. Original work published 1983 by Lawrence Erlbaum Associates. <a href=\"https://doi.org/10.1201/9780203736166\">https://doi.org/10.1201/9780203736166</a>", "15": "John, B. E., &amp; Kieras, D. E. (1996). The GOMS family of user interface analysis techniques: Comparison and contrast. <i>ACM Transactions on Computer-Human Interaction</i>, <i>3</i>(4), 320-351. <a href=\"https://doi.org/10.1145/235833.236054\">https://doi.org/10.1145/235833.236054</a>", "16": "Holleis, P., Otto, F., Hussmann, H., &amp; Schmidt, A. (2007). Keystroke-level model for advanced mobile phone interaction. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1505-1514). ACM. <a href=\"https://doi.org/10.1145/1240624.1240851\">https://doi.org/10.1145/1240624.1240851</a>", "17": "Hämäläinen, P., Tavast, M., &amp; Kunnari, A. (2023). Evaluating large language models in generating synthetic HCI research data: A case study. In <i>Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems</i> (Article 433, pp. 1-19). ACM. <a href=\"https://doi.org/10.1145/3544548.3580688\">https://doi.org/10.1145/3544548.3580688</a>", "18": "Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., &amp; Horvitz, E. (2019). Guidelines for human-AI interaction. In <i>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-13). ACM. <a href=\"https://doi.org/10.1145/3290605.3300233\">https://doi.org/10.1145/3290605.3300233</a>"}</script><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:"neutral"});</script><script>(function(){
+
+/* Animation: k-means step by step. The twelve patients are shown by two of their attributes, the age and the travel
+   time as z-scores. k-means alternates two steps: Each patient joins the nearest centre, and each centre moves to the
+   mean of its members. The readout gives the within-group sum of squares W of the two attributes. */
+(function () {
+  const cv = document.getElementById("km-cv"); if (!cv) return;
+  const NAMES = ["Fatma", "Hasan", "Emine", "Mehmet", "Elif", "Burak", "Zeynep", "Murat", "Ayten", "Ibrahim", "Selin", "Kemal"];
+  const AGE = [74, 69, 78, 71, 31, 38, 29, 42, 45, 52, 39, 48], TRAVEL = [20, 25, 15, 30, 25, 35, 20, 40, 80, 95, 70, 85];
+  const z = a => { const m = a.reduce((s, x) => s + x, 0) / a.length, sd = Math.sqrt(a.reduce((s, x) => s + (x - m) ** 2, 0) / a.length); return a.map(x => (x - m) / sd); };
+  const ZA = z(AGE), ZT = z(TRAVEL), PTS = ZA.map((x, i) => [x, ZT[i]]);
+  const st = {k: 3, cen: [], shown: [], lab: new Array(12).fill(-1), it: 0, phase: "assign", done: false, seed: 1, playing: false};
+  const ro = readout(document.getElementById("km-ro"), ["Step", "W of the two attributes", "Groups"]);
+  const d2 = (p, c) => (p[0] - c[0]) ** 2 + (p[1] - c[1]) ** 2;
+  const W = () => PTS.reduce((s, p, i) => s + (st.lab[i] >= 0 ? d2(p, st.cen[st.lab[i]]) : 0), 0);
+  function fresh() {
+    const r = RNG(st.seed++ * 7919), idx = [];
+    while (idx.length < st.k) { const j = Math.floor(r() * 12); if (!idx.includes(j)) idx.push(j); }
+    st.cen = idx.map(j => PTS[j].slice()); st.shown = st.cen.map(c => c.slice()); st.lab = new Array(12).fill(-1); st.it = 0; st.phase = "assign"; st.done = false;
+    info();
+  }
+  function step() {
+    if (st.done) return;
+    if (st.phase === "assign") {
+      const nl = PTS.map(p => { let b = 0; st.cen.forEach((c, j) => { if (d2(p, c) < d2(p, st.cen[b])) b = j; }); return b; });
+      const same = nl.every((x, i) => x === st.lab[i]); st.lab = nl; st.it++;
+      if (same) { st.done = true; st.playing = false; } else st.phase = "update";
+    } else {
+      st.cen = st.cen.map((c, j) => { const m = PTS.filter((p, i) => st.lab[i] === j); return m.length ? [m.reduce((s, p) => s + p[0], 0) / m.length, m.reduce((s, p) => s + p[1], 0) / m.length] : c; });
+      st.phase = "assign";
+    }
+    info();
+  }
+  function info() {
+    ro("Step", st.done ? `converged after ${st.it} rounds` : st.lab[0] < 0 ? "random start" : `round ${st.it}: ${st.phase === "update" ? "patients joined the nearest centre" : "centres moved to the means"}`);
+    ro("W of the two attributes", st.lab[0] < 0 ? "-" : W().toFixed(2));
+    ro("Groups", st.lab[0] < 0 ? "-" : Array.from({length: st.k}, (_, j) => st.lab.filter(x => x === j).length).join(" + "));
+  }
+  const S = stage(cv, 0.5, (ctx, w, hh) => {
+    ctx.clearRect(0, 0, w, hh);
+    const C = COL(), f = frame(ctx, w, hh, {x0: -1.5, x1: 2.0, y0: -1.5, y1: 2.0, xticks: 7, yticks: 7, xlabel: "age (z-score)", ylabel: "travel time (z-score)"});
+    const col = [C.c[0], C.c[1], "#0E7A78", "#B53F2E"];
+    PTS.forEach((p, i) => { if (st.lab[i] < 0) return; const c = st.shown[st.lab[i]]; ctx.strokeStyle = col[st.lab[i]]; ctx.globalAlpha = 0.45; ctx.beginPath(); ctx.moveTo(f.X(p[0]), f.Y(p[1])); ctx.lineTo(f.X(c[0]), f.Y(c[1])); ctx.stroke(); ctx.globalAlpha = 1; });
+    PTS.forEach((p, i) => { dot(ctx, f.X(p[0]), f.Y(p[1]), 6, st.lab[i] < 0 ? "#9AA3AE" : col[st.lab[i]], C.ink);
+      ctx.fillStyle = C.ink; ctx.font = "11px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.textAlign = "left"; ctx.fillText(NAMES[i], f.X(p[0]) + 8, f.Y(p[1]) - 6); });
+    st.shown.forEach((c, j) => { const x = f.X(c[0]), y = f.Y(c[1]); ctx.strokeStyle = col[j]; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x - 9, y - 9); ctx.lineTo(x + 9, y + 9); ctx.moveTo(x + 9, y - 9); ctx.lineTo(x - 9, y + 9); ctx.stroke();
+      ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, 15, 0, 2 * Math.PI); ctx.stroke(); ctx.lineWidth = 1; });
+  });
+  /* centres glide to their new places */
+  let raf = 0;
+  function glide() {
+    cancelAnimationFrame(raf);
+    const from = st.shown.map(c => c.slice()), t0 = performance.now(), D = reduced() ? 0 : 450;
+    const tick = now => { const u = D ? Math.min(1, (now - t0) / D) : 1, e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+      st.shown = st.cen.map((c, j) => [from[j][0] + (c[0] - from[j][0]) * e, from[j][1] + (c[1] - from[j][1]) * e]); S.redraw(); if (u < 1) raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick);
+  }
+  slider(document.getElementById("km-sl"), {label: "Number of groups k", min: 2, max: 4, step: 1, value: 3, d: 0}, v => { st.k = v; st.playing = false; fresh(); S.redraw(); });
+  document.getElementById("km-new").addEventListener("click", () => { st.playing = false; fresh(); S.redraw(); });
+  document.getElementById("km-step").addEventListener("click", () => { st.playing = false; step(); glide(); });
+  let timer = 0;
+  document.getElementById("km-play").addEventListener("click", () => {
+    if (st.done) fresh();
+    st.playing = true; clearTimeout(timer);
+    const run = () => { if (!st.playing) return; step(); glide(); if (!st.done) timer = setTimeout(run, reduced() ? 150 : 750); };
+    run();
+  });
+  st.seed = 4; fresh(); S.redraw();
+  window.KMEANS_TEST = {state: () => ({k: st.k, it: st.it, done: st.done, W: st.lab[0] < 0 ? null : W(), lab: st.lab.slice()}),
+    run() { st.playing = false; let n = 0; while (!st.done && n++ < 50) step(); st.shown = st.cen.map(c => c.slice()); S.redraw(); return W(); }, fresh: () => { fresh(); S.redraw(); }};
+})();
+
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Scene: Three personas at the kiosk. Hasan, Elif and Ayten book an appointment at the lobby kiosk, operator by
+   operator, on the current and on the redesigned kiosk. The timeline below the view shows the operators of the
+   keystroke-level model with the times of the chosen persona, and a playhead follows the booking. */
+(function () {
+  const box = document.getElementById("sk-3d"); if (!box) return;
+  const PERS = [
+    {name: "Hasan", age: 69, role: "the frequent visitor", M: 2.0, T: 0.9, o: {type: "oldman", top: 0x6B7B5A, bottom: 0x3A3F48, skin: 0xD9A882}},
+    {name: "Elif", age: 31, role: "the busy professional", M: 1.35, T: 0.6, o: {type: "woman", top: 0xB8664A, bottom: 0x2E3440, skin: 0xC48A64, hairColor: 0x2B1E16}},
+    {name: "Ayten", age: 45, role: "the carer", M: 1.6, T: 0.7, o: {type: "woman", top: 0x9C4A5E, bottom: 0x2B3340, hair: "bun", hairColor: 0x3B2416, skin: 0xE8C2A4}}];
+  const OPN = {M: "thinking", T: "tap", S: "searching the menu", D: "slide to confirm", R: "the card is read"};
+  const OPC = {M: "#5A4BB5", T: "#C98510", S: "#0E7A78", D: "#B53F2E", R: "#585E6E"};
+  const DIG = "47182039561";
+  const FLOWS = {
+    current: {label: "Current kiosk", fixed: {S: 5.62, D: 0.80}, steps: [
+      {op: "M", scr: "home"}, {op: "T", scr: "home", at: [0.5, 0.56]}, {op: "M", scr: "flat"}, {op: "S", scr: "flat"},
+      {op: "M", scr: "day"}, {op: "T", scr: "day", at: [0.37, 0.36]}, {op: "M", scr: "time"}, {op: "T", scr: "time", at: [0.61, 0.65]},
+      {op: "M", scr: "keypad"}].concat(DIG.split("").map(d => ({op: "T", scr: "keypad", key: d})), [{op: "T", scr: "keypad", key: "OK"},
+      {op: "M", scr: "slide"}, {op: "D", scr: "slide"}])},
+    redesign: {label: "Redesigned kiosk", fixed: {S: 3.55, R: 2.0}, steps: [
+      {op: "R", scr: "card"}, {op: "M", scr: "home2"}, {op: "T", scr: "home2", at: [0.5, 0.6]}, {op: "M", scr: "split"}, {op: "S", scr: "split"},
+      {op: "M", scr: "daytime"}, {op: "T", scr: "daytime", at: [0.2, 0.41]}, {op: "T", scr: "daytime", at: [0.5, 0.66]},
+      {op: "M", scr: "summary"}, {op: "T", scr: "summary", at: [0.5, 0.6]}, {op: "T", scr: "summary", at: [0.5, 0.84]}]}};
+  const KEYPOS = {}; "123456789".split("").forEach((d, i) => { KEYPOS[d] = [0.6 + (i % 3) * 0.12, 0.36 + Math.floor(i / 3) * 0.15]; });
+  KEYPOS["0"] = [0.72, 0.81]; KEYPOS.OK = [0.84, 0.81];
+  const st = {who: 0, flow: "current", playing: false, t: 0, done: false};
+  const dur = (s, p, f) => s.op === "M" ? p.M : s.op === "T" ? p.T : FLOWS[f].fixed[s.op];
+  const seq = (pi, f) => { let t = 0; return FLOWS[f].steps.map(s => { const d = dur(s, PERS[pi], f), o = Object.assign({}, s, {t0: t, d}); t += d; return o; }); };
+  const total = (pi, f) => Math.round(seq(pi, f).reduce((a, s) => a + s.d, 0) * 100) / 100;
+  const whoB = document.getElementById("sk-who"), flowB = document.getElementById("sk-flow"), say = document.getElementById("sk-say"), ro = document.getElementById("sk-ro");
+  const cv = document.getElementById("sk-cv");
+  whoB.append(h("span", {class: "sn-lab"}, "Persona:"));
+  const whoBtns = PERS.map((p, i) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": i === 0 ? "true" : "false"}, `${p.name}, ${p.age}`);
+    b.addEventListener("click", () => set(i, st.flow)); whoB.append(b); return b; });
+  flowB.append(h("span", {class: "sn-lab"}, "Kiosk:"));
+  const flowBtns = Object.entries(FLOWS).map(([k, f]) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": k === "current" ? "true" : "false"}, f.label);
+    b.dataset.k = k; b.addEventListener("click", () => set(st.who, k)); flowB.append(b); return b; });
+  const playB = h("button", {class: "btn", type: "button"}, "Play the booking"); flowB.append(playB);
+  function readouts() {
+    const p = PERS[st.who], a = total(st.who, "current"), b = total(st.who, "redesign");
+    ro.textContent = "";
+    [["Persona", `${p.name}, ${p.role}`], ["M", `${p.M.toFixed(2)} s`], ["T", `${p.T.toFixed(2)} s`], ["Current kiosk", `${a.toFixed(2)} s`],
+      ["Redesigned kiosk", `${b.toFixed(2)} s`], ["Saving", `${(a - b).toFixed(2)} s`]].forEach(([k, v]) => ro.append(h("span", {}, k + " ", h("b", {}, v))));
+    say.textContent = st.done ? `${p.name} booked at the ${FLOWS[st.flow].label.toLowerCase()} in ${total(st.who, st.flow).toFixed(2)} s, the sum of the operators on the timeline.`
+      : `${p.name}, ${p.role}, needs ${p.M.toFixed(2)} s for each mental preparation M and ${p.T.toFixed(2)} s for each tap T. Play the booking to watch the operators one by one, at double speed.`;
+  }
+  /* the timeline of both flows for the chosen persona */
+  const tl = stage(cv, 0.2, (ctx, w, hh) => {
+    const C = COL(), x0 = 118, x1 = w - 70, mx = Math.max(total(st.who, "current"), 34), sc = (x1 - x0) / mx;
+    ctx.clearRect(0, 0, w, hh); ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif";
+    ctx.strokeStyle = C.line; ctx.fillStyle = C.ink; ctx.textAlign = "center";
+    for (let s = 0; s <= mx; s += 5) { const x = x0 + s * sc; ctx.globalAlpha = 0.35; ctx.beginPath(); ctx.moveTo(x, 8); ctx.lineTo(x, hh - 22); ctx.stroke(); ctx.globalAlpha = 1; ctx.fillText(`${s} s`, x, hh - 6); }
+    ["current", "redesign"].forEach((f, r) => { const y = 10 + r * (hh - 34) / 2, bh = (hh - 34) / 2 - 10, S = seq(st.who, f);
+      ctx.textAlign = "right"; ctx.fillStyle = C.ink; ctx.font = (f === st.flow ? "700 " : "") + "12px Atkinson Hyperlegible, system-ui, sans-serif";
+      ctx.fillText(FLOWS[f].label, x0 - 8, y + bh / 2 + 4); ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif";
+      S.forEach(s => { ctx.fillStyle = OPC[s.op]; ctx.globalAlpha = f === st.flow ? 1 : 0.45; ctx.fillRect(x0 + s.t0 * sc, y, Math.max(1, s.d * sc - 1), bh);
+        if (s.d * sc > 14) { ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.fillText(s.op, x0 + (s.t0 + s.d / 2) * sc, y + bh / 2 + 4); } ctx.globalAlpha = 1; });
+      ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText(`${total(st.who, f).toFixed(2)} s`, x0 + total(st.who, f) * sc + 6, y + bh / 2 + 4);
+      if (f === st.flow && (st.playing || st.done)) { const x = x0 + Math.min(st.t, total(st.who, f)) * sc; ctx.strokeStyle = C.ink; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(x, y - 4); ctx.lineTo(x, y + bh + 4); ctx.stroke(); ctx.lineWidth = 1; } });
+  });
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. The timeline below still works.")); readouts(); tl.redraw && tl.redraw(); return; }
+  const G = make3D(box, {camera: [1.05, 1.66, 1.55], target: [-0.2, 1.33, 0.18], limits: [0.3, 8, 1.5], aspect: 0.56, bg: 0xE6EAF0, shadowBox: 5,
+    views: [{label: "Screen", title: "the screen of the kiosk", camera: [0.12, 1.4, 0.75], target: [0, 1.22, 0]}]});
+  const T = G.T, S = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), SW = 0.32, SH = 0.2, Y0 = 1.25, PW = 1024, PH = 640;
+  L.kiosk(G, {w: SW, h: SH, at: [0, Y0, 0]});
+  L.sign(G, "Check-in", {at: [0, 1.5, 0.002], w: 0.3, h: 0.06});
+  /* the lobby: walls, windows, a sign, a clock, plants, waiting chairs and the reception with a nurse */
+  L.room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+  L.sign(G, "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28}); L.clock(G, {at: [1.55, 2.2, -1.44]});
+  L.plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); L.plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+  L.seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [{chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+    {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: L.LOOKS.skin[3], hairColor: 0x111111}]);
+  L.desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+  L.human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: L.LOOKS.skin[1]})
+    .set("look", V(1.0, 1.5, 1.2));
+  const reader = new T.Mesh(new T.RoundedBoxGeometry(0.1, 0.07, 0.02, 2, 0.008), L.std(G, 0x2B2F36, 0.4)); reader.position.set(0.1, 1.05, 0.005); S.add(reader);
+  const led = new T.Mesh(new T.CircleGeometry(0.008, 16), new T.MeshBasicMaterial({color: 0x6B737D})); led.position.set(0.135, 1.07, 0.016); S.add(led);
+  const cardM = new T.Mesh(new T.BoxGeometry(0.085, 0.054, 0.003), new T.MeshStandardMaterial({color: 0x2F5D8A, roughness: 0.5})); cardM.visible = false; cardM.position.set(0.1, 1.05, 0.035); S.add(cardM);
+  /* the screens of the two flows */
+  const txt = (c, t, x, y, size, col, weight, align) => { c.fillStyle = col || "#1E2433"; c.font = `${weight || 500} ${size}px Atkinson Hyperlegible, system-ui, sans-serif`;
+    c.textAlign = align || "left"; c.textBaseline = "middle"; c.fillText(t, x, y); };
+  const rbox = (c, x, y, w, hh, fill, r) => { c.beginPath(); c.roundRect(x, y, w, hh, r == null ? 14 : r); c.fillStyle = fill; c.fill(); };
+  const at = uv => [uv[0] * PW, uv[1] * PH];
+  function cur() {                                  /* the current step and its progress */
+    const S0 = seq(st.who, st.flow); if (st.done) return {i: S0.length, s: null, u: 1, S0};
+    let i = S0.findIndex(s => st.t < s.t0 + s.d); if (i < 0) i = S0.length;
+    const s = S0[i] || null; return {i, s, u: s ? (st.t - s.t0) / s.d : 1, S0};
+  }
+  const SCR = L.panel(G, SW, SH, [PW, PH], c => {
+    const {i, s, u, S0} = cur(), scr = st.playing || st.done ? (s ? s.scr : "done") : (st.flow === "current" ? "home" : "card");
+    const tapped = s && s.op === "T" && u > 0.45;
+    c.fillStyle = "#F4F6F9"; c.fillRect(0, 0, PW, PH); c.fillStyle = "#2F5D8A"; c.fillRect(0, 0, PW, 70);
+    txt(c, "City Hospital · Check-in", 32, 36, 30, "#FFFFFF", 700);
+    if (scr === "home" || scr === "home2") {
+      if (scr === "home2") txt(c, `Welcome, ${PERS[st.who].name}`, PW / 2, 150, 44, "#1E2433", 700, "center");
+      rbox(c, 262, scr === "home2" ? 300 : 280, 500, 120, tapped ? "#1F4870" : "#2F5D8A"); txt(c, "Book an appointment", PW / 2, (scr === "home2" ? 300 : 280) + 61, 40, "#FFFFFF", 700, "center");
+      txt(c, "Change the language  ·  Help", PW / 2, 560, 26, "#585E6E", 500, "center");
+    } else if (scr === "flat") {
+      txt(c, "Choose a department (A to Z)", 32, 112, 28, "#1E2433", 700);
+      const names = ["Allergy", "Anaesthesia", "Audiology", "Breast clinic", "Cardiology", "Cardiac surgery", "Chest diseases", "Child psychiatry", "Dentistry", "Dermatology",
+        "Diabetes", "Dietetics", "Ear, nose, throat", "Endocrinology", "Eye diseases", "Gastroenterology", "General surgery", "Genetics", "Geriatrics", "Gynaecology",
+        "Haematology", "Hand surgery", "Infectious diseases", "Internal medicine", "Nephrology", "Neurology", "Neurosurgery", "Nuclear medicine", "Obstetrics", "Oncology",
+        "Orthopaedics", "Paediatrics", "Pain clinic", "Physiotherapy", "Plastic surgery", "Psychiatry", "Radiology", "Rheumatology", "Sports medicine", "Urology"];
+      const scan = s && s.op === "S" ? Math.floor(u * 40) : -1;
+      names.forEach((n, k) => { const x = 28 + Math.floor(k / 10) * 246, y = 150 + (k % 10) * 46, hit = k === 4 && s && s.op === "S" && u > 0.88;
+        rbox(c, x, y, 236, 40, hit ? "#2F5D8A" : k === scan ? "#FFE58A" : "#FFFFFF", 6); txt(c, n, x + 10, y + 21, 19, hit ? "#FFFFFF" : "#1E2433", 500); });
+    } else if (scr === "split") {
+      txt(c, "Your departments", 32, 112, 28, "#1E2433", 700);
+      ["Cardiology", "Eye diseases", "Orthopaedics"].forEach((n, k) => { const hit = k === 0 && s && s.op === "S" && u > 0.82;
+        rbox(c, 32 + k * 326, 140, 310, 92, hit ? "#2F5D8A" : "#DCEAF6"); txt(c, n, 187 + k * 326, 187, 30, hit ? "#FFFFFF" : "#1E2433", 700, "center"); });
+      txt(c, "All departments, A to Z", 32, 286, 26, "#585E6E", 700);
+      ["Allergy", "Anaesthesia", "Audiology", "Breast clinic", "Cardiac surgery", "Chest diseases", "Child psychiatry", "Dentistry"].forEach((n, k) => {
+        rbox(c, 32 + (k % 4) * 244, 316 + Math.floor(k / 4) * 54, 232, 46, "#FFFFFF", 6); txt(c, n, 44 + (k % 4) * 244, 339 + Math.floor(k / 4) * 54, 20, "#1E2433", 500); });
+    } else if (scr === "day") {
+      txt(c, "Cardiology: Choose a day", 32, 112, 28, "#1E2433", 700);
+      for (let d = 0; d < 14; d++) { const x = 60 + (d % 7) * 130, y = 170 + Math.floor(d / 7) * 140, closed = d % 7 >= 5, hit = d === 2 && tapped;
+        rbox(c, x, y, 116, 116, hit ? "#2F5D8A" : closed ? "#E3E6EB" : "#DCEAF6"); txt(c, String(8 + d), x + 58, y + 58, 40, hit ? "#FFFFFF" : closed ? "#9AA3AE" : "#1E2433", 700, "center"); }
+    } else if (scr === "time") {
+      txt(c, "Tuesday 10 March: Choose a time", 32, 112, 28, "#1E2433", 700);
+      ["09:20", "09:40", "10:00", "10:20", "10:40", "11:00", "11:20", "13:40"].forEach((t, k) => { const x = 60 + (k % 4) * 230, y = 210 + Math.floor(k / 4) * 150, hit = k === 6 && tapped;
+        rbox(c, x, y, 210, 110, hit ? "#2F5D8A" : "#DCEAF6"); txt(c, t, x + 105, y + 56, 40, hit ? "#FFFFFF" : "#1E2433", 700, "center"); });
+    } else if (scr === "keypad") {
+      const typed = S0.slice(0, i).filter(x => x.scr === "keypad" && x.key && x.key !== "OK").length + (tapped && s.key !== "OK" ? 1 : 0);
+      txt(c, "Type your patient number", 32, 112, 28, "#1E2433", 700);
+      rbox(c, 32, 150, 520, 80, "#FFFFFF", 8); txt(c, DIG.slice(0, typed) + (typed < 11 ? "▏" : ""), 48, 191, 40, "#1E2433", 600);
+      txt(c, `${typed} of 11 digits`, 32, 270, 24, "#585E6E", 500);
+      Object.entries(KEYPOS).forEach(([k, uv]) => { const [x, y] = at(uv), hit = tapped && s.key === k;
+        rbox(c, x - 54, y - 42, 108, 84, hit ? "#2F5D8A" : k === "OK" ? "#2E8B57" : "#DCEAF6", 10); txt(c, k, x, y + 1, 36, hit || k === "OK" ? "#FFFFFF" : "#1E2433", 700, "center"); });
+    } else if (scr === "slide") {
+      txt(c, "Cardiology · Tuesday 10 March, 11:20", 32, 120, 30, "#1E2433", 700);
+      const p = s && s.op === "D" ? u : 0; rbox(c, 100, 440, 824, 90, "#DCEAF6", 45); txt(c, "Slide to confirm  →", 512, 486, 30, "#585E6E", 600, "center");
+      rbox(c, 105 + p * 724, 445, 90, 80, "#2F5D8A", 40);
+    } else if (scr === "card") {
+      txt(c, "Hold your patient card at the reader", PW / 2, 200, 36, "#1E2433", 700, "center");
+      rbox(c, 362, 260, 300, 190, "#2F5D8A", 18); txt(c, "Patient card", 512, 355, 30, "#FFFFFF", 700, "center");
+      if (s && s.op === "R") { rbox(c, 262, 500, 500, 26, "#E3E6EB", 13); rbox(c, 262, 500, 500 * u, 26, "#2E8B57", 13); txt(c, "Reading the card ...", 512, 570, 24, "#585E6E", 500, "center"); }
+    } else if (scr === "daytime") {
+      txt(c, "Cardiology: Choose a day and a time", 32, 112, 28, "#1E2433", 700);
+      ["Tomorrow", "Thursday", "Friday"].forEach((d, k) => { const hit = k === 0 && (i > S0.findIndex(x => x.scr === "daytime" && x.op === "T") || (tapped && s.at[0] < 0.3));
+        rbox(c, 60 + k * 310, 210, 290, 100, hit ? "#2F5D8A" : "#DCEAF6"); txt(c, d, 205 + k * 310, 261, 36, hit ? "#FFFFFF" : "#1E2433", 700, "center"); });
+      ["09:40", "10:40", "11:20"].forEach((t, k) => { const hit = k === 1 && tapped && s.at[0] > 0.3;
+        rbox(c, 60 + k * 310, 370, 290, 110, hit ? "#2F5D8A" : "#FFFFFF"); txt(c, t, 205 + k * 310, 426, 40, hit ? "#FFFFFF" : "#1E2433", 700, "center"); });
+    } else if (scr === "summary") {
+      rbox(c, 60, 100, 904, 200, "#FFFFFF"); txt(c, "Cardiology, Dr. Selin Arslan", 92, 156, 34, "#1E2433", 700); txt(c, "Tomorrow, 10:40, room B-214", 92, 220, 32, "#1E2433", 500);
+      const conf = tapped && s.at[1] < 0.7, prt = tapped && s.at[1] > 0.7;
+      rbox(c, 262, 330, 500, 110, conf ? "#1F6B43" : "#2E8B57"); txt(c, "Confirm", 512, 386, 40, "#FFFFFF", 700, "center");
+      rbox(c, 262, 480, 500, 90, prt ? "#2F5D8A" : "#DCEAF6"); txt(c, "Print the slip", 512, 526, 32, prt ? "#FFFFFF" : "#1E2433", 700, "center");
+    } else {
+      txt(c, "✓ Booked", PW / 2, 230, 64, "#2E8B57", 700, "center"); txt(c, "Cardiology", PW / 2, 330, 40, "#1E2433", 700, "center");
+      txt(c, `${total(st.who, st.flow).toFixed(2)} s with the operators of ${PERS[st.who].name}`, PW / 2, 420, 30, "#585E6E", 500, "center");
+    }
+  });
+  SCR.mesh.position.set(0, Y0, 0.001); S.add(SCR.mesh);
+  /* the three personas: one at the kiosk, two waiting */
+  const SPOT = [[-0.08, 0.44, Math.PI], [-0.62, 1.22, Math.PI - 0.45], [-0.95, 1.9, Math.PI - 0.4]];
+  const people = PERS.map(p => L.human(G, Object.assign({at: [0, 0, 0]}, p.o)));
+  const labC = document.createElement("canvas"); labC.width = 512; labC.height = 120;
+  const labT = new T.CanvasTexture(labC); labT.colorSpace = T.SRGBColorSpace;
+  const label = new T.Sprite(new T.SpriteMaterial({map: labT, depthTest: false})); label.scale.set(0.42, 0.098, 1); label.renderOrder = 9; label.visible = false; S.add(label);
+  let lastLab = "";
+  function showLabel(s) {
+    const key = s ? s.op + s.t0 : ""; if (key === lastLab) return; lastLab = key;
+    if (!s) { label.visible = false; return; }
+    const x = labC.getContext("2d"); x.clearRect(0, 0, 512, 120); x.fillStyle = OPC[s.op]; x.beginPath(); x.roundRect(4, 4, 504, 96, 22); x.fill();
+    x.fillStyle = "#FFFFFF"; x.font = "700 42px Atkinson Hyperlegible, system-ui, sans-serif"; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillText(`${s.op} · ${OPN[s.op]} · ${s.d.toFixed(2)} s`, 256, 54, 490); labT.needsUpdate = true; label.visible = true;
+  }
+  const screenPt = uv => V((uv[0] - 0.5) * SW, Y0 + (0.5 - uv[1]) * SH, 0.008);
+  function pose() {
+    const p = people[st.who], {i, s, u, S0} = cur(); label.position.set(-0.02, 1.93, 0.44);
+    cardM.visible = !!(st.playing && s && s.op === "R");
+    led.material.color.setHex(st.flow === "redesign" && (st.playing || st.done) && (i > 0 || (s && u > 0.9)) ? 0x2E8B57 : 0x6B737D);
+    if (!st.playing) { showLabel(null); p.set("reach", null).set("look", screenPt([0.5, 0.5])); return; }
+    showLabel(s);
+    if (!s) { p.set("reach", null); return; }
+    if (s.op === "T") { const uv = s.key ? KEYPOS[s.key] : s.at, pt = screenPt(uv); if (u < 0.5) pt.z += 0.05 * (1 - u * 2); p.set("look", screenPt(uv)).set("reach", {side: "R", at: pt}); }
+    else if (s.op === "S") { const k = Math.floor(u * 40); p.set("look", screenPt(st.flow === "current" ? [0.12 + Math.floor(k / 10) * 0.24, 0.27 + (k % 10) * 0.072] : [0.2 + u * 0.6, 0.3 + u * 0.3]));
+      p.set("reach", u > 0.8 ? {side: "R", at: screenPt(st.flow === "current" ? [0.14, 0.59] : [0.18, 0.29])} : null); }
+    else if (s.op === "D") { p.set("look", screenPt([0.5, 0.75])).set("reach", {side: "R", at: screenPt([0.15 + 0.7 * u, 0.76])}); }
+    else if (s.op === "R") { p.set("look", V(0.1, 1.05, 0)).set("reach", {side: "R", at: V(0.1, 1.05, 0.04), point: false}); cardM.position.set(0.1, 1.05, 0.035); }
+    else { p.set("reach", null).set("look", screenPt([0.5, 0.45])); }
+  }
+  function place() {
+    PERS.forEach((p, i) => { const k = (i - st.who + 3) % 3, [x, z, f] = SPOT[k]; people[i].group.position.set(x, 0, z); people[i].group.rotation.y = f;
+      if (k) people[i].set("reach", null).set("look", V(0, 1.4, 0)); });
+  }
+  function set(i, f) {
+    st.who = i; st.flow = f; st.playing = false; st.hold = false; st.t = 0; st.done = false;
+    whoBtns.forEach((b, k) => b.setAttribute("aria-pressed", k === i ? "true" : "false")); flowBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.k === f ? "true" : "false"));
+    place(); pose(); SCR.redraw(); tl.redraw(); readouts(); G.redraw();
+  }
+  function play() { st.t = 0; st.done = false; st.playing = true; st.hold = false; lastLab = ""; pose(); SCR.redraw(); tl.redraw(); readouts(); G.redraw(); }
+  function finish() { st.t = total(st.who, st.flow); st.playing = false; st.done = true; pose(); SCR.redraw(); tl.redraw(); readouts(); G.redraw(); }
+  playB.addEventListener("click", play);
+  let lastI = -1;
+  let lastT = 0;                                 /* the playback runs on real time, at double speed */
+  G.onTick(() => {
+    if (!st.playing || st.hold) { lastT = 0; return false; }
+    const now = performance.now(), dt = lastT ? Math.min(0.25, (now - lastT) / 1000) : 0.016; lastT = now;
+    st.t += dt * 2;
+    if (st.t >= total(st.who, st.flow)) { finish(); return true; }
+    const {i, s} = cur(); pose(); if (i !== lastI || (s && (s.op !== "M"))) SCR.redraw(); lastI = i; tl.redraw();
+    return true;
+  });
+  G.renderer.domElement.setAttribute("aria-label", "The lobby with the check-in kiosk. One persona books at the kiosk while the two others wait.");
+  set(0, "current");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => SCR.redraw());
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP.scene = () => { set(0, "current"); st.playing = true; st.hold = true; st.t = 21.0; lastT = 0; pose(); SCR.redraw(); tl.redraw(); G.redraw(); };
+  window.SCENE_TEST = {set, play, finish, total, state: () => ({who: st.who, flow: st.flow, playing: st.playing, t: st.t, done: st.done}),
+    seek(t) { st.playing = true; st.done = false; st.t = t; pose(); SCR.redraw(); tl.redraw(); G.redraw(); st.playing = false; }};
+})();
+
+initLecture(6);
+})();</script></body></html>

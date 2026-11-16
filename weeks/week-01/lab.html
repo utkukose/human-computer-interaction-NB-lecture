@@ -1,0 +1,2167 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interaction lab | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 1 of 14</p><h1>Foundations: The Interaction Loop, User-Centred Design and Usability</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-01">Week overview</a><a href="lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb">Colab notebook</a><a href="Week01_Lecture_Notes.pdf">PDF notes</a></nav></header><h2>Interaction lab</h2><p>Three parts of this interactive lab are games in three dimensions (3D) that record your own interaction. Part A races two kiosks of the clinic app against each other, with a questionnaire after each kiosk. Part B repeats the four usability measures of the lecture step by step. Part C is a corridor of doors with different handles, and Part D is a cooktop with three layouts of knobs. Part E repeats the formulas of a task with several steps, step by step. Part F simulates 200 patients on the booking flow of the clinic app with five design changes to switch on and off. Part G asks for the three formulas of a chain of steps by hand. In Parts B and E every intermediate value is rounded, and the next step continues with the rounded value, as in a calculation by hand. The results of Parts A, C and D can be copied into the Colab notebook.</p><div class="tabs" role="tablist"><button aria-selected="true">Explore</button><button aria-selected="false">Check yourself</button><button aria-selected="false">Reflect and export</button></div><section class="tabpanel"><section class="labpart" id="pa"><h3>Part A: The kiosk race</h3><p>The lobby of the city hospital has two self-service kiosks that book appointments in the same database. Each round shows a booking task at the top of the scene: A department, a day and a time. Carry it out on the kiosk as fast and as accurately as you can; the clock starts with the round. Play three rounds on each kiosk, in the order that the page has drawn for you. After the third round on a kiosk, rate it with the ten statements that appear below the scene. These statements form the System Usability Scale (SUS), which the lecture explains in the section on usability. The page reveals at the end which kiosk was designed system-centred and which user-centred.</p>
+<p>Click the buttons on the kiosk screen. The keyboard works as well: <span class="kbd">Tab</span> moves between the buttons of the screen, <span class="kbd">Enter</span> presses the marked button, the digit keys type on a keypad and <span class="kbd">Esc</span> goes back. Look around the kiosk before you start, because a kiosk may hold information outside its screen. The table counts as an error every error message and every action that undoes an earlier one, such as Back or Esc.</p>
+<div class="three" id="ks-3d"></div>
+<p><button class="btn" id="ks-start" type="button">Start the next round</button> <button class="btn ghost" id="ks-quit" type="button" disabled>Give up this round</button> <button class="btn ghost" id="ks-view" type="button">Reset the view</button> <button class="btn ghost" id="ks-clr" type="button">Clear the results</button></p>
+<p class="small" id="ks-order" aria-live="polite"></p>
+<div class="bench" id="ks-sus" hidden></div>
+<div class="tablewrap"><table><thead><tr><th>Kiosk</th><th>Rounds</th><th>Completed</th><th>Mean time of completed rounds</th><th>Errors per round</th><th>SUS score</th></tr></thead><tbody id="ks-tb"></tbody></table></div>
+<p><button class="btn" id="ks-copy" type="button">Copy the results for Colab</button> <span class="small" id="ks-msg" aria-live="polite"></span></p>
+<textarea id="ks-csv" rows="5" readonly aria-label="Results of the kiosk race as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pa">Back to the lecture: System-centred and user-centred design</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-1" target="_blank" rel="noopener">Continue in Colab, section 1</a>: Paste your runs and ratings into MY_KIOSK and compare the two kiosks.</p></section><section class="labpart" id="pb"><h3>Part B: Usability measures, step by step</h3><p>The first calculator repeats the worked example of the lecture one step at a time. Its sliders set the number of participants \(n\), the successes \(s\), the mean time of the successful participants \(\bar{t}_s\) and the mean time of the participants who gave up \(\bar{t}_f\). The figure shows each participant as a dot and the total time as a bar.</p><div class="stepcalc" id="pb-calc"></div><p>The second calculator scores one SUS questionnaire. Its ten sliders hold the answers \(x_1\) to \(x_{10}\), from 1 (strongly disagree) to 5 (strongly agree). The figure shows the contribution of each statement.</p><div class="stepcalc" id="pb-sus"></div><p class="backpart"><a href="lecture.html#lab-pb">Back to the lecture: Usability: Effectiveness, efficiency and satisfaction</a>, where the text continues after the box of this part.</p></section><section class="labpart" id="pc"><h3>Part C: The corridor of doors</h3><p>A corridor of the hospital has twelve doors. Each door opens either by pushing or by pulling, and only its hardware tells you which. Click the handle to pull, and click the door leaf or its plate to push. The keys <span class="kbd">↑</span> (push) and <span class="kbd">↓</span> (pull) work as well. Open every door as fast as you can. A wrong first try makes the door rattle, and you try again. The page records whether your first try was right, how long it took and how long the door took to open. The table names the four kinds of doors only after the run.</p>
+<div class="three" id="dr-3d"></div>
+<p><button class="btn" id="dr-run" type="button">Walk through 12 doors</button> <button class="btn ghost" id="dr-push" type="button" disabled>Push (↑)</button> <button class="btn ghost" id="dr-pull" type="button" disabled>Pull (↓)</button> <button class="btn ghost" id="dr-clr" type="button">Clear the results</button></p>
+<div class="tablewrap"><table><thead><tr><th>Kind of door</th><th>Doors</th><th>Wrong first tries</th><th>Error rate</th><th>Mean time of correct first tries</th><th>Mean time to open</th></tr></thead><tbody id="dr-tb"></tbody></table></div>
+<p>The cost of a poor signifier, against the push plate: <span id="dr-cost">Walk through the corridor first</span>.</p>
+<p><button class="btn" id="dr-copy" type="button">Copy the results for Colab</button> <span class="small" id="dr-msg" aria-live="polite"></span></p>
+<textarea id="dr-csv" rows="5" readonly aria-label="Results of the doors as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pc">Back to the lecture: Affordances, signifiers, mapping and feedback</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-2" target="_blank" rel="noopener">Continue in Colab, section 2</a>: Paste your door and cooktop results and compare the conditions.</p></section><section class="labpart" id="pd"><h3>Part D: The cooktop in 3D</h3><p>A cooktop with four burners lights one burner at a time in yellow. Click the knob that controls it as fast as you can. The keys <span class="kbd">1</span> to <span class="kbd">4</span> also choose the knobs, from left to right. For the square of knobs, <span class="kbd">1</span> and <span class="kbd">2</span> are the back row and <span class="kbd">3</span> and <span class="kbd">4</span> the front row. Run twelve trials with each of the three layouts, then compare them in the table. Drag the scene to look at it from another side; the view does not change the task.</p>
+<div class="row"><div class="ctl"><label for="st-lay">Layout</label><select id="st-lay">
+<option value="offset">Offset burners, knobs in a row</option>
+<option value="square_row">Square of burners, knobs in a row</option>
+<option value="square_block">Square of burners, square of knobs</option></select></div></div>
+<div class="three" id="st-3d"></div>
+<p><button class="btn" id="st-run" type="button">Start 12 trials</button> <button class="btn ghost" id="st-view" type="button">Reset the view</button> <button class="btn ghost" id="st-clr" type="button">Clear the results</button></p>
+<div class="tablewrap"><table><thead><tr><th>Layout</th><th>Trials</th><th>Errors</th><th>Error rate</th><th>Mean time of correct trials</th></tr></thead><tbody id="st-tb"></tbody></table></div>
+<p>The cost of a poor mapping, against the offset burners: <span id="st-cost">Run at least two layouts first</span>.</p>
+<p><button class="btn" id="st-copy" type="button">Copy the results for Colab</button> <span class="small" id="st-msg" aria-live="polite"></span></p>
+<textarea id="st-csv" rows="5" readonly aria-label="Results of the trials as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pd">Back to the lecture: Affordances, signifiers, mapping and feedback</a>, where the text continues after the box of this part.</p></section><section class="labpart" id="pe"><h3>Part E: A task as a chain of steps, step by step</h3><p>The three steps of the worked example: Choosing the department (\(t_1 = 12\) s, \(r_1 = 10\) s), picking a date (\(t_2 = 10\) s, \(r_2 = 12\) s) and confirming (\(t_3 = 4\) s, \(r_3 = 25\) s). The sliders set the slip probabilities \(e_1, e_2, e_3\) and the share of slips that end with giving up, \(a\), which is the same for all three steps here. The figure stacks the time of each step and its expected repair time.</p><div class="stepcalc" id="pd-calc"></div><p class="backpart"><a href="lecture.html#lab-pe">Back to the lecture: A task as a chain of steps</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-3" target="_blank" rel="noopener">Continue in Colab, section 3</a>: Run the three formulas as Python functions and compare them with a simulation.</p></section><section class="labpart" id="pf"><h3>Part F: Design the booking flow</h3><p>The eight steps of the booking flow of the clinic app, with the numbers of the table in the lecture. Each switch applies one design change, with its effect on the numbers in brackets. Run 200 simulated patients for a version and compare the versions in the table. Which single change helps most? Does the confirmation screen pay for its extra step?</p>
+<div class="bench" id="pe-sw"></div>
+<canvas class="paper" id="pe-cv" aria-label="Simulated patients moving through the steps of the booking flow"></canvas>
+<div class="legend"><span><i style="background:#56656F"></i>smooth so far</span><span><i style="background:#C98510"></i>slipped and repaired</span><span><i style="background:#B53F2E"></i>gave up</span><span><i style="background:#2E8B57"></i>booked</span></div>
+<div id="pe-ro"></div>
+<p><button class="btn" id="pe-run" type="button">Run 200 patients</button> <button class="btn ghost" id="pe-fast" type="button">Run without animation</button> <button class="btn ghost" id="pe-clr" type="button">Clear the table</button></p>
+<div class="tablewrap"><table><thead><tr><th>Run</th><th>Design changes</th><th>Steps</th><th>Completed</th><th>Mean time of completed patients</th><th>Formula \(P_c\)</th><th>Formula \(\mathrm{E}[T]\)</th></tr></thead><tbody id="pe-tb"></tbody></table></div>
+<p class="backpart"><a href="lecture.html#lab-pf">Back to the lecture: A task as a chain of steps</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-4" target="_blank" rel="noopener">Continue in Colab, section 4</a>: Rank the eight steps by the gain of halving their slip probability.</p></section><section class="labpart" id="pg"><h3>Part G: By hand: A pharmacy app</h3><p>A pharmacy app renews a prescription in four steps. Compute the three values with a calculator and round each to three decimals, the time to one decimal.</p><div class="tablewrap"><table><thead><tr><th>Step</th><th>Action</th><th>\(t_k\) (s)</th><th>\(e_k\)</th><th>\(r_k\) (s)</th><th>\(a_k\)</th></tr></thead><tbody><tr><td>1</td><td>Open the prescription list</td><td>6</td><td>0.05</td><td>8</td><td>0.20</td></tr><tr><td>2</td><td>Select the medicine</td><td>9</td><td>0.10</td><td>10</td><td>0.30</td></tr><tr><td>3</td><td>Choose the pharmacy</td><td>5</td><td>0.04</td><td>6</td><td>0.10</td></tr><tr><td>4</td><td>Confirm with a code</td><td>3</td><td>0.08</td><td>12</td><td>0.25</td></tr></tbody></table></div><div id="pf-n"></div><p class="backpart"><a href="lecture.html#lab-pg">Back to the lecture: The clinic app, stage 1: A baseline of the booking flow</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-5" target="_blank" rel="noopener">Continue in Colab, section 5</a>: Compute the baseline of the eight-step booking flow of the clinic app.</p></section></section><section class="tabpanel" hidden><p>Answer each question, rate your confidence and check the answer. The self-assessment is for your own practice and does not count towards the grade. Results stay in this browser.</p><div id="quiz"></div></section><section class="tabpanel" hidden><p>Write a short answer to each question. The text is saved in this browser and is included when you export the learning log, together with the results of the practice parts.</p><div id="reflect"></div></section><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script>(function(){
+window.WEEK=1;
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Interaction lab of Week 1. */
+const f3 = x => String(R(x, 3));
+const fx = (x, d) => (+x).toFixed(d);
+const sg = (v, d) => (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d);
+
+/* Part B: usability measures step by step. */
+partSteps("pb-calc", {
+  inputs: [
+    {key: "n", label: "Participants n", min: 4, max: 40, step: 1, value: 12},
+    {key: "s", label: "Successes s", min: 0, max: 40, step: 1, value: 9},
+    {key: "ts", label: "Mean time of the successes, min", min: 1, max: 10, step: 0.01, value: 3.7, d: 2},
+    {key: "tf", label: "Mean time of those who gave up, min", min: 1, max: 15, step: 0.01, value: 5.7, d: 2}],
+  presets: [{label: "Lecture example", values: {n: 12, s: 9, ts: 3.7, tf: 5.7}},
+    {label: "A better design", values: {n: 12, s: 11, ts: 3.1, tf: 4.5}},
+    {label: "A small pilot test", values: {n: 5, s: 3, ts: 4.2, tf: 6}}],
+  steps: v => {
+    const n = v.n, s = Math.min(v.s, v.n), ts = v.ts, tf = v.tf;
+    const E = R(s / n, 3), Ts = R(s * ts, 2), Tf = R((n - s) * tf, 2), Tt = R(Ts + Tf, 2), eta = R(s / Tt, 3), ph = R(60 * eta, 1);
+    return [
+      {t: "Completion rate", x: (v.s > v.n ? "The successes cannot exceed the participants, so \\(s = n\\) is used. " : "") + "The share of the participants who reached the goal.",
+        m: `E = \\frac{s}{n} = \\frac{${s}}{${n}} = ${f3(E)}`, q: {label: "E =", ans: E, tol: 0.005}},
+      {t: "Time of the successful participants", x: "Their mean time multiplied by their number gives the sum of their times.",
+        m: `\\sum_{i \\in S} t_i = s\\,\\bar{t}_s = ${s} \\times ${fx(ts, 2)} = ${fx(Ts, 2)}\\ \\text{min}`},
+      {t: "Time of the participants who gave up", x: "Their time was spent as well, so it counts as a resource.",
+        m: `(n - s)\\,\\bar{t}_f = ${n - s} \\times ${fx(tf, 2)} = ${fx(Tf, 2)}\\ \\text{min}`},
+      {t: "Total time", m: `\\sum_{i=1}^{n} t_i = ${fx(Ts, 2)} + ${fx(Tf, 2)} = ${fx(Tt, 2)}\\ \\text{min}`, q: {label: "Total time in minutes =", ans: Tt, tol: 0.011}},
+      {t: "Efficiency", x: "Completed tasks per minute of total time.", m: `\\eta = \\frac{s}{\\sum t_i} = \\frac{${s}}{${fx(Tt, 2)}} = ${fx(eta, 3)}\\ \\text{tasks per minute}`, q: {label: "η =", ans: eta, tol: 0.0015}},
+      {t: "Per hour", x: "An hour has sixty minutes.", m: `60\\,\\eta = 60 \\times ${fx(eta, 3)} = ${fx(ph, 1)}\\ \\text{tasks per hour}`}];
+  },
+  viz: {aspect: 0.3, label: "Participants as dots and the total time as a bar", legend: [["completed", 2], ["gave up", 4]],
+    draw: (ctx, w, hh, v, S, k) => {
+      const C = COL(), n = v.n, s = Math.min(v.s, v.n), Ts = s * v.ts, Tf = (n - s) * v.tf, tot = Ts + Tf;
+      const d = Math.min(16, (w - 40) / n);
+      for (let i = 0; i < n; i++) dot(ctx, 20 + d * i + d / 2, 26, Math.min(6, d / 2 - 1), i < s ? C.c[2] : C.c[4]);
+      ctx.fillStyle = C.steel; ctx.font = "11px " + cssv("--sans"); ctx.textAlign = "left";
+      ctx.fillText(`${n} participants, ${s} completed`, 20, 52);
+      if (k < 3) return;
+      const W = w - 40, y = 66, bh = 22;
+      ctx.fillStyle = C.c[2]; ctx.fillRect(20, y, W * Ts / tot, bh);
+      ctx.fillStyle = C.c[4]; ctx.fillRect(20 + W * Ts / tot, y, W * Tf / tot, bh);
+      ctx.fillStyle = C.ink; ctx.fillText(`total ${tot.toFixed(2)} min: ${Ts.toFixed(2)} + ${Tf.toFixed(2)}`, 20, y + bh + 14);
+    }}
+});
+
+/* Part B, second calculator: one questionnaire of the System Usability Scale. */
+(function () {
+  const SUB = ["₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈", "₉", "₁₀"], EX = [4, 2, 4, 1, 3, 2, 4, 2, 3, 3];
+  const vals = a => Object.fromEntries(a.map((x, j) => ["x" + (j + 1), x]));
+  partSteps("pb-sus", {
+    inputs: EX.map((x, j) => ({key: "x" + (j + 1), label: `Statement ${j + 1}, x${SUB[j]}`, min: 1, max: 5, step: 1, value: x})),
+    presets: [{label: "Lecture example", values: vals(EX)}, {label: "A delighted patient", values: vals([5, 1, 5, 1, 5, 1, 5, 1, 5, 1])},
+      {label: "A frustrated patient", values: vals([1, 5, 2, 4, 2, 4, 2, 5, 1, 4])}],
+    steps: v => {
+      const x = EX.map((_, j) => v["x" + (j + 1)]);
+      const odd = [0, 2, 4, 6, 8].map(i => x[i] - 1), even = [1, 3, 5, 7, 9].map(i => 5 - x[i]);
+      const so = odd.reduce((a, b) => a + b, 0), se = even.reduce((a, b) => a + b, 0), tot = so + se, sus = 2.5 * tot;
+      return [
+        {t: "Contributions of the odd statements", x: "The positive statements count their answer minus one.",
+          m: [0, 2, 4, 6, 8].map((i, n) => `c_{${i + 1}} = ${x[i]} - 1 = ${odd[n]}`).join(",\\quad ")},
+        {t: "Sum of the odd contributions", m: `${odd.join(" + ")} = ${so}`, q: {label: "Sum of the odd contributions =", ans: so, tol: 0.01}},
+        {t: "Contributions of the even statements", x: "The negative statements count five minus their answer.",
+          m: [1, 3, 5, 7, 9].map((i, n) => `c_{${i + 1}} = 5 - ${x[i]} = ${even[n]}`).join(",\\quad ")},
+        {t: "Sum of the even contributions", m: `${even.join(" + ")} = ${se}`, q: {label: "Sum of the even contributions =", ans: se, tol: 0.01}},
+        {t: "The SUS score", x: (sus > 68 ? "Above" : sus < 68 ? "Below" : "Exactly at") + " the average of about 68.",
+          m: `\\mathrm{SUS} = 2.5 \\times (${so} + ${se}) = 2.5 \\times ${tot} = ${sus.toFixed(1)}`, q: {label: "SUS =", ans: sus, tol: 0.06}}];
+    },
+    viz: {aspect: 0.26, label: "The contribution of each statement, from 0 to 4", legend: [["odd, positive statements", 0], ["even, negative statements", 4]],
+      draw: (ctx, w, hh, v, S, k) => {
+        const C = COL(), bw = (w - 60) / 10, base = hh - 22;
+        ctx.font = "11px " + cssv("--sans"); ctx.textAlign = "center";
+        for (let j = 0; j < 10; j++) {
+          const xj = v["x" + (j + 1)], c = j % 2 === 0 ? xj - 1 : 5 - xj, show = j % 2 === 0 ? k >= 0 : k >= 2;
+          const bh = (base - 14) * c / 4, x0 = 40 + j * bw;
+          ctx.fillStyle = C.line; ctx.fillRect(x0 + 4, 14, bw - 8, base - 14);
+          if (show) { ctx.fillStyle = j % 2 === 0 ? C.c[0] : C.c[4]; ctx.fillRect(x0 + 4, base - bh, bw - 8, bh); }
+          ctx.fillStyle = C.ink; ctx.fillText(String(j + 1), x0 + bw / 2, base + 14);
+          if (show) ctx.fillText(String(c), x0 + bw / 2, base - bh - 4);
+        }
+      }}
+  });
+})();
+
+/* Part D: the cooktop in 3D. */
+(function () {
+  const box = document.getElementById("st-3d"); if (!box) return;
+  const tb = document.getElementById("st-tb"), msg = document.getElementById("st-msg"), csv = document.getElementById("st-csv");
+  const NAMES = {offset: "Offset burners, knobs in a row", square_row: "Square of burners, knobs in a row", square_block: "Square of burners, square of knobs"};
+  let trials = store.get("w1:stove", []);
+  function table() {
+    tb.textContent = "";
+    const stats = {};
+    Object.keys(NAMES).forEach(L => {
+      const T = trials.filter(t => t.layout === L); if (!T.length) return;
+      const err = T.filter(t => !t.correct).length, ok = T.filter(t => t.correct);
+      const m = ok.length ? ok.reduce((x, t) => x + t.rt_ms, 0) / ok.length : NaN;
+      stats[L] = {p: err / T.length, m};
+      tb.append(h("tr", {}, h("td", {}, NAMES[L]), h("td", {}, T.length), h("td", {}, err), h("td", {}, (err / T.length).toFixed(3)), h("td", {}, isNaN(m) ? "-" : (m / 1000).toFixed(2) + " s")));
+    });
+    const cost = document.getElementById("st-cost");
+    if (stats.offset && (stats.square_row || stats.square_block)) {
+      const parts = [];
+      ["square_row", "square_block"].forEach(L => { if (stats[L]) parts.push(`${NAMES[L]}: Δt = ${sg((stats[L].m - stats.offset.m) / 1000, 2)} s, Δp = ${sg(stats[L].p - stats.offset.p, 3)}`); });
+      cost.textContent = parts.join("; ");
+    } else cost.textContent = "Run the offset burners and at least one other layout first";
+    labLog.note("Part D", `${trials.length} trials recorded`);
+  }
+  labLog.add(() => {
+    if (!trials.length) return "";
+    const L = ["## Part D: the cooktop in 3D", "", "| Layout | Trials | Errors | Mean time of correct trials (s) |", "|---|---|---|---|"];
+    Object.keys(NAMES).forEach(k => { const T = trials.filter(t => t.layout === k); if (!T.length) return;
+      const ok = T.filter(t => t.correct); L.push(`| ${NAMES[k]} | ${T.length} | ${T.length - ok.length} | ${ok.length ? (ok.reduce((x, t) => x + t.rt_ms, 0) / ok.length / 1000).toFixed(2) : "-"} |`); });
+    return L.join("\n");
+  });
+  table();
+  document.getElementById("st-clr").addEventListener("click", () => { trials = []; store.set("w1:stove", trials); table(); });
+  document.getElementById("st-copy").addEventListener("click", () => {
+    const text = "layout,trial,target,choice,rt_ms,correct\n" + trials.map(t => [t.layout, t.trial, t.target, t.choice, Math.round(t.rt_ms), t.correct ? 1 : 0].join(",")).join("\n");
+    csv.value = text; csv.hidden = false; csv.select();
+    const done = () => { msg.textContent = `${trials.length} trials copied. Paste them between the triple quotes of MY_COOKTOP in Section 2.`; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => { msg.textContent = "Select the text below and copy it with Ctrl+C."; });
+    else msg.textContent = "Select the text below and copy it with Ctrl+C.";
+  });
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part.")); return; }
+  const G = make3D(box, {camera: [0, 3.5, 3.7], target: [0, 0, 0.3], limits: [2.5, 9, 1.45], aspect: 0.6, bg: 0xE4E8EE});
+  const T = G.T, scene = G.scene;
+  const counter = new T.Mesh(new T.BoxGeometry(5.2, 0.3, 3.4), new T.MeshStandardMaterial({color: 0xC9B79C, roughness: 0.8}));
+  counter.position.set(0, -0.15, 0.2); scene.add(counter);
+  const glass = new T.Mesh(new T.BoxGeometry(3.9, 0.05, 2.25), new T.MeshStandardMaterial({color: 0x1B1D22, roughness: 0.25, metalness: 0.2}));
+  glass.position.set(0, 0.025, -0.2); scene.add(glass);
+  const strip = new T.Mesh(new T.BoxGeometry(3.9, 0.02, 0.9), new T.MeshStandardMaterial({color: 0xDADDE2, roughness: 0.6}));
+  strip.position.set(0, 0.01, 1.3); scene.add(strip);
+  const LAYOUTS = {
+    offset: {burners: [["B1", -1.35, -0.8], ["B2", -0.45, 0.2], ["B3", 0.45, -0.8], ["B4", 1.35, 0.2]],
+      knobs: [[1, -1.35, 1.25, "B1"], [2, -0.45, 1.25, "B2"], [3, 0.45, 1.25, "B3"], [4, 1.35, 1.25, "B4"]], icons: false},
+    square_row: {burners: [["BL", -0.75, -0.7], ["BR", 0.75, -0.7], ["FL", -0.75, 0.3], ["FR", 0.75, 0.3]],
+      knobs: [[1, -1.35, 1.25, "BL"], [2, -0.45, 1.25, "FL"], [3, 0.45, 1.25, "FR"], [4, 1.35, 1.25, "BR"]], icons: true},
+    square_block: {burners: [["BL", -0.75, -0.7], ["BR", 0.75, -0.7], ["FL", -0.75, 0.3], ["FR", 0.75, 0.3]],
+      knobs: [[1, -0.3, 1.05, "BL"], [2, 0.3, 1.05, "BR"], [3, -0.3, 1.55, "FL"], [4, 0.3, 1.55, "FR"]], icons: false}};
+  let group = null, burners = {}, knobs = [], layout = "offset";
+  const glow = new T.MeshStandardMaterial({color: 0xFFD54A, emissive: 0xFFC107, emissiveIntensity: 1.0});
+  function iconTex(target, ids) {
+    const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d");
+    x.fillStyle = "#FFFFFF"; x.fillRect(0, 0, 64, 64);
+    const pos = {BL: [8, 8], BR: [36, 8], FL: [8, 36], FR: [36, 36]};
+    ids.forEach(id => { x.fillStyle = id === target ? "#1E2433" : "#C5CAD3"; x.fillRect(pos[id][0], pos[id][1], 20, 20); });
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t;
+  }
+  function build(name) {
+    if (group) scene.remove(group);
+    group = new T.Group(); scene.add(group); burners = {}; knobs = []; layout = name;
+    const L = LAYOUTS[name];
+    L.burners.forEach(([id, x, z]) => {
+      const ring = new T.Mesh(new T.TorusGeometry(0.36, 0.035, 12, 48), new T.MeshStandardMaterial({color: 0x8A8F99, roughness: 0.4}));
+      ring.rotation.x = -Math.PI / 2; ring.position.set(x, 0.06, z);
+      const coil = new T.Mesh(new T.CylinderGeometry(0.3, 0.3, 0.01, 40), new T.MeshStandardMaterial({color: 0x3A2224, emissive: 0x000000, roughness: 0.5}));
+      coil.position.set(x, 0.055, z);
+      group.add(ring, coil); burners[id] = {ring, coil, ringMat: ring.material, heat: 0};
+    });
+    L.knobs.forEach(([key, x, z, b]) => {
+      const g = new T.Group(); g.position.set(x, 0.02, z); g.userData = {knob: key, burner: b};
+      const body = new T.Mesh(new T.CylinderGeometry(0.17, 0.19, 0.16, 32), new T.MeshStandardMaterial({color: 0x2B2F36, roughness: 0.5}));
+      body.position.y = 0.08;
+      const bar = new T.Mesh(new T.BoxGeometry(0.04, 0.04, 0.28), new T.MeshStandardMaterial({color: 0xF2F2F2}));
+      bar.position.y = 0.17;
+      g.add(body, bar); group.add(g); knobs.push(g);
+      const lab = label3D(String(key), {size: 40, scale: 0.0035, depthTest: false}); lab.position.set(x + 0.27, 0.3, z + 0.12); group.add(lab);
+      if (L.icons) {
+        const ic = new T.Mesh(new T.PlaneGeometry(0.22, 0.22), new T.MeshBasicMaterial({map: iconTex(b, ["BL", "BR", "FL", "FR"])}));
+        ic.rotation.x = -Math.PI / 2; ic.position.set(x, 0.021, z - 0.33); group.add(ic);
+      }
+    });
+    G.redraw();
+  }
+  build("offset");
+  const hud = h("div", {class: "hud"}), big = h("div", {class: "big", hidden: ""});
+  const hl = h("span", {}, "Layout: " + NAMES.offset), ht = h("span", {}, "Press Start for 12 trials");
+  hud.append(hl, ht); box.append(hud, big);
+  document.getElementById("st-lay").addEventListener("change", e => { if (state !== "idle") return; build(e.target.value); hl.textContent = "Layout: " + NAMES[e.target.value]; });
+  document.getElementById("st-view").addEventListener("click", () => G.reset());
+  let state = "idle", seq = [], idx = 0, target = null, t0 = 0, timer = 0;
+  const anims = [];
+  G.onTick(dt => {
+    let any = false;
+    Object.values(burners).forEach(b => { if (b.heat > 0) { b.heat = Math.max(0, b.heat - dt * 1.6); b.coil.material.emissive.setRGB(0.9 * b.heat, 0.15 * b.heat, 0.05 * b.heat); any = true; } });
+    knobs.forEach(k => { const r = k.userData.turn || 0; if (Math.abs(k.rotation.y - r) > 0.01) { k.rotation.y += (r - k.rotation.y) * Math.min(1, dt * 12); any = true; } });
+    return any;
+  });
+  function light(id, on) { const b = burners[id]; if (b) { b.ring.material = on ? glow : b.ringMat; G.redraw(); } }
+  function next() {
+    if (idx >= seq.length) { state = "idle"; ht.textContent = "Done. Choose another layout or start again."; big.hidden = true; document.getElementById("st-lay").disabled = false; table(); return; }
+    state = "wait"; ht.textContent = `Trial ${idx + 1} of ${seq.length}: wait for the yellow burner`;
+    timer = setTimeout(() => { target = seq[idx]; light(target, true); state = "go"; requestAnimationFrame(() => { t0 = performance.now(); }); ht.textContent = `Trial ${idx + 1} of ${seq.length}: click the knob of the yellow burner`; }, 700 + Math.random() * 700);
+  }
+  function choose(knob) {
+    if (state !== "go") return;
+    const rt = performance.now() - t0, ok = knob.userData.burner === target;
+    state = "feedback"; knob.userData.turn = (knob.userData.turn || 0) - Math.PI / 2;
+    burners[knob.userData.burner].heat = 1; light(target, false);
+    trials.push({layout, trial: idx + 1, target, choice: knob.userData.burner, rt_ms: rt, correct: ok});
+    store.set("w1:stove", trials);
+    big.hidden = false; big.textContent = ok ? `Correct, ${(rt / 1000).toFixed(2)} s` : "Wrong knob"; big.style.color = ok ? "#1E5E34" : "#8A1F11";
+    idx++; setTimeout(() => { big.hidden = true; next(); }, ok ? 550 : 950);
+  }
+  document.getElementById("st-run").addEventListener("click", () => {
+    if (state !== "idle") return;
+    const ids = LAYOUTS[layout].burners.map(b => b[0]); seq = [];
+    for (let r = 0; r < 3; r++) seq.push(...ids);
+    for (let i = seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [seq[i], seq[j]] = [seq[j], seq[i]]; }
+    idx = 0; document.getElementById("st-lay").disabled = true; next();
+  });
+  let down = null;
+  G.renderer.domElement.addEventListener("pointerdown", e => { down = [e.clientX, e.clientY]; });
+  G.renderer.domElement.addEventListener("pointerup", e => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+    const hit = G.pick(e, knobs); if (!hit) return;
+    let o = hit.object; while (o && !o.userData.knob) o = o.parent; if (o) choose(o);
+  });
+  document.addEventListener("keydown", e => {
+    if (state !== "go" || !/^[1-4]$/.test(e.key)) return;
+    const k = knobs.find(k => String(k.userData.knob) === e.key); if (k) { e.preventDefault(); choose(k); }
+  });
+})();
+
+/* Part E: a task as a chain of steps, step by step. */
+partSteps("pd-calc", {
+  inputs: [
+    {key: "e1", label: "Slip probability e₁ (department)", min: 0, max: 0.5, step: 0.01, value: 0.2, d: 2},
+    {key: "e2", label: "Slip probability e₂ (date)", min: 0, max: 0.5, step: 0.01, value: 0.15, d: 2},
+    {key: "e3", label: "Slip probability e₃ (confirm)", min: 0, max: 0.5, step: 0.01, value: 0.12, d: 2},
+    {key: "a", label: "Share of slips that end with giving up, a", min: 0, max: 1, step: 0.05, value: 0.2, d: 2}],
+  presets: [{label: "Lecture example", values: {e1: 0.2, e2: 0.15, e3: 0.12, a: 0.2}},
+    {label: "Search for departments", values: {e1: 0.06, e2: 0.15, e3: 0.12, a: 0.2}},
+    {label: "Patients who give up easily", values: {e1: 0.2, e2: 0.15, e3: 0.12, a: 0.5}}],
+  steps: v => {
+    const t = [12, 10, 4], r = [10, 12, 25], e = [v.e1, v.e2, v.e3], a = v.a;
+    const q = e.map(x => R(1 - x, 2)), p01 = R(q[0] * q[1], 3), P0 = R(p01 * q[2], 3);
+    const term = e.map((x, k) => R(t[k] + x * r[k], 1)), ET = R(term[0] + term[1] + term[2], 1);
+    const g = e.map(x => R(x * a, 3)), s = g.map(x => R(1 - x, 3)), c01 = R(s[0] * s[1], 3), Pc = R(c01 * s[2], 3);
+    return [
+      {t: "Probability of a smooth step", x: "Each step goes well with the probability one minus its slip probability.",
+        m: `1 - e_1 = 1 - ${fx(e[0], 2)} = ${fx(q[0], 2)},\\quad 1 - e_2 = ${fx(q[1], 2)},\\quad 1 - e_3 = ${fx(q[2], 2)}`},
+      {t: "No slip in any step", x: "The three factors are multiplied, rounding after each multiplication.",
+        m: `P_0 = ${fx(q[0], 2)} \\times ${fx(q[1], 2)} = ${fx(p01, 3)},\\quad ${fx(p01, 3)} \\times ${fx(q[2], 2)} = ${fx(P0, 3)}`, q: {label: "P₀ =", ans: P0, tol: 0.0015}},
+      {t: "Expected time of each step", x: "The time of the step plus the repair time weighted by the slip probability.",
+        m: `\\begin{aligned} t_1 + e_1 r_1 &= 12 + ${fx(e[0], 2)} \\times 10 = ${fx(term[0], 1)}\\ \\text{s}\\\\ t_2 + e_2 r_2 &= 10 + ${fx(e[1], 2)} \\times 12 = ${fx(term[1], 1)}\\ \\text{s}\\\\ t_3 + e_3 r_3 &= 4 + ${fx(e[2], 2)} \\times 25 = ${fx(term[2], 1)}\\ \\text{s}\\end{aligned}`},
+      {t: "Expected time of the task", m: `\\mathrm{E}[T] = ${fx(term[0], 1)} + ${fx(term[1], 1)} + ${fx(term[2], 1)} = ${fx(ET, 1)}\\ \\text{s}`, q: {label: "E[T] in seconds =", ans: ET, tol: 0.06}},
+      {t: "Probability of giving up at each step", x: "A person gives up only after a slip.",
+        m: `e_1 a = ${fx(e[0], 2)} \\times ${fx(a, 2)} = ${fx(g[0], 3)},\\quad e_2 a = ${fx(g[1], 3)},\\quad e_3 a = ${fx(g[2], 3)}`},
+      {t: "Probability of completing", x: "Every step must be passed without giving up.",
+        m: `P_c = ${fx(s[0], 3)} \\times ${fx(s[1], 3)} = ${fx(c01, 3)},\\quad ${fx(c01, 3)} \\times ${fx(s[2], 3)} = ${fx(Pc, 3)}`, q: {label: "P_c =", ans: Pc, tol: 0.0015}}];
+  },
+  viz: {aspect: 0.32, label: "The time of each step and its expected repair time", legend: [["time of the step t_k", "#8A93A3"], ["expected repair time e_k r_k", 1]],
+    draw: (ctx, w, hh, v, S, k) => {
+      const C = COL(), t = [12, 10, 4], r = [10, 12, 25], e = [v.e1, v.e2, v.e3], names = ["department", "date", "confirm"];
+      const max = 30, L = 90, W = w - L - 60;
+      ctx.font = "12px " + cssv("--sans");
+      for (let i = 0; i < 3; i++) {
+        const y = 14 + i * 30;
+        ctx.fillStyle = C.ink; ctx.textAlign = "right"; ctx.fillText(names[i], L - 8, y + 14);
+        ctx.fillStyle = "#8A93A3"; ctx.fillRect(L, y, W * t[i] / max, 20);
+        if (k >= 2) { ctx.fillStyle = C.c[1]; ctx.fillRect(L + W * t[i] / max, y, W * e[i] * r[i] / max, 20);
+          ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText((t[i] + e[i] * r[i]).toFixed(1) + " s", L + W * (t[i] + e[i] * r[i]) / max + 6, y + 14); }
+      }
+    }}
+});
+
+/* Part F: design the booking flow. */
+(function () {
+  const cv = document.getElementById("pe-cv"); if (!cv) return;
+  const BASE = [["Log in", 20, 0.10, 30, 0.20], ["Find Appointments", 8, 0.25, 15, 0.10], ["Department", 12, 0.20, 10, 0.10],
+    ["Doctor", 6, 0.05, 6, 0.05], ["Date", 10, 0.15, 12, 0.10], ["Time slot", 5, 0.08, 6, 0.05], ["Retype number", 15, 0.12, 20, 0.15],
+    ["Book", 4, 0.10, 25, 0.10]];
+  const CH = [
+    {id: "tab", label: "Appointments as a tab on the home screen (step 2: t 8 → 3 s, e 0.25 → 0.05)"},
+    {id: "search", label: "Search for departments in everyday words (step 3: t 12 → 9 s, e 0.20 → 0.06)"},
+    {id: "remember", label: "Remember the patient on this phone (step 1: t 20 → 6 s, e 0.10 → 0.03; step 7 removed)"},
+    {id: "plain", label: "Plain error messages (every r_k × 0.6 and every a_k × 0.5)"},
+    {id: "confirm", label: "A confirmation screen with a summary (step 8: e 0.10 → 0.03, r 25 → 8 s; adds a step: t 5 s, e 0.02, r 5 s, a 0.02)"}];
+  const on = {}; const sw = document.getElementById("pe-sw");
+  CH.forEach(c => { const cb = h("input", {type: "checkbox", id: "pe-" + c.id}); cb.addEventListener("change", () => { on[c.id] = cb.checked; draw(); });
+    sw.append(h("div", {}, cb, " ", h("label", {for: "pe-" + c.id}, c.label))); });
+  function flow() {
+    let f = BASE.map(s => ({n: s[0], t: s[1], e: s[2], r: s[3], a: s[4]}));
+    if (on.tab) Object.assign(f[1], {t: 3, e: 0.05});
+    if (on.search) Object.assign(f[2], {t: 9, e: 0.06});
+    if (on.remember) { Object.assign(f[0], {t: 6, e: 0.03}); f = f.filter(s => s.n !== "Retype number"); }
+    if (on.confirm) { const b = f.find(s => s.n === "Book"); Object.assign(b, {e: 0.03, r: 8}); f.push({n: "Check summary", t: 5, e: 0.02, r: 5, a: 0.02}); }
+    if (on.plain) f.forEach(s => { s.r *= 0.6; s.a *= 0.5; });
+    return f;
+  }
+  const ro = readout(document.getElementById("pe-ro"), ["completed: simulated", "formula P_c", "mean time of completed: simulated", "formula E[T]", "slips per patient"]);
+  let seed = 11, dots = [], F = flow(), T = 0;
+  function simulate(f) {
+    const r = RNG(seed), out = [];
+    for (let i = 0; i < 200; i++) {
+      let time = 0, slips = 0, gave = -1; const ev = [];
+      for (let k = 0; k < f.length; k++) { time += f[k].t; const slip = r() < f[k].e; let quit = false;
+        if (slip) { slips++; quit = r() < f[k].a; if (!quit) time += f[k].r; }
+        ev.push(slip); if (quit) { gave = k; break; } }
+      out.push({i, time, slips, gave, ev});
+    }
+    return out;
+  }
+  function formulas(f) { return {Pc: f.reduce((p, s) => p * (1 - s.e * s.a), 1), ET: f.reduce((x, s) => x + s.t + s.e * s.r, 0)}; }
+  function report(sim, f) {
+    const done = sim.filter(p => p.gave < 0), Fm = formulas(f);
+    ro("completed: simulated", (100 * done.length / sim.length).toFixed(1) + " %"); ro("formula P_c", (100 * Fm.Pc).toFixed(1) + " %");
+    ro("mean time of completed: simulated", (done.reduce((x, p) => x + p.time, 0) / Math.max(1, done.length)).toFixed(1) + " s");
+    ro("formula E[T]", Fm.ET.toFixed(1) + " s"); ro("slips per patient", (sim.reduce((x, p) => x + p.slips, 0) / sim.length).toFixed(2));
+  }
+  const stg = stage(cv, 0.36, (ctx, w, hh) => {
+    const C = COL(); ctx.clearRect(0, 0, w, hh); const K = F.length, L = 20, Rr = w - 60, top = 12, bot = hh - 34;
+    const X = s => L + (Rr - L) * s / K; ctx.font = "10px " + cssv("--sans"); ctx.textAlign = "center";
+    for (let k = 0; k <= K; k++) { ctx.strokeStyle = C.line; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(X(k), top); ctx.lineTo(X(k), bot); ctx.stroke(); ctx.setLineDash([]);
+      if (k < K) { ctx.fillStyle = C.steel; ctx.fillText(F[k].n, (X(k) + X(k + 1)) / 2, bot + 12 + (k % 2) * 11); } }
+    dots.forEach(d => { let px = X(Math.min(d.x, K)), py = top + (bot - top) * d.y, col = d.slipped ? C.c[1] : C.steel;
+      if (d.fall > 0) { col = C.bad; py += (hh - 6 - py) * Math.min(1, d.fall); }
+      if (d.done) { col = C.ok; px += 8 + (d.i % 6) * 5; }
+      dot(ctx, px, py, 2.4, col); });
+  });
+  function draw() { F = flow(); dots = []; T = 0; report(simulate(F), F); stg.redraw(); }
+  const lp = loop(dt => {
+    T += dt; let moving = false;
+    dots.forEach(d => {
+      if (T < d.start || d.done) return;
+      if (d.fall > 0) { if (d.fall < 1) { d.fall += dt * 2; moving = true; } return; }
+      moving = true;
+      if (d.pause > 0) { d.pause -= dt; if (d.pause <= 0 && d.p.gave === Math.floor(d.x)) d.fall = 0.01; return; }
+      const k0 = Math.floor(d.x), mid = k0 + 0.5, x0 = d.x; d.x += dt * 2.2;
+      if (x0 < mid && d.x >= mid && d.p.ev[k0]) { d.slipped = true; d.pause = 0.35; d.x = mid; }
+      if (d.x >= F.length) { d.x = F.length; d.done = true; }
+    });
+    stg.redraw(); if (!moving && T > 1) lp.stop();
+  });
+  const tb = document.getElementById("pe-tb"); let runs = store.get("w1:runs", []);
+  function rows() { tb.textContent = ""; runs.forEach((r, i) => tb.append(h("tr", {}, [i + 1, r.ch, r.steps, r.done, r.time, r.pc, r.et].map(x => h("td", {}, x))))); }
+  rows();
+  labLog.add(() => runs.length ? ["## Part F: design the booking flow", "", "| Run | Design changes | Completed | Mean time | Formula P_c |", "|---|---|---|---|---|"]
+    .concat(runs.map((r, i) => `| ${i + 1} | ${r.ch} | ${r.done} | ${r.time} | ${r.pc} |`)).join("\n") : "");
+  function run(animate) {
+    seed += 1; F = flow(); const sim = simulate(F); report(sim, F);
+    const Fm = formulas(F), done = sim.filter(p => p.gave < 0);
+    runs.push({ch: CH.filter(c => on[c.id]).map(c => c.label.split(" (")[0]).join("; ") || "none (baseline)", steps: F.length,
+      done: (100 * done.length / sim.length).toFixed(1) + " %", time: (done.reduce((x, p) => x + p.time, 0) / Math.max(1, done.length)).toFixed(1) + " s",
+      pc: (100 * Fm.Pc).toFixed(1) + " %", et: Fm.ET.toFixed(1) + " s"});
+    store.set("w1:runs", runs); rows(); labLog.note("Part F", `${runs.length} runs`);
+    dots = sim.map(p => ({i: p.i, p, x: 0, y: 0.04 + 0.92 * (p.i % 40) / 39, start: Math.floor(p.i / 40) * 0.25 + (p.i % 40) * 0.006, pause: 0, slipped: false, done: false, fall: 0}));
+    T = 0;
+    if (!animate || reduced()) { dots.forEach(d => { if (d.p.gave >= 0) { d.x = d.p.gave + 0.5; d.fall = 1; d.slipped = true; } else { d.x = F.length; d.done = true; d.slipped = d.p.slips > 0; } }); stg.redraw(); }
+    else lp.start();
+  }
+  document.getElementById("pe-run").addEventListener("click", () => run(true));
+  document.getElementById("pe-fast").addEventListener("click", () => run(false));
+  document.getElementById("pe-clr").addEventListener("click", () => { runs = []; store.set("w1:runs", runs); rows(); });
+  draw();
+})();
+
+/* Part G: by hand. */
+partNumbers("pf-n", {key: "w1:pf", title: "Part G", fields: [
+  {label: "P₀, the probability of no slip", short: "P₀", answer: 0.755, tol: 0.002},
+  {label: "E[T] in seconds", short: "E[T]", answer: 25.6, tol: 0.06},
+  {label: "P_c, the probability of completing", short: "P_c", answer: 0.937, tol: 0.002}],
+  explain: "P₀ = 0.95 × 0.90 × 0.96 × 0.92 = 0.755, E[T] = 6.4 + 10.0 + 5.24 + 3.96 = 25.6 s and P_c = 0.99 × 0.97 × 0.996 × 0.98 = 0.937.",
+  hint: "Multiply the factors one at a time and round to three decimals after each multiplication."});
+
+/* Part A: The kiosk race in 3D. Kiosk 1 is system-centred, Kiosk 2 user-centred. */
+(function () {
+  const box = document.getElementById("ks-3d"); if (!box) return;
+  const KEY = "w1:kiosk", LIMIT_S = 150;
+  const tb = document.getElementById("ks-tb"), msg = document.getElementById("ks-msg"), csv = document.getElementById("ks-csv");
+  const startB = document.getElementById("ks-start"), quitB = document.getElementById("ks-quit");
+  const orderP = document.getElementById("ks-order"), susBox = document.getElementById("ks-sus");
+  const SUS_ITEMS = ["I think that I would like to use this kiosk frequently.", "I found the kiosk unnecessarily complex.",
+    "I thought the kiosk was easy to use.", "I think that I would need the support of a technical person to be able to use this kiosk.",
+    "I found the various functions in this kiosk were well integrated.", "I thought there was too much inconsistency in this kiosk.",
+    "I would imagine that most people would learn to use this kiosk very quickly.", "I found the kiosk very cumbersome to use.",
+    "I felt very confident using the kiosk.", "I needed to learn a lot of things before I could get going with this kiosk."];
+  const DEPTS = [
+    {name: "Cardiology", desc: "Heart and blood vessels", code: "PC-112", doc: "Dr. Selin Arslan"},
+    {name: "Dermatology", desc: "Skin, hair and nails", code: "PC-104", doc: "Dr. Emre Kaya"},
+    {name: "Ear, nose and throat", desc: "Hearing, nose and throat", code: "PC-117", doc: "Dr. Zeynep Demir"},
+    {name: "Eye diseases", desc: "Eyes and vision", code: "PC-121", doc: "Dr. Mehmet Çelik"},
+    {name: "Neurology", desc: "Brain and nerves", code: "PC-128", doc: "Dr. Ayşe Şahin"},
+    {name: "Orthopaedics", desc: "Bones and joints", code: "PC-133", doc: "Dr. Can Yıldız"},
+    {name: "Internal medicine", desc: "General adult health", code: "PC-140", doc: "Dr. Elif Öztürk"},
+    {name: "Family medicine", desc: "First contact for any complaint", code: "PC-146", doc: "Dr. Burak Aydın"}];
+  const CODES = DEPTS.map(d => d.code).sort();
+  const DAYS = [
+    {ymd: "20270315", wd: "Mon", d: 15, long: "Monday 15 March 2027", tag: "Today"},
+    {ymd: "20270316", wd: "Tue", d: 16, long: "Tuesday 16 March 2027", tag: "Tomorrow"},
+    {ymd: "20270317", wd: "Wed", d: 17, long: "Wednesday 17 March 2027"},
+    {ymd: "20270318", wd: "Thu", d: 18, long: "Thursday 18 March 2027"},
+    {ymd: "20270319", wd: "Fri", d: 19, long: "Friday 19 March 2027"},
+    {ymd: "20270322", wd: "Mon", d: 22, long: "Monday 22 March 2027"},
+    {ymd: "20270323", wd: "Tue", d: 23, long: "Tuesday 23 March 2027"},
+    {ymd: "20270324", wd: "Wed", d: 24, long: "Wednesday 24 March 2027"}];
+  const SLOTS = ["08:30", "09:10", "09:50", "10:30", "11:10", "13:30", "14:10", "14:50", "15:30", "16:10"];
+  const TASKS = [
+    {id: 1, dept: "Cardiology", day: "20270316", text: "Book Cardiology for tomorrow, in the morning.", time: "am"},
+    {id: 2, dept: "Eye diseases", day: "20270319", text: "Book Eye diseases for this Friday, in the afternoon.", time: "pm"},
+    {id: 3, dept: "Dermatology", day: "20270322", text: "Book Dermatology for Monday 22 March, at the first time after 10:00.", time: "10:30"},
+    {id: 4, dept: "Neurology", day: "20270318", text: "Book Neurology for this Thursday, in the morning.", time: "am"},
+    {id: 5, dept: "Ear, nose and throat", day: "20270316", text: "Book Ear, nose and throat for tomorrow, in the afternoon.", time: "pm"},
+    {id: 6, dept: "Orthopaedics", day: "20270324", text: "Book Orthopaedics for Wednesday 24 March, at the first time after 14:00.", time: "14:10"}];
+  const timeOk = (task, t) => task.time === "am" ? t < "12:00" : task.time === "pm" ? t > "12:00" : t === task.time;
+  const DESIGN = {1: "system", 2: "user"};
+  let data = store.get(KEY, null);
+  const fresh = () => ({order: Math.random() < 0.5 ? [1, 2] : [2, 1], runs: [], sus: {}});
+  if (!data || !data.order) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  const susScore = a => 2.5 * a.reduce((s, x, j) => s + (j % 2 === 0 ? x - 1 : 5 - x), 0);
+  function nextItem() {
+    const [k1, k2] = data.order, n1 = data.runs.filter(r => r.kiosk === k1).length, n2 = data.runs.filter(r => r.kiosk === k2).length;
+    if (n1 < 3) return {type: "round", kiosk: k1, task: TASKS[n1], round: n1 + 1, pos: 1};
+    if (!data.sus[k1]) return {type: "sus", kiosk: k1};
+    if (n2 < 3) return {type: "round", kiosk: k2, task: TASKS[3 + n2], round: n2 + 1, pos: 2};
+    if (!data.sus[k2]) return {type: "sus", kiosk: k2};
+    return {type: "done"};
+  }
+  const revealed = () => nextItem().type === "done";
+  const kname = k => `Kiosk ${k}` + (revealed() ? (k === 1 ? " (system-centred)" : " (user-centred)") : "");
+  function table() {
+    tb.textContent = "";
+    data.order.forEach(k => {
+      const R = data.runs.filter(r => r.kiosk === k); if (!R.length && !data.sus[k]) return;
+      const ok = R.filter(r => r.completed), mt = ok.length ? ok.reduce((s, r) => s + r.time_s, 0) / ok.length : NaN;
+      const er = R.length ? R.reduce((s, r) => s + r.errors, 0) / R.length : NaN;
+      tb.append(h("tr", {}, h("td", {}, kname(k)), h("td", {}, R.length), h("td", {}, `${ok.length} of ${R.length}` + (R.length ? ` (E = ${(ok.length / R.length).toFixed(2)})` : "")),
+        h("td", {}, isNaN(mt) ? "-" : mt.toFixed(1) + " s"), h("td", {}, isNaN(er) ? "-" : er.toFixed(1)), h("td", {}, data.sus[k] ? susScore(data.sus[k]).toFixed(1) : "-")));
+    });
+    const it = nextItem();
+    if (it.type === "done") orderP.textContent = "Done. Kiosk 1 was designed system-centred, around the database of the hospital. Kiosk 2 was designed user-centred, around the goals of the patients. Copy the results into Section 1 of the Colab notebook.";
+    else orderP.textContent = `The page has drawn your order: Kiosk ${data.order[0]} first, then Kiosk ${data.order[1]}. Next: ` + (it.type === "round" ? `round ${it.round} of 3 on Kiosk ${it.kiosk}.` : `rate Kiosk ${it.kiosk} with the ten statements below the scene.`);
+    labLog.note("Part A", `${data.runs.length} rounds played`);
+  }
+  labLog.add(() => {
+    if (!data.runs.length) return "";
+    const L = ["## Part A: the kiosk race", "", "| Kiosk | Rounds | Completed | Mean time of completed rounds (s) | Errors per round | SUS |", "|---|---|---|---|---|---|"];
+    data.order.forEach(k => { const R = data.runs.filter(r => r.kiosk === k); if (!R.length) return; const ok = R.filter(r => r.completed);
+      L.push(`| ${kname(k)} | ${R.length} | ${ok.length} | ${ok.length ? (ok.reduce((s, r) => s + r.time_s, 0) / ok.length).toFixed(1) : "-"} | ${(R.reduce((s, r) => s + r.errors, 0) / R.length).toFixed(1)} | ${data.sus[k] ? susScore(data.sus[k]).toFixed(1) : "-"} |`); });
+    return L.join("\n");
+  });
+  document.getElementById("ks-copy").addEventListener("click", () => {
+    const head = "kiosk,design,order,round,task,completed,time_s,errors,taps," + SUS_ITEMS.map((_, j) => "sus" + (j + 1)).join(",");
+    const rows = data.runs.map(r => [r.kiosk, DESIGN[r.kiosk], r.order, r.round, r.task, r.completed ? 1 : 0, r.time_s.toFixed(1), r.errors, r.taps]
+      .concat(data.sus[r.kiosk] ? data.sus[r.kiosk] : SUS_ITEMS.map(() => "")).join(","));
+    const text = head + "\n" + rows.join("\n");
+    csv.value = text; csv.hidden = false; csv.select();
+    const done = () => { msg.textContent = `${data.runs.length} rounds copied. Paste them between the triple quotes of MY_KIOSK in Section 1.`; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => { msg.textContent = "Select the text below and copy it with Ctrl+C."; });
+    else msg.textContent = "Select the text below and copy it with Ctrl+C.";
+  });
+  /* The questionnaire after the third round on a kiosk. */
+  function showSus(k) {
+    susBox.textContent = ""; susBox.hidden = false;
+    susBox.append(h("p", {}, h("b", {}, `Rate Kiosk ${k}. `), "Choose one answer for every statement, from 1 (strongly disagree) to 5 (strongly agree)."));
+    const tbl = h("table", {class: "sus-t"}), head = h("tr", {}, h("th", {}, "Statement"), ...[1, 2, 3, 4, 5].map(x => h("th", {}, String(x))));
+    tbl.append(h("thead", {}, head));
+    const body = h("tbody");
+    SUS_ITEMS.forEach((s, j) => body.append(h("tr", {}, h("td", {}, `${j + 1}. ${s}`), ...[1, 2, 3, 4, 5].map(x =>
+      h("td", {}, h("input", {type: "radio", name: `sus${k}_${j}`, value: String(x), "aria-label": `Statement ${j + 1}: ${x}`}))))));
+    tbl.append(body); susBox.append(h("div", {class: "tablewrap"}, tbl));
+    const out = h("span", {class: "small", "aria-live": "polite"});
+    const sub = h("button", {class: "btn", type: "button"}, "Submit the ratings");
+    sub.addEventListener("click", () => {
+      const a = SUS_ITEMS.map((_, j) => { const c = susBox.querySelector(`input[name="sus${k}_${j}"]:checked`); return c ? +c.value : null; });
+      if (a.some(x => x === null)) { out.textContent = `Statements without an answer: ${a.map((x, j) => x === null ? j + 1 : null).filter(x => x).join(", ")}.`; return; }
+      data.sus[k] = a; save(); susBox.hidden = true; table(); startB.disabled = nextItem().type === "done";
+      big(`SUS of Kiosk ${k}: ${susScore(a).toFixed(1)}`, "#1E2433", 1800);
+    });
+    susBox.append(h("p", {}, sub, " ", out));
+    startB.disabled = true;
+  }
+  table();
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part.")); startB.disabled = true; return; }
+
+  /* The scene: a lobby with two kiosks. */
+  const KX = {1: -0.9, 2: 0.9};
+  const HOME = {pos: [0, 1.75, 2.6], tgt: [0, 1.05, 0]};
+  const G = make3D(box, {camera: HOME.pos, target: HOME.tgt, limits: [0.5, 7, 1.52], aspect: 0.62, bg: 0xE6EAF0});
+  const T = G.T, scene = G.scene;
+  const mat = (c, o) => new T.MeshStandardMaterial(Object.assign({color: c, roughness: 0.7}, o || {}));
+  const floor = new T.Mesh(new T.PlaneGeometry(14, 9), mat(0xD3D8DF)); floor.rotation.x = -Math.PI / 2; scene.add(floor);
+  const wall = new T.Mesh(new T.BoxGeometry(14, 3.4, 0.1), mat(0xEEF1F5)); wall.position.set(0, 1.7, -1.3); scene.add(wall);
+  function canvasPlane(w, hh, pw, ph, draw) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; const x = c.getContext("2d"); draw(x, w, hh);
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4;
+    return new T.Mesh(new T.PlaneGeometry(pw, ph), new T.MeshBasicMaterial({map: t}));
+  }
+  const sign = canvasPlane(1024, 160, 3.2, 0.5, (x, w, hh) => { x.fillStyle = "#2F5D8A"; x.fillRect(0, 0, w, hh); x.fillStyle = "#FFFFFF";
+    x.font = "700 64px Atkinson Hyperlegible, sans-serif"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText("City Hospital · Appointments", w / 2, hh / 2 + 4); });
+  sign.position.set(0, 2.55, -1.24); scene.add(sign);
+  const fm = floor.material; fm.color.setHex(0xFFFFFF); fm.map = LABKIT.tiles(G, "#D6DADF", "#B8BEC6", [14 / 0.6, 9 / 0.6]); fm.needsUpdate = true;
+  LABKIT.plant(G, {at: [-4.2, 0, -0.9], seed: 4}); LABKIT.plant(G, {at: [3.4, 0, -0.9], seed: 8, size: 0.85});
+  LABKIT.chairRow(G, 3, {at: [2.6, 0, 1.2], face: -Math.PI / 2, color: 0x4A7A96});
+  const queue = [
+    LABKIT.human(G, {type: "woman", at: [-2.3, 0, 0.25], face: 2.2, top: 0x7A8CA5, bottom: 0x2E3440, hair: "bun"}),
+    LABKIT.human(G, {type: "oldman", at: [-2.75, 0, 0.85], face: 2.2, top: 0xA5767A, bottom: 0x3A3F48, skin: LABKIT.LOOKS.skin[2]}),
+    LABKIT.human(G, {type: "man", at: [-3.15, 0, 1.45], face: 2.2, top: 0x7FA57A, bottom: 0x23283A, skin: LABKIT.LOOKS.skin[3], hairColor: 0x111111}),
+    LABKIT.human(G, {type: "oldwoman", at: [-3.55, 0, 2.05], face: 2.2, top: 0xB59A62, skirt: true, skirtColor: 0x4A4E5A})];
+  const waiting = LABKIT.human(G, {type: "woman", at: [2.6, 0, 1.2], face: -Math.PI / 2, pose: "sit", top: 0xC0705A, bottom: 0x2B3340, skin: LABKIT.LOOKS.skin[1]});
+  waiting.set("look", new T.Vector3(0.9, 1.3, 0));
+  const K = {};
+  function kiosk(k) {
+    const x0 = KX[k], g = new T.Group(); g.position.set(x0, 0, 0); scene.add(g);
+    const body = k === 1 ? 0x5B6470 : 0xF4F6F9, trim = k === 1 ? 0x3A414B : 0x2F5D8A;
+    const base = new T.Mesh(new T.BoxGeometry(0.62, 0.06, 0.46), mat(trim)); base.position.y = 0.03;
+    const pillar = new T.Mesh(new T.BoxGeometry(0.4, 0.92, 0.3), mat(body)); pillar.position.y = 0.52;
+    const headM = new T.Mesh(new T.BoxGeometry(0.7, 0.56, 0.12), mat(body)); headM.position.set(0, 1.24, 0.02); headM.rotation.x = -0.12;
+    g.add(base, pillar, headM);
+    const cv = document.createElement("canvas"); cv.width = 640; cv.height = 480;
+    const tex = new T.CanvasTexture(cv); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const screen = new T.Mesh(new T.PlaneGeometry(0.6, 0.45), new T.MeshBasicMaterial({map: tex}));
+    screen.position.set(0, 1.24, 0.085); screen.rotation.x = -0.12; g.add(screen);
+    const lab = label3D(`Kiosk ${k}`, {size: 44, scale: 0.0042}); lab.position.set(0, 1.66, 0.05); g.add(lab);
+    const S = {k, g, cv, ctx: cv.getContext("2d"), tex, screen, scr: k === 1 ? "id" : "home", buf: "", msg: "", ch: {}, btns: [], focus: -1, toast: ""};
+    if (k === 1) {
+      const sheet = canvasPlane(512, 760, 0.27, 0.4, (x, w, hh) => {
+        x.fillStyle = "#FBF8EF"; x.fillRect(0, 0, w, hh); x.fillStyle = "#1E2433"; x.font = "700 40px JetBrains Mono, monospace";
+        x.fillText("POLYCLINIC", 30, 70); x.fillText("CODES", 30, 118);
+        x.font = "600 30px JetBrains Mono, monospace";
+        DEPTS.slice().sort((a, b) => a.code < b.code ? -1 : 1).forEach((d, i) => { x.fillText(d.code, 30, 190 + i * 58); x.fillText(({"Ear, nose and throat": "ENT", "Internal medicine": "INTERNAL MED.", "Family medicine": "FAMILY MED."}[d.name] || d.name).toUpperCase(), 180, 190 + i * 58); });
+        x.font = "700 30px JetBrains Mono, monospace"; x.fillText("DATE: YYYYMMDD", 30, 700);
+        x.strokeStyle = "#B9B09A"; x.lineWidth = 4; x.strokeRect(4, 4, w - 8, hh - 8);
+      });
+      sheet.position.set(-0.5, 1.2, 0.07); sheet.rotation.y = 0.5; g.add(sheet);
+    } else {
+      const reader = new T.Mesh(new T.BoxGeometry(0.16, 0.13, 0.05), mat(0x2B3340)); reader.position.set(0.45, 1.12, 0.06); reader.userData.reader = true;
+      const pad = canvasPlane(128, 104, 0.13, 0.1, (x, w, hh) => { x.fillStyle = "#2B3340"; x.fillRect(0, 0, w, hh); x.strokeStyle = "#7FC3FF"; x.lineWidth = 6;
+        [12, 22, 32].forEach(r => { x.beginPath(); x.arc(30, 44, r, -0.9, 0.9); x.stroke(); }); x.fillStyle = "#7FC3FF"; x.font = "700 20px sans-serif"; x.textAlign = "center"; x.fillText("CARD", 64, 94); });
+      pad.position.set(0.45, 1.12, 0.086); pad.userData.reader = true;
+      const slot = new T.Mesh(new T.BoxGeometry(0.2, 0.025, 0.04), mat(0x1B1F26)); slot.position.set(0, 0.86, 0.17);
+      const ticket = new T.Mesh(new T.PlaneGeometry(0.12, 0.16), new T.MeshStandardMaterial({color: 0xFFFFFF, side: T.DoubleSide}));
+      ticket.rotation.x = -Math.PI / 2 + 0.25; ticket.position.set(0, 0.86, 0.17); ticket.visible = false;
+      g.add(reader, pad, slot, ticket); S.reader = [reader, pad]; S.ticket = ticket;
+    }
+    K[k] = S; draw(S);
+  }
+
+  /* Screens drawn on the canvas of each kiosk. */
+  function draw(S) {
+    const x = S.ctx, W = 640, H = 480; S.btns = [];
+    const sys = S.k === 1, mono = "JetBrains Mono, monospace", sans = "Atkinson Hyperlegible, sans-serif";
+    const btn = (bx, by, bw, bh, label, act, o) => {
+      o = o || {}; const i = S.btns.length; S.btns.push({x: bx, y: by, w: bw, h: bh, label, act, key: o.key});
+      if (sys) { x.fillStyle = o.fill || "#1D3B5A"; x.fillRect(bx, by, bw, bh); x.strokeStyle = "#9FB4C8"; x.lineWidth = 2; x.strokeRect(bx, by, bw, bh);
+        x.fillStyle = "#E8F0F7"; x.font = `600 ${o.fs || 26}px ${mono}`; }
+      else { x.fillStyle = o.fill || "#2F5D8A"; rrect(x, bx, by, bw, bh, 14); x.fill(); x.fillStyle = o.ink || "#FFFFFF"; x.font = `700 ${o.fs || 26}px ${sans}`; }
+      x.textAlign = "center"; x.textBaseline = "middle";
+      const lines = String(label).split("\n");
+      lines.forEach((t, j) => { if (j === 1 && !sys) x.font = `400 ${(o.fs || 26) - 6}px ${sans}`; x.fillText(t, bx + bw / 2, by + bh / 2 + (j - (lines.length - 1) / 2) * ((o.fs || 26) + 4)); });
+      if (S.focus === i) { x.strokeStyle = "#FFB000"; x.lineWidth = 5; x.strokeRect(bx - 4, by - 4, bw + 8, bh + 8); }
+    };
+    const text = (t, tx, ty, o) => { o = o || {}; x.fillStyle = o.color || (sys ? "#E8F0F7" : "#1E2433"); x.font = `${o.w || 600} ${o.fs || 26}px ${sys ? mono : sans}`;
+      x.textAlign = o.align || "left"; x.textBaseline = "alphabetic"; x.fillText(t, tx, ty); };
+    x.fillStyle = sys ? "#0E2236" : "#FFFFFF"; x.fillRect(0, 0, W, H);
+    const R = round && round.kiosk === S.k ? round : null;
+    if (!R && S.scr !== "done") {
+      if (sys) { text("HBYS-KIOSK 2.3", 24, 50, {fs: 28}); text("OUT OF SERVICE UNTIL", 24, 220, {fs: 26}); text("NEXT ROUND", 24, 260, {fs: 26}); }
+      else { text("City Hospital", 320, 200, {fs: 40, w: 700, align: "center"}); text("Press Start for the next round", 320, 260, {fs: 24, align: "center", color: "#585E6E"}); }
+      S.tex.needsUpdate = true; return;
+    }
+    const keypad = (ox, oy, onKey) => {
+      ["1", "2", "3", "4", "5", "6", "7", "8", "9", "DEL", "0", "OK"].forEach((k, i) => btn(ox + (i % 3) * 96, oy + Math.floor(i / 3) * 84, 86, 74, k, () => onKey(k), {key: k, fill: k === "OK" ? "#2C6E3F" : k === "DEL" ? "#5A3A1D" : null}));
+    };
+    if (sys) {
+      x.fillStyle = "#1D3B5A"; x.fillRect(0, 0, W, 64); text("HBYS-KIOSK 2.3", 20, 42, {fs: 26}); btn(520, 10, 104, 44, "ESC", () => act("esc"), {key: "ESC", fs: 22, fill: "#5A1D1D"});
+      if (S.scr === "id" || S.scr === "date") {
+        const isId = S.scr === "id", n = isId ? 6 : 8;
+        text(isId ? "PATIENT NO:" : "DATE (YYYYMMDD):", 24, 130, {fs: 26});
+        text((S.buf + "_".repeat(n)).slice(0, n).split("").join(" "), 24, 190, {fs: 30, color: "#FFE08A"});
+        keypad(330, 84, k => act("key", k));
+      } else if (S.scr === "code") {
+        text("POLYCLINIC CODE:", 24, 120, {fs: 26});
+        CODES.forEach((c, i) => btn(24 + (i % 4) * 152, 150 + Math.floor(i / 4) * 96, 140, 82, c, () => act("code", c), {fs: 26}));
+      } else if (S.scr === "slot") {
+        text("SLOT:", 24, 120, {fs: 26});
+        SLOTS.forEach((t, i) => btn(24 + (i % 5) * 120, 150 + Math.floor(i / 5) * 110, 110, 96, `S${String(i + 1).padStart(2, "0")}\n${t.replace(":", "")}`, () => act("slot", t), {fs: 24}));
+      } else if (S.scr === "confirm") {
+        text("CONFIRM TRANSACTION?", 24, 140, {fs: 28});
+        text(`${S.ch.code} ${S.ch.day} S${String(SLOTS.indexOf(S.ch.time) + 1).padStart(2, "0")}`, 24, 200, {fs: 28, color: "#FFE08A"});
+        btn(24, 260, 200, 90, "F1 YES", () => act("yes"), {fs: 28, fill: "#2C6E3F"}); btn(250, 260, 200, 90, "F2 NO", () => act("no"), {fs: 28, fill: "#5A1D1D"});
+      } else if (S.scr === "done") {
+        text("TRANSACTION " + (4400 + data.runs.length) + " OK", 24, 220, {fs: 32, color: "#9BE59B"});
+      }
+      if (S.msg) { x.fillStyle = "#5A1D1D"; x.fillRect(0, 420, W, 60); text(S.msg, 20, 460, {fs: 26, color: "#FFD2D2"}); }
+    } else {
+      const top = t => { x.fillStyle = "#F1F5FA"; x.fillRect(0, 0, W, 70); text(t, 24, 46, {fs: 30, w: 700}); };
+      const back = () => btn(24, 404, 150, 58, "‹ Back", () => act("back"), {fs: 24, fill: "#E3E9F1", ink: "#1E2433", key: "BACK"});
+      if (S.scr === "home") {
+        top("Good morning. What would you like to do?");
+        btn(60, 110, 520, 100, "Book an appointment", () => act("menu", "book"), {fs: 34});
+        btn(60, 236, 250, 84, "Check in for today", () => act("menu", "checkin"), {fs: 23, fill: "#E3E9F1", ink: "#1E2433"});
+        btn(330, 236, 250, 84, "My appointments", () => act("menu", "mine"), {fs: 23, fill: "#E3E9F1", ink: "#1E2433"});
+      } else if (S.scr === "card") {
+        top("Hold your hospital card to the reader");
+        text("The reader is on the right of this screen.", 40, 160, {fs: 26}); text("→", 520, 260, {fs: 120, w: 700, color: "#2F5D8A"});
+        btn(40, 220, 400, 90, "My card is on the reader", () => act("card"), {fs: 26}); back();
+      } else if (S.scr === "dept") {
+        top("Which department?");
+        DEPTS.forEach((d, i) => btn(24 + (i % 2) * 300, 84 + Math.floor(i / 2) * 78, 290, 70, d.name + "\n" + d.desc, () => act("dept", d.name), {fs: 22, fill: "#EAF1F8", ink: "#1E2433"}));
+        back();
+      } else if (S.scr === "day") {
+        top("Which day?");
+        DAYS.forEach((d, i) => btn(24 + (i % 4) * 150, 90 + Math.floor(i / 4) * 120, 140, 106, (d.tag || d.wd) + "\n" + `${d.wd} ${d.d} March`, () => act("day", d.ymd), {fs: 24, fill: "#EAF1F8", ink: "#1E2433"}));
+        back();
+      } else if (S.scr === "time") {
+        const dd = DAYS.find(d => d.ymd === S.ch.day);
+        top("Which time? " + dd.long.replace(" 2027", ""));
+        text("Morning", 24, 118, {fs: 24, w: 700}); text("Afternoon", 24, 248, {fs: 24, w: 700});
+        SLOTS.forEach((t, i) => btn(24 + (i % 5) * 120, (i < 5 ? 132 : 262), 110, 82, t, () => act("time", t), {fs: 28, fill: "#EAF1F8", ink: "#1E2433"}));
+        back();
+      } else if (S.scr === "summary") {
+        const d = DEPTS.find(z => z.name === S.ch.dept), dd = DAYS.find(z => z.ymd === S.ch.day);
+        top("Please check your appointment");
+        x.fillStyle = "#EAF1F8"; rrect(x, 24, 90, 592, 190, 16); x.fill();
+        text(`${d.name} · ${d.doc}`, 48, 140, {fs: 28, w: 700}); text(`${dd.long} · ${S.ch.time}`, 48, 190, {fs: 26}); text("Building B, floor 2", 48, 240, {fs: 24, color: "#585E6E"});
+        btn(24, 310, 330, 84, "Yes, book it", () => act("yes"), {fs: 30, fill: "#2C6E3F"}); btn(380, 310, 236, 84, "Change", () => act("change"), {fs: 28, fill: "#E3E9F1", ink: "#1E2433", key: "BACK"});
+      } else if (S.scr === "done") {
+        top("Thank you");
+        text("✓ Your appointment is booked", 320, 200, {fs: 34, w: 700, align: "center", color: "#1E5E34"});
+        text("Please take your ticket below the screen.", 320, 260, {fs: 24, align: "center"});
+      }
+      if (S.toast) { x.fillStyle = "#FFF4D6"; rrect(x, 190, 404, 430, 58, 12); x.fill(); x.fillStyle = "#6B4A00"; x.font = `600 20px ${sans}`; x.textAlign = "left"; x.textBaseline = "middle";
+        x.fillText(S.toast, 204, 433); }
+    }
+    if (S.focus >= S.btns.length) S.focus = -1;
+    S.tex.needsUpdate = true;
+  }
+
+  /* Game logic. */
+  let round = null;
+  const hud = h("div", {class: "hud"}), big0 = h("div", {class: "big", hidden: ""});
+  const hR = h("span", {}, "Press Start for the next round"), hT = h("span", {}, ""), hC = h("span", {}, ""), hW = h("span", {}, "");
+  const hudB = h("div", {class: "hud", style: "top:auto;bottom:8px"});
+  hud.append(hR, hC, hW); hudB.append(hT); box.append(hud, hudB, big0);
+  let bigTimer = 0;
+  function big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col; clearTimeout(bigTimer); bigTimer = setTimeout(() => { big0.hidden = true; }, ms || 1600); }
+  function act(kind, v) {
+    const S = K[round ? round.kiosk : 0]; if (!S || !round || round.over) return;
+    S.msg = ""; S.toast = "";
+    if (S.k === 1) {
+      if (kind === "esc") { round.errors++; S.scr = "id"; S.buf = ""; S.ch = {}; }
+      else if (kind === "key") {
+        if (v === "DEL") S.buf = S.buf.slice(0, -1);
+        else if (v === "OK") {
+          if (S.scr === "id") {
+            if (S.buf.length !== 6) { S.msg = "E-102 INVALID LENGTH"; round.errors++; }
+            else if (S.buf !== round.pid) { S.msg = "E-217 RECORD NOT FOUND"; round.errors++; S.buf = ""; }
+            else { S.scr = "code"; S.buf = ""; }
+          } else {
+            const y = +S.buf.slice(0, 4), m = +S.buf.slice(4, 6), d = +S.buf.slice(6, 8), dt = new Date(y, m - 1, d);
+            const valid = S.buf.length === 8 && m >= 1 && m <= 12 && dt.getMonth() === m - 1 && dt.getDate() === d;
+            if (!valid) { S.msg = "E-103 INVALID DATE FORMAT"; round.errors++; S.buf = ""; }
+            else if (!DAYS.some(z => z.ymd === S.buf)) { S.msg = "E-104 NO SCHEDULE FOR DATE"; round.errors++; S.buf = ""; }
+            else { S.ch.day = S.buf; S.buf = ""; S.scr = "slot"; }
+          }
+        } else if (S.buf.length < (S.scr === "id" ? 6 : 8)) S.buf += v;
+      }
+      else if (kind === "code") { S.ch.code = v; S.ch.dept = DEPTS.find(d => d.code === v).name; S.scr = "date"; }
+      else if (kind === "slot") { S.ch.time = v; S.scr = "confirm"; }
+      else if (kind === "no") { round.errors++; S.ch = {}; S.scr = "code"; }
+      else if (kind === "yes") { S.scr = "done"; finish(false); }
+    } else {
+      if (kind === "back") { round.errors++; S.scr = {card: "home", dept: "card", day: "dept", time: "day"}[S.scr] || S.scr; }
+      else if (kind === "menu") { if (v === "book") S.scr = "card"; else { round.errors++; S.toast = "This round books an appointment."; } }
+      else if (kind === "card") { S.scr = "dept"; }
+      else if (kind === "dept") { S.ch.dept = v; S.scr = "day"; }
+      else if (kind === "day") { S.ch.day = v; S.scr = "time"; }
+      else if (kind === "time") { S.ch.time = v; S.scr = "summary"; }
+      else if (kind === "change") { round.errors++; S.ch = {}; S.scr = "dept"; }
+      else if (kind === "yes") { S.scr = "done"; S.ticket.visible = true; S.ticket.position.z = 0.17; finish(false); }
+    }
+    draw(S); G.redraw();
+  }
+  function press(S, b) { if (!round || round.over || S.k !== round.kiosk) return; round.taps++; S.focus = -1; b.act(); }
+  function finish(gaveUp) {
+    const S = K[round.kiosk], t = (performance.now() - round.t0) / 1000;
+    const okD = S.ch.dept === round.task.dept, okY = S.ch.day === round.task.day, okT = !!S.ch.time && timeOk(round.task, S.ch.time);
+    const done = !gaveUp && okD && okY && okT;
+    round.over = true;
+    data.runs.push({kiosk: round.kiosk, order: round.pos, round: round.round, task: round.task.id, completed: done, time_s: Math.round(t * 10) / 10, errors: round.errors, taps: round.taps});
+    save();
+    const wrong = [okD ? null : "department", okY ? null : "day", okT ? null : "time"].filter(z => z);
+    if (gaveUp) big(`Gave up after ${t.toFixed(1)} s`, "#8A1F11", 2200);
+    else if (done) big(`Booked correctly in ${t.toFixed(1)} s`, "#1E5E34", 2200);
+    else big(`Booked, but the ${wrong.join(" and the ")} ${wrong.length > 1 ? "do" : "does"} not match the task`, "#8A1F11", 3200);
+    quitB.disabled = true; hT.textContent = "";
+    setTimeout(() => {
+      S.scr = S.k === 1 ? "id" : "home"; S.buf = ""; S.ch = {}; S.msg = ""; S.toast = ""; S.focus = -1; if (S.ticket) S.ticket.visible = false;
+      round = null; draw(K[1]); draw(K[2]); G.redraw(); table();
+      const it = nextItem();
+      if (it.type === "sus") showSus(it.kiosk); else startB.disabled = it.type === "done";
+      hR.textContent = it.type === "done" ? "All rounds played" : it.type === "sus" ? `Rate Kiosk ${it.kiosk} below the scene` : "Press Start for the next round"; hC.textContent = ""; hW.textContent = "";
+      fly(HOME.pos, HOME.tgt);
+    }, gaveUp ? 900 : 1400);
+  }
+  function startRound() {
+    const it = nextItem(); if (it.type !== "round" || round) return;
+    round = {kiosk: it.kiosk, task: it.task, round: it.round, pos: it.pos, t0: performance.now(), errors: 0, taps: 0, over: false,
+      pid: String(100000 + Math.floor(Math.random() * 900000))};
+    const S = K[it.kiosk]; S.scr = it.kiosk === 1 ? "id" : "home"; S.buf = ""; S.ch = {}; S.focus = -1;
+    draw(K[1]); draw(K[2]);
+    hR.textContent = `Kiosk ${it.kiosk}, round ${it.round} of 3`;
+    hT.textContent = `${it.task.text} Your patient number is ${round.pid}${it.kiosk === 2 ? ", and your hospital card is in your hand" : ""}. Today is Monday 15 March 2027.`;
+    startB.disabled = true; quitB.disabled = false;
+    const x0 = KX[it.kiosk], dx = it.kiosk === 1 ? -0.12 : 0.1;
+    fly([x0 + dx, 1.33, 0.86], [x0 + dx, 1.2, 0]);
+    G.renderer.domElement.focus({preventScroll: true});
+  }
+  /* Camera flights. */
+  let flight = null;
+  function fly(pos, tgt) { flight = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0}; }
+  let lastSec = -1;
+  G.onTick(dt => {
+    let any = false;
+    if (flight) { flight.u = Math.min(1, flight.u + dt * 1.8); const e = flight.u < 0.5 ? 2 * flight.u * flight.u : 1 - Math.pow(-2 * flight.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(flight.p0, flight.p1, e); G.controls.target.lerpVectors(flight.t0, flight.t1, e); G.controls.update(); any = true; if (flight.u >= 1) flight = null; }
+    if (round && !round.over) {
+      const s = (performance.now() - round.t0) / 1000;
+      if (Math.floor(s) !== lastSec) { lastSec = Math.floor(s); hC.textContent = `Time ${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+        const w = 2 + Math.floor(s / 20); hW.textContent = `Patients waiting: ${w}`; queue.forEach((q, i) => { q.group.visible = i < Math.min(queue.length, w); }); any = true; }
+      if (s > LIMIT_S) finish(true);
+    }
+    const tk = K[2] && K[2].ticket; if (tk && tk.visible && tk.position.z < 0.27) { tk.position.z += dt * 0.12; any = true; }
+    return any;
+  });
+  kiosk(1); kiosk(2);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { draw(K[1]); draw(K[2]); G.redraw(); });
+  /* Pointer and keyboard. */
+  const cvs = G.renderer.domElement; cvs.tabIndex = 0; cvs.setAttribute("aria-label", "Two kiosks in the hospital lobby. During a round, Tab moves between the buttons of the active screen and Enter presses one.");
+  let down = null;
+  cvs.addEventListener("pointerdown", e => { down = [e.clientX, e.clientY]; });
+  cvs.addEventListener("pointerup", e => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6 || !round) return;
+    const S = K[round.kiosk], targets = [S.screen].concat(S.reader || []);
+    const hit = G.pick(e, targets); if (!hit) return;
+    if (hit.object.userData.reader) { if (S.scr === "card") { round.taps++; act("card"); } return; }
+    if (hit.object !== S.screen || !hit.uv) return;
+    const px = hit.uv.x * 640, py = (1 - hit.uv.y) * 480;
+    const b = S.btns.find(z => px >= z.x && px <= z.x + z.w && py >= z.y && py <= z.y + z.h);
+    if (b) press(S, b);
+  });
+  cvs.addEventListener("keydown", e => {
+    if (!round || round.over) return;
+    const S = K[round.kiosk], n = S.btns.length;
+    if (e.key === "Tab") {
+      if (!e.shiftKey && S.focus === n - 1) { S.focus = -1; draw(S); G.redraw(); return; }
+      if (e.shiftKey && S.focus <= 0) { S.focus = -1; draw(S); G.redraw(); return; }
+      e.preventDefault(); S.focus = e.shiftKey ? S.focus - 1 : S.focus + 1; draw(S); G.redraw(); return;
+    }
+    let b = null;
+    if ((e.key === "Enter" || e.key === " ") && S.focus >= 0) b = S.btns[S.focus];
+    else if (/^[0-9]$/.test(e.key)) b = S.btns.find(z => z.key === e.key);
+    else if (e.key === "Backspace") b = S.btns.find(z => z.key === "DEL");
+    else if (e.key === "Escape") b = S.btns.find(z => z.key === "ESC" || z.key === "BACK");
+    if (b) { e.preventDefault(); press(S, b); }
+  });
+  startB.addEventListener("click", startRound);
+  quitB.addEventListener("click", () => { if (round && !round.over) finish(true); });
+  document.getElementById("ks-view").addEventListener("click", () => fly(round ? [G.camera.position.x, 1.33, 0.86] : HOME.pos, round ? [G.controls.target.x, 1.2, 0] : HOME.tgt));
+  document.getElementById("ks-clr").addEventListener("click", () => { if (round) return; data = fresh(); save(); susBox.hidden = true; startB.disabled = false; table(); hR.textContent = "Press Start for the next round"; });
+  { const it = nextItem(); if (it.type === "sus") showSus(it.kiosk); else if (it.type === "done") startB.disabled = true; }
+  /* Hooks for the screenshots and the automatic tests of the course pages. */
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["ks-3d"] = () => { data = {order: [1, 2], runs: [], sus: {}}; save(); table(); startRound(); act("key", "4"); act("key", "7"); };
+  window.KIOSK_TEST = {
+    start: startRound, state: () => ({round: round ? {kiosk: round.kiosk, task: round.task.id, pid: round.pid, scr: K[round.kiosk].scr} : null, next: nextItem(), data}),
+    press: label => { const S = K[round.kiosk], b = S.btns.find(z => String(z.label).split("\n")[0] === label || String(z.label) === label); if (!b) return false; press(S, b); return true; },
+    reader: () => { if (round && K[round.kiosk].scr === "card") { round.taps++; act("card"); } },
+    sus: (k, a) => { a.forEach((x, j) => { const r = susBox.querySelector(`input[name="sus${k}_${j}"][value="${x}"]`); if (r) r.checked = true; }); const b = susBox.querySelector("button"); if (b) b.click(); }};
+})();
+
+/* Part C: The corridor of doors in 3D. */
+(function () {
+  const box = document.getElementById("dr-3d"); if (!box) return;
+  const KEY = "w1:doors";
+  const KINDS = {
+    plate_push: {name: "Push plate, opens by pushing", hw: "plate", need: "push"},
+    handle_pull: {name: "Pull handle, opens by pulling", hw: "handle", need: "pull"},
+    handle_push: {name: "Pull handle, opens by pushing", hw: "handle", need: "push"},
+    handle_push_sign: {name: "Pull handle with a Push sign, opens by pushing", hw: "handle", need: "push", sign: true}};
+  const ROOMS = ["Radiology", "Pharmacy", "Laboratory", "Cardiology", "Records", "Physiotherapy", "Eye clinic", "Waiting room",
+    "Dermatology", "Blood tests", "Neurology", "Exit"];
+  const tb = document.getElementById("dr-tb"), msg = document.getElementById("dr-msg"), csv = document.getElementById("dr-csv");
+  const runB = document.getElementById("dr-run"), pushB = document.getElementById("dr-push"), pullB = document.getElementById("dr-pull");
+  let trials = store.get(KEY, []), state = "idle";
+  const mean = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : NaN;
+  const sg = (v, d) => (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d);
+  function stats() {
+    const S = {};
+    Object.keys(KINDS).forEach(k => { const T = trials.filter(t => t.kind === k); if (!T.length) return;
+      const ok = T.filter(t => t.correct); S[k] = {n: T.length, err: T.length - ok.length, p: (T.length - ok.length) / T.length,
+        rt: mean(ok.map(t => t.rt_ms)) / 1000, open: mean(T.map(t => t.open_ms)) / 1000}; });
+    return S;
+  }
+  function table() {
+    tb.textContent = ""; const S = stats();
+    Object.keys(KINDS).forEach(k => { if (!S[k]) return; const s = S[k];
+      tb.append(h("tr", {}, h("td", {}, KINDS[k].name), h("td", {}, s.n), h("td", {}, s.err), h("td", {}, s.p.toFixed(3)),
+        h("td", {}, isNaN(s.rt) ? "-" : s.rt.toFixed(2) + " s"), h("td", {}, s.open.toFixed(2) + " s"))); });
+    const cost = document.getElementById("dr-cost");
+    if (S.plate_push && (S.handle_push || S.handle_push_sign)) {
+      cost.textContent = ["handle_push", "handle_push_sign"].filter(k => S[k]).map(k => `${KINDS[k].name}: Δp = ${sg(S[k].p - S.plate_push.p, 3)}, Δt = ${isNaN(S[k].rt) || isNaN(S.plate_push.rt) ? "-" : sg(S[k].rt - S.plate_push.rt, 2) + " s"}`).join("; ");
+    } else cost.textContent = "Walk through the corridor first";
+    labLog.note("Part C", `${trials.length} doors recorded`);
+  }
+  labLog.add(() => {
+    if (!trials.length) return "";
+    const S = stats(), L = ["## Part C: the corridor of doors", "", "| Kind of door | Doors | Wrong first tries | Mean time of correct first tries (s) | Mean time to open (s) |", "|---|---|---|---|---|"];
+    Object.keys(KINDS).forEach(k => { if (S[k]) L.push(`| ${KINDS[k].name} | ${S[k].n} | ${S[k].err} | ${isNaN(S[k].rt) ? "-" : S[k].rt.toFixed(2)} | ${S[k].open.toFixed(2)} |`); });
+    return L.join("\n");
+  });
+  table();
+  document.getElementById("dr-copy").addEventListener("click", () => {
+    const text = "door,kind,first,correct,rt_ms,open_ms\n" + trials.map(t => [t.door, t.kind, t.first, t.correct ? 1 : 0, Math.round(t.rt_ms), Math.round(t.open_ms)].join(",")).join("\n");
+    csv.value = text; csv.hidden = false; csv.select();
+    const done = () => { msg.textContent = `${trials.length} doors copied. Paste them between the triple quotes of MY_DOORS in Section 2.`; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => { msg.textContent = "Select the text below and copy it with Ctrl+C."; });
+    else msg.textContent = "Select the text below and copy it with Ctrl+C.";
+  });
+  document.getElementById("dr-clr").addEventListener("click", () => { if (state !== "idle") return; trials = []; store.set(KEY, trials); table(); });
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part.")); runB.disabled = true; return; }
+
+  /* The corridor. */
+  const STEP = 4.2, N = 12;
+  const G = make3D(box, {camera: [0, 1.6, 2.6], target: [0, 1.25, 0], limits: [0.5, 8, 1.6], aspect: 0.6, bg: 0xDCE3E8});
+  const T = G.T, scene = G.scene;
+  const mat = (c, o) => new T.MeshStandardMaterial(Object.assign({color: c, roughness: 0.75}, o || {}));
+  const len = STEP * N + 6;
+  const fl = new T.Mesh(new T.PlaneGeometry(3.2, len), mat(0xC9D3CF)); fl.rotation.x = -Math.PI / 2; fl.position.z = -len / 2 + 4; scene.add(fl);
+  [-1.6, 1.6].forEach(x => { const w = new T.Mesh(new T.BoxGeometry(0.1, 3, len), mat(0xDDEBE4)); w.position.set(x, 1.5, -len / 2 + 4); scene.add(w); });
+  const ceil = new T.Mesh(new T.PlaneGeometry(3.2, len), mat(0xF2F4F3)); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, 3, -len / 2 + 4); scene.add(ceil);
+  for (let z = 2; z > -len + 4; z -= 2.1) { const l = new T.Mesh(new T.BoxGeometry(0.9, 0.03, 0.25), new T.MeshBasicMaterial({color: 0xFFFFF4})); l.position.set(0, 2.98, z); scene.add(l); }
+  const sprite = (text, w, hh, bg, fg, fs) => {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; const x = c.getContext("2d");
+    x.fillStyle = bg; x.fillRect(0, 0, w, hh); x.fillStyle = fg; x.font = `700 ${fs}px Atkinson Hyperlegible, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, w / 2, hh / 2 + 3);
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return t;
+  };
+  const metal = mat(0xB9C0C8, {metalness: 0.7, roughness: 0.3});
+  const doors = [];
+  function buildDoor(i, kind) {
+    const z = -i * STEP, K = KINDS[kind];
+    const g = new T.Group(); g.position.set(0, 0, z); scene.add(g);
+    const wallMat = mat(0xDDEBE4);
+    const l = new T.Mesh(new T.BoxGeometry(1.05, 3, 0.16), wallMat); l.position.set(-1.075, 1.5, 0);
+    const r = new T.Mesh(new T.BoxGeometry(1.05, 3, 0.16), wallMat); r.position.set(1.075, 1.5, 0);
+    const top = new T.Mesh(new T.BoxGeometry(1.1, 0.9, 0.16), wallMat); top.position.set(0, 2.55, 0);
+    const fm = mat(0x6E7C86), jl = new T.Mesh(new T.BoxGeometry(0.07, 2.16, 0.18), fm), jr = jl.clone(), hd = new T.Mesh(new T.BoxGeometry(1.14, 0.08, 0.18), fm);
+    jl.position.set(-0.535, 1.08, 0); jr.position.set(0.535, 1.08, 0); hd.position.set(0, 2.12, 0);
+    g.add(l, r, top, jl, jr, hd);
+    const pivot = new T.Group(); pivot.position.set(-0.5, 0, 0.02); g.add(pivot);
+    const leaf = new T.Mesh(new T.BoxGeometry(1.0, 2.08, 0.05), mat(0xC9A97E)); leaf.position.set(0.5, 1.04, 0); leaf.userData.part = "leaf"; pivot.add(leaf);
+    const win = new T.Mesh(new T.BoxGeometry(0.3, 0.5, 0.055), mat(0xA9C7D8, {roughness: 0.2})); win.position.set(0.5, 1.55, 0); win.userData.part = "leaf"; pivot.add(win);
+    const parts = [leaf, win];
+    if (K.hw === "plate") {
+      const p = new T.Mesh(new T.BoxGeometry(0.11, 0.34, 0.012), metal); p.position.set(0.85, 1.1, 0.032); p.userData.part = "plate"; pivot.add(p); parts.push(p);
+    } else {
+      const bar = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.4, 14), metal); bar.position.set(0.86, 1.08, 0.085); bar.userData.part = "handle";
+      const s1 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.07, 10), metal); s1.rotation.x = Math.PI / 2; s1.position.set(0.86, 1.25, 0.055); s1.userData.part = "handle";
+      const s2 = s1.clone(); s2.position.y = 0.91; s2.userData.part = "handle";
+      const grab = new T.Mesh(new T.BoxGeometry(0.16, 0.5, 0.12), new T.MeshBasicMaterial({visible: false})); grab.position.set(0.86, 1.08, 0.07); grab.userData.part = "handle";
+      pivot.add(bar, s1, s2, grab); parts.push(bar, s1, s2, grab);
+    }
+    if (K.sign) {
+      const s = new T.Mesh(new T.PlaneGeometry(0.24, 0.1), new T.MeshBasicMaterial({map: sprite("PUSH", 240, 100, "#FFFFFF", "#8A1F11", 64)}));
+      s.position.set(0.82, 1.42, 0.03); s.userData.part = "leaf"; pivot.add(s); parts.push(s);
+    }
+    const name = new T.Mesh(new T.PlaneGeometry(0.9, 0.2), new T.MeshBasicMaterial({map: sprite(ROOMS[i % ROOMS.length], 450, 100, "#2F5D8A", "#FFFFFF", 56)}));
+    name.position.set(0, 2.38, 0.085); g.add(name);
+    return {g, pivot, parts, kind, angle: 0, goal: 0, shake: 0, z};
+  }
+  let seq = [], idx = 0, t0 = 0, first = null, firstT = 0, flight = null;
+  function layout() {
+    doors.forEach(d => scene.remove(d.g)); doors.length = 0;
+    const ks = Object.keys(KINDS); seq = [];
+    for (let r = 0; r < 3; r++) seq.push(...ks);
+    for (let i = seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [seq[i], seq[j]] = [seq[j], seq[i]]; }
+    seq.forEach((k, i) => doors.push(buildDoor(i, k)));
+    G.redraw();
+  }
+  layout();
+  const hud = h("div", {class: "hud"}), big = h("div", {class: "big", hidden: ""});
+  const hd = h("span", {}, "Start with the button below the scene"), hi = h("span", {}, "Click the handle to pull, the door to push"), hc = h("span", {}, "");
+  hud.append(hd, hi, hc); box.append(hud, big);
+  function fly(z) { flight = {z0: G.camera.position.z, z1: z + 2.6, u: 0}; }
+  function arrive() { state = "go"; first = null; requestAnimationFrame(() => { t0 = performance.now(); }); hd.textContent = `Door ${idx + 1} of ${N}`; }
+  function act(action) {
+    if (state !== "go") return;
+    const d = doors[idx], need = KINDS[d.kind].need, now = performance.now();
+    if (first === null) { first = action; firstT = now - t0; }
+    if (action !== need) { d.shake = 0.45; big.hidden = false; big.textContent = action === "pull" ? "It does not open by pulling" : "It does not open by pushing"; big.style.color = "#8A1F11"; setTimeout(() => { big.hidden = true; }, 700); G.redraw(); return; }
+    state = "open"; d.goal = need === "push" ? 1.35 : -1.35;
+    trials.push({door: idx + 1, kind: d.kind, first, correct: first === need, rt_ms: firstT, open_ms: now - t0}); store.set(KEY, trials);
+    hc.textContent = first === need ? `Right first time, ${(firstT / 1000).toFixed(2)} s` : `Opened after a wrong try, ${((now - t0) / 1000).toFixed(2)} s`;
+    setTimeout(() => { idx++; if (idx >= N) { state = "idle"; G.controls.enabled = true; hd.textContent = "Done. Compare the kinds of doors in the table."; pushB.disabled = pullB.disabled = true; runB.disabled = false; table(); return; }
+      state = "walk"; fly(doors[idx].z); }, 650);
+  }
+  G.onTick(dt => {
+    let any = false;
+    doors.forEach(d => {
+      if (Math.abs(d.angle - d.goal) > 0.002) { d.angle += (d.goal - d.angle) * Math.min(1, dt * 7); any = true; }
+      let wob = 0; if (d.shake > 0) { d.shake = Math.max(0, d.shake - dt); wob = Math.sin(d.shake * 60) * 0.03 * d.shake / 0.45; any = true; }
+      d.pivot.rotation.y = d.angle + wob;
+    });
+    if (flight) { flight.u = Math.min(1, flight.u + dt * 0.9); const e = flight.u < 0.5 ? 2 * flight.u * flight.u : 1 - Math.pow(-2 * flight.u + 2, 2) / 2;
+      const z = flight.z0 + (flight.z1 - flight.z0) * e; G.camera.position.set(0, 1.6, z); G.controls.target.set(0, 1.25, z - 2.6); G.camera.lookAt(0, 1.25, z - 2.6); any = true;
+      if (flight.u >= 1) { flight = null; if (state === "walk") arrive(); } }
+    return any;
+  });
+  runB.addEventListener("click", () => {
+    if (state !== "idle") return;
+    layout(); idx = 0; G.controls.enabled = false; runB.disabled = true; pushB.disabled = pullB.disabled = false;
+    G.camera.position.set(0, 1.6, 6.5); state = "walk"; fly(doors[0].z); G.renderer.domElement.focus({preventScroll: true});
+  });
+  pushB.addEventListener("click", () => act("push"));
+  pullB.addEventListener("click", () => act("pull"));
+  const cvs = G.renderer.domElement; cvs.tabIndex = 0; cvs.setAttribute("aria-label", "A corridor of doors. Press the up arrow to push and the down arrow to pull.");
+  let down = null;
+  cvs.addEventListener("pointerdown", e => { down = [e.clientX, e.clientY]; });
+  cvs.addEventListener("pointerup", e => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6 || state !== "go") return;
+    const hit = G.pick(e, doors[idx].parts); if (!hit) return;
+    act(hit.object.userData.part === "handle" ? "pull" : "push");
+  });
+  cvs.addEventListener("keydown", e => { if (state !== "go") return; if (e.key === "ArrowUp") { e.preventDefault(); act("push"); } else if (e.key === "ArrowDown") { e.preventDefault(); act("pull"); } });
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["dr-3d"] = () => { seq = []; doors.forEach(d => scene.remove(d.g)); doors.length = 0;
+    ["handle_push_sign", "plate_push", "handle_pull"].concat(Array(9).fill("plate_push")).forEach((k, i) => doors.push(buildDoor(i, k)));
+    G.camera.position.set(0.55, 1.62, 2.45); G.controls.target.set(-0.1, 1.2, 0); G.controls.update(); G.redraw(); };
+  window.DOORS_TEST = {run: () => runB.click(), state: () => ({state, idx, kind: doors[idx] && doors[idx].kind, n: trials.length}),
+    act: a => act(a), need: () => doors[idx] && KINDS[doors[idx].kind].need};
+})();
+
+initLab(1,"Foundations: The Interaction Loop, User-Centred Design and Usability",[{"q": "Which three components make up usability in ISO 9241-11?", "options": ["Speed, beauty and price", "Effectiveness, efficiency and satisfaction", "Learnability, memorability and errors", "Hardware, software and users"], "answer": 1, "why": "The standard measures usability by these three components in a specified context of use."}, {"q": "Which statement describes user-centred design?", "options": ["The interface mirrors the structure of the database", "Users learn the internal codes of the organisation", "The design starts from the users, their tasks and context, and is tested and revised with them", "The design is finished before any user sees it"], "answer": 2, "why": "Early focus on users, measurement and iteration are the principles of Gould and Lewis."}, {"q": "Which stage belongs to the evaluation half of Norman's loop?", "options": ["Plan the action", "Specify the sequence", "Interpret the state of the system", "Perform the action"], "answer": 2, "why": "Perceive, interpret and compare form the evaluation half."}, {"q": "A message reads 'Error 0x45'. Which gulf does it widen?", "options": ["Execution", "Evaluation", "Neither", "It narrows both"], "answer": 1, "why": "The person cannot interpret the state of the system from the message."}, {"q": "Ten patients attempt a task, six succeed, and all ten together spend 40 minutes. What is the efficiency in tasks per minute?", "options": ["0.15", "0.25", "0.60", "6.67"], "answer": 0, "why": "$\\eta = 6 / 40 = 0.15$ tasks per minute."}, {"q": "A participant answers 5 to every SUS statement. What is the score?", "options": ["100", "50", "62.5", "125"], "answer": 1, "why": "Odd items give $5 - 1 = 4$ each, even items $5 - 5 = 0$ each: $2.5 \\times 20 = 50$."}, {"q": "What is a signifier?", "options": ["The meaning of a word in a menu", "A perceivable cue that shows where and how to act", "A constraint that prevents errors", "The conceptual model of the designer"], "answer": 1, "why": "Signifiers communicate where the action should take place."}, {"q": "A flow has four steps, each with a slip probability of 0.1. What is the probability of no slip?", "options": ["0.600", "0.656", "0.900", "0.400"], "answer": 1, "why": "$P_0 = 0.9^4 = 0.656$."}, {"q": "Why can removing a step help more than reducing its slip probability?", "options": ["Because slips never matter", "Because every step adds its time $t_k$ and its own risk", "Because the formulas ignore time", "Because users prefer long flows"], "answer": 1, "why": "A removed step contributes neither time nor risk."}, {"q": "Why does an assistant based on artificial intelligence (AI) that accepts any sentence widen the gulf of execution?", "options": ["Because it answers too fast", "Because users cannot see what it can do and what to ask", "Because it always gives correct answers", "Because it has no interface"], "answer": 1, "why": "Without visible capabilities, people do not know which actions are available."}],["In the kiosk race, where did you lose the most time on each kiosk? Name the gulf behind each loss.", "Did your SUS scores agree with your times and errors? What could explain a difference?", "Which door made you hesitate most, and what would you change in its hardware rather than add a sign?", "In the cooktop experiment, how large was your cost of a poor mapping, and did it shrink over the trials?", "Which assumption of the chain-of-steps model is the least realistic for real patients, and how would you test it?"]);
+})();</script></body></html>

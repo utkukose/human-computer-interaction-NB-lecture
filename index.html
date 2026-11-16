@@ -1,0 +1,681 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Human-Computer Interaction | Course home</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style></head><body><div class="wrap"><header class="top"><p class="course">BIL-429 İnsan-Bilgisayar Etkileşimi. Undergraduate elective course, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye</p><h1>Human-Computer Interaction</h1><p class="who">Prof. Dr. Utku Kose</p><nav><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture">Repository</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/start-here">Start here</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/blob/main/SYLLABUS.md">Syllabus</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/blob/main/PYTHON_PATH.md">Python path</a></nav></header><p>A 14-week undergraduate course with lecture pages, interface clinics, 3D games and experiments in interactive labs, Colab notebooks that analyse the students' own interaction data, and a Python track for beginners. Each week starts from its overview, which gives the study path and links to the lecture page, the Colab notebook, the interactive lab and the PDF notes. The project of the course, the clinic app, runs through all weeks. Progress in the knowledge checks is stored only in this browser.</p><p><img src="assets/clinic_app_stages.png" alt="The fourteen stages of the clinic app through the course"></p><div class="weeks"><div class="wk" data-week="1"><span class="n">Week 1</span><h3>Foundations: The Interaction Loop, User-Centred Design and Usability</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-01">Week overview</a><a href="weeks/week-01/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb">Colab notebook</a><a href="weeks/week-01/lab.html">Interactive lab</a><a href="weeks/week-01/Week01_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="2"><span class="n">Week 2</span><h3>The Human I: Perception, Colour and Its Psychological Effects</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-02">Week overview</a><a href="weeks/week-02/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-02/NB02_perception_and_colour.ipynb">Colab notebook</a><a href="weeks/week-02/lab.html">Interactive lab</a><a href="weeks/week-02/Week02_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="3"><span class="n">Week 3</span><h3>The Human II: Attention, Memory and Decisions</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-03">Week overview</a><a href="weeks/week-03/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-03/NB03_attention_memory_decisions.ipynb">Colab notebook</a><a href="weeks/week-03/lab.html">Interactive lab</a><a href="weeks/week-03/Week03_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="4"><span class="n">Week 4</span><h3>The Human III: Movement, Pointing and Input</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-04">Week overview</a><a href="weeks/week-04/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-04/NB04_pointing_and_input.ipynb">Colab notebook</a><a href="weeks/week-04/lab.html">Interactive lab</a><a href="weeks/week-04/Week04_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="5"><span class="n">Week 5</span><h3>Design Principles, Heuristics and Human Error</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-05">Week overview</a><a href="weeks/week-05/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-05/NB05_heuristics_and_error.ipynb">Colab notebook</a><a href="weeks/week-05/lab.html">Interactive lab</a><a href="weeks/week-05/Week05_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="6"><span class="n">Week 6</span><h3>User-Centred Design in Practice: Interviews, Personas and Tasks</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-06">Week overview</a><a href="weeks/week-06/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-06/NB06_users_and_tasks.ipynb">Colab notebook</a><a href="weeks/week-06/lab.html">Interactive lab</a><a href="weeks/week-06/Week06_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="7"><span class="n">Week 7</span><h3>Prototypes and Navigation: Menu Trees, Scent and State Machines</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-07">Week overview</a><a href="weeks/week-07/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb">Colab notebook</a><a href="weeks/week-07/lab.html">Interactive lab</a><a href="weeks/week-07/Week07_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="8"><span class="n">Week 8</span><h3>Visual Design and Emotion: Grouping, Layout, First and Last Impressions</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-08">Week overview</a><a href="weeks/week-08/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb">Colab notebook</a><a href="weeks/week-08/lab.html">Interactive lab</a><a href="weeks/week-08/Week08_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="9"><span class="n">Week 9</span><h3>Usability Testing: Observing People and Measuring with Confidence</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-09">Week overview</a><a href="weeks/week-09/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb">Colab notebook</a><a href="weeks/week-09/lab.html">Interactive lab</a><a href="weeks/week-09/Week09_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="10"><span class="n">Week 10</span><h3>Accessibility and Inclusive Design</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-10">Week overview</a><a href="weeks/week-10/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-10/NB10_accessibility.ipynb">Colab notebook</a><a href="weeks/week-10/lab.html">Interactive lab</a><a href="weeks/week-10/Week10_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="11"><span class="n">Week 11</span><h3>Mobile, Multimodal and Ubiquitous Interaction</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-11">Week overview</a><a href="weeks/week-11/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb">Colab notebook</a><a href="weeks/week-11/lab.html">Interactive lab</a><a href="weeks/week-11/Week11_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="12"><span class="n">Week 12</span><h3>3D User Interfaces, Virtual and Augmented Reality</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-12">Week overview</a><a href="weeks/week-12/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-12/NB12_3d_ui_vr_ar.ipynb">Colab notebook</a><a href="weeks/week-12/lab.html">Interactive lab</a><a href="weeks/week-12/Week12_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="13"><span class="n">Week 13</span><h3>Human-AI Interaction I: Trust, Reliance and Explanations</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-13">Week overview</a><a href="weeks/week-13/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-13/NB13_trust_reliance_explanations.ipynb">Colab notebook</a><a href="weeks/week-13/lab.html">Interactive lab</a><a href="weeks/week-13/Week13_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div><div class="wk" data-week="14"><span class="n">Week 14</span><h3>Human-AI Interaction II: Conversational Interfaces, Dark Patterns and Ethics</h3><div class="links"><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-14">Week overview</a><a href="weeks/week-14/lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-14/NB14_conversation_dark_patterns_ethics.ipynb">Colab notebook</a><a href="weeks/week-14/lab.html">Interactive lab</a><a href="weeks/week-14/Week14_Lecture_Notes.pdf">PDF notes</a></div><p class="done"></p></div></div><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script>document.querySelectorAll('.wk[data-week]').forEach(function(c){var p=store.get('w'+c.dataset.week+':progress',null);if(p!==null){c.querySelector('.done').textContent='Knowledge checks: '+Math.round(100*p)+' percent answered correctly';}});</script></body></html>

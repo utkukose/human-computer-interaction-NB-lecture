@@ -1,0 +1,842 @@
+{
+ "accot1997": {
+  "text": "Accot, J., & Zhai, S. (1997). Beyond Fitts' law: Models for trajectory-based HCI tasks. In Proceedings of the ACM SIGCHI Conference on Human Factors in Computing Systems (pp. 295-302). ACM.",
+  "link": "https://doi.org/10.1145/258549.258760"
+ },
+ "acm2018": {
+  "text": "ACM Code 2018 Task Force. (2018). ACM Code of Ethics and Professional Conduct. Association for Computing Machinery.",
+  "link": "https://www.acm.org/code-of-ethics"
+ },
+ "ada2010": {
+  "text": "U.S. Department of Justice. (2010). 2010 ADA Standards for Accessible Design. U.S. Department of Justice.",
+  "link": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/"
+ },
+ "agresti1998": {
+  "text": "Agresti, A., & Coull, B. A. (1998). Approximate is better than \"exact\" for interval estimation of binomial proportions. The American Statistician, 52(2), 119-126.",
+  "link": "https://doi.org/10.1080/00031305.1998.10480550"
+ },
+ "aiact2024": {
+  "text": "European Parliament and Council of the European Union. (2024). Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 laying down harmonised rules on artificial intelligence and amending Regulations (EC) No 300/2008, (EU) No 167/2013, (EU) No 168/2013, (EU) 2018/858, (EU) 2018/1139 and (EU) 2019/2144 and Directives 2014/90/EU, (EU) 2016/797 and (EU) 2020/1828 (Artificial Intelligence Act). Official Journal of the European Union, L, 2024/1689.",
+  "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+ },
+ "amershi2019": {
+  "text": "Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., & Horvitz, E. (2019). Guidelines for human-AI interaction. In Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems (pp. 1-13). ACM.",
+  "link": "https://doi.org/10.1145/3290605.3300233"
+ },
+ "armitage1969": {
+  "text": "Armitage, P., McPherson, C. K., & Rowe, B. C. (1969). Repeated significance tests on accumulating data. Journal of the Royal Statistical Society. Series A (General), 132(2), 235-244.",
+  "link": "https://doi.org/10.2307/2343787"
+ },
+ "ayers2023": {
+  "text": "Ayers, J. W., Poliak, A., Dredze, M., Leas, E. C., Zhu, Z., Kelley, J. B., Faix, D. J., Goodman, A. M., Longhurst, C. A., Hogarth, M., & Smith, D. M. (2023). Comparing physician and artificial intelligence chatbot responses to patient questions posted to a public social media forum. JAMA Internal Medicine, 183(6), 589-596.",
+  "link": "https://doi.org/10.1001/jamainternmed.2023.1838"
+ },
+ "azuma1997": {
+  "text": "Azuma, R. T. (1997). A survey of augmented reality. Presence: Teleoperators and Virtual Environments, 6(4), 355-385.",
+  "link": "https://doi.org/10.1162/pres.1997.6.4.355"
+ },
+ "bansal2021": {
+  "text": "Bansal, G., Wu, T., Zhou, J., Fok, R., Nushi, B., Kamar, E., Ribeiro, M. T., & Weld, D. (2021). Does the whole exceed its parts? The effect of AI explanations on complementary team performance. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (pp. 1-16). ACM.",
+  "link": "https://doi.org/10.1145/3411764.3445717"
+ },
+ "barrett2019": {
+  "text": "Barrett, L. F., Adolphs, R., Marsella, S., Martinez, A. M., & Pollak, S. D. (2019). Emotional expressions reconsidered: Challenges to inferring emotion from human facial movements. Psychological Science in the Public Interest, 20(1), 1-68.",
+  "link": "https://doi.org/10.1177/1529100619832930"
+ },
+ "bergstrom2014": {
+  "text": "Bergstrom-Lehtovirta, J., & Oulasvirta, A. (2014). Modeling the functional area of the thumb on mobile touchscreen surfaces. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1991-2000). ACM.",
+  "link": "https://doi.org/10.1145/2556288.2557354"
+ },
+ "bi2013": {
+  "text": "Bi, X., Li, Y., & Zhai, S. (2013). FFitts law: Modeling finger touch with Fitts' law. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1363-1372). ACM.",
+  "link": "https://doi.org/10.1145/2470654.2466180"
+ },
+ "bickmore2018": {
+  "text": "Bickmore, T. W., Trinh, H., Olafsson, S., O'Leary, T. K., Asadi, R., Rickles, N. M., & Cruz, R. (2018). Patient and consumer safety risks when using conversational assistants for medical information: An observational study of Siri, Alexa, and Google Assistant. Journal of Medical Internet Research, 20(9), e11510.",
+  "link": "https://doi.org/10.2196/11510"
+ },
+ "birch2012": {
+  "text": "Birch, J. (2012). Worldwide prevalence of red-green color deficiency. Journal of the Optical Society of America A, 29(3), 313-320.",
+  "link": "https://doi.org/10.1364/JOSAA.29.000313"
+ },
+ "blackwell2017": {
+  "text": "Blackwell, A. G. (2017). The curb-cut effect. Stanford Social Innovation Review, 15(1), 28-33.",
+  "link": "https://ssir.org/articles/entry/the_curb_cut_effect"
+ },
+ "bolt1980": {
+  "text": "Bolt, R. A. (1980). \"Put-that-there\": Voice and gesture at the graphics interface. In Proceedings of the 7th Annual Conference on Computer Graphics and Interactive Techniques (pp. 262-270). ACM.",
+  "link": "https://doi.org/10.1145/800250.807503"
+ },
+ "boren2000": {
+  "text": "Boren, M. T., & Ramey, J. (2000). Thinking aloud: Reconciling theory and practice. IEEE Transactions on Professional Communication, 43(3), 261-278.",
+  "link": "https://doi.org/10.1109/47.867942"
+ },
+ "borodin2010": {
+  "text": "Borodin, Y., Bigham, J. P., Dausch, G., & Ramakrishnan, I. V. (2010). More than meets the eye: A survey of screen-reader browsing strategies. In Proceedings of the 2010 International Cross Disciplinary Conference on Web Accessibility (W4A) (pp. 1-10). ACM.",
+  "link": "https://doi.org/10.1145/1805986.1806005"
+ },
+ "bowman1997grab": {
+  "text": "Bowman, D. A., & Hodges, L. F. (1997). An evaluation of techniques for grabbing and manipulating remote objects in immersive virtual environments. In Proceedings of the 1997 Symposium on Interactive 3D Graphics (pp. 35-38, 182). ACM.",
+  "link": "https://doi.org/10.1145/253284.253301"
+ },
+ "bowman1997travel": {
+  "text": "Bowman, D. A., Koller, D., & Hodges, L. F. (1997). Travel in immersive virtual environments: An evaluation of viewpoint motion control techniques. In Proceedings of IEEE 1997 Annual International Symposium on Virtual Reality (pp. 45-52). IEEE.",
+  "link": "https://doi.org/10.1109/VRAIS.1997.583043"
+ },
+ "bozgeyikli2016": {
+  "text": "Bozgeyikli, E., Raij, A., Katkoori, S., & Dubey, R. (2016). Point & teleport locomotion technique for virtual reality. In Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play (pp. 205-216). ACM.",
+  "link": "https://doi.org/10.1145/2967934.2968105"
+ },
+ "bradley1994": {
+  "text": "Bradley, M. M., & Lang, P. J. (1994). Measuring emotion: The Self-Assessment Manikin and the semantic differential. Journal of Behavior Therapy and Experimental Psychiatry, 25(1), 49-59.",
+  "link": "https://doi.org/10.1016/0005-7916(94)90063-9"
+ },
+ "bragg2018": {
+  "text": "Bragg, D., Bennett, C., Reinecke, K., & Ladner, R. (2018). A large inclusive study of human listening rates. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems (pp. 1-12). ACM.",
+  "link": "https://doi.org/10.1145/3173574.3174018"
+ },
+ "brier1950": {
+  "text": "Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. Monthly Weather Review, 78(1), 1-3.",
+  "link": "https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2"
+ },
+ "brooke1996": {
+  "text": "Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan, B. Thomas, B. A. Weerdmeester, & I. L. McClelland (Eds.), Usability Evaluation in Industry (pp. 189-194). Taylor & Francis.",
+  "link": "https://doi.org/10.1201/9781498710411-35"
+ },
+ "bucinca2021": {
+  "text": "Buçinca, Z., Malaya, M. B., & Gajos, K. Z. (2021). To trust or to think: Cognitive forcing functions can reduce overreliance on AI in AI-assisted decision-making. Proceedings of the ACM on Human-Computer Interaction, 5(CSCW1), Article 188, 1-21.",
+  "link": "https://doi.org/10.1145/3449287"
+ },
+ "campbell2007": {
+  "text": "Campbell, I. (2007). Chi-squared and Fisher-Irwin tests of two-by-two tables with small sample recommendations. Statistics in Medicine, 26(19), 3661-3675.",
+  "link": "https://doi.org/10.1002/sim.2832"
+ },
+ "card1980": {
+  "text": "Card, S. K., Moran, T. P., & Newell, A. (1980). The keystroke-level model for user performance time with interactive systems. Communications of the ACM, 23(7), 396-410.",
+  "link": "https://doi.org/10.1145/358886.358895"
+ },
+ "card1983": {
+  "text": "Card, S. K., Moran, T. P., & Newell, A. (2018). The Psychology of Human-Computer Interaction. CRC Press. Original work published 1983 by Lawrence Erlbaum Associates.",
+  "link": "https://doi.org/10.1201/9780203736166"
+ },
+ "chapanis1959": {
+  "text": "Chapanis, A., & Lindenbaum, L. E. (1959). A reaction time study of four control-display linkages. Human Factors, 1(4), 1-7.",
+  "link": "https://doi.org/10.1177/001872085900100401"
+ },
+ "cie2018": {
+  "text": "Commission Internationale de l'Eclairage. (2018). Colorimetry (4th ed., CIE 015:2018). CIE.",
+  "link": "https://doi.org/10.25039/TR.015.2018"
+ },
+ "clark1991": {
+  "text": "Clark, H. H., & Brennan, S. E. (1991). Grounding in communication. In L. B. Resnick, J. M. Levine, & S. D. Teasley (Eds.), Perspectives on socially shared cognition (pp. 127-149). American Psychological Association.",
+  "link": "https://doi.org/10.1037/10096-006"
+ },
+ "cockburn2007": {
+  "text": "Cockburn, A., Gutwin, C., & Greenberg, S. (2007). A predictive model of menu performance. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 627-636). ACM.",
+  "link": "https://doi.org/10.1145/1240624.1240723"
+ },
+ "cockburn2015": {
+  "text": "Cockburn, A., Quinn, P., & Gutwin, C. (2015). Examining the peak-end effects of subjective experience. In Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems (pp. 357-366). ACM.",
+  "link": "https://doi.org/10.1145/2702123.2702139"
+ },
+ "cohen1960": {
+  "text": "Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37-46.",
+  "link": "https://doi.org/10.1177/001316446002000104"
+ },
+ "cowan2001": {
+  "text": "Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. Behavioral and Brain Sciences, 24(1), 87-114.",
+  "link": "https://doi.org/10.1017/S0140525X01003922"
+ },
+ "crossman1983": {
+  "text": "Crossman, E. R. F. W., & Goodeve, P. J. (1983). Feedback control of hand-movement and Fitts' law. The Quarterly Journal of Experimental Psychology Section A, 35(2), 251-278.",
+  "link": "https://doi.org/10.1080/14640748308402133"
+ },
+ "dahlback1993": {
+  "text": "Dahlbäck, N., Jönsson, A., & Ahrenberg, L. (1993). Wizard of Oz studies: Why and how. In Proceedings of the 1st International Conference on Intelligent User Interfaces (pp. 193-200). ACM.",
+  "link": "https://doi.org/10.1145/169891.169968"
+ },
+ "dell2012": {
+  "text": "Dell, N., Vaidyanathan, V., Medhi, I., Cutrell, E., & Thies, W. (2012). \"Yours is better!\": Participant response bias in HCI. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1321-1330). ACM.",
+  "link": "https://doi.org/10.1145/2207676.2208589"
+ },
+ "deuschl1998": {
+  "text": "Deuschl, G., Bain, P., & Brin, M. (1998). Consensus statement of the Movement Disorder Society on tremor. Movement Disorders, 13(S3), 2-23.",
+  "link": "https://doi.org/10.1002/mds.870131303"
+ },
+ "devlin2014": {
+  "text": "Devlin, A. S. (2014). Wayfinding in healthcare facilities: Contributions from environmental psychology. Behavioral Sciences, 4(4), 423-436.",
+  "link": "https://doi.org/10.3390/bs4040423"
+ },
+ "dey2001": {
+  "text": "Dey, A. K. (2001). Understanding and using context. Personal and Ubiquitous Computing, 5(1), 4-7.",
+  "link": "https://doi.org/10.1007/s007790170019"
+ },
+ "dhakal2018": {
+  "text": "Dhakal, V., Feit, A. M., Kristensson, P. O., & Oulasvirta, A. (2018). Observations on typing from 136 million keystrokes. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems (pp. 1-12). ACM.",
+  "link": "https://doi.org/10.1145/3173574.3174220"
+ },
+ "dietvorst2015": {
+  "text": "Dietvorst, B. J., Simmons, J. P., & Massey, C. (2015). Algorithm aversion: People erroneously avoid algorithms after seeing them err. Journal of Experimental Psychology: General, 144(1), 114-126.",
+  "link": "https://doi.org/10.1037/xge0000033"
+ },
+ "dsouza2011": {
+  "text": "D'Souza, C., Steinfeld, E., Paquet, V., & Feathers, D. (2011). Functional reach capability for wheeled mobility users (Design Resource No. 20). IDeA Center, University at Buffalo.",
+  "link": "https://idea.ap.buffalo.edu/wp-content/uploads/sites/110/2019/08/20.pdf"
+ },
+ "elliot2014": {
+  "text": "Elliot, A. J., & Maier, M. A. (2014). Color psychology: Effects of perceiving color on psychological functioning in humans. Annual Review of Psychology, 65, 95-120.",
+  "link": "https://doi.org/10.1146/annurev-psych-010213-115035"
+ },
+ "engelbart1968": {
+  "text": "Engelbart, D. C., & English, W. K. (1968). A research center for augmenting human intellect. In Proceedings of the December 9-11, 1968, Fall Joint Computer Conference, Part I (AFIPS '68 Fall, Part I) (pp. 395-410). ACM.",
+  "link": "https://doi.org/10.1145/1476589.1476645"
+ },
+ "fan2020": {
+  "text": "Fan, M., Li, Y., & Truong, K. N. (2020). Automatic detection of usability problem encounters in think-aloud sessions. ACM Transactions on Interactive Intelligent Systems, 10(2), Article 16.",
+  "link": "https://doi.org/10.1145/3385732"
+ },
+ "fan2020vista": {
+  "text": "Fan, M., Wu, K., Zhao, J., Li, Y., Wei, W., & Truong, K. N. (2020). VisTA: Integrating machine intelligence with visualization to support the investigation of think-aloud sessions. IEEE Transactions on Visualization and Computer Graphics, 26(1), 343-352.",
+  "link": "https://doi.org/10.1109/TVCG.2019.2934797"
+ },
+ "faulkner2003": {
+  "text": "Faulkner, L. (2003). Beyond the five-user assumption: Benefits of increased sample sizes in usability testing. Behavior Research Methods, Instruments, & Computers, 35(3), 379-383.",
+  "link": "https://doi.org/10.3758/BF03195514"
+ },
+ "fernandes2016": {
+  "text": "Fernandes, A. S., & Feiner, S. K. (2016). Combating VR sickness through subtle dynamic field-of-view modification. In 2016 IEEE Symposium on 3D User Interfaces (3DUI) (pp. 201-210). IEEE.",
+  "link": "https://doi.org/10.1109/3DUI.2016.7460053"
+ },
+ "filik2006": {
+  "text": "Filik, R., Purdy, K., Gale, A., & Gerrett, D. (2006). Labeling of medicines and patient safety: Evaluating methods of reducing drug name confusion. Human Factors, 48(1), 39-47.",
+  "link": "https://doi.org/10.1518/001872006776412199"
+ },
+ "fitts1954": {
+  "text": "Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. Journal of Experimental Psychology, 47(6), 381-391.",
+  "link": "https://doi.org/10.1037/h0055392"
+ },
+ "fitz2019": {
+  "text": "Fitz, N., Kushlev, K., Jagannathan, R., Lewis, T., Paliwal, D., & Ariely, D. (2019). Batching smartphone notifications can improve well-being. Computers in Human Behavior, 101, 84-94.",
+  "link": "https://doi.org/10.1016/j.chb.2019.07.016"
+ },
+ "flesch1948": {
+  "text": "Flesch, R. (1948). A new readability yardstick. Journal of Applied Psychology, 32(3), 221-233.",
+  "link": "https://doi.org/10.1037/h0057532"
+ },
+ "francis2010": {
+  "text": "Francis, J. J., Johnston, M., Robertson, C., Glidewell, L., Entwistle, V., Eccles, M. P., & Grimshaw, J. M. (2010). What is an adequate sample size? Operationalising data saturation for theory-based interview studies. Psychology & Health, 25(10), 1229-1245.",
+  "link": "https://doi.org/10.1080/08870440903194015"
+ },
+ "friedman2019": {
+  "text": "Friedman, B., & Hendry, D. G. (2019). Value sensitive design: Shaping technology with moral imagination. The MIT Press.",
+  "link": "https://doi.org/10.7551/mitpress/7585.001.0001"
+ },
+ "gaube2021": {
+  "text": "Gaube, S., Suresh, H., Raue, M., Merritt, A., Berkowitz, S. J., Lermer, E., Coughlin, J. F., Guttag, J. V., Colak, E., & Ghassemi, M. (2021). Do as AI say: Susceptibility in deployment of clinical decision-aids. npj Digital Medicine, 4, 31.",
+  "link": "https://doi.org/10.1038/s41746-021-00385-9"
+ },
+ "gdpr2016": {
+  "text": "European Parliament and Council of the European Union. (2016). Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation). Official Journal of the European Union, L 119, 1-88.",
+  "link": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+ },
+ "gibson1979": {
+  "text": "Gibson, J. J. (2014). The Ecological Approach to Visual Perception (Classic edition). Psychology Press. Original work published 1979.",
+  "link": "https://doi.org/10.4324/9781315740218"
+ },
+ "gnambs2020": {
+  "text": "Gnambs, T. (2020). Limited evidence for the effect of red color on cognitive performance: A meta-analysis. Psychonomic Bulletin & Review, 27(6), 1374-1382.",
+  "link": "https://doi.org/10.3758/s13423-020-01772-1"
+ },
+ "goldstein2021": {
+  "text": "Goldstein, E. B., & Cacciamani, L. (2021). Sensation and Perception (11th ed.). Cengage.",
+  "link": "https://www.cengage.com/c/new-edition/9780357446478"
+ },
+ "gould1985": {
+  "text": "Gould, J. D., & Lewis, C. (1985). Designing for usability: Key principles and what designers think. Communications of the ACM, 28(3), 300-311.",
+  "link": "https://doi.org/10.1145/3166.3170"
+ },
+ "gray2018": {
+  "text": "Gray, C. M., Kou, Y., Battles, B., Hoggatt, J., & Toombs, A. L. (2018). The dark (patterns) side of UX design. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems (pp. 1-14). ACM.",
+  "link": "https://doi.org/10.1145/3173574.3174108"
+ },
+ "guest2006": {
+  "text": "Guest, G., Bunce, A., & Johnson, L. (2006). How many interviews are enough? An experiment with data saturation and variability. Field Methods, 18(1), 59-82.",
+  "link": "https://doi.org/10.1177/1525822X05279903"
+ },
+ "gunawardana2010": {
+  "text": "Gunawardana, A., Paek, T., & Meek, C. (2010). Usability guided key-target resizing for soft keyboards. In Proceedings of the 15th International Conference on Intelligent User Interfaces (pp. 111-118). ACM.",
+  "link": "https://doi.org/10.1145/1719970.1719986"
+ },
+ "guo2017": {
+  "text": "Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. In Proceedings of the 34th International Conference on Machine Learning (Proceedings of Machine Learning Research, Vol. 70, pp. 1321-1330). PMLR.",
+  "link": "https://proceedings.mlr.press/v70/guo17a.html"
+ },
+ "guy2012": {
+  "text": "Guy, R., Hocking, J., Wand, H., Stott, S., Ali, H., & Kaldor, J. (2012). How effective are short message service reminders at increasing clinic attendance? A meta-analysis and systematic review. Health Services Research, 47(2), 614-632.",
+  "link": "https://doi.org/10.1111/j.1475-6773.2011.01342.x"
+ },
+ "hamalainen2023": {
+  "text": "Hämäläinen, P., Tavast, M., & Kunnari, A. (2023). Evaluating large language models in generating synthetic HCI research data: A case study. In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems (Article 433, pp. 1-19). ACM.",
+  "link": "https://doi.org/10.1145/3544548.3580688"
+ },
+ "harel1987": {
+  "text": "Harel, D. (1987). Statecharts: A visual formalism for complex systems. Science of Computer Programming, 8(3), 231-274.",
+  "link": "https://doi.org/10.1016/0167-6423(87)90035-9"
+ },
+ "hase2020": {
+  "text": "Hase, P., & Bansal, M. (2020). Evaluating explainable AI: Which algorithmic explanations help users predict model behavior? In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (pp. 5540-5552). Association for Computational Linguistics.",
+  "link": "https://doi.org/10.18653/v1/2020.acl-main.491"
+ },
+ "hasler2003": {
+  "text": "Hasler, D., & Süsstrunk, S. (2003). Measuring colourfulness in natural images. In Proceedings of SPIE 5007, Human Vision and Electronic Imaging VIII (pp. 87-95). SPIE.",
+  "link": "https://doi.org/10.1117/12.477378"
+ },
+ "hertzum2001": {
+  "text": "Hertzum, M., & Jacobsen, N. E. (2001). The evaluator effect: A chilling fact about usability evaluation methods. International Journal of Human-Computer Interaction, 13(4), 421-443.",
+  "link": "https://doi.org/10.1207/S15327590IJHC1304_05"
+ },
+ "hertzum2010": {
+  "text": "Hertzum, M., & Hornbæk, K. (2010). How age affects pointing with mouse and touchpad: A comparison of young, adult, and elderly users. International Journal of Human-Computer Interaction, 26(7), 703-734.",
+  "link": "https://doi.org/10.1080/10447318.2010.487198"
+ },
+ "hewett1992": {
+  "text": "Hewett, T., Baecker, R., Card, S., Carey, T., Gasen, J., Mantei, M., Perlman, G., Strong, G., & Verplank, W. (1992). ACM SIGCHI Curricula for Human-Computer Interaction. Association for Computing Machinery.",
+  "link": "https://doi.org/10.1145/2594128"
+ },
+ "hick1952": {
+  "text": "Hick, W. E. (1952). On the rate of gain of information. Quarterly Journal of Experimental Psychology, 4(1), 11-26.",
+  "link": "https://doi.org/10.1080/17470215208416600"
+ },
+ "hoffman2000": {
+  "text": "Hoffman, H. G., Doctor, J. N., Patterson, D. R., Carrougher, G. J., & Furness, T. A., III. (2000). Virtual reality as an adjunctive pain control during burn wound care in adolescent patients. Pain, 85(1-2), 305-309.",
+  "link": "https://doi.org/10.1016/S0304-3959(99)00275-4"
+ },
+ "holleis2007": {
+  "text": "Holleis, P., Otto, F., Hussmann, H., & Schmidt, A. (2007). Keystroke-level model for advanced mobile phone interaction. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1505-1514). ACM.",
+  "link": "https://doi.org/10.1145/1240624.1240851"
+ },
+ "houde1997": {
+  "text": "Houde, S., & Hill, C. (1997). What do prototypes prototype? In M. G. Helander, T. K. Landauer, & P. V. Prabhu (Eds.), Handbook of Human-Computer Interaction (2nd ed., pp. 367-381). Elsevier.",
+  "link": "https://doi.org/10.1016/B978-044481862-1.50082-0"
+ },
+ "hutchins1985": {
+  "text": "Hutchins, E. L., Hollan, J. D., & Norman, D. A. (1985). Direct manipulation interfaces. Human-Computer Interaction, 1(4), 311-338.",
+  "link": "https://doi.org/10.1207/s15327051hci0104_2"
+ },
+ "hyman1953": {
+  "text": "Hyman, R. (1953). Stimulus information as a determinant of reaction time. Journal of Experimental Psychology, 45(3), 188-196.",
+  "link": "https://doi.org/10.1037/h0056940"
+ },
+ "iec1999": {
+  "text": "International Electrotechnical Commission. (1999). Multimedia systems and equipment - Colour measurement and management - Part 2-1: Colour management - Default RGB colour space - sRGB (IEC Standard No. 61966-2-1:1999). IEC.",
+  "link": "https://webstore.iec.ch/publication/6169"
+ },
+ "iso9241_11": {
+  "text": "International Organization for Standardization. (2018). Ergonomics of human-system interaction - Part 11: Usability: Definitions and concepts (ISO Standard No. 9241-11:2018). ISO.",
+  "link": "https://www.iso.org/standard/63500.html"
+ },
+ "iso9241_210": {
+  "text": "International Organization for Standardization. (2019). Ergonomics of human-system interaction - Part 210: Human-centred design for interactive systems (ISO Standard No. 9241-210:2019). ISO.",
+  "link": "https://www.iso.org/standard/77520.html"
+ },
+ "jacobsen1998": {
+  "text": "Jacobsen, N. E., Hertzum, M., & John, B. E. (1998). The evaluator effect in usability tests. In CHI 98 Conference Summary on Human Factors in Computing Systems (pp. 255-256). ACM.",
+  "link": "https://doi.org/10.1145/286498.286737"
+ },
+ "ji2023": {
+  "text": "Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., & Fung, P. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), 1-38.",
+  "link": "https://doi.org/10.1145/3571730"
+ },
+ "jobin2019": {
+  "text": "Jobin, A., Ienca, M., & Vayena, E. (2019). The global landscape of AI ethics guidelines. Nature Machine Intelligence, 1(9), 389-399.",
+  "link": "https://doi.org/10.1038/s42256-019-0088-2"
+ },
+ "john1996": {
+  "text": "John, B. E., & Kieras, D. E. (1996). The GOMS family of user interface analysis techniques: Comparison and contrast. ACM Transactions on Computer-Human Interaction, 3(4), 320-351.",
+  "link": "https://doi.org/10.1145/235833.236054"
+ },
+ "johnson2003": {
+  "text": "Johnson, E. J., & Goldstein, D. (2003). Do defaults save lives? Science, 302(5649), 1338-1339.",
+  "link": "https://doi.org/10.1126/science.1091721"
+ },
+ "jonauskaite2020": {
+  "text": "Jonauskaite, D., Abu-Akel, A., Dael, N., Oberfeld, D., Abdel-Khalek, A. M., Al-Rasheed, A. S., Antonietti, J.-P., Bogushevskaya, V., Chamseddine, A., Chkonia, E., Corona, V., Fonseca-Pedrero, E., Griber, Y. A., Grimshaw, G., Hasan, A. A., Havelka, J., Hirnstein, M., Karlsson, B. S. A., Laurent, E., Lindeman, M., Marquardt, L., Mefoh, P., Papadatou-Pastou, M., Pérez-Albéniz, A., Pouyan, N., Roinishvili, M., Romanyuk, L., Salgado Montejo, A., Schrag, Y., Sultanova, A., Uusküla, M., Vainio, S., Wąsowicz, G., Zdravković, S., Zhang, M., & Mohr, C. (2020). Universal patterns in color-emotion associations are further shaped by linguistic and geographic proximity. Psychological Science, 31(10), 1245-1260.",
+  "link": "https://doi.org/10.1177/0956797620948810"
+ },
+ "kahneman1993": {
+  "text": "Kahneman, D., Fredrickson, B. L., Schreiber, C. A., & Redelmeier, D. A. (1993). When more pain is preferred to less: Adding a better end. Psychological Science, 4(6), 401-405.",
+  "link": "https://doi.org/10.1111/j.1467-9280.1993.tb00589.x"
+ },
+ "kalyoncu2024": {
+  "text": "Kalyoncu, R., & Memiş, M. (2024). Türkçe için oluşturulmuş okunabilirlik formüllerinin karşılaştırılması ve tutarlılık sorgusu [Consistency query and comparison of readability formulas created for Turkish]. Ana Dili Eğitimi Dergisi, 12(2), 417-436.",
+  "link": "https://doi.org/10.16916/aded.1434650"
+ },
+ "kane2008": {
+  "text": "Kane, S. K., Wobbrock, J. O., & Smith, I. E. (2008). Getting off the treadmill: Evaluating walking user interfaces for mobile devices in public spaces. In Proceedings of the 10th International Conference on Human Computer Interaction with Mobile Devices and Services (pp. 109-118). ACM.",
+  "link": "https://doi.org/10.1145/1409240.1409253"
+ },
+ "kennedy1993": {
+  "text": "Kennedy, R. S., Lane, N. E., Berbaum, K. S., & Lilienthal, M. G. (1993). Simulator Sickness Questionnaire: An enhanced method for quantifying simulator sickness. The International Journal of Aviation Psychology, 3(3), 203-220.",
+  "link": "https://doi.org/10.1207/s15327108ijap0303_3"
+ },
+ "kincaid1975": {
+  "text": "Kincaid, J. P., Fishburne, R. P., Jr., Rogers, R. L., & Chissom, B. S. (1975). Derivation of new readability formulas (Automated Readability Index, Fog Count and Flesch Reading Ease Formula) for Navy enlisted personnel (Research Branch Report 8-75). Naval Technical Training Command.",
+  "link": "https://doi.org/10.21236/ADA006655"
+ },
+ "kluyver2016": {
+  "text": "Kluyver, T., Ragan-Kelley, B., Pérez, F., Granger, B., Bussonnier, M., Frederic, J., Kelley, K., Hamrick, J., Grout, J., Corlay, S., Ivanov, P., Avila, D., Abdalla, S., Willing, C., & Jupyter development team. (2016). Jupyter Notebooks: A publishing format for reproducible computational workflows. In F. Loizides & B. Schmidt (Eds.), Positioning and Power in Academic Publishing: Players, Agents and Agendas (pp. 87-90). IOS Press.",
+  "link": "https://doi.org/10.3233/978-1-61499-649-1-87"
+ },
+ "koenecke2020": {
+  "text": "Koenecke, A., Nam, A., Lake, E., Nudell, J., Quartey, M., Mengesha, Z., Toups, C., Rickford, J. R., Jurafsky, D., & Goel, S. (2020). Racial disparities in automated speech recognition. Proceedings of the National Academy of Sciences, 117(14), 7684-7689.",
+  "link": "https://doi.org/10.1073/pnas.1915768117"
+ },
+ "kohavi2009": {
+  "text": "Kohavi, R., Longbotham, R., Sommerfield, D., & Henne, R. M. (2009). Controlled experiments on the web: Survey and practical guide. Data Mining and Knowledge Discovery, 18(1), 140-181.",
+  "link": "https://doi.org/10.1007/s10618-008-0114-1"
+ },
+ "kopper2010": {
+  "text": "Kopper, R., Bowman, D. A., Silva, M. G., & McMahan, R. P. (2010). A human motor behavior model for distal pointing tasks. International Journal of Human-Computer Studies, 68(10), 603-615.",
+  "link": "https://doi.org/10.1016/j.ijhcs.2010.05.001"
+ },
+ "kose2017": {
+  "text": "Kose, U., & Arslan, A. (2017). Optimization of self-learning in Computer Engineering courses: An intelligent software system supported by Artificial Neural Network and Vortex Optimization Algorithm. Computer Applications in Engineering Education, 25(1), 142-156.",
+  "link": "https://doi.org/10.1002/cae.21787"
+ },
+ "kose2018": {
+  "text": "Kose, U. (2018). Are we safe enough in the future of artificial intelligence? A discussion on machine ethics and artificial intelligence safety. BRAIN. Broad Research in Artificial Intelligence and Neuroscience, 9(2), 184-197.",
+  "link": "https://doi.org/10.5281/zenodo.1245926"
+ },
+ "kubovy1998": {
+  "text": "Kubovy, M., Holcombe, A. O., & Wagemans, J. (1998). On the lawfulness of grouping by proximity. Cognitive Psychology, 35(1), 71-98.",
+  "link": "https://doi.org/10.1006/cogp.1997.0673"
+ },
+ "lachin1981": {
+  "text": "Lachin, J. M. (1981). Introduction to sample size determination and power analysis for clinical trials. Controlled Clinical Trials, 2(2), 93-113.",
+  "link": "https://doi.org/10.1016/0197-2456(81)90001-5"
+ },
+ "landis1977": {
+  "text": "Landis, J. R., & Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159-174.",
+  "link": "https://doi.org/10.2307/2529310"
+ },
+ "lantz2019": {
+  "text": "Lantz, E., Keeley, J. W., Roberts, M. C., Medina-Mora, M. E., Sharan, P., & Reed, G. M. (2019). Card sorting data collection methodology: How many participants is most efficient? Journal of Classification, 36(3), 649-658.",
+  "link": "https://doi.org/10.1007/s00357-018-9292-8"
+ },
+ "larson1998": {
+  "text": "Larson, K., & Czerwinski, M. (1998). Web page design: Implications of memory, structure and scent for information retrieval. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 25-32). ACM.",
+  "link": "https://doi.org/10.1145/274644.274649"
+ },
+ "laviola2017": {
+  "text": "LaViola, J. J., Jr., Kruijff, E., McMahan, R. P., Bowman, D. A., & Poupyrev, I. (2017). 3D User Interfaces: Theory and Practice (2nd ed.). Addison-Wesley.",
+  "link": "https://www.pearson.com/en-us/subject-catalog/p/3d-user-interfaces-theory-and-practice/P200000000424/9780134034324"
+ },
+ "lee2004": {
+  "text": "Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. Human Factors, 46(1), 50-80.",
+  "link": "https://doi.org/10.1518/hfes.46.1.50_30392"
+ },
+ "legge2011": {
+  "text": "Legge, G. E., & Bigelow, C. A. (2011). Does print size matter for reading? A review of findings from vision science and typography. Journal of Vision, 11(5), 8.",
+  "link": "https://doi.org/10.1167/11.5.8"
+ },
+ "lemeur2013": {
+  "text": "Le Meur, O., & Baccino, T. (2013). Methods for comparing scanpaths and saliency maps: Strengths and weaknesses. Behavior Research Methods, 45(1), 251-266.",
+  "link": "https://doi.org/10.3758/s13428-012-0226-9"
+ },
+ "lewis2001": {
+  "text": "Lewis, J. R. (2001). Evaluation of procedures for adjusting problem-discovery rates estimated from small samples. International Journal of Human-Computer Interaction, 13(4), 445-479.",
+  "link": "https://doi.org/10.1207/S15327590IJHC1304_06"
+ },
+ "lewis2018": {
+  "text": "Lewis, J. R. (2018). The System Usability Scale: Past, present, and future. International Journal of Human-Computer Interaction, 34(7), 577-590.",
+  "link": "https://doi.org/10.1080/10447318.2018.1455307"
+ },
+ "lindgaard2006": {
+  "text": "Lindgaard, G., Fernandes, G., Dudek, C., & Brown, J. (2006). Attention web designers: You have 50 milliseconds to make a good first impression! Behaviour & Information Technology, 25(2), 115-126.",
+  "link": "https://doi.org/10.1080/01449290500330448"
+ },
+ "lloyd1982": {
+  "text": "Lloyd, S. (1982). Least squares quantization in PCM. IEEE Transactions on Information Theory, 28(2), 129-137.",
+  "link": "https://doi.org/10.1109/TIT.1982.1056489"
+ },
+ "logg2019": {
+  "text": "Logg, J. M., Minson, J. A., & Moore, D. A. (2019). Algorithm appreciation: People prefer algorithmic to human judgment. Organizational Behavior and Human Decision Processes, 151, 90-103.",
+  "link": "https://doi.org/10.1016/j.obhdp.2018.12.005"
+ },
+ "luger2016": {
+  "text": "Luger, E., & Sellen, A. (2016). \"Like having a really bad PA\": The gulf between user expectation and experience of conversational agents. In Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems (pp. 5286-5297). ACM.",
+  "link": "https://doi.org/10.1145/2858036.2858288"
+ },
+ "luguri2021": {
+  "text": "Luguri, J., & Strahilevitz, L. J. (2021). Shining a light on dark patterns. Journal of Legal Analysis, 13(1), 43-109.",
+  "link": "https://doi.org/10.1093/jla/laaa006"
+ },
+ "machado2009": {
+  "text": "Machado, G. M., Oliveira, M. M., & Fernandes, L. A. F. (2009). A physiologically-based model for simulation of color vision deficiency. IEEE Transactions on Visualization and Computer Graphics, 15(6), 1291-1298.",
+  "link": "https://doi.org/10.1109/TVCG.2009.113"
+ },
+ "mackenzie1992": {
+  "text": "MacKenzie, I. S. (1992). Fitts' law as a research and design tool in human-computer interaction. Human-Computer Interaction, 7(1), 91-139.",
+  "link": "https://doi.org/10.1207/s15327051hci0701_3"
+ },
+ "mackenzie2003": {
+  "text": "MacKenzie, I. S., & Soukoreff, R. W. (2003). Phrase sets for evaluating text entry techniques. In CHI '03 Extended Abstracts on Human Factors in Computing Systems (pp. 754-755). ACM.",
+  "link": "https://doi.org/10.1145/765891.765971"
+ },
+ "mackenzie2024": {
+  "text": "MacKenzie, I. S. (2024). Human-Computer Interaction: An Empirical Research Perspective (2nd ed.). Morgan Kaufmann.",
+  "link": "https://www.oreilly.com/library/view/-/9780443140976/"
+ },
+ "macleod2017": {
+  "text": "MacLeod, H., Bennett, C. L., Morris, M. R., & Cutrell, E. (2017). Understanding blind people's experiences with computer-generated captions of social media images. In Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems (pp. 5988-5999). ACM.",
+  "link": "https://doi.org/10.1145/3025453.3025814"
+ },
+ "mark2008": {
+  "text": "Mark, G., Gudith, D., & Klocke, U. (2008). The cost of interrupted work: More speed and stress. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 107-110). ACM.",
+  "link": "https://doi.org/10.1145/1357054.1357072"
+ },
+ "mathur2019": {
+  "text": "Mathur, A., Acar, G., Friedman, M. J., Lucherini, E., Mayer, J., Chetty, M., & Narayanan, A. (2019). Dark patterns at scale: Findings from a crawl of 11K shopping websites. Proceedings of the ACM on Human-Computer Interaction, 3(CSCW), Article 81, 1-32.",
+  "link": "https://doi.org/10.1145/3359183"
+ },
+ "matplotlib": {
+  "text": "Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. Computing in Science & Engineering, 9(3), 90-95.",
+  "link": "https://doi.org/10.1109/MCSE.2007.55"
+ },
+ "mcginn2008": {
+  "text": "McGinn, J., & Kotamraju, N. (2008). Data-driven persona development. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1521-1524). ACM.",
+  "link": "https://doi.org/10.1145/1357054.1357292"
+ },
+ "milgram1994": {
+  "text": "Milgram, P., & Kishino, F. (1994). A taxonomy of mixed reality visual displays. IEICE Transactions on Information and Systems, E77-D(12), 1321-1329.",
+  "link": "https://global.ieice.org/en_transactions/information/10.1587/e77-d_12_1321/_p"
+ },
+ "miller1956": {
+  "text": "Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. Psychological Review, 63(2), 81-97.",
+  "link": "https://doi.org/10.1037/h0043158"
+ },
+ "miller1981": {
+  "text": "Miller, D. P. (1981). The depth/breadth tradeoff in hierarchical computer menus. Proceedings of the Human Factors Society Annual Meeting, 25(1), 296-300.",
+  "link": "https://doi.org/10.1177/107118138102500179"
+ },
+ "miller2019": {
+  "text": "Miller, T. (2019). Explanation in artificial intelligence: Insights from the social sciences. Artificial Intelligence, 267, 1-38.",
+  "link": "https://doi.org/10.1016/j.artint.2018.07.007"
+ },
+ "munafo2017": {
+  "text": "Munafo, J., Diedrick, M., & Stoffregen, T. A. (2017). The virtual reality head-mounted display Oculus Rift induces motion sickness and is sexist in its effects. Experimental Brain Research, 235(3), 889-901.",
+  "link": "https://doi.org/10.1007/s00221-016-4846-7"
+ },
+ "myers1998": {
+  "text": "Myers, B. A. (1998). A brief history of human-computer interaction technology. Interactions, 5(2), 44-54.",
+  "link": "https://doi.org/10.1145/274430.274436"
+ },
+ "ng2014": {
+  "text": "Ng, A., Brewster, S. A., & Williamson, J. H. (2014). Investigating the effects of encumbrance on one- and two-handed interactions with mobile devices. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1981-1990). ACM.",
+  "link": "https://doi.org/10.1145/2556288.2557312"
+ },
+ "ngo2003": {
+  "text": "Ngo, D. C. L., Teo, L. S., & Byrne, J. G. (2003). Modelling interface aesthetics. Information Sciences, 152, 25-46.",
+  "link": "https://doi.org/10.1016/S0020-0255(02)00404-8"
+ },
+ "nielsen1993": {
+  "text": "Nielsen, J. (1993). What is usability? In Usability Engineering (pp. 23-48). Academic Press.",
+  "link": "https://doi.org/10.1016/B978-0-08-052029-2.50005-X"
+ },
+ "nielsen1994h": {
+  "text": "Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 152-158). ACM.",
+  "link": "https://doi.org/10.1145/191666.191729"
+ },
+ "nielsen1994he": {
+  "text": "Nielsen, J. (1994). Heuristic evaluation. In J. Nielsen & R. L. Mack (Eds.), Usability Inspection Methods (pp. 25-62). John Wiley & Sons.",
+  "link": "https://www.nngroup.com/jakob/inspectbook.html"
+ },
+ "nielsenlandauer1993": {
+  "text": "Nielsen, J., & Landauer, T. K. (1993). A mathematical model of the finding of usability problems. In Proceedings of the INTERACT '93 and CHI '93 Conference on Human Factors in Computing Systems (pp. 206-213). ACM.",
+  "link": "https://doi.org/10.1145/169059.169166"
+ },
+ "nielsenmolich1990": {
+  "text": "Nielsen, J., & Molich, R. (1990). Heuristic evaluation of user interfaces. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 249-256). ACM.",
+  "link": "https://doi.org/10.1145/97243.97281"
+ },
+ "norman1986": {
+  "text": "Norman, D. A. (1986). Cognitive engineering. In D. A. Norman & S. W. Draper (Eds.), User Centered System Design: New Perspectives on Human-Computer Interaction (pp. 31-62). Lawrence Erlbaum Associates.",
+  "link": "https://doi.org/10.1201/b15703-3"
+ },
+ "norman2013": {
+  "text": "Norman, D. A. (2013). The Design of Everyday Things (Revised and expanded edition). Basic Books.",
+  "link": "https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/"
+ },
+ "nouwens2020": {
+  "text": "Nouwens, M., Liccardi, I., Veale, M., Karger, D., & Kagal, L. (2020). Dark patterns after the GDPR: Scraping consent pop-ups and demonstrating their influence. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (pp. 1-13). ACM.",
+  "link": "https://doi.org/10.1145/3313831.3376321"
+ },
+ "numpy": {
+  "text": "Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., & Oliphant, T. E. (2020). Array programming with NumPy. Nature, 585(7825), 357-362.",
+  "link": "https://doi.org/10.1038/s41586-020-2649-2"
+ },
+ "oviatt1999": {
+  "text": "Oviatt, S. (1999). Ten myths of multimodal interaction. Communications of the ACM, 42(11), 74-81.",
+  "link": "https://doi.org/10.1145/319382.319398"
+ },
+ "owsley2011": {
+  "text": "Owsley, C. (2011). Aging and vision. Vision Research, 51(13), 1610-1622.",
+  "link": "https://doi.org/10.1016/j.visres.2010.10.020"
+ },
+ "palin2019": {
+  "text": "Palin, K., Feit, A. M., Kim, S., Kristensson, P. O., & Oulasvirta, A. (2019). How do people type on mobile devices? Observations from a study with 37,000 volunteers. In Proceedings of the 21st International Conference on Human-Computer Interaction with Mobile Devices and Services (pp. 1-12). ACM.",
+  "link": "https://doi.org/10.1145/3338286.3340120"
+ },
+ "pandas": {
+  "text": "McKinney, W. (2010). Data structures for statistical computing in Python. In Proceedings of the 9th Python in Science Conference (pp. 56-61).",
+  "link": "https://doi.org/10.25080/Majora-92bf1922-00a"
+ },
+ "parasuraman1997": {
+  "text": "Parasuraman, R., & Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. Human Factors, 39(2), 230-253.",
+  "link": "https://doi.org/10.1518/001872097778543886"
+ },
+ "parasuraman2010": {
+  "text": "Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. Human Factors, 52(3), 381-410.",
+  "link": "https://doi.org/10.1177/0018720810376055"
+ },
+ "parhi2006": {
+  "text": "Parhi, P., Karlson, A. K., & Bederson, B. B. (2006). Target size study for one-handed thumb use on small touchscreen devices. In Proceedings of the 8th Conference on Human-Computer Interaction with Mobile Devices and Services (pp. 203-210). ACM.",
+  "link": "https://doi.org/10.1145/1152215.1152260"
+ },
+ "pedregosa2011": {
+  "text": "Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825-2830.",
+  "link": "https://jmlr.org/papers/v12/pedregosa11a.html"
+ },
+ "persson2015": {
+  "text": "Persson, H., Åhman, H., Yngling, A. A., & Gulliksen, J. (2015). Universal design, inclusive design, accessible design, design for all: Different concepts, one goal? On the concept of accessibility: Historical, methodological and philosophical aspects. Universal Access in the Information Society, 14(4), 505-526.",
+  "link": "https://doi.org/10.1007/s10209-014-0358-z"
+ },
+ "pielot2014": {
+  "text": "Pielot, M., Church, K., & de Oliveira, R. (2014). An in-situ study of mobile phone notifications. In Proceedings of the 16th International Conference on Human-Computer Interaction with Mobile Devices and Services (pp. 233-242). ACM.",
+  "link": "https://doi.org/10.1145/2628363.2628364"
+ },
+ "pirolli1999": {
+  "text": "Pirolli, P., & Card, S. (1999). Information foraging. Psychological Review, 106(4), 643-675.",
+  "link": "https://doi.org/10.1037/0033-295X.106.4.643"
+ },
+ "poon2010": {
+  "text": "Poon, E. G., Keohane, C. A., Yoon, C. S., Ditmore, M., Bane, A., Levtzion-Korach, O., Moniz, T., Rothschild, J. M., Kachalia, A. B., Hayes, J., Churchill, W. W., Lipsitz, S., Whittemore, A. D., Bates, D. W., & Gandhi, T. K. (2010). Effect of bar-code technology on the safety of medication administration. New England Journal of Medicine, 362(18), 1698-1707.",
+  "link": "https://doi.org/10.1056/NEJMsa0907115"
+ },
+ "poupyrev1996": {
+  "text": "Poupyrev, I., Billinghurst, M., Weghorst, S., & Ichikawa, T. (1996). The go-go interaction technique: Non-linear mapping for direct manipulation in VR. In Proceedings of the 9th Annual ACM Symposium on User Interface Software and Technology (pp. 79-80). ACM.",
+  "link": "https://doi.org/10.1145/237091.237102"
+ },
+ "pruitt2003": {
+  "text": "Pruitt, J., & Grudin, J. (2003). Personas: Practice and theory. In Proceedings of the 2003 Conference on Designing for User Experiences (pp. 1-15). ACM.",
+  "link": "https://doi.org/10.1145/997078.997089"
+ },
+ "python": {
+  "text": "Van Rossum, G., & Drake, F. L. (2009). Python 3 Reference Manual. CreateSpace.",
+  "link": ""
+ },
+ "reason1990": {
+  "text": "Reason, J. (1990). Human Error. Cambridge University Press.",
+  "link": "https://doi.org/10.1017/CBO9781139062367"
+ },
+ "reason2000": {
+  "text": "Reason, J. (2000). Human error: Models and management. BMJ, 320(7237), 768-770.",
+  "link": "https://doi.org/10.1136/bmj.320.7237.768"
+ },
+ "redelmeier1996": {
+  "text": "Redelmeier, D. A., & Kahneman, D. (1996). Patients' memories of painful medical treatments: Real-time and retrospective evaluations of two minimally invasive procedures. Pain, 66(1), 3-8.",
+  "link": "https://doi.org/10.1016/0304-3959(96)02994-6"
+ },
+ "redish2000": {
+  "text": "Redish, J. (2000). Readability formulas have even more limitations than Klare discusses. ACM Journal of Computer Documentation, 24(3), 132-137.",
+  "link": "https://doi.org/10.1145/344599.344637"
+ },
+ "rehman2017": {
+  "text": "Rehman, U., & Cao, S. (2017). Augmented-reality-based indoor navigation: A comparative analysis of handheld devices versus Google Glass. IEEE Transactions on Human-Machine Systems, 47(1), 140-151.",
+  "link": "https://doi.org/10.1109/THMS.2016.2620106"
+ },
+ "reinecke2014": {
+  "text": "Reinecke, K., & Gajos, K. Z. (2014). Quantifying visual preferences around the world. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 11-20). ACM.",
+  "link": "https://doi.org/10.1145/2556288.2557052"
+ },
+ "robinette2016": {
+  "text": "Robinette, P., Li, W., Allen, R., Howard, A. M., & Wagner, A. R. (2016). Overtrust of robots in emergency evacuation scenarios. In 2016 11th ACM/IEEE International Conference on Human-Robot Interaction (HRI) (pp. 101-108). IEEE.",
+  "link": "https://doi.org/10.1109/HRI.2016.7451740"
+ },
+ "rogers2023": {
+  "text": "Rogers, Y., Sharp, H., & Preece, J. (2023). Interaction Design: Beyond Human-Computer Interaction (6th ed.). Wiley.",
+  "link": "https://www.oreilly.com/library/view/interaction-design-6th/9781119901099/"
+ },
+ "rooney2021": {
+  "text": "Rooney, M. K., Santiago, G., Perni, S., Horowitz, D. P., McCall, A. R., Einstein, A. J., Jagsi, R., & Golden, D. W. (2021). Readability of patient education materials from high-impact medical journals: A 20-year analysis. Journal of Patient Experience, 8, 2374373521998847.",
+  "link": "https://doi.org/10.1177/2374373521998847"
+ },
+ "rudd1996": {
+  "text": "Rudd, J., Stern, K., & Isensee, S. (1996). Low vs. high-fidelity prototyping debate. Interactions, 3(1), 76-85.",
+  "link": "https://doi.org/10.1145/223500.223514"
+ },
+ "sandnes2012": {
+  "text": "Sandnes, F. E., Tan, T. B., Johansen, A., Sulic, E., Vesterhus, E., & Iversen, E. R. (2012). Making touch-based kiosks accessible to blind users through simple gestures. Universal Access in the Information Society, 11(4), 421-431.",
+  "link": "https://doi.org/10.1007/s10209-011-0258-4"
+ },
+ "sarter1995": {
+  "text": "Sarter, N. B., & Woods, D. D. (1995). How in the world did we ever get into that mode? Mode error and awareness in supervisory control. Human Factors, 37(1), 5-19.",
+  "link": "https://doi.org/10.1518/001872095779049516"
+ },
+ "sauro2005": {
+  "text": "Sauro, J., & Lewis, J. R. (2005). Estimating completion rates from small samples using binomial confidence intervals: Comparisons and recommendations. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 49(24), 2100-2103.",
+  "link": "https://doi.org/10.1177/154193120504902407"
+ },
+ "sauro2009": {
+  "text": "Sauro, J., & Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 1599-1608). ACM.",
+  "link": "https://doi.org/10.1145/1518701.1518946"
+ },
+ "sauro2010": {
+  "text": "Sauro, J., & Lewis, J. R. (2010). Average task times in usability tests: What to report? In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 2347-2350). ACM.",
+  "link": "https://doi.org/10.1145/1753326.1753679"
+ },
+ "sauro2016": {
+  "text": "Sauro, J., & Lewis, J. R. (2016). Quantifying the User Experience: Practical Statistics for User Research (2nd ed.). Morgan Kaufmann.",
+  "link": "https://shop.elsevier.com/books/catalog/isbn/9780128023082"
+ },
+ "scheibehenne2010": {
+  "text": "Scheibehenne, B., Greifeneder, R., & Todd, P. M. (2010). Can there ever be too many options? A meta-analytic review of choice overload. Journal of Consumer Research, 37(3), 409-425.",
+  "link": "https://doi.org/10.1086/651235"
+ },
+ "semigran2015": {
+  "text": "Semigran, H. L., Linder, J. A., Gidengil, C., & Mehrotra, A. (2015). Evaluation of symptom checkers for self diagnosis and triage: Audit study. BMJ, 351, h3480.",
+  "link": "https://doi.org/10.1136/bmj.h3480"
+ },
+ "shinohara2011": {
+  "text": "Shinohara, K., & Wobbrock, J. O. (2011). In the shadow of misperception: Assistive technology use and social interactions. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 705-714). ACM.",
+  "link": "https://doi.org/10.1145/1978942.1979044"
+ },
+ "shneiderman2020": {
+  "text": "Shneiderman, B. (2020). Human-centered artificial intelligence: Reliable, safe & trustworthy. International Journal of Human-Computer Interaction, 36(6), 495-504.",
+  "link": "https://doi.org/10.1080/10447318.2020.1741118"
+ },
+ "simons1999": {
+  "text": "Simons, D. J., & Chabris, C. F. (1999). Gorillas in our midst: Sustained inattentional blindness for dynamic events. Perception, 28(9), 1059-1074.",
+  "link": "https://doi.org/10.1068/p281059"
+ },
+ "slater1997": {
+  "text": "Slater, M., & Wilbur, S. (1997). A framework for immersive virtual environments (FIVE): Speculations on the role of presence in virtual environments. Presence: Teleoperators and Virtual Environments, 6(6), 603-616.",
+  "link": "https://doi.org/10.1162/pres.1997.6.6.603"
+ },
+ "slater2009": {
+  "text": "Slater, M. (2009). Place illusion and plausibility can lead to realistic behaviour in immersive virtual environments. Philosophical Transactions of the Royal Society B: Biological Sciences, 364(1535), 3549-3557.",
+  "link": "https://doi.org/10.1098/rstb.2009.0138"
+ },
+ "soukoreff2003": {
+  "text": "Soukoreff, R. W., & MacKenzie, I. S. (2003). Metrics for text entry research: An evaluation of MSD and KSPC, and a new unified error metric. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 113-120). ACM.",
+  "link": "https://doi.org/10.1145/642611.642632"
+ },
+ "soukoreff2004": {
+  "text": "Soukoreff, R. W., & MacKenzie, I. S. (2004). Towards a standard for pointing device evaluation, perspectives on 27 years of Fitts' law research in HCI. International Journal of Human-Computer Studies, 61(6), 751-789.",
+  "link": "https://doi.org/10.1016/j.ijhcs.2004.09.001"
+ },
+ "stanton2006": {
+  "text": "Stanton, N. A. (2006). Hierarchical task analysis: Developments, applications, and extensions. Applied Ergonomics, 37(1), 55-79.",
+  "link": "https://doi.org/10.1016/j.apergo.2005.06.003"
+ },
+ "steinfeld2010": {
+  "text": "Steinfeld, E., Maisel, J., Feathers, D., & D'Souza, C. (2010). Anthropometry and standards for wheeled mobility: An international comparison. Assistive Technology, 22(1), 51-67.",
+  "link": "https://doi.org/10.1080/10400430903520280"
+ },
+ "stothart2015": {
+  "text": "Stothart, C., Mitchum, A., & Yehnert, C. (2015). The attentional cost of receiving a cell phone notification. Journal of Experimental Psychology: Human Perception and Performance, 41(4), 893-897.",
+  "link": "https://doi.org/10.1037/xhp0000100"
+ },
+ "sutherland1963": {
+  "text": "Sutherland, I. E. (1963). Sketchpad: A man-machine graphical communication system. In Proceedings of the May 21-23, 1963, Spring Joint Computer Conference (AFIPS '63 Spring) (pp. 329-346). ACM.",
+  "link": "https://doi.org/10.1145/1461551.1461591"
+ },
+ "thimbleby2001": {
+  "text": "Thimbleby, H., Cairns, P., & Jones, M. (2001). Usability analysis with Markov models. ACM Transactions on Computer-Human Interaction, 8(2), 99-132.",
+  "link": "https://doi.org/10.1145/376929.376941"
+ },
+ "tractinsky2000": {
+  "text": "Tractinsky, N., Katz, A. S., & Ikar, D. (2000). What is beautiful is usable. Interacting with Computers, 13(2), 127-145.",
+  "link": "https://doi.org/10.1016/S0953-5438(00)00031-X"
+ },
+ "treisman1980": {
+  "text": "Treisman, A. M., & Gelade, G. (1980). A feature-integration theory of attention. Cognitive Psychology, 12(1), 97-136.",
+  "link": "https://doi.org/10.1016/0010-0285(80)90005-5"
+ },
+ "tuch2012beautiful": {
+  "text": "Tuch, A. N., Roth, S. P., Hornbæk, K., Opwis, K., & Bargas-Avila, J. A. (2012). Is beautiful really usable? Toward understanding the relation between usability, aesthetics, and affect in HCI. Computers in Human Behavior, 28(5), 1596-1607.",
+  "link": "https://doi.org/10.1016/j.chb.2012.03.024"
+ },
+ "tuch2012first": {
+  "text": "Tuch, A. N., Presslaber, E. E., Stöcklin, M., Opwis, K., & Bargas-Avila, J. A. (2012). The role of visual complexity and prototypicality regarding first impression of websites: Working towards understanding aesthetic judgments. International Journal of Human-Computer Studies, 70(11), 794-811.",
+  "link": "https://doi.org/10.1016/j.ijhcs.2012.06.003"
+ },
+ "tufekci2013": {
+  "text": "Tüfekçi, A., Ekinci, H., & Köse, U. (2013). Development of an internet-based exam system for mobile environments and evaluation of its usability. Mevlana International Journal of Education, 3(4), 57-74.",
+  "link": "https://doi.org/10.13054/mije.13.59.3.4"
+ },
+ "valdez1994": {
+  "text": "Valdez, P., & Mehrabian, A. (1994). Effects of color on emotions. Journal of Experimental Psychology: General, 123(4), 394-409.",
+  "link": "https://doi.org/10.1037/0096-3445.123.4.394"
+ },
+ "vigo2013": {
+  "text": "Vigo, M., Brown, J., & Conway, V. (2013). Benchmarking web accessibility evaluation tools: Measuring the harm of sole reliance on automated tests. In Proceedings of the 10th International Cross-Disciplinary Conference on Web Accessibility (pp. 1-10). ACM.",
+  "link": "https://doi.org/10.1145/2461121.2461124"
+ },
+ "virtanen2020": {
+  "text": "Virtanen, P., Gommers, R., Oliphant, T. E., Haberland, M., Reddy, T., Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J., van der Walt, S. J., Brett, M., Wilson, J., Millman, K. J., Mayorov, N., Nelson, A. R. J., Jones, E., Kern, R., Larson, E., Carey, C. J., Polat, İ., Feng, Y., Moore, E. W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman, R., Henriksen, I., Quintero, E. A., Harris, C. R., Archibald, A. M., Ribeiro, A. H., Pedregosa, F., van Mulbregt, P., & SciPy 1.0 Contributors. (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. Nature Methods, 17(3), 261-272.",
+  "link": "https://doi.org/10.1038/s41592-019-0686-2"
+ },
+ "wagemans2012": {
+  "text": "Wagemans, J., Elder, J. H., Kubovy, M., Palmer, S. E., Peterson, M. A., Singh, M., & von der Heydt, R. (2012). A century of Gestalt psychology in visual perception: I. Perceptual grouping and figure-ground organization. Psychological Bulletin, 138(6), 1172-1217.",
+  "link": "https://doi.org/10.1037/a0029333"
+ },
+ "walker1997": {
+  "text": "Walker, M. A., Litman, D. J., Kamm, C. A., & Abella, A. (1997). PARADISE: A framework for evaluating spoken dialogue agents. In Proceedings of the 35th Annual Meeting of the Association for Computational Linguistics and 8th Conference of the European Chapter of the Association for Computational Linguistics (pp. 271-280). Association for Computational Linguistics.",
+  "link": "https://doi.org/10.3115/976909.979652"
+ },
+ "walker2002": {
+  "text": "Walker, M., Takayama, L., & Landay, J. A. (2002). High-fidelity or low-fidelity, paper or computer? Choosing attributes when testing web prototypes. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 46(5), 661-665.",
+  "link": "https://doi.org/10.1177/154193120204600513"
+ },
+ "waller2015": {
+  "text": "Waller, S., Bradley, M., Hosking, I., & Clarkson, P. J. (2015). Making the case for inclusive design. Applied Ergonomics, 46, 297-303.",
+  "link": "https://doi.org/10.1016/j.apergo.2013.03.012"
+ },
+ "wcag22": {
+  "text": "Campbell, A., Adams, C., Bradley Montgomery, R., Cooper, M., & Kirkpatrick, A. (Eds.). (2023). Web Content Accessibility Guidelines (WCAG) 2.2 (W3C Recommendation). World Wide Web Consortium.",
+  "link": "https://www.w3.org/TR/WCAG22/"
+ },
+ "webaim2026": {
+  "text": "WebAIM. (2026). The WebAIM Million: The 2026 report on the accessibility of the top 1,000,000 home pages. Utah State University.",
+  "link": "https://webaim.org/projects/million/"
+ },
+ "weiser1991": {
+  "text": "Weiser, M. (1991). The computer for the 21st century. Scientific American, 265(3), 94-104.",
+  "link": "https://doi.org/10.1038/scientificamerican0991-94"
+ },
+ "welch1947": {
+  "text": "Welch, B. L. (1947). The generalization of 'Student's' problem when several different population variances are involved. Biometrika, 34(1-2), 28-35.",
+  "link": "https://doi.org/10.1093/biomet/34.1-2.28"
+ },
+ "who2023": {
+  "text": "World Health Organization. (2023). Disability [Fact sheet]. World Health Organization.",
+  "link": "https://www.who.int/news-room/fact-sheets/detail/disability-and-health"
+ },
+ "wma2024": {
+  "text": "World Medical Association. (2025). World Medical Association Declaration of Helsinki: Ethical principles for medical research involving human participants. JAMA, 333(1), 71-74.",
+  "link": "https://doi.org/10.1001/jama.2024.21972"
+ },
+ "wobbrock2007": {
+  "text": "Wobbrock, J. O., Wilson, A. D., & Li, Y. (2007). Gestures without libraries, toolkits or training: A $1 recognizer for user interface prototypes. In Proceedings of the 20th Annual ACM Symposium on User Interface Software and Technology (pp. 159-168). ACM.",
+  "link": "https://doi.org/10.1145/1294211.1294238"
+ },
+ "xu2019": {
+  "text": "Xu, W. (2019). Toward human-centered AI: A perspective from human-computer interaction. Interactions, 26(4), 42-46.",
+  "link": "https://doi.org/10.1145/3328485"
+ },
+ "zhang2020": {
+  "text": "Zhang, Y., Liao, Q. V., & Bellamy, R. K. E. (2020). Effect of confidence and explanation on accuracy and trust calibration in AI-assisted decision making. In Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency (pp. 295-305). ACM.",
+  "link": "https://doi.org/10.1145/3351095.3372852"
+ }
+}

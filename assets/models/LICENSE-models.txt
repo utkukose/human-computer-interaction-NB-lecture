@@ -1,0 +1,10 @@
+Human figures of the 3D scenes (man.js, woman.js, oldman.js, oldwoman.js)
+
+The figures were built from the assets of the MakeHuman project (https://github.com/makehumancommunity/makehuman):
+the base mesh hm08, the macro targets for gender, age, muscle,
+weight and ethnicity, the default skeleton with its weights, and the helper geometry for tights, skirt and eyes. These
+assets were released by their copyright holders under the Creative Commons CC0 1.0 Universal dedication.
+
+The figures themselves are also dedicated to the public domain under CC0 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+Each file holds one glTF 2.0 binary model, encoded in Base64, so that the pages can load it from the disk.

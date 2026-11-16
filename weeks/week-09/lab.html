@@ -1,0 +1,1903 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usability testing lab | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 9 of 14</p><h1>Usability Testing: Observing People and Measuring with Confidence</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-09">Week overview</a><a href="lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb">Colab notebook</a><a href="Week09_Lecture_Notes.pdf">PDF notes</a></nav></header><h2>Usability testing lab</h2><p>Three parts of this interactive lab are games in three dimensions (3D). Part A puts you behind the one-way mirror of the usability lab, where you code seven test sessions. Part C puts you at the recruiting desk at the entrance, and Part D lets you run six A/B tests at two kiosks. Parts B and D compute the formulas of the lecture step by step, and Part E asks for the intervals of stage 9 by hand. In the calculators every intermediate value is rounded, and the next step continues with the rounded value. The results of Parts A, C and D can be copied into the Colab notebook. Each game first shows its room of the hospital. Start moves the view to the game, and the view returns to the room at the end. The games work best with a mouse or a touchpad on a computer.</p><div class="tabs" role="tablist"><button aria-selected="true">Explore</button><button aria-selected="false">Check yourself</button><button aria-selected="false">Reflect and export</button></div><section class="tabpanel"><section class="labpart" id="pa"><h3>Part A: The observation room</h3><p>The clinic runs a pilot test of the current app in its usability lab. A participant stands at the kiosk and thinks aloud, a moderator sits beside, and you watch from the observation room behind the one-way mirror. The monitor on your desk shows the screen of the kiosk. Seven sessions play one after another at three times their real speed, with a clock of the session time.</p>
+<p>Code each session with the five keys below the view, or with the letters on your keyboard. Press <b>S</b> when the moderator says <i>Please begin</i> and <b>E</b> at every tap on a wrong option. At the end, press <b>D</b> for completed, <b>H</b> for completed with help or <b>G</b> for gave up. Help is any information from the moderator that moves the participant on, such as where to tap or whether a choice is right. A neutral question is no help.</p>
+<div class="three" id="ob-3d"></div>
+<div id="ob-keys" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0" aria-label="The coding keys"></div>
+<p class="small" id="ob-log" aria-live="polite"></p>
+<p><button class="btn" id="ob-start" type="button">Start the sessions</button> <button class="btn ghost" id="ob-clr" type="button">Clear the results</button></p>
+<p class="small" id="ob-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Session</th><th>Participant</th><th>Your outcome</th><th>Your errors</th><th>Your time (s)</th><th>Reference outcome</th><th>Reference errors</th><th>Reference time (s)</th></tr></thead><tbody id="ob-tb"></tbody></table></div>
+<p class="small" id="ob-sum" aria-live="polite"></p>
+<p><button class="btn" id="ob-copy" type="button">Copy the results for Colab</button> <span class="small" id="ob-msg" aria-live="polite"></span></p>
+<textarea id="ob-csv" rows="5" readonly aria-label="Your codes of the sessions as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pa">Back to the lecture: The test session: Tasks, thinking aloud and coding</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-1" target="_blank" rel="noopener">Continue in Colab, section 1</a>: Paste your codes into MY_SESSIONS and compare them with the reference.</p></section><section class="labpart" id="pb"><h3>Part B: Intervals step by step</h3><p>The first calculator repeats the worked example of the adjusted Wald interval one step at a time. Its sliders set the completions, the participants and the confidence level. The figure shows the adjusted interval and, in grey, the plain Wald interval.</p><div class="stepcalc" id="pb-wald"></div><p>The second calculator repeats the worked example of the geometric mean with four task times. The figure shows the times on a logarithmic axis with the geometric mean and its interval.</p><div class="stepcalc" id="pb-geo"></div><p class="backpart"><a href="lecture.html#lab-pb">Back to the lecture: Completion rates with confidence</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-2" target="_blank" rel="noopener">Continue in Colab, section 2</a>: Compute both intervals and their coverage.</p></section><section class="labpart" id="pc"><h3>Part C: The recruiting desk</h3><p>The team needs eight participants for a test of the current app, and you recruit them at the main entrance of the hospital. People come in one at a time and stop at your desk. Their card shows the name and the age. Press <b>Invite</b> or <b>Let pass</b> below the view, or the keys <b>I</b> and <b>P</b>. Some people agree and walk to the usability lab, others have no time.</p>
+<p>In round 1, fill the eight places as fast as you can. In round 2, fill quotas by age group like the patients of the clinic: Two people under 40, three aged 40 to 64 and three aged 65 and over. After each round, the board shows who completed the booking in the test.</p>
+<div class="three" id="rc-3d"></div>
+<div id="rc-card" class="small" style="text-align:center;margin:6px 0;min-height:1.4em" aria-live="polite"></div>
+<div id="rc-btns" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0"></div>
+<p><button class="btn" id="rc-start" type="button">Start round 1</button> <button class="btn ghost" id="rc-clr" type="button">Clear the results</button></p>
+<p class="small" id="rc-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Round</th><th>People who passed</th><th>Participants</th><th>Under 40</th><th>40 to 64</th><th>65 and over</th><th>Completed</th><th>Weighted rate</th></tr></thead><tbody id="rc-tb"></tbody></table></div>
+<p class="small" id="rc-sum" aria-live="polite"></p>
+<p><button class="btn" id="rc-copy" type="button">Copy the results for Colab</button> <span class="small" id="rc-msg" aria-live="polite"></span></p>
+<textarea id="rc-csv" rows="5" readonly aria-label="Your recruiting as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pc">Back to the lecture: Who takes part, and how many</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-4" target="_blank" rel="noopener">Continue in Colab, section 4</a>: Paste your recruits into MY_RECRUITS and weight them by the patients.</p></section><section class="labpart" id="pd"><h3>Part D: Two kiosks, one winner?</h3><p>Two kiosks in the lobby run an A/B test: Kiosk A shows the current design and kiosk B the redesign, and each patient uses one of them at random. After every ten patients per kiosk, the board above the kiosks shows the completions, the interval of each kiosk and the p-value of the N-1 test.</p>
+<p>After each look, decide with the buttons below the view or with the keys. <b>C</b> continues, <b>A</b> stops because A is better, <b>B</b> stops because B is better, and <b>N</b> stops with no difference. A test ends after 100 patients per kiosk at the latest. After your decision, the board reveals the true completion rates of both kiosks. Six tests follow one another, and some of them have no real difference at all.</p>
+<div class="three" id="ab-3d"></div>
+<div id="ab-dec" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0" aria-label="Your decision after a look"></div>
+<p><button class="btn" id="ab-start" type="button">Start the A/B tests</button> <button class="btn ghost" id="ab-clr" type="button">Clear the results</button></p>
+<p class="small" id="ab-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Test</th><th>Patients per kiosk</th><th>A</th><th>B</th><th>p at the stop</th><th>Your decision</th><th>True rates</th><th>Verdict</th></tr></thead><tbody id="ab-tb"></tbody></table></div>
+<p class="small" id="ab-sum" aria-live="polite"></p>
+<p><button class="btn" id="ab-copy" type="button">Copy the results for Colab</button> <span class="small" id="ab-msg" aria-live="polite"></span></p>
+<textarea id="ab-csv" rows="5" readonly aria-label="Your decisions in the A/B tests as comma-separated values" hidden></textarea>
+<p>The calculator below repeats the worked example of the N-1 test one step at a time. Its sliders set the completions and the patients of both kiosks. The figure shows both rates with their adjusted Wald intervals.</p><div class="stepcalc" id="pd-n1"></div><p class="backpart"><a href="lecture.html#lab-pd">Back to the lecture: Comparing two designs: Tests, power and peeking</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-5" target="_blank" rel="noopener">Continue in Colab, section 5</a>: Paste your decisions into MY_AB and measure the price of peeking.</p></section><section class="labpart" id="pe"><h3>Part E: By hand: The intervals of stage 9</h3><p>In stage 9, 8 of 13 patients completed the booking without help with the current app, and 11 of 13 with the redesign. Compute the adjusted Wald interval of each design with $z = 1.96$, so $z^2 = 3.84$ and $z^2/2 = 1.92$. Round each intermediate value to three decimals, as in the lecture.</p><div id="pe-n"></div><p class="backpart"><a href="lecture.html#lab-pe">Back to the lecture: The clinic app, stage 9: A usability test of both designs</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-6" target="_blank" rel="noopener">Continue in Colab, section 6</a>: Compute the results of stage 9 of the clinic app.</p></section></section><section class="tabpanel" hidden><p>Answer each question, rate your confidence and check the answer. The self-assessment is for your own practice and does not count towards the grade. Results stay in this browser.</p><div id="quiz"></div></section><section class="tabpanel" hidden><p>Write a short answer to each question. The text is saved in this browser and is included when you export the learning log, together with the results of the practice parts.</p><div id="reflect"></div></section><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script>(function(){
+window.WEEK=9;
+window.W9 = {"task":"Please book the earliest appointment in cardiology on Wednesday. Please think aloud while you go.","begin":3.0,"screens":[["Choose a department",["Dermatology","Cardiology","Neurology","Orthopaedics","Eye diseases","Ear, nose, throat"]],["Choose a doctor",["Dr. Selin Arslan","Dr. Murat Yılmaz","Any doctor (earliest)"]],["Choose a day",["Monday 12 May","Tuesday 13 May","Wednesday 14 May","Thursday 15 May"]],["Choose a time",["09:20","10:40","13:00","15:20"]],["Check and confirm",["Confirm"]]],"sessions":[{"name":"Ayşe","age":34,"type":"woman","top":4157068,"outcome":"completed","errors":0,"time_s":51,"events":[[6,"par","Cardiology… the heart. There it is."],[9,"tap",1],[14,"par","Any doctor is fine. I want the earliest."],[17,"tap",2],[22,"par","Wednesday is the fourteenth."],[26,"tap",2],[31,"par","The earliest is twenty past nine."],[36,"tap",0],[42,"par","Cardiology, Wednesday, 09:20. That looks right."],[50,"tap",0],[50,"wait",0],[54,"end","completed"]]},{"name":"Hasan","age":71,"type":"oldman","top":7043930,"outcome":"gave up","errors":2,"time_s":94,"events":[[8,"par","Where is the heart? The names are all so strange."],[14,"wrong",0],[18,"par","Dermatology… is that the heart? No, that is the skin."],[23,"back",0],[30,"par","Cardio… cardiology. This one, I think."],[35,"tap",1],[42,"par","Which doctor? I do not know them."],[48,"tap",2],[56,"par","Now the day. Tuesday?"],[61,"wrong",1],[68,"par","No, I wanted Wednesday. How do I go back?"],[76,"par","I am lost. The letters are so small."],[84,"par","…"],[90,"mod","What would you do now?"],[94,"par","I would ask at the desk. I give up."],[97,"end","gave up"]]},{"name":"Elif","age":27,"type":"woman","top":12084810,"outcome":"completed","errors":1,"time_s":68,"events":[[7,"par","Cardiology, OK."],[10,"tap",1],[15,"par","Any doctor."],[18,"tap",2],[23,"par","Wednesday…"],[27,"wrong",3],[31,"par","Oops, that says Thursday."],[35,"back",0],[40,"tap",2],[45,"par","The earliest one, 09:20."],[49,"tap",0],[55,"par","Let me check: Cardiology, Wednesday, 09:20."],[64,"tap",0],[64,"wait",0],[71,"end","completed"]]},{"name":"Mehmet","age":68,"type":"oldman","top":5595246,"outcome":"help","errors":2,"time_s":103,"events":[[9,"par","The heart, the heart… I do not see it."],[16,"wrong",2],[20,"par","Neurology? That is the brain."],[25,"back",0],[33,"par","I cannot find the heart doctor."],[40,"par","…"],[46,"mod","Cardiology is the heart. It is the second one in the list."],[52,"tap",1],[58,"tap",2],[66,"par","Wednesday."],[71,"tap",2],[78,"wrong",1],[84,"par","Wait, 10:40 is not the earliest."],[89,"back",0],[94,"tap",0],[99,"tap",0],[99,"wait",0],[106,"end","help"]]},{"name":"Zeynep","age":45,"type":"woman","top":5219237,"outcome":"completed","errors":0,"time_s":46,"events":[[6,"par","Cardiology."],[8,"tap",1],[13,"par","Hmm."],[16,"mod","What are you looking for now?"],[19,"par","The earliest time with any doctor. Ah, Any doctor."],[22,"tap",2],[27,"tap",2],[32,"tap",0],[38,"par","Good."],[42,"tap",0],[42,"wait",0],[49,"end","completed"]]},{"name":"Fatma","age":77,"type":"oldwoman","top":8085132,"outcome":"help","errors":1,"time_s":86,"events":[[10,"par","Let me see… Cardiology."],[15,"tap",1],[22,"par","A doctor… any doctor."],[27,"tap",2],[35,"wrong",0],[40,"par","Monday? No."],[46,"back",0],[53,"par","Wednesday is this one? Should I press this one?"],[57,"mod","Yes, that is the one."],[60,"tap",2],[67,"tap",0],[75,"par","Is it done now?"],[80,"tap",0],[80,"wait",0],[89,"end","help"]]},{"name":"Burak","age":39,"type":"man","top":3042142,"outcome":"completed","errors":0,"time_s":59,"events":[[7,"par","OK, cardiology."],[11,"tap",1],[17,"par","I will take any doctor."],[21,"tap",2],[28,"par","Wednesday the fourteenth."],[32,"tap",2],[38,"par","Nine twenty is the earliest."],[43,"tap",0],[50,"par","Confirm."],[55,"tap",0],[55,"wait",0],[62,"end","completed"]]}],"mix":{"under 40":0.25,"40 to 64":0.4,"65 and over":0.35},"rates":{"under 40":0.9,"40 to 64":0.75,"65 and over":0.5},"quota":{"under 40":2,"40 to 64":3,"65 and over":3},"streams":[[{"name":"Deniz","age":21,"type":"woman","top":5917621,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Ece","age":20,"type":"woman","top":12084810,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Can","age":22,"type":"man","top":4157068,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Mert","age":23,"type":"man","top":7043930,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Selin","age":19,"type":"woman","top":5219237,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Hasan","age":71,"type":"oldman","top":5595246,"agree":0,"completed":0,"line":"My appointment is in ten minutes, sorry.","group":"65 and over"},{"name":"Kerem","age":24,"type":"man","top":10242654,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Fatma","age":68,"type":"oldwoman","top":8085132,"agree":1,"completed":0,"line":"","group":"65 and over"},{"name":"Murat","age":52,"type":"man","top":8088152,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Zehra","age":45,"type":"woman","top":3042142,"agree":0,"completed":0,"line":"I have to pick up my son.","group":"40 to 64"},{"name":"Emre","age":26,"type":"man","top":9199211,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Ayten","age":74,"type":"oldwoman","top":7311280,"agree":0,"completed":0,"line":"Computers are not for me.","group":"65 and over"},{"name":"Burak","age":38,"type":"man","top":4157068,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Gül","age":59,"type":"woman","top":10242654,"agree":1,"completed":0,"line":"","group":"40 to 64"},{"name":"İsmail","age":66,"type":"oldman","top":7043930,"agree":1,"completed":0,"line":"","group":"65 and over"},{"name":"Leyla","age":33,"type":"woman","top":13206800,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Osman","age":61,"type":"man","top":5595246,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Nermin","age":70,"type":"oldwoman","top":5219237,"agree":1,"completed":1,"line":"","group":"65 and over"},{"name":"Tolga","age":29,"type":"man","top":3042142,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Sevim","age":77,"type":"oldwoman","top":9199211,"agree":1,"completed":0,"line":"","group":"65 and over"}],[{"name":"Arda","age":25,"type":"man","top":7311280,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Kemal","age":67,"type":"oldman","top":8088152,"agree":0,"completed":0,"line":"My wife is waiting in the car.","group":"65 and over"},{"name":"Sibel","age":48,"type":"woman","top":10242654,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Yusuf","age":22,"type":"man","top":3042142,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Elif","age":30,"type":"woman","top":12084810,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Ahmet","age":72,"type":"oldman","top":5595246,"agree":1,"completed":0,"line":"","group":"65 and over"},{"name":"Hülya","age":56,"type":"woman","top":5219237,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Cem","age":27,"type":"man","top":5917621,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Necla","age":69,"type":"oldwoman","top":8085132,"agree":1,"completed":1,"line":"","group":"65 and over"},{"name":"Rıza","age":63,"type":"man","top":7043930,"agree":0,"completed":0,"line":"Not today, my back hurts.","group":"40 to 64"},{"name":"Berk","age":20,"type":"man","top":4157068,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Saadet","age":79,"type":"oldwoman","top":7311280,"agree":0,"completed":0,"line":"I cannot see small screens.","group":"65 and over"},{"name":"Tuncay","age":44,"type":"man","top":9199211,"agree":1,"completed":0,"line":"","group":"40 to 64"},{"name":"Meltem","age":35,"type":"woman","top":3042142,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Şükrü","age":75,"type":"oldman","top":10242654,"agree":1,"completed":0,"line":"","group":"65 and over"},{"name":"Nazan","age":51,"type":"woman","top":13206800,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Halil","age":66,"type":"oldman","top":4157068,"agree":1,"completed":1,"line":"","group":"65 and over"},{"name":"Pınar","age":41,"type":"woman","top":5917621,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Gonca","age":24,"type":"woman","top":10242654,"agree":1,"completed":1,"line":"","group":"under 40"},{"name":"Recep","age":70,"type":"oldman","top":8088152,"agree":1,"completed":0,"line":"","group":"65 and over"},{"name":"Filiz","age":58,"type":"woman","top":5219237,"agree":1,"completed":1,"line":"","group":"40 to 64"},{"name":"Hakan","age":47,"type":"man","top":5595246,"agree":1,"completed":0,"line":"","group":"40 to 64"},{"name":"Hatice","age":73,"type":"oldwoman","top":12084810,"agree":1,"completed":1,"line":"","group":"65 and over"},{"name":"Oya","age":62,"type":"woman","top":7043930,"agree":1,"completed":1,"line":"","group":"40 to 64"}]],"rounds":[{"true_a":0.75,"true_b":0.75,"a":[8,18,24,30,37,45,54,62,71,79],"b":[6,12,22,31,40,49,59,64,67,73]},{"true_a":0.7,"true_b":0.85,"a":[8,15,24,31,38,47,56,60,66,73],"b":[8,17,26,36,46,54,62,72,81,91]},{"true_a":0.8,"true_b":0.8,"a":[8,14,23,29,38,46,53,61,69,79],"b":[7,15,24,31,40,48,57,65,74,83]},{"true_a":0.72,"true_b":0.78,"a":[5,13,19,28,35,44,51,57,65,70],"b":[7,15,23,30,37,43,52,59,68,74]},{"true_a":0.65,"true_b":0.8,"a":[8,15,20,27,33,40,46,51,59,67],"b":[9,17,25,31,40,49,58,66,75,82]},{"true_a":0.78,"true_b":0.78,"a":[8,16,25,33,40,50,56,62,72,79],"b":[9,16,25,32,37,42,49,58,66,75]}]};
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Week 9 lab: the step calculators of Part B (the adjusted Wald interval and the geometric mean) and Part D (the N-1
+   two-proportion test), and the values by hand of Part E. Every intermediate value is rounded to three decimals, or to
+   three significant digits below 0.1, and the next step continues with the rounded value. */
+(function () {
+  const rr = x => { if (x === 0) return 0; const a = Math.abs(x); if (a < 0.1) { const d = 2 - Math.floor(Math.log10(a)); return +x.toFixed(d); }
+    return Math.round((x + Math.sign(x) * 1e-12) * 1000) / 1000; };
+  const s3 = x => { if (x === 0) return "0"; const a = Math.abs(x); return a < 0.1 ? x.toFixed(2 - Math.floor(Math.log10(a))) : x.toFixed(3); };
+  const f2 = x => x.toFixed(2), f1 = x => x.toFixed(1);
+  const PHI = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989422804014327 * Math.exp(-x * x / 2);
+    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429)))); return x >= 0 ? 1 - p : p; };
+  const ZS = [[1.645, 2.71, 1.35, "90 %"], [1.96, 3.84, 1.92, "95 %"], [2.576, 6.64, 3.32, "99 %"]];
+  const aw = (x, n) => { const p = (x + 1.9208) / (n + 3.8416), m = 1.96 * Math.sqrt(p * (1 - p) / (n + 3.8416)); return [p, Math.max(0, p - m), Math.min(1, p + m)]; };
+  /* Part B, first calculator: the adjusted Wald interval of a completion rate */
+  partSteps("pb-wald", {
+    inputs: [
+      {key: "x", label: "Completions x", min: 0, max: 30, step: 1, value: 4, d: 0},
+      {key: "n", label: "Participants n", min: 1, max: 30, step: 1, value: 7, d: 0},
+      {key: "c", label: "Confidence", options: ZS.map(z => z[3]), value: 1}],
+    presets: [{label: "Lecture: 4 of 7", values: {x: 4, n: 7, c: 1}}, {label: "Everybody: 7 of 7", values: {x: 7, n: 7, c: 1}},
+      {label: "Stage 9 redesign: 11 of 13", values: {x: 11, n: 13, c: 1}}],
+    steps(v) {
+      const n = v.n, x = Math.min(v.x, n), [z, z2, h2, lab] = ZS[v.c];
+      const p = rr((x + h2) / (n + z2)), se = rr(Math.sqrt(p * (1 - p) / (n + z2))), m = rr(z * se), lo = Math.max(0, rr(p - m)), hi = Math.min(1, rr(p + m));
+      return [
+        {t: `The z value of a ${lab} interval, its square and half of the square.` + (v.x > n ? " The completions are limited to the participants." : ""),
+         m: `z = ${z},\\quad z^2 = ${f2(z2)},\\quad z^2/2 = ${f2(h2)}`},
+        {t: "The adjusted proportion: half of the square is added to the completions, the square to the participants.",
+         m: `\\hat{p}_{adj} = \\frac{${x} + ${f2(h2)}}{${n} + ${f2(z2)}} = \\frac{${f2(x + h2)}}{${f2(n + z2)}} = ${s3(p)}`, q: {label: "p adjusted", ans: p, tol: 0.0015}},
+        {t: "The standard error of the adjusted proportion.", m: `SE = \\sqrt{\\frac{${s3(p)} \\times ${s3(rr(1 - p))}}{${f2(n + z2)}}} = ${s3(se)}`,
+         q: {label: "standard error", ans: se, tol: se < 0.1 ? 0.00015 : 0.0015}},
+        {t: "The margin: z times the standard error.", m: `${z} \\times ${s3(se)} = ${s3(m)}`, q: {label: "margin", ans: m, tol: 0.0015}},
+        {t: "The interval, cut at 0 and at 1.", m: `${s3(p)} - ${s3(m)} = ${s3(rr(p - m))}` + (rr(p - m) < 0 ? "\\to 0" : "")
+          + `\\quad\\text{to}\\quad ${s3(p)} + ${s3(m)} = ${s3(rr(p + m))}` + (rr(p + m) > 1 ? "\\to 1" : ""), q: {label: "upper end", ans: hi, tol: 0.0015}}];
+    },
+    viz: {aspect: 0.22, label: "The adjusted Wald interval in violet and the plain Wald interval in grey on a scale from 0 to 1",
+      draw(ctx, w, hh, v) {
+        const C = COL(), n = v.n, x = Math.min(v.x, n), [z, z2, h2] = ZS[v.c];
+        const p = (x + h2) / (n + z2), m = z * Math.sqrt(p * (1 - p) / (n + z2)), q = x / n, mw = z * Math.sqrt(q * (1 - q) / n);
+        const f = frame(ctx, w, hh, {x0: 0, x1: 1, y0: 0, y1: 3, xticks: 10, yticks: 1, yfmt: () => "", xfmt: t => t.toFixed(1), xlabel: "completion rate", pad: {l: 120, r: 16, t: 8, b: 34}});
+        [[2, p, Math.max(0, p - m), Math.min(1, p + m), C.c[0], "adjusted Wald"], [1, q, Math.max(0, q - mw), Math.min(1, q + mw), C.steel, "plain Wald"]].forEach(([y, c, a, b, col, lab]) => {
+          ctx.strokeStyle = col; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(f.X(a), f.Y(y)); ctx.lineTo(f.X(b) + (b === a ? 1 : 0), f.Y(y)); ctx.stroke(); ctx.lineWidth = 1;
+          dot(ctx, f.X(c), f.Y(y), 5, C.ink); ctx.fillStyle = C.ink; ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.textAlign = "right"; ctx.fillText(lab, f.p.l - 10, f.Y(y) + 4); });
+      }}
+  });
+  /* Part B, second calculator: the geometric mean of four task times with its t interval */
+  partSteps("pb-geo", {
+    inputs: [1, 2, 3, 4].map((i, k) => ({key: "t" + i, label: `Time ${i} (s)`, min: 10, max: 400, step: 1, value: [51, 68, 46, 59][k], d: 0})),
+    presets: [{label: "Lecture: the pilot of the current app", values: {t1: 51, t2: 68, t3: 46, t4: 59}},
+      {label: "The pilot of the redesign", values: {t1: 31, t2: 39, t3: 43, t4: 49}},
+      {label: "One slow patient", values: {t1: 51, t2: 68, t3: 46, t4: 240}}],
+    steps(v) {
+      const T = [v.t1, v.t2, v.t3, v.t4], L = T.map(t => rr(Math.log(t))), yb = rr(L.reduce((a, x) => a + x, 0) / 4), gm = Math.round(Math.exp(yb) * 10) / 10;
+      const sq = L.map(x => rr((x - yb) ** 2)), vr = rr(sq.reduce((a, x) => a + x, 0) / 3), sd = rr(Math.sqrt(vr)), se = rr(sd / 2), m = rr(3.182 * se);
+      const lo = rr(yb - m), hi = rr(yb + m), L0 = Math.round(Math.exp(lo) * 10) / 10, H0 = Math.round(Math.exp(hi) * 10) / 10, am = T.reduce((a, x) => a + x, 0) / 4;
+      return [
+        {t: "The natural logarithm of each time.", m: T.map((t, i) => `\\ln ${t} = ${s3(L[i])}`).join(",\\quad ")},
+        {t: `The mean of the logarithms, and the geometric mean back in seconds. The arithmetic mean is ${f1(am)} s.`,
+         m: `\\bar{y} = \\frac{${L.map(s3).join(" + ")}}{4} = ${s3(yb)},\\quad e^{${s3(yb)}} = ${f1(gm)}\\ \\text{s}`, q: {label: "geometric mean (s)", ans: gm, tol: 0.06}},
+        {t: "The standard deviation of the logarithms, with n - 1 = 3 in the denominator.",
+         m: `s_y = \\sqrt{\\frac{${sq.map(s3).join(" + ")}}{3}} = \\sqrt{${s3(vr)}} = ${s3(sd)}`, q: {label: "standard deviation", ans: sd, tol: 0.0015}},
+        {t: "The standard error: the standard deviation divided by the square root of 4.", m: `SE = ${s3(sd)}/2 = ${s3(se)}`},
+        {t: "The margin with the t quantile for 3 degrees of freedom and 95 %.", m: `3.182 \\times ${s3(se)} = ${s3(m)}`, q: {label: "margin", ans: m, tol: 0.0015}},
+        {t: "The interval in seconds: e to the power of the mean minus and plus the margin.",
+         m: `e^{${s3(yb)} - ${s3(m)}} = e^{${s3(lo)}} = ${f1(L0)}\\ \\text{s}\\quad\\text{to}\\quad e^{${s3(hi)}} = ${f1(H0)}\\ \\text{s}`, q: {label: "upper end (s)", ans: H0, tol: 0.06}}];
+    },
+    viz: {aspect: 0.24, label: "The four times on a logarithmic axis with the geometric mean, its interval and the arithmetic mean",
+      draw(ctx, w, hh, v) {
+        const C = COL(), T = [v.t1, v.t2, v.t3, v.t4], L = T.map(Math.log), yb = L.reduce((a, x) => a + x, 0) / 4;
+        const sd = Math.sqrt(L.reduce((a, x) => a + (x - yb) ** 2, 0) / 3), m = 3.182 * sd / 2, am = T.reduce((a, x) => a + x, 0) / 4;
+        const f = frame(ctx, w, hh, {x0: Math.log(10), x1: Math.log(400), y0: 0, y1: 3, xticks: 1, yticks: 1, yfmt: () => "", xfmt: () => "", xlabel: "time (s), logarithmic axis", pad: {l: 20, r: 16, t: 8, b: 34}});
+        ctx.fillStyle = C.steel; ctx.font = "11px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.textAlign = "center";
+        [10, 20, 50, 100, 200, 400].forEach(t => { ctx.fillText(String(t), f.X(Math.log(t)), hh - 18); ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(f.X(Math.log(t)), f.Y(0)); ctx.lineTo(f.X(Math.log(t)), f.Y(3)); ctx.stroke(); });
+        ctx.strokeStyle = C.c[0]; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(f.X(yb - m), f.Y(1.9)); ctx.lineTo(f.X(yb + m), f.Y(1.9)); ctx.stroke(); ctx.lineWidth = 1;
+        T.forEach(t => dot(ctx, f.X(Math.log(t)), f.Y(1.0), 5, C.c[1], C.ink));
+        dot(ctx, f.X(yb), f.Y(1.9), 6, C.ink); ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText(`geometric mean ${Math.exp(yb).toFixed(1)} s`, f.X(yb) + 8, f.Y(2.45));
+        ctx.strokeStyle = C.c[4]; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(f.X(Math.log(am)), f.Y(0.4)); ctx.lineTo(f.X(Math.log(am)), f.Y(1.4)); ctx.stroke(); ctx.lineWidth = 1;
+        ctx.fillStyle = C.c[4]; ctx.fillText(`arithmetic mean ${am.toFixed(1)} s`, f.X(Math.log(am)) + 6, f.Y(0.45));
+      }}
+  });
+  /* Part D: the N-1 two-proportion test */
+  partSteps("pd-n1", {
+    inputs: [
+      {key: "xa", label: "Completions at kiosk A", min: 0, max: 300, step: 1, value: 70, d: 0},
+      {key: "na", label: "Patients at kiosk A", min: 5, max: 300, step: 1, value: 100, d: 0},
+      {key: "xb", label: "Completions at kiosk B", min: 0, max: 300, step: 1, value: 80, d: 0},
+      {key: "nb", label: "Patients at kiosk B", min: 5, max: 300, step: 1, value: 100, d: 0}],
+    presets: [{label: "Lecture: 70 of 100 against 80 of 100", values: {xa: 70, na: 100, xb: 80, nb: 100}},
+      {label: "Stage 9: 8 of 13 against 11 of 13", values: {xa: 8, na: 13, xb: 11, nb: 13}},
+      {label: "The planned test: 210 of 300 against 240 of 300", values: {xa: 210, na: 300, xb: 240, nb: 300}}],
+    steps(v) {
+      const xa = Math.min(v.xa, v.na), xb = Math.min(v.xb, v.nb), N = v.na + v.nb, pa = rr(xa / v.na), pb = rr(xb / v.nb), pbar = rr((xa + xb) / N);
+      const inv = rr(1 / v.na + 1 / v.nb), se = rr(Math.sqrt(pbar * rr(1 - pbar) * inv)), z = se > 0 ? rr((pb - pa) / se) : 0, fac = rr(Math.sqrt((N - 1) / N));
+      const z1 = rr(z * fac), p = rr(2 * (1 - PHI(Math.abs(z1))));
+      return [
+        {t: "The completion rates of both kiosks and the pooled rate of all patients.",
+         m: `\\hat{p}_A = \\frac{${xa}}{${v.na}} = ${s3(pa)},\\quad \\hat{p}_B = \\frac{${xb}}{${v.nb}} = ${s3(pb)},\\quad \\bar{p} = \\frac{${xa + xb}}{${N}} = ${s3(pbar)}`},
+        {t: "The standard error of the difference, as if both kiosks had the pooled rate.",
+         m: `SE = \\sqrt{${s3(pbar)} \\times ${s3(rr(1 - pbar))} \\times ${s3(inv)}} = ${s3(se)}`, q: {label: "standard error", ans: se, tol: se < 0.1 ? 0.00015 : 0.0015}},
+        {t: "The z statistic: the difference of the rates in standard errors.", m: `z = \\frac{${s3(pb)} - ${s3(pa)}}{${s3(se)}} = ${s3(z)}`},
+        {t: "The N-1 factor corrects z for small samples.", m: `\\sqrt{${N - 1}/${N}} = ${s3(fac)},\\quad z = ${s3(z)} \\times ${s3(fac)} = ${s3(z1)}`, q: {label: "corrected z", ans: z1, tol: 0.0015}},
+        {t: p < 0.05 ? "The two-sided p-value: below 0.05, so the difference is unlikely to be chance alone."
+          : "The two-sided p-value: not below 0.05, so the difference may still be chance.",
+         m: `p = 2\\,(1 - \\Phi(${s3(Math.abs(z1))})) = ${s3(p)}`, q: {label: "p-value", ans: p, tol: 0.0015}}];
+    },
+    viz: {aspect: 0.3, label: "The completion rates of both kiosks with their adjusted Wald intervals",
+      draw(ctx, w, hh, v) {
+        const C = COL(), xa = Math.min(v.xa, v.na), xb = Math.min(v.xb, v.nb);
+        const f = frame(ctx, w, hh, {x0: 0, x1: 1, y0: 0, y1: 3, xticks: 10, yticks: 1, yfmt: () => "", xfmt: t => t.toFixed(1), xlabel: "completion rate with its adjusted Wald interval", pad: {l: 90, r: 16, t: 8, b: 34}});
+        [[2, xa, v.na, "kiosk A", C.c[4]], [1, xb, v.nb, "kiosk B", C.c[2]]].forEach(([y, x, n, lab, col]) => { const [p, a, b] = aw(x, n);
+          ctx.strokeStyle = col; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(f.X(a), f.Y(y)); ctx.lineTo(f.X(b), f.Y(y)); ctx.stroke(); ctx.lineWidth = 1;
+          dot(ctx, f.X(x / n), f.Y(y), 5, C.ink); ctx.fillStyle = C.ink; ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.textAlign = "right";
+          ctx.fillText(`${lab}: ${x} of ${n}`, f.p.l - 8, f.Y(y) + 4); });
+      }}
+  });
+  /* Part E: the adjusted Wald intervals of stage 9, by hand */
+  partNumbers("pe-n", {
+    key: "w9:pe", title: "Part E",
+    fields: [
+      {label: "Current app, lower end", short: "current lower", answer: 0.354, tol: 0.0015},
+      {label: "Current app, upper end", short: "current upper", answer: 0.824, tol: 0.0015},
+      {label: "Redesign, lower end", short: "redesign lower", answer: 0.565, tol: 0.0015},
+      {label: "Redesign, upper end", short: "redesign upper", answer: 0.969, tol: 0.0015}],
+    explain: "All four values are correct. Current app: (8 + 1.92) / (13 + 3.84) = 9.92 / 16.84 = 0.589, standard error √(0.589 × 0.411 / 16.84) = 0.120, "
+      + "margin 1.96 × 0.120 = 0.235, so 0.354 to 0.824. Redesign: 12.92 / 16.84 = 0.767, standard error 0.103, margin 0.202, so 0.565 to 0.969. The intervals overlap.",
+    hint: "Add 1.92 to the completions and 3.84 to the patients, then compute the standard error, the margin and both ends, rounding each step to three decimals."
+  });
+})();
+
+/* Part A: The observation room. Seven think-aloud sessions of the pilot test of the current app play in the usability
+   lab, seen from the observation room behind the one-way mirror. The player codes each session live: the start, every
+   error and the outcome (completed, completed with help, gave up). The reference codes come from the scripts. */
+(function () {
+  const box = document.getElementById("ob-3d"); if (!box) return;
+  const W = window.W9, SES = W.sessions, KEY = "w9:obs", COLS = ["session", "participant", "outcome", "errors", "start_s", "end_s", "time_s"];
+  const OUT = {d: "completed", h: "help", g: "gave up"}, NAME = {completed: "completed", help: "with help", "gave up": "gave up"};
+  const tb = $("#ob-tb"), sumP = $("#ob-sum"), sayP = $("#ob-say"), logP = $("#ob-log"), startB = $("#ob-start"), keysEl = $("#ob-keys");
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: []});
+  if (!data || !data.rows) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, cur = null, speed = 3;
+  const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+  const kappa = (a, b) => { const n = a.length; if (!n) return null; const po = a.filter((x, i) => x === b[i]).length / n;
+    const cats = [...new Set(a.concat(b))], pe = cats.reduce((s, c) => s + (a.filter(x => x === c).length / n) * (b.filter(x => x === c).length / n), 0);
+    return pe < 1 ? (po - pe) / (1 - pe) : 1; };
+  function table() {
+    tb.textContent = ""; const done = data.rows.length >= SES.length;
+    data.rows.forEach(r => { const s = SES[r.session - 1];
+      tb.append(h("tr", {}, h("td", {}, String(r.session)), h("td", {}, `${s.name}, ${s.age}`), h("td", {}, NAME[r.outcome] || "-"), h("td", {}, String(r.errors)),
+        h("td", {}, r.time_s === "" ? "-" : String(r.time_s)), h("td", {}, done ? NAME[s.outcome] : "?"), h("td", {}, done ? String(s.errors) : "?"),
+        h("td", {}, done ? String(s.time_s) : "?"))); });
+    if (done) {
+      const a = data.rows.map(r => SES[r.session - 1].outcome), b = data.rows.map(r => r.outcome), agree = a.filter((x, i) => x === b[i]).length;
+      const gaps = data.rows.filter(r => r.time_s !== "").map(r => r.time_s - SES[r.session - 1].time_s), mg = gaps.length ? gaps.reduce((x, y) => x + y, 0) / gaps.length : null;
+      const errs = data.rows.reduce((x, r) => x + r.errors, 0), ref = SES.reduce((x, s) => x + s.errors, 0);
+      sumP.textContent = `You agreed with the reference on ${agree} of 7 outcomes, a kappa of ${kappa(a, b).toFixed(3)}. ` + (mg == null ? "" : `Your times differ from the reference by ${mg >= 0 ? "+" : ""}${mg.toFixed(1)} s on average. `)
+        + `You counted ${errs} errors, the reference ${ref}. Section 1 of the Colab notebook computes the same with your codes.`;
+    } else sumP.textContent = data.rows.length ? `${data.rows.length} of 7 sessions coded.` : "";
+    startB.disabled = game || done; startB.textContent = data.rows.length && !done ? "Continue the sessions" : "Start the sessions";
+  }
+  table();
+  LABKIT.exporter("ob-copy", "ob-csv", "ob-msg", COLS, () => data.rows, "MY_SESSIONS in Section 1");
+  const KEYS = [["s", "S", "Start"], ["e", "E", "Error"], ["d", "D", "Completed"], ["h", "H", "With help"], ["g", "G", "Gave up"]];
+  const kbtn = KEYS.map(([k, K, lab]) => { const b = h("button", {class: "btn ghost", type: "button", disabled: ""}, h("span", {class: "kbd"}, K), " " + lab);
+    b.addEventListener("click", () => press(k)); keysEl.append(b); return b; });
+  const enable = on => kbtn.forEach(b => { b.disabled = !on; });
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* The usability lab: the test room behind a one-way mirror, and the dim observation room with a desk and a monitor */
+  const PLAY = {camera: [0.05, 1.55, 1.8], target: [-0.3, 1.2, -2.4]};
+  const G = make3D(box, {camera: [2.6, 2.3, 3.9], target: [-0.6, 1.0, -1.4], limits: [0.5, 10, 1.5], aspect: 0.58, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), ZW = -0.2;
+  L.room(G, {w: 8, d: 9, z0: -4.5, h: 3.0, wall: 0xEEF0EC, windows: [{x: -2.4, y: 1.75, w: 1.4, h: 1.1}]});
+  const dark = L.std(G, 0x3A3F48, 0.95), wallM = L.std(G, 0xE4E6E1, 0.95);
+  [[-2.85, 1.5, 2.3, 3.0], [2.85, 1.5, 2.3, 3.0], [0, 0.425, 3.4, 0.85], [0, 2.575, 3.4, 0.85]].forEach(([x, y, w, hh]) => {
+    const m = new T.Mesh(new T.BoxGeometry(w, hh, 0.12), wallM); m.position.set(x, y, ZW); SC.add(m);
+    const d2 = new T.Mesh(new T.PlaneGeometry(w, hh), dark); d2.position.set(x, y, ZW + 0.065); SC.add(d2); });
+  const glass = new T.Mesh(new T.PlaneGeometry(3.4, 1.3), new T.MeshStandardMaterial({color: 0x24303C, transparent: true, opacity: 0.16, roughness: 0.05, metalness: 0.3}));
+  glass.position.set(0, 1.5, ZW); glass.userData.noShadow = true; SC.add(glass);
+  [[0, 2.15, 3.46, 0.05], [0, 0.85, 3.46, 0.05], [-1.73, 1.5, 0.05, 1.36], [1.73, 1.5, 0.05, 1.36]].forEach(([x, y, w, hh]) => {
+    const f = new T.Mesh(new T.BoxGeometry(w, hh, 0.16), L.std(G, 0x2B2F36, 0.5)); f.position.set(x, y, ZW); SC.add(f); });
+  [-1, 1].forEach(sg => { const p = new T.Mesh(new T.PlaneGeometry(4.6, 3.0), dark); p.position.set(sg * 3.9, 1.5, 2.2); p.rotation.y = -sg * Math.PI / 2; SC.add(p); });
+  const carpet = new T.Mesh(new T.PlaneGeometry(7.9, 4.6), L.std(G, 0x4A505A, 0.98)); carpet.rotation.x = -Math.PI / 2; carpet.position.set(0, 0.004, 2.2); SC.add(carpet);
+  L.sign(G, "Usability lab", {at: [1.2, 2.45, -4.44], w: 1.2, h: 0.26}); L.clock(G, {at: [2.4, 2.4, -4.44]});
+  L.plant(G, {at: [2.7, 0, -4.0], seed: 3}); L.plant(G, {at: [-3.5, 0, -3.9], seed: 8, size: 0.85});
+  /* a camera on a tripod in the corner of the test room */
+  const tri = new T.Group(), metal = L.std(G, 0x2B2F36, 0.4, 0.4);
+  [0, 2.1, 4.2].forEach(a => { const leg = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.45, 8), metal); leg.position.set(Math.cos(a) * 0.18, 0.7, Math.sin(a) * 0.18);
+    leg.rotation.set(Math.sin(a) * 0.14, 0, -Math.cos(a) * 0.14); tri.add(leg); });
+  const cam = new T.Mesh(new T.BoxGeometry(0.14, 0.11, 0.22), metal); cam.position.y = 1.47; tri.add(cam);
+  const lens = new T.Mesh(new T.CylinderGeometry(0.035, 0.035, 0.07, 14), L.std(G, 0x111111, 0.3)); lens.rotation.x = Math.PI / 2; lens.position.set(0, 1.47, 0.14); tri.add(lens);
+  tri.position.set(1.6, 0, -3.7); tri.rotation.y = -0.85; SC.add(tri);
+  /* the kiosk faces +x; its screen is a canvas shared with the monitor in the observation room */
+  const KW = 0.56, KH = 0.36, KY = 1.21, KX = -1.25, KZ = -2.45, CW = 1120, CH = 720, FONT = "Atkinson Hyperlegible, system-ui, sans-serif";
+  const kio = L.kiosk(G, {w: KW, h: KH, at: [KX, KY, KZ]}); kio.rotation.y = Math.PI / 2;
+  const rects = st => st === 0 ? [0, 1, 2, 3, 4, 5].map(i => [100 + (i % 2) * 470, 190 + Math.floor(i / 2) * 140, 450, 116])
+    : st === 4 ? [[300, 560, 520, 104]] : W.screens[st][1].map((_, i) => [120, 232 + i * 112, 880, 96]);
+  const BACK = [40, 112, 170, 60];
+  let scr = {step: -1, sel: [], press: -1, back: false, spin: 0};
+  const SCR = L.panel(G, KW, KH, [CW, CH], c => {
+    c.fillStyle = "#F7F8FA"; c.fillRect(0, 0, CW, CH); c.fillStyle = "#2F5D8A"; c.fillRect(0, 0, CW, 96);
+    c.fillStyle = "#FFFFFF"; c.textBaseline = "middle"; c.font = `700 44px ${FONT}`; c.textAlign = "left"; c.fillText("Book an appointment", 40, 50);
+    if (scr.step === -1) { c.fillStyle = "#1E2433"; c.textAlign = "center"; c.font = `700 54px ${FONT}`; c.fillText("Welcome", CW / 2, 330);
+      c.font = `500 36px ${FONT}`; c.fillStyle = "#585E6E"; c.fillText("City Hospital outpatient clinics", CW / 2, 410); return; }
+    if (scr.step === "booked") { c.fillStyle = "#2E8B57"; c.textAlign = "center"; c.font = `800 120px ${FONT}`; c.fillText("✓", CW / 2, 290);
+      c.font = `700 54px ${FONT}`; c.fillText("Booked", CW / 2, 410); c.fillStyle = "#585E6E"; c.font = `500 34px ${FONT}`; c.fillText(scr.sel.join(" · "), CW / 2, 490, CW - 80); return; }
+    if (scr.step === "wait") { c.fillStyle = "#1E2433"; c.textAlign = "center"; c.font = `600 40px ${FONT}`; c.fillText("Checking your patient number…", CW / 2, 500);
+      c.strokeStyle = "#2F5D8A"; c.lineWidth = 16; c.lineCap = "round"; c.beginPath(); c.arc(CW / 2, 330, 70, scr.spin, scr.spin + 4.4); c.stroke(); c.lineCap = "butt"; return; }
+    const [title, opts] = W.screens[scr.step];
+    c.textAlign = "right"; c.font = `600 34px ${FONT}`; c.fillText(`Step ${scr.step + 1} of 5`, CW - 40, 50);
+    c.fillStyle = "#1E2433"; c.textAlign = "left"; c.font = `700 46px ${FONT}`;
+    c.fillText(title, scr.step > 0 ? 240 : 100, 142, CW - (scr.step > 0 ? 280 : 140));
+    if (scr.step > 0 && scr.step < 4) { c.fillStyle = "#585E6E"; c.font = `500 30px ${FONT}`; c.fillText(scr.sel.join("  ·  "), 240, 196, CW - 280); }
+    if (scr.step > 0) { c.fillStyle = scr.back ? "#D5E3F1" : "#FFFFFF"; c.strokeStyle = "#9FB3C8"; c.lineWidth = 3; c.beginPath(); c.roundRect(...BACK, 14); c.fill(); c.stroke();
+      c.fillStyle = "#2F5D8A"; c.font = `600 34px ${FONT}`; c.textAlign = "center"; c.fillText("‹ Back", BACK[0] + BACK[2] / 2, BACK[1] + BACK[3] / 2 + 2); }
+    if (scr.step === 4) { c.fillStyle = "#E8EEF5"; c.beginPath(); c.roundRect(120, 220, 880, 300, 18); c.fill(); c.fillStyle = "#1E2433"; c.font = `500 38px ${FONT}`; c.textAlign = "left";
+      scr.sel.forEach((p, i) => c.fillText(p, 160, 268 + i * 66)); }
+    rects(scr.step).forEach((r, i) => { const conf = scr.step === 4, on = scr.press === i;
+      c.fillStyle = conf ? (on ? "#1E3F63" : "#2F5D8A") : (on ? "#D5E3F1" : "#FFFFFF"); c.strokeStyle = "#9FB3C8"; c.lineWidth = 3;
+      c.beginPath(); c.roundRect(...r, 16); c.fill(); if (!conf) c.stroke();
+      c.fillStyle = conf ? "#FFFFFF" : "#1E2433"; c.font = `${conf ? 700 : 600} ${scr.step === 0 ? 38 : 42}px ${FONT}`; c.textAlign = "center"; c.fillText(opts[i], r[0] + r[2] / 2, r[1] + r[3] / 2 + 2, r[2] - 20); });
+  });
+  SCR.mesh.position.set(KX + 0.003, KY, KZ); SCR.mesh.rotation.y = Math.PI / 2; SC.add(SCR.mesh);
+  /* the moderator and the participants; one participant stands at the kiosk at a time */
+  L.chair(G, {at: [-0.15, 0, -3.15], face: -Math.PI / 2 + 0.35, color: 0x4A7A96});
+  const mod = L.human(G, {type: "woman", pose: "sit", at: [-0.15, 0, -3.15], face: -Math.PI / 2 + 0.35, top: 0x5A4BB5, bottom: 0x2B3340, hair: "bun", skin: L.LOOKS.skin[1]});
+  const PX = -0.78, PZ = -2.42;
+  const parts = SES.map((s, i) => { const p = L.human(G, {type: s.type, at: [PX, 0, PZ], face: -Math.PI / 2, top: s.top, bottom: 0x2B3340, skin: L.LOOKS.skin[(i * 2 + 1) % 5],
+    skirt: s.type === "oldwoman", skirtColor: 0x3E4658, hairColor: s.type.startsWith("old") ? 0xC9C4BE : L.LOOKS.hair[i % 3]}); p.group.visible = i === 0; return p; });
+  const target = (st, i) => { const r = i === "back" ? BACK : rects(st)[i], u = (r[0] + r[2] / 2) / CW, v = (r[1] + r[3] / 2) / CH;
+    return V(KX + 0.012, KY + (0.5 - v) * KH, KZ - (u - 0.5) * KW); };
+  const lookAt = () => V(KX, KY, KZ);
+  parts.forEach(p => p.set("look", lookAt()));
+  mod.set("look", V(PX, 1.5, PZ));
+  /* the observation room: a desk with the monitor of the screen feed and a colleague who takes notes */
+  L.table(G, {at: [0, 0, 0.88], w: 2.6, d: 0.76, h: 0.74, color: 0x6E5A48});
+  const monG = new T.Group(); const monB = new T.Mesh(new T.RoundedBoxGeometry(0.58, 0.38, 0.03, 2, 0.01), L.std(G, 0x1E2128, 0.4)); monG.add(monB);
+  const feed = new T.Mesh(new T.PlaneGeometry(0.54, 0.347), new T.MeshBasicMaterial({map: SCR.tex})); feed.position.z = 0.017; monG.add(feed);
+  const monS = new T.Mesh(new T.CylinderGeometry(0.02, 0.06, 0.26, 10), L.std(G, 0x1E2128, 0.4)); monS.position.y = -0.31; monG.add(monS);
+  monG.position.set(0.47, 1.18, 0.55); monG.rotation.y = -0.42; SC.add(monG);
+  const pad = new T.Mesh(new T.BoxGeometry(0.21, 0.01, 0.29), L.std(G, 0xF4F1E8, 0.9)); pad.position.set(-0.55, 0.745, 1.12); pad.rotation.y = 0.2; SC.add(pad);
+  L.chair(G, {at: [-0.85, 0, 1.62], face: Math.PI, color: 0x3E4658});
+  const col = L.human(G, {type: "man", pose: "sit", at: [-0.85, 0, 1.62], face: Math.PI, top: 0x55606E, bottom: 0x23283A, skin: L.LOOKS.skin[3], hairColor: 0x111111});
+  col.set("look", V(-0.6, 1.0, -2.3));
+  L.chair(G, {at: [0.2, 0, 1.75], face: Math.PI, color: 0x3E4658});
+  /* speech bubbles above the speakers */
+  const bubC = document.createElement("canvas"); bubC.width = 1000; bubC.height = 300;
+  const bubT = new T.CanvasTexture(bubC); bubT.colorSpace = T.SRGBColorSpace;
+  const bubble = new T.Sprite(new T.SpriteMaterial({map: bubT, depthTest: false})); bubble.scale.set(1.7, 0.51, 1); bubble.visible = false; bubble.renderOrder = 10; SC.add(bubble);
+  function speak(who, text) {
+    const x = bubC.getContext("2d"); x.clearRect(0, 0, 1000, 300); const isMod = who === "mod";
+    x.fillStyle = "rgba(255,255,255,.97)"; x.strokeStyle = isMod ? "#5A4BB5" : "#2F5D8A"; x.lineWidth = 6; x.beginPath(); x.roundRect(6, 6, 988, 250, 26); x.fill(); x.stroke();
+    x.fillStyle = x.strokeStyle; x.font = `700 34px ${FONT}`; x.textBaseline = "top"; x.fillText(isMod ? "Moderator:" : `${SES[cur.k].name}:`, 30, 24);
+    x.fillStyle = "#1E2433"; x.font = `500 34px ${FONT}`; let line = "", y = 72;
+    text.split(" ").forEach(w => { const t = line ? line + " " + w : w; if (x.measureText(t).width > 930) { x.fillText(line, 30, y); y += 44; line = w; } else line = t; });
+    if (line) x.fillText(line, 30, y);
+    bubT.needsUpdate = true; bubble.position.copy(isMod ? V(0.05, 1.72, -2.9) : V(PX - 0.05, 2.12, PZ - 0.1)); bubble.visible = true; G.redraw();
+    logTalk(isMod ? "Moderator" : SES[cur.k].name, text);
+  }
+  const STG = L.stage(G, {view: PLAY, hide: [col]});
+  const H = L.hud(box, 2); H.set(0, "Press Start for the sessions");
+  let talk = "";
+  function logTalk(who, text) { talk = `${who}: ${text}`; showLog(); }
+  function showLog() {
+    const c = cur && cur.code; const parts2 = [];
+    if (c) { if (c.start != null) parts2.push(`Start ${mmss(c.start)}`); c.err.forEach(t => parts2.push(`Error ${mmss(t)}`)); if (c.out) parts2.push(`${NAME[c.out]} ${mmss(c.end)}`); }
+    logP.textContent = (talk ? talk + "  " : "") + (parts2.length ? "| Your keys: " + parts2.join(" · ") : "");
+  }
+  /* the session runs on real time, at three times its speed */
+  let last = 0;
+  G.onTick(() => {
+    if (!cur || !cur.run) { last = 0; return false; }
+    const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+    cur.t += dt * speed; if (scr.step === "wait") scr.spin += dt * 7;
+    while (cur.q.length && cur.q[0][0] <= cur.t) apply(cur.q.shift());
+    H.set(1, `Session time ${mmss(cur.t)}`);
+    if (cur.ended && cur.code.out && !cur.leaving) { cur.leaving = true; setTimeout(nextSession, 1400); }
+    if (cur.ended && !cur.code.out && !cur.asked) { cur.asked = true; H.say("Code the outcome: D, H or G"); }
+    SCR.redraw(); return true;
+  });
+  const enq = ev => { const i = cur.q.findIndex(e => e[0] > ev[0]); if (i < 0) cur.q.push(ev); else cur.q.splice(i, 0, ev); };
+  function reach(i) { const p = parts[cur.k]; p.set("reach", {side: "R", at: target(scr.step, i)}); setTimeout(() => { if (cur && parts[cur.k] === p) p.set("reach", null); }, 650); }
+  function apply(ev) {
+    const [t, kind, val] = ev;
+    if (kind === "par") speak("par", val);
+    else if (kind === "mod") speak("mod", val);
+    else if (kind === "begin") { speak("mod", "Please begin."); scr.step = 0; scr.sel = []; }
+    else if (kind === "tap" || kind === "wrong") { if (typeof scr.step !== "number" || scr.step < 0) return; reach(val); scr.press = val;
+      enq([t + 0.8, "go", val]); }
+    else if (kind === "go") { const st = scr.step, lab = W.screens[st][1][val]; scr.press = -1;
+      if (st < 4) { scr.sel.push(lab); scr.step = st + 1; } }
+    else if (kind === "back") { reach("back"); scr.back = true; enq([t + 0.8, "goback", 0]); }
+    else if (kind === "goback") { scr.back = false; if (scr.step > 0) { scr.step--; scr.sel.pop(); } }
+    else if (kind === "wait") { enq([t + 1.0, "spin", 0]); }
+    else if (kind === "spin") { scr.press = -1; scr.step = "wait"; }
+    else if (kind === "end") { cur.ended = true; if (val !== "gave up") scr.step = "booked"; parts[cur.k].set("look", V(-0.15, 1.3, -3.15)); }
+    SCR.redraw();
+  }
+  function startSession(k) {
+    parts.forEach((p, i) => { p.group.visible = i === k; p.set("reach", null).set("look", lookAt()); });
+    const s = SES[k], q = [[0.2, "mod", W.task], [W.begin, "begin", 0]].concat(s.events.map(e => e.slice()));
+    q.sort((a, b) => a[0] - b[0]);
+    cur = {k, t: 0, q, run: true, ended: false, code: {start: null, err: [], out: null, end: null}};
+    scr = {step: -1, sel: [], press: -1, back: false, spin: 0}; talk = ""; SCR.redraw(); showLog();
+    H.set(0, `Session ${k + 1} of 7: ${s.name}, ${s.age}`); H.say(""); enable(true);
+    sayP.textContent = `Session ${k + 1} of 7: ${s.name}, ${s.age}, books the earliest appointment in cardiology on Wednesday.`; G.redraw();
+  }
+  function press(k) {
+    if (!game || !cur || !cur.run) return;
+    const c = cur.code, t = Math.round(cur.t * 10) / 10;
+    if (k === "s") { if (c.start == null) c.start = t; }
+    else if (k === "e") c.err.push(t);
+    else if (OUT[k] && !c.out) { c.out = OUT[k]; c.end = t; H.say(`Coded: ${NAME[c.out]}`); }
+    showLog();
+  }
+  function nextSession() {
+    const c = cur.code, s = SES[cur.k], time = c.start != null && c.end != null ? Math.round((c.end - c.start) * 10) / 10 : "";
+    data.rows.push({session: cur.k + 1, participant: s.name, outcome: c.out, errors: c.err.length, start_s: c.start == null ? "" : c.start, end_s: c.end, time_s: time});
+    save(); cur.run = false; bubble.visible = false; table();
+    if (data.rows.length >= SES.length) { end(); return; }
+    startSession(data.rows.length);
+  }
+  function start() { if (game || data.rows.length >= SES.length) return; game = true; table(); H.set(0, "The observation room"); STG.play(true, () => startSession(data.rows.length)); }
+  function end() { game = false; cur = null; enable(false); bubble.visible = false; table(); H.set(0, "All 7 sessions coded"); H.set(1, ""); H.say("");
+    sayP.textContent = "All sessions are coded. The table now shows the reference codes. Copy the results for Section 1 of the Colab notebook."; setTimeout(() => STG.play(false), 400);
+    if (window.labLog) labLog.note("Part A", sumP.textContent); }
+  document.addEventListener("keydown", e => { if (!game || e.ctrlKey || e.metaKey || e.altKey) return; const k = e.key.toLowerCase();
+    if (["s", "e", "d", "h", "g"].includes(k) && !/input|textarea|select/i.test(e.target.tagName)) { e.preventDefault(); press(k); } });
+  startB.addEventListener("click", start);
+  document.getElementById("ob-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); table(); sayP.textContent = ""; logP.textContent = ""; H.set(0, "Press Start for the sessions"); });
+  G.renderer.domElement.setAttribute("aria-label", "A usability lab: a participant at a kiosk and a moderator behind a one-way mirror, seen from the observation room with a monitor of the kiosk screen.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => SCR.redraw());
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["ob-3d"] = () => { col.group.visible = false; parts.forEach((p, i) => { p.group.visible = i === 3; }); cur = {k: 3, t: 46, q: [], run: false, code: {start: 3.4, err: [16.8], out: null, end: null}};
+    scr = {step: 0, sel: [], press: -1, back: false, spin: 0}; SCR.redraw(); speak("mod", "Cardiology is the heart. It is the second one in the list."); STG.jump(PLAY);
+    H.set(0, "Session 4 of 7: Mehmet, 68"); H.set(1, "Session time 0:46"); H.say("Is this help? Code the outcome at the end"); };
+  window.OBS_TEST = {start, press, speed(f) { speed = f; },
+    state: () => ({game, k: cur ? cur.k : null, t: cur ? cur.t : null, ended: cur ? cur.ended : null, coded: cur ? !!cur.code.out : null, n: data.rows.length, step: scr.step})};
+})();
+
+/* Part C: The recruiting desk. People enter the main hall of the hospital one at a time and stop at the desk of the
+   team. The player invites them or lets them pass; some agree and walk to the usability lab, others decline. Round 1
+   fills eight places as fast as possible, round 2 fills quotas by age group. After each round, the board shows who
+   completed the booking in the test. */
+(function () {
+  const box = document.getElementById("rc-3d"); if (!box) return;
+  const W = window.W9, KEY = "w9:recruit", COLS = ["round", "arrival", "name", "age", "group", "invited", "agreed", "completed"];
+  const GROUPS = Object.keys(W.mix), SHORT = {"under 40": "under 40", "40 to 64": "40 to 64", "65 and over": "65+"};
+  const tb = $("#rc-tb"), sumP = $("#rc-sum"), sayP = $("#rc-say"), card = $("#rc-card"), startB = $("#rc-start"), btnsEl = $("#rc-btns");
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: [], round: 1, done: [false, false]});
+  if (!data || !data.rows || !data.done) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, cur = null, speed = 1, round = data.round, idx = 0;
+  const tested = r => data.rows.filter(x => x.round === r && x.agreed === 1);
+  const weighted = list => { const g = {}; list.forEach(x => { (g[x.group] = g[x.group] || []).push(x.completed); });
+    const present = GROUPS.filter(k => g[k]); if (!present.length) return null; const ws = present.reduce((a, k) => a + W.mix[k], 0);
+    return present.reduce((a, k) => a + W.mix[k] * g[k].reduce((s, v) => s + v, 0) / g[k].length, 0) / ws; };
+  function table() {
+    tb.textContent = "";
+    [1, 2].forEach(r => { const rows = data.rows.filter(x => x.round === r); if (!rows.length) return; const t = tested(r), fin = data.done[r - 1];
+      const cnt = k => String(t.filter(x => x.group === k).length), c = t.reduce((a, x) => a + (x.completed === 1 ? 1 : 0), 0), w = weighted(t);
+      tb.append(h("tr", {}, h("td", {}, r === 1 ? "1: fast" : "2: quotas"), h("td", {}, String(rows.length)), h("td", {}, String(t.length)), h("td", {}, cnt("under 40")),
+        h("td", {}, cnt("40 to 64")), h("td", {}, cnt("65 and over")), h("td", {}, fin ? `${c} of ${t.length}` : "?"), h("td", {}, fin && w != null ? w.toFixed(3) : "?"))); });
+    const both = data.done[0] && data.done[1];
+    if (both) { const r1 = tested(1), r2 = tested(2), p = list => list.reduce((a, x) => a + x.completed, 0) / list.length;
+      sumP.textContent = `Round 1 gave a completion rate of ${p(r1).toFixed(3)}, round 2 of ${p(r2).toFixed(3)}. Weighted by the patients of the clinic, they give ${weighted(r1).toFixed(3)} and ${weighted(r2).toFixed(3)}. `
+        + "The true rate of the clinic's patients in this game is 0.70. Section 4 of the Colab notebook compares your rounds with it.";
+    } else sumP.textContent = data.done[0] ? "Round 1 is done. Start round 2 with the quotas." : "";
+    startB.disabled = game || both; startB.textContent = data.done[0] ? "Start round 2" : "Start round 1";
+  }
+  table();
+  LABKIT.exporter("rc-copy", "rc-csv", "rc-msg", COLS, () => data.rows.map(r => Object.assign({}, r, {completed: r.agreed ? r.completed : ""})), "MY_RECRUITS in Section 4");
+  const invB = h("button", {class: "btn", type: "button", disabled: ""}, h("span", {class: "kbd"}, "I"), " Invite"),
+    passB = h("button", {class: "btn ghost", type: "button", disabled: ""}, h("span", {class: "kbd"}, "P"), " Let pass");
+  btnsEl.append(invB, passB);
+  invB.addEventListener("click", () => decide("invite")); passB.addEventListener("click", () => decide("pass"));
+  const enable = on => { invB.disabled = passB.disabled = !on; };
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* The main hall: the entrance at the back, the desk of the team in front, the usability lab on the right */
+  const PLAY = {camera: [0.35, 1.78, 3.45], target: [0.05, 1.25, -1.7]};
+  const G = make3D(box, {camera: [4.3, 2.7, 4.4], target: [-0.4, 1.0, -1.2], limits: [0.5, 11, 1.5], aspect: 0.58, bg: 0xE6EAF0, shadowBox: 7});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), Z0 = -4, FONT = "Atkinson Hyperlegible, system-ui, sans-serif";
+  L.room(G, {w: 10, d: 9, z0: Z0, h: 3.4, floorTile: "#DCD8CF", windows: [{side: -1, z: 1.6, y: 1.8, w: 1.6, h: 1.2}, {x: -3.6, y: 1.9, w: 1.3, h: 1.2}]});
+  const outside = L.canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#A9CBE6"); gr.addColorStop(0.62, "#E4EEF5"); gr.addColorStop(1, "#B7C9A6");
+    x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+  const sky = new T.Mesh(new T.PlaneGeometry(2.0, 2.4), new T.MeshBasicMaterial({map: outside})); sky.position.set(0, 1.2, Z0 + 0.02); SC.add(sky);
+  const glassM = new T.MeshStandardMaterial({color: 0xBFD6E6, transparent: true, opacity: 0.28, roughness: 0.05, metalness: 0.2}), frameM = L.std(G, 0x8E979F, 0.35, 0.6);
+  [-0.48, 0.48].forEach(x => { const g = new T.Mesh(new T.PlaneGeometry(0.9, 2.3), glassM); g.position.set(x, 1.15, Z0 + 0.05); SC.add(g); });
+  [[0, 2.33, 2.06, 0.08], [-1.0, 1.17, 0.07, 2.34], [1.0, 1.17, 0.07, 2.34], [0, 1.17, 0.04, 2.3]].forEach(([x, y, w, hh]) => {
+    const f = new T.Mesh(new T.BoxGeometry(w, hh, 0.1), frameM); f.position.set(x, y, Z0 + 0.06); SC.add(f); });
+  L.sign(G, "Main entrance", {at: [0, 2.75, Z0 + 0.06], w: 1.6, h: 0.3}); L.clock(G, {at: [2.2, 2.6, Z0 + 0.06]});
+  /* the usability lab door on the right wall */
+  const door = new T.Mesh(new T.BoxGeometry(0.06, 2.2, 1.0), L.std(G, 0x6E8FA8, 0.6)); door.position.set(4.93, 1.1, -1.6); SC.add(door);
+  const dfr = new T.Mesh(new T.BoxGeometry(0.05, 2.32, 1.14), frameM); dfr.position.set(4.95, 1.16, -1.6); SC.add(dfr);
+  L.sign(G, "Usability lab", {at: [4.9, 2.5, -1.6], w: 1.1, h: 0.24, face: -Math.PI / 2});
+  /* the waiting area on the left */
+  L.seats(G, 4, {at: [-3.6, 0, 0.6], face: Math.PI / 2, color: 0x4A7A96}, [{chair: 1, type: "oldwoman", top: 0x8C5E6B, skirt: true, skirtColor: 0x3E4658},
+    {chair: 3, type: "man", top: 0x6B7B5A, bottom: 0x23283A, skin: L.LOOKS.skin[2]}]);
+  L.plant(G, {at: [-4.3, 0, -3.4], seed: 6}); L.plant(G, {at: [4.3, 0, -3.4], seed: 2, size: 0.9}); L.plant(G, {at: [4.3, 0, 2.9], seed: 12, size: 0.8});
+  /* the desk of the team, the recruiter and a banner */
+  L.desk(G, {w: 1.5, at: [1.15, 0, 1.25], face: Math.PI, band: 0x5A4BB5, monitor: false});
+  const me = L.human(G, {type: "woman", at: [1.15, 0, 1.9], face: Math.PI, top: 0x5A4BB5, bottom: 0x2B3340, hair: "bun", skin: L.LOOKS.skin[0], hairColor: 0x3B2416});
+  const ban = L.panel(G, 0.8, 2.0, [400, 1000], c => { c.fillStyle = "#5A4BB5"; c.fillRect(0, 0, 400, 1000); c.fillStyle = "#FFFFFF"; c.textAlign = "center"; c.textBaseline = "middle";
+    c.font = `700 52px ${FONT}`; ["Help us", "test the", "new", "booking", "app"].forEach((t, i) => c.fillText(t, 200, 170 + i * 70));
+    c.font = `500 34px ${FONT}`; c.fillText("15 minutes", 200, 600); c.fillText("Usability lab", 200, 650); c.fillStyle = "#F2B134"; c.fillRect(60, 760, 280, 8); });
+  ban.mesh.position.set(2.45, 1.05, 1.15); SC.add(ban.mesh);
+  const banF = new T.Mesh(new T.BoxGeometry(0.86, 0.05, 0.22), frameM); banF.position.set(2.45, 0.03, 1.15); SC.add(banF);
+  /* the board of the participants */
+  const BOARD = L.panel(G, 2.6, 1.5, [1300, 750], (c, Wd, Hd) => {
+    c.fillStyle = "#FAFAF7"; c.fillRect(0, 0, Wd, Hd); c.textBaseline = "middle"; c.fillStyle = "#1E2433"; c.textAlign = "left";
+    c.font = `700 44px ${FONT}`; c.fillText("Test participants", 40, 50);
+    c.font = `500 26px ${FONT}`; c.fillStyle = "#585E6E"; c.fillText("Patients of the clinic: 25 % under 40 · 40 % aged 40 to 64 · 35 % aged 65 and over", 40, 100);
+    [1, 2].forEach(r => { const x0 = 40 + (r - 1) * 630, t = tested(r), fin = data.done[r - 1];
+      c.fillStyle = "#1E2433"; c.font = `700 32px ${FONT}`; c.fillText(r === 1 ? "Round 1: fast" : "Round 2: quotas", x0, 160);
+      if (r === 2) GROUPS.forEach((g, i) => { const n = t.filter(x => x.group === g).length, q = W.quota[g];
+        c.fillStyle = "#585E6E"; c.font = `500 24px ${FONT}`; c.fillText(`${SHORT[g]}: ${n} of ${q}`, x0 + i * 200, 204); });
+      t.forEach((p, i) => { const y = 250 + i * 54; c.fillStyle = "#EEF1F5"; c.fillRect(x0, y - 22, 560, 46);
+        c.fillStyle = "#1E2433"; c.font = `600 28px ${FONT}`; c.fillText(`${p.name}, ${p.age}`, x0 + 16, y + 1);
+        c.fillStyle = "#585E6E"; c.font = `500 24px ${FONT}`; c.fillText(SHORT[p.group], x0 + 300, y + 1);
+        if (fin) { c.fillStyle = p.completed ? "#2E8B57" : "#C0392B"; c.font = `800 32px ${FONT}`; c.fillText(p.completed ? "✓" : "✗", x0 + 500, y + 1); } });
+      if (fin && t.length) { const k = t.reduce((a, x) => a + x.completed, 0); c.fillStyle = "#1E2433"; c.font = `700 28px ${FONT}`;
+        c.fillText(`${k} of ${t.length} completed · weighted ${weighted(t).toFixed(2)}`, x0, 250 + 8 * 54 + 20); } });
+  });
+  BOARD.mesh.position.set(-2.55, 1.75, Z0 + 0.05); SC.add(BOARD.mesh);
+  const bfr = new T.Mesh(new T.BoxGeometry(2.7, 1.6, 0.02), frameM); bfr.position.set(-2.55, 1.75, Z0 + 0.02); SC.add(bfr);
+  /* the people who come in: a pool of figures per body type, dressed anew for each arrival */
+  const POOL = {}; ["man", "woman", "oldman", "oldwoman"].forEach(type => { POOL[type] = [0, 1, 2].map(i => { const p = L.human(G, {type, at: [0, 0, Z0 + 0.4], face: 0, bottom: 0x2B3340,
+    skirt: type === "oldwoman", skirtColor: 0x3E4658, skin: L.LOOKS.skin[(i * 2 + type.length) % 5], hairColor: type.startsWith("old") ? 0xC9C4BE : L.LOOKS.hair[i % 3]});
+    p.group.visible = false; p.busy = false; return p; }); });
+  const dress = (p, top) => p.ready.then(() => { p.root.traverse(m => { if (!m.isMesh) return; (Array.isArray(m.material) ? m.material : [m.material]).forEach(mt => {
+    if (mt.name === "top" || mt.name === "sleeve") mt.color.setHex(top); }); }); G.redraw(); });
+  const STOP = [0.45, 0.3], LAB = [[3.1, -0.7], [4.6, -1.6]], AWAY = [[-1.9, -0.6], [-4.4, -1.2]];
+  const walkers = [];
+  function walk(p, path, done) { p.group.visible = true; p.set("pose", "walk"); walkers.push({p, path: path.slice(), done}); G.redraw(); }
+  let last = 0;
+  G.onTick(() => {
+    if (!walkers.length) { last = 0; return false; }
+    const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+    for (let i = walkers.length - 1; i >= 0; i--) { const w = walkers[i], g = w.p.group, [tx, tz] = w.path[0], dx = tx - g.position.x, dz = tz - g.position.z, d = Math.hypot(dx, dz), step = 2.2 * speed * dt;
+      if (d > 1e-3) g.rotation.y = Math.atan2(dx, dz);
+      if (d <= step) { g.position.x = tx; g.position.z = tz; w.path.shift(); if (!w.path.length) { walkers.splice(i, 1); w.p.set("pose", "stand"); if (w.done) w.done(); } }
+      else { g.position.x += dx / d * step; g.position.z += dz / d * step; } }
+    return true;
+  });
+  /* the card above the person at the desk, and speech bubbles */
+  const mk = (wd, hd, sx, sy) => { const c = document.createElement("canvas"); c.width = wd; c.height = hd; const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace;
+    const s = new T.Sprite(new T.SpriteMaterial({map: t, depthTest: false})); s.scale.set(sx, sy, 1); s.visible = false; s.renderOrder = 10; SC.add(s); return {c, t, s}; };
+  const BUB = mk(1000, 260, 1.15, 0.299), BADGE = mk(600, 200, 0.78, 0.26);
+  function badge(p, at) {
+    const x = BADGE.c.getContext("2d"); x.clearRect(0, 0, 600, 200); x.fillStyle = "rgba(255,255,255,.97)"; x.strokeStyle = "#5A4BB5"; x.lineWidth = 6;
+    x.beginPath(); x.roundRect(6, 6, 588, 180, 22); x.fill(); x.stroke(); x.textBaseline = "middle"; x.textAlign = "center";
+    x.fillStyle = "#1E2433"; x.font = `700 54px ${FONT}`; x.fillText(`${p.name}, ${p.age}`, 300, 72);
+    x.fillStyle = "#5A4BB5"; x.font = `600 36px ${FONT}`; x.fillText(p.group, 300, 140); BADGE.t.needsUpdate = true; BADGE.s.position.copy(at); BADGE.s.visible = true; G.redraw();
+  }
+  function bubble(who, text, at) {
+    const x = BUB.c.getContext("2d"); x.clearRect(0, 0, 1000, 260); x.fillStyle = "rgba(255,255,255,.97)"; x.strokeStyle = who === "You" ? "#5A4BB5" : "#2F5D8A"; x.lineWidth = 6;
+    x.beginPath(); x.roundRect(6, 6, 988, 220, 26); x.fill(); x.stroke(); x.fillStyle = x.strokeStyle; x.font = `700 34px ${FONT}`; x.textBaseline = "top"; x.fillText(who + ":", 30, 22);
+    x.fillStyle = "#1E2433"; x.font = `500 34px ${FONT}`; let line = "", y = 70;
+    text.split(" ").forEach(wd => { const t = line ? line + " " + wd : wd; if (x.measureText(t).width > 930) { x.fillText(line, 30, y); y += 44; line = wd; } else line = t; });
+    if (line) x.fillText(line, 30, y); BUB.t.needsUpdate = true; BUB.s.position.copy(at); BUB.s.visible = true; G.redraw();
+  }
+  const STG = L.stage(G, {view: PLAY, hide: [me]});
+  const H = L.hud(box, 2); H.set(0, "Press Start for round 1");
+  const stream = () => W.streams[round - 1];
+  const full = g => round === 2 && tested(2).filter(x => x.group === g).length >= W.quota[g];
+  const roundDone = () => round === 1 ? tested(1).length >= 8 : GROUPS.every(g => full(g));
+  function hud() { const t = tested(round);
+    H.set(1, round === 1 ? `Participants ${t.length} of 8` : GROUPS.map(g => `${SHORT[g]} ${t.filter(x => x.group === g).length}/${W.quota[g]}`).join(" · ")); }
+  function arrive() {
+    const s = stream(); if (idx >= s.length) { finish("Nobody else comes in. The round ends with the participants you have."); return; }
+    const p = s[idx], pool = POOL[p.type], fig = pool.find(f => !f.busy) || pool[0];
+    fig.busy = true; dress(fig, p.top); fig.group.position.set(0, 0, Z0 + 0.4); fig.group.rotation.y = 0; fig.set("look", null).set("reach", null);
+    cur = {p, fig, arrival: idx + 1, state: "walking"}; card.textContent = ""; enable(false); BUB.s.visible = false; BADGE.s.visible = false;
+    walk(fig, [STOP], () => { if (!cur || cur.fig !== fig) return; cur.state = "ask"; fig.group.rotation.y = 0.42; fig.set("look", V(1.15, 1.6, 1.9));
+      card.textContent = `${p.name}, ${p.age} years (${p.group})` + (full(p.group) ? ". The quota of this age group is full." : "");
+      badge(p, V(STOP[0], 2.05, STOP[1])); enable(true); H.say(`${p.name} stops at your desk. Invite or let pass?`); });
+  }
+  function leave(fig, path) { walk(fig, path, () => { fig.group.visible = false; fig.busy = false; }); }
+  function decide(d) {
+    if (!game || !cur || cur.state !== "ask") return;
+    const {p, fig} = cur, g = p.group;
+    if (d === "invite" && full(g)) { H.big("This age group is full", "#C98510", 900); return; }
+    const inv = d === "invite" ? 1 : 0, ok = inv && p.agree ? 1 : 0;
+    data.rows.push({round, arrival: cur.arrival, name: p.name, age: p.age, group: g, invited: inv, agreed: ok, completed: p.completed}); save(); table(); BOARD.redraw(); hud();
+    enable(false); cur.state = "leaving"; idx++;
+    const at = V(STOP[0] - 0.1, 2.12, STOP[1]); BADGE.s.visible = false;
+    if (!inv) bubble(p.name, "All right, good luck with your test.", at);
+    else if (ok) bubble(p.name, "Yes, I can help. Where do I go?", at);
+    else bubble(p.name, p.line || "Sorry, I have no time today.", at);
+    setTimeout(() => { BUB.s.visible = false; leave(fig, ok ? LAB : AWAY); if (roundDone()) finish(); else arrive(); }, 1100 / speed);
+  }
+  function finish(msg) {
+    game = false; cur = null; enable(false); data.done[round - 1] = true; if (round === 1) { data.round = 2; } save(); BOARD.redraw(); table(); hud();
+    const t = tested(round), k = t.reduce((a, x) => a + x.completed, 0);
+    sayP.textContent = (msg ? msg + " " : "") + `Round ${round} is done: ${k} of ${t.length} participants completed the booking in the test. ` + (round === 1 ? "Start round 2 for the quotas." : "Copy the results for Section 4 of the Colab notebook.");
+    H.set(0, `Round ${round} done`); H.say(""); card.textContent = ""; BADGE.s.visible = false; setTimeout(() => { BUB.s.visible = false; STG.play(false); }, 900);
+    if (window.labLog) labLog.note("Part C", `Round ${round}: ${k} of ${t.length} completed`);
+    round = data.round;
+  }
+  function start() {
+    if (game || (data.done[0] && data.done[1])) return;
+    round = data.done[0] ? 2 : 1; idx = data.rows.filter(x => x.round === round).length; game = true; table(); hud();
+    H.set(0, round === 1 ? "Round 1: fill eight places fast" : "Round 2: fill the quotas");
+    sayP.textContent = round === 1 ? "Round 1: Fill eight places as fast as you can." : "Round 2: Two people under 40, three aged 40 to 64 and three aged 65 and over.";
+    STG.play(true, () => arrive());
+  }
+  document.addEventListener("keydown", e => { if (!game || !cur || cur.state !== "ask" || e.ctrlKey || e.metaKey || e.altKey || /input|textarea|select/i.test(e.target.tagName)) return;
+    const k = e.key.toLowerCase(); if (k === "i") { e.preventDefault(); decide("invite"); } else if (k === "p") { e.preventDefault(); decide("pass"); } });
+  startB.addEventListener("click", start);
+  document.getElementById("rc-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); round = 1; idx = 0; BOARD.redraw(); table(); sayP.textContent = ""; card.textContent = ""; H.set(0, "Press Start for round 1"); H.set(1, ""); });
+  G.renderer.domElement.setAttribute("aria-label", "The main hall of the hospital with the entrance, the desk of the test team, a board of the participants and the door of the usability lab.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { BOARD.redraw(); ban.redraw(); });
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["rc-3d"] = () => { const p = W.streams[1][8], fig = POOL[p.type][0]; me.group.visible = false; dress(fig, p.top); fig.group.visible = true; fig.group.position.set(STOP[0], 0, STOP[1]);
+    fig.group.rotation.y = 0.42; fig.set("pose", "stand").set("look", V(1.15, 1.6, 1.9));
+    const p2 = W.streams[1][9], f2 = POOL[p2.type][1]; dress(f2, p2.top); f2.group.visible = true; f2.group.position.set(0.15, 0, -2.2); f2.group.rotation.y = 0.1; f2.set("pose", "walk");
+    badge(p, V(STOP[0], 2.05, STOP[1])); STG.jump(PLAY);
+    H.set(0, "Round 2: fill the quotas"); H.set(1, "under 40 2/2 · 40 to 64 2/3 · 65+ 1/3"); H.say(`${p.name} stops at your desk. Invite or let pass?`); };
+  window.RECRUIT_TEST = {start, decide, speed(f) { speed = f; }, state: () => ({game, round, idx, ask: !!(cur && cur.state === "ask"), group: cur && cur.p.group, full: cur ? full(cur.p.group) : null,
+    n: data.rows.length, done: data.done.slice()})};
+})();
+
+/* Part D: Two kiosks, one winner? Six A/B tests at two kiosks in the lobby: kiosk A runs the current design, kiosk B
+   the redesign. After every ten patients per kiosk, the board shows the completions, the adjusted Wald intervals and
+   the p-value of the N-1 test, and the player continues or stops with a verdict. The true rates are revealed after the
+   decision. Some tests have no real difference, so stopping at the first low p-value produces false alarms. */
+(function () {
+  const box = document.getElementById("ab-3d"); if (!box) return;
+  const W = window.W9, R = W.rounds, KEY = "w9:ab", COLS = ["round", "looks", "per_kiosk", "completed_a", "completed_b", "p_value", "decision", "true_a", "true_b", "verdict"];
+  const DEC = {c: "continue", a: "A better", b: "B better", n: "no difference"};
+  const tb = $("#ab-tb"), sumP = $("#ab-sum"), sayP = $("#ab-say"), startB = $("#ab-start"), decEl = $("#ab-dec");
+  const PHI = x => { const t = 1 / (1 + 0.2316419 * Math.abs(x)), d = 0.3989422804014327 * Math.exp(-x * x / 2);
+    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429)))); return x >= 0 ? 1 - p : p; };
+  const pN1 = (xa, xb, n) => { const pb = (xa + xb) / (2 * n); if (pb <= 0 || pb >= 1) return 1; const z = (xb - xa) / n / Math.sqrt(pb * (1 - pb) * 2 / n) * Math.sqrt((2 * n - 1) / (2 * n));
+    return 2 * (1 - PHI(Math.abs(z))); };
+  const aw = (x, n) => { const p = (x + 1.9208) / (n + 3.8416), m = 1.96 * Math.sqrt(p * (1 - p) / (n + 3.8416)); return [Math.max(0, p - m), Math.min(1, p + m)]; };
+  const verdict = (r, d) => { const same = r.true_a === r.true_b; if (same) return d === "no difference" ? "right" : "false alarm";
+    if (d === "no difference") return "missed"; return d === (r.true_b > r.true_a ? "B better" : "A better") ? "right" : "wrong winner"; };
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: []});
+  if (!data || !data.rows) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, speed = 1, cur = null;
+  const pct = x => Math.round(100 * x) + " %";
+  function table() {
+    tb.textContent = "";
+    data.rows.forEach(r => tb.append(h("tr", {}, h("td", {}, String(r.round)), h("td", {}, String(r.per_kiosk)), h("td", {}, String(r.completed_a)), h("td", {}, String(r.completed_b)),
+      h("td", {}, r.p_value.toFixed(3)), h("td", {}, r.decision), h("td", {}, `A ${pct(r.true_a)}, B ${pct(r.true_b)}`), h("td", {}, r.verdict))));
+    const done = data.rows.length >= R.length;
+    if (done) { const c = k => data.rows.filter(r => r.verdict === k).length;
+      sumP.textContent = `Right: ${c("right")} of 6, false alarms: ${c("false alarm")}, missed differences: ${c("missed")}, wrong winners: ${c("wrong winner")}. `
+        + "Three of the six tests had no real difference. Section 5 of the Colab notebook simulates thousands of such tests.";
+    } else sumP.textContent = data.rows.length ? `${data.rows.length} of 6 tests decided.` : "";
+    startB.disabled = game || done; startB.textContent = data.rows.length && !done ? "Continue the A/B tests" : "Start the A/B tests";
+  }
+  table();
+  LABKIT.exporter("ab-copy", "ab-csv", "ab-msg", COLS, () => data.rows.map(r => Object.assign({}, r, {p_value: r.p_value.toFixed(3)})), "MY_AB in Section 5");
+  const dbtn = [["c", "C", "Continue"], ["a", "A", "Stop: A is better"], ["b", "B", "Stop: B is better"], ["n", "N", "Stop: no difference"]].map(([k, K, lab]) => {
+    const b = h("button", {class: k === "c" ? "btn" : "btn ghost", type: "button", disabled: ""}, h("span", {class: "kbd"}, K), " " + lab);
+    b.addEventListener("click", () => decide(k)); decEl.append(b); b.dataset.k = k; return b; });
+  const enable = on => dbtn.forEach(b => { b.disabled = !on || (b.dataset.k === "c" && cur && cur.look >= 10); });
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* the lobby with two kiosks and the board above them */
+  const PLAY = {camera: [0, 1.72, 3.05], target: [0, 1.62, -1.6]};
+  const G = make3D(box, {camera: [3.1, 2.3, 4.2], target: [-0.2, 1.4, -1.2], limits: [0.5, 10, 1.5], aspect: 0.58, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), Z0 = -2.2, FONT = "Atkinson Hyperlegible, system-ui, sans-serif";
+  L.room(G, {w: 9, d: 8, z0: Z0, h: 3.3, windows: [{side: -1, z: 0.6, y: 1.8, w: 1.5, h: 1.15}, {side: 1, z: 0.6, y: 1.8, w: 1.5, h: 1.15}]});
+  L.plant(G, {at: [-3.9, 0, -1.8], seed: 4}); L.plant(G, {at: [3.9, 0, -1.8], seed: 10, size: 0.9}); L.clock(G, {at: [3.0, 2.7, Z0 + 0.02]});
+  L.seats(G, 4, {at: [-3.0, 0, 1.6], face: Math.PI / 2, color: 0x4A7A96}, [{chair: 0, type: "oldman", top: 0x7B6A58, bottom: 0x2B3340},
+    {chair: 2, type: "woman", top: 0x9C4A5E, bottom: 0x2B3340, skin: L.LOOKS.skin[3], hairColor: 0x111111}]);
+  const KW = 0.56, KH = 0.36, KY = 1.21, KZ = -1.05, KXS = [-0.95, 0.95], CW = 560, CH = 360;
+  const screenOf = k => L.panel(G, KW, KH, [CW, CH], c => {
+    c.fillStyle = "#F7F8FA"; c.fillRect(0, 0, CW, CH); c.fillStyle = k ? "#2F5D8A" : "#C0392B"; c.fillRect(0, 0, CW, 48);
+    c.fillStyle = "#FFFFFF"; c.font = `700 24px ${FONT}`; c.textBaseline = "middle"; c.fillText("Book an appointment", 18, 25);
+    if (k) { c.fillStyle = "#1E2433"; c.font = `700 28px ${FONT}`; c.fillText("Choose a category", 30, 90);
+      ["Heart and vessels", "Skin", "Bones and joints"].forEach((t, i) => { c.fillStyle = "#FFFFFF"; c.strokeStyle = "#9FB3C8"; c.lineWidth = 2; c.beginPath(); c.roundRect(30, 120 + i * 72, 500, 58, 10); c.fill(); c.stroke();
+        c.fillStyle = "#1E2433"; c.font = `600 24px ${FONT}`; c.fillText(t, 50, 150 + i * 72); }); }
+    else { c.fillStyle = "#1E2433"; c.font = `600 18px ${FONT}`;
+      ["Anaesthesiology", "Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "Haematology", "Nephrology", "Neurology", "Orthopaedics", "Urology"].forEach((t, i) => {
+        c.fillStyle = ["#F4D03F", "#E8EEF5", "#D5F5E3", "#FADBD8"][i % 4]; c.fillRect(20 + (i % 2) * 265, 62 + Math.floor(i / 2) * 58, 255, 50); c.fillStyle = "#1E2433"; c.fillText(t, 30 + (i % 2) * 265, 87 + Math.floor(i / 2) * 58); }); }
+  });
+  KXS.forEach((x, k) => { L.kiosk(G, {w: KW, h: KH, at: [x, KY, KZ], color: k ? 0x2F5D8A : 0x8A3A30}); const s = screenOf(k); s.mesh.position.set(x, KY, KZ + 0.002); SC.add(s.mesh);
+    L.sign(G, k ? "B: redesign" : "A: current design", {at: [x, 1.66, KZ - 0.2], w: 0.7, h: 0.16, bg: k ? "#2F5D8A" : "#8A3A30"}); });
+  /* the board */
+  const st = {round: 0, look: 0, reveal: null};
+  const BOARD = L.panel(G, 3.4, 1.42, [1700, 710], (c, Wd, Hd) => {
+    c.fillStyle = "#FAFAF7"; c.fillRect(0, 0, Wd, Hd); c.textBaseline = "middle"; c.textAlign = "left";
+    const r = R[st.round], n = 10 * st.look;
+    c.fillStyle = "#1E2433"; c.font = `700 40px ${FONT}`;
+    c.fillText(st.look ? `A/B test ${st.round + 1} of 6 · ${n} patients per kiosk` : `A/B test ${st.round + 1} of 6 · waiting for the first patients`, 40, 48);
+    if (!st.look) return;
+    const xa = r.a[st.look - 1], xb = r.b[st.look - 1], X = v => 290 + v * 560;
+    [[0, "A", xa, "#B53F2E"], [1, "B", xb, "#2E7D57"]].forEach(([i, lab, x, col]) => { const y = 150 + i * 110, [lo, hi] = aw(x, n);
+      c.fillStyle = "#1E2433"; c.font = `700 32px ${FONT}`; c.fillText(`Kiosk ${lab}: ${x} of ${n}`, 40, y - 22);
+      c.fillStyle = "#585E6E"; c.font = `500 26px ${FONT}`; c.fillText(`${Math.round(100 * x / n)} % completed`, 40, y + 20);
+      c.fillStyle = "#E8EEF5"; c.fillRect(X(0), y - 8, 560, 16); c.fillStyle = col; c.fillRect(X(lo), y - 12, X(hi) - X(lo), 24);
+      c.fillStyle = "#1E2433"; c.beginPath(); c.arc(X(x / n), y, 11, 0, 2 * Math.PI); c.fill(); });
+    c.fillStyle = "#585E6E"; c.font = `500 22px ${FONT}`; c.textAlign = "center"; [0, 0.5, 1].forEach(v => c.fillText(v.toFixed(1), X(v), 380)); c.textAlign = "left";
+    /* the p-value after each look on a log scale */
+    const px = 960, pw = 680, py0 = 110, ph = 300, LY = p => py0 + (1 - (Math.log10(Math.max(p, 0.001)) + 3) / 3) * ph, LX = k => px + (k - 0.5) / 10 * pw;
+    c.strokeStyle = "#C9CED6"; c.lineWidth = 2; c.strokeRect(px, py0, pw, ph);
+    [1, 0.1, 0.01, 0.001].forEach(p => { c.fillStyle = "#585E6E"; c.font = `500 22px ${FONT}`; c.textAlign = "right"; c.fillText(String(p), px - 10, LY(p)); });
+    c.setLineDash([12, 8]); c.strokeStyle = "#C0392B"; c.beginPath(); c.moveTo(px, LY(0.05)); c.lineTo(px + pw, LY(0.05)); c.stroke(); c.setLineDash([]);
+    c.fillStyle = "#C0392B"; c.textAlign = "left"; c.fillText("p = 0.05", px + pw - 110, LY(0.05) - 18);
+    const ps = Array.from({length: st.look}, (_, k) => pN1(r.a[k], r.b[k], 10 * (k + 1)));
+    c.strokeStyle = "#5A4BB5"; c.lineWidth = 4; c.beginPath(); ps.forEach((p, k) => k ? c.lineTo(LX(k + 1), LY(p)) : c.moveTo(LX(k + 1), LY(p))); c.stroke();
+    ps.forEach((p, k) => { c.fillStyle = p < 0.05 ? "#C0392B" : "#5A4BB5"; c.beginPath(); c.arc(LX(k + 1), LY(p), 9, 0, 2 * Math.PI); c.fill(); });
+    c.fillStyle = "#1E2433"; c.font = `700 32px ${FONT}`; c.fillText(`p = ${ps[ps.length - 1].toFixed(3)}`, px, 70);
+    c.fillStyle = "#585E6E"; c.font = `500 22px ${FONT}`; c.textAlign = "center"; c.fillText("look", px + pw / 2, py0 + ph + 30); c.textAlign = "left";
+    if (st.reveal) { c.fillStyle = st.reveal.verdict === "right" ? "#E3F2E8" : "#FBE3DF"; c.fillRect(30, 480, Wd - 60, 190);
+      c.fillStyle = "#1E2433"; c.font = `700 36px ${FONT}`; c.fillText(`Truth: A completes ${pct(r.true_a)}, B completes ${pct(r.true_b)}.`, 60, 535);
+      c.font = `600 32px ${FONT}`; c.fillText(`Your decision: ${st.reveal.decision}. Verdict: ${st.reveal.verdict}.`, 60, 610); }
+    else { c.fillStyle = "#585E6E"; c.font = `500 28px ${FONT}`; c.fillText("Continue, or stop with a verdict? The true rates appear after your decision.", 40, 560); }
+  });
+  BOARD.mesh.position.set(0, 2.38, Z0 + 0.04); SC.add(BOARD.mesh);
+  const bfr = new T.Mesh(new T.BoxGeometry(3.5, 1.52, 0.02), L.std(G, 0x2B2F36, 0.5)); bfr.position.set(0, 2.38, Z0 + 0.015); SC.add(bfr);
+  /* patients at the kiosks and walkers who come and go after each look */
+  const atK = KXS.map((x, k) => L.human(G, {type: k ? "woman" : "man", at: [x + (k ? 0.36 : -0.36), 0, KZ + 0.42], face: Math.PI + (k ? 0.55 : -0.55), top: k ? 0x4FA3A5 : 0x6B7B5A, bottom: 0x2B3340,
+    skin: L.LOOKS.skin[k ? 1 : 3], hairColor: L.LOOKS.hair[k ? 1 : 5]}).set("look", V(x, KY, KZ)));
+  const walkersPool = [["oldwoman", 0x7B5E8C], ["man", 0x3F6E8C], ["woman", 0xB8664A], ["oldman", 0x55606E]].map(([type, top], i) => {
+    const p = L.human(G, {type, at: [0, 0, 3], top, bottom: 0x2B3340, skirt: type === "oldwoman", skirtColor: 0x3E4658, skin: L.LOOKS.skin[(i * 2) % 5],
+      hairColor: type.startsWith("old") ? 0xC9C4BE : L.LOOKS.hair[i % 3]}); p.group.visible = false; return p; });
+  const moving = [];
+  let last = 0;
+  G.onTick(() => {
+    if (!moving.length) { last = 0; return false; }
+    const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+    for (let i = moving.length - 1; i >= 0; i--) { const m = moving[i], g = m.p.group, [tx, tz] = m.path[0], dx = tx - g.position.x, dz = tz - g.position.z, d = Math.hypot(dx, dz), stp = 2.0 * speed * dt;
+      if (d > 1e-3) g.rotation.y = Math.atan2(dx, dz);
+      if (d <= stp) { g.position.x = tx; g.position.z = tz; m.path.shift(); if (!m.path.length) { moving.splice(i, 1); g.visible = false; m.p.set("pose", "stand"); } }
+      else { g.position.x += dx / d * stp; g.position.z += dz / d * stp; } }
+    return true;
+  });
+  function walkers() { if (reduced()) return; [[0, -1], [1, 1], [2, -1], [3, 1]].forEach(([i, s], j) => { const p = walkersPool[i], x = KXS[s < 0 ? 0 : 1];
+    p.group.position.set(s * 0.4 + (j > 1 ? s * 0.6 : 0), 0, 3.4 + (j > 1 ? 0.9 : 0)); p.group.visible = true; p.set("pose", "walk");
+    moving.push({p, path: [[x + s * 0.55, KZ + 1.1], [x + s * 1.6, KZ + 0.6], [s * 4.2, KZ + 0.4]]}); }); G.redraw(); }
+  const STG = L.stage(G, {view: PLAY, hide: []});
+  const H = L.hud(box, 2); H.set(0, "Press Start for the A/B tests");
+  function look() {
+    cur.look++; st.look = cur.look; st.reveal = null; enable(false); walkers();
+    const n = 10 * cur.look, r = R[cur.r], p = pN1(r.a[cur.look - 1], r.b[cur.look - 1], n);
+    H.set(1, `${n} patients per kiosk`); H.say("Patients are booking…"); BOARD.redraw();
+    setTimeout(() => { if (!game) return; cur.ready = true; enable(true); H.say(cur.look >= 10 ? "Last look: stop with a verdict" : "Continue or stop?");
+      sayP.textContent = `Test ${cur.r + 1}, look ${cur.look}: A ${r.a[cur.look - 1]} of ${n}, B ${r.b[cur.look - 1]} of ${n}, p = ${p.toFixed(3)}.`; }, 2200 / speed);
+  }
+  function decide(k) {
+    if (!game || !cur || !cur.ready) return;
+    if (k === "c") { if (cur.look >= 10) return; cur.ready = false; look(); return; }
+    const r = R[cur.r], n = 10 * cur.look, p = pN1(r.a[cur.look - 1], r.b[cur.look - 1], n), d = DEC[k], v = verdict(r, d);
+    data.rows.push({round: cur.r + 1, looks: cur.look, per_kiosk: n, completed_a: r.a[cur.look - 1], completed_b: r.b[cur.look - 1], p_value: p, decision: d, true_a: r.true_a, true_b: r.true_b, verdict: v});
+    save(); table(); cur.ready = false; enable(false); st.reveal = {decision: d, verdict: v}; BOARD.redraw();
+    H.big(v === "right" ? "Right" : v === "false alarm" ? "False alarm" : v === "missed" ? "Missed difference" : "Wrong winner", v === "right" ? "#2E8B57" : "#C0392B", 1600);
+    sayP.textContent = `Truth: A ${pct(r.true_a)}, B ${pct(r.true_b)}. Your decision: ${d}, after ${n} patients per kiosk. Verdict: ${v}.`;
+    setTimeout(() => { if (data.rows.length >= R.length) end(); else startRound(data.rows.length); }, 2600 / speed);
+  }
+  function startRound(i) { cur = {r: i, look: 0, ready: false}; st.round = i; st.look = 0; st.reveal = null; BOARD.redraw(); H.set(0, `A/B test ${i + 1} of 6`); look(); }
+  function start() { if (game || data.rows.length >= R.length) return; game = true; table(); STG.play(true, () => startRound(data.rows.length)); }
+  function end() { game = false; cur = null; enable(false); table(); H.set(0, "All 6 tests decided"); H.set(1, ""); H.say("");
+    sayP.textContent = "All six tests are decided. Copy the results for Section 5 of the Colab notebook."; setTimeout(() => STG.play(false), 500);
+    if (window.labLog) labLog.note("Part D", sumP.textContent); }
+  document.addEventListener("keydown", e => { if (!game || !cur || !cur.ready || e.ctrlKey || e.metaKey || e.altKey || /input|textarea|select/i.test(e.target.tagName)) return;
+    const k = e.key.toLowerCase(); if (DEC[k]) { e.preventDefault(); decide(k); } });
+  startB.addEventListener("click", start);
+  document.getElementById("ab-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); table(); sayP.textContent = ""; st.round = 0; st.look = 0; st.reveal = null; BOARD.redraw(); H.set(0, "Press Start for the A/B tests"); });
+  G.renderer.domElement.setAttribute("aria-label", "A lobby with two kiosks, A with the current design and B with the redesign, below a board with the results of the A/B test.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => BOARD.redraw());
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["ab-3d"] = () => { st.round = 0; st.look = 2; st.reveal = null; BOARD.redraw(); STG.jump(PLAY); H.set(0, "A/B test 1 of 6"); H.set(1, "20 patients per kiosk"); H.say("Continue or stop?"); };
+  window.AB_TEST = {start, decide, speed(f) { speed = f; }, state: () => ({game, round: cur ? cur.r : null, look: cur ? cur.look : null, ready: !!(cur && cur.ready), n: data.rows.length})};
+})();
+
+initLab(9,"Usability Testing: Observing People and Measuring with Confidence",[{"q": "What does a moderator say to keep a participant thinking aloud without steering?", "options": ["A brief acknowledgement such as mm-hm", "Where the next button is", "Whether a choice is right", "That the task is easy"], "answer": 0, "why": "Brief acknowledgements keep the participant talking without giving information."}, {"q": "Two observers agree on 6 of 7 sessions, and chance alone would give 0.469. What is kappa?", "options": ["About 0.73", "About 0.86", "About 0.47", "1"], "answer": 0, "why": "$(0.857 - 0.469)/(1 - 0.469) = 0.731$."}, {"q": "Why do Sauro and Lewis recommend the adjusted Wald interval for completion rates?", "options": ["It keeps close to its promised coverage also with small samples", "It is always narrower", "It needs no value of z", "It ignores the participants who failed"], "answer": 0, "why": "The plain Wald interval covers the true rate much less often than 95 % with few participants."}, {"q": "Four of seven patients complete a task. What is the adjusted proportion $\\hat{p}_{adj}$?", "options": ["0.546", "0.571", "0.500", "0.842"], "answer": 0, "why": "$(4 + 1.92)/(7 + 3.84) = 0.546$."}, {"q": "Which average do Sauro and Lewis recommend for the task times of small samples?", "options": ["The geometric mean", "The arithmetic mean", "The longest time", "The mode"], "answer": 0, "why": "It had less error and less bias than the sample median in their simulations."}, {"q": "A test of 20 students reaches a narrow interval around 0.95. What does the interval not cover?", "options": ["That the students may not represent the patients", "Chance", "The sample size", "The completions of the students"], "answer": 0, "why": "An interval covers the uncertainty of chance, not a biased choice of participants."}, {"q": "How many participants does an adjusted Wald interval of $\\pm 0.10$ need for an expected rate of 0.7?", "options": ["77", "17", "7", "300"], "answer": 0, "why": "$3.84 \\times 0.21/0.01 - 3.84 = 76.8$, so 77."}, {"q": "Kiosk A completes 70 of 100 bookings and kiosk B 80 of 100. What is the p-value of the N-1 test?", "options": ["About 0.10", "About 0.01", "About 0.50", "Exactly 0.05"], "answer": 0, "why": "$z = 1.629$ gives $p = 0.103$."}, {"q": "What happens to false alarms when a team stops an A/A test at the first of ten looks with p < 0.05?", "options": ["They rise to almost a fifth of the tests", "They stay at 5 %", "They disappear", "They fall below 1 %"], "answer": 0, "why": "The simulation of the Colab notebook gives 18.5 %."}, {"q": "Dell and colleagues found a bias towards technology believed to come from the interviewer. How large was it?", "options": ["About 2.5 times", "About 10 percent", "None", "About 50 times"], "answer": 0, "why": "About 2.5 times, and five times with a foreign interviewer who needed a translator."}],["Which session of Part A did you code differently from the reference, and why?", "Which of the three averages would you report for your own times, and what would change your choice?", "How did the age groups of your two rounds in Part C differ, and what did that do to the estimate?", "In which round of Part D did you decide too early or too late? What rule would you follow next time?", "Which result of stage 9 would you present to the head of the clinic first, and how would you show its uncertainty?"]);
+})();</script></body></html>

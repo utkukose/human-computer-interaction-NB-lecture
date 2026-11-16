@@ -1,0 +1,1701 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual design and emotion lab | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 8 of 14</p><h1>Visual Design and Emotion: Grouping, Layout, First and Last Impressions</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-08">Week overview</a><a href="lecture.html">Lecture page</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb">Colab notebook</a><a href="Week08_Lecture_Notes.pdf">PDF notes</a></nav></header><h2>Visual design and emotion lab</h2><p>Three parts of this interactive lab are experiments in three dimensions (3D) that record your own perception and feelings. Part A flashes dot patterns on the floor of the waiting area. Part C flashes screen designs in the design studio, and Part D lets you book at the kiosk with waits in different orders. Parts B and D compute the formulas of the lecture step by step, and Part E asks for the values of stage 8 by hand. In the calculators every intermediate value is rounded, and the next step continues with the rounded value. The results of Parts A, C and D can be copied into the Colab notebook. Each game first shows its room of the hospital. Start moves the view to the game, and the view returns to the room at the end. The games work best with a mouse or a touchpad on a computer.</p><div class="tabs" role="tablist"><button aria-selected="true">Explore</button><button aria-selected="false">Check yourself</button><button aria-selected="false">Reflect and export</button></div><section class="tabpanel"><section class="labpart" id="pa"><h3>Part A: Floor dots in the waiting area</h3><p>The clinic plans floor markings for its new waiting area, and the designers want to know which rows patients see in a pattern of dots. In the game, a projector on the ceiling flashes a pattern of dots onto a dark mat on the floor for 300 ms, followed by a mask of scattered dots. The view looks straight down from the ceiling.</p>
+<p>After each pattern, choose the direction of the rows that you saw from the four circles below the view, or press the keys 1 to 4. There is no right answer: Report what you saw at first glance. The thirty patterns are rectangular lattices with the ratios 1.0, 1.1, 1.2, 1.3 and 1.4 between the longer and the shorter distance, six of each, at random orientations.</p>
+<div class="three" id="fd-3d"></div>
+<div id="fd-opts" style="display:flex;flex-wrap:wrap;justify-content:center;margin:6px 0" aria-label="The four directions of the rows"></div>
+<p><button class="btn" id="fd-start" type="button">Start the floor dots</button> <button class="btn ghost" id="fd-clr" type="button">Clear the results</button></p>
+<p class="small" id="fd-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Ratio |b|/|a|</th><th>Patterns</th><th>Rows of a</th><th>Rows of b</th><th>Diagonals</th></tr></thead><tbody id="fd-tb"></tbody></table></div>
+<p class="small" id="fd-sum" aria-live="polite"></p>
+<p><button class="btn" id="fd-copy" type="button">Copy the results for Colab</button> <span class="small" id="fd-msg" aria-live="polite"></span></p>
+<textarea id="fd-csv" rows="5" readonly aria-label="Results of the floor dots as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pa">Back to the lecture: Gestalt: How the eye groups</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb#scrollTo=sec-1" target="_blank" rel="noopener">Continue in Colab, section 1</a>: Paste your choices into MY_LATTICE and fit your attraction constant.</p></section><section class="labpart" id="pb"><h3>Part B: The balance of a layout, step by step</h3><p>The calculator repeats the worked example of balance one step at a time. Its sliders set the areas of two elements and the positions of their centres on a frame of 10 by 10 units. The figure shows the frame with both elements, the central lines and the four weights.</p><div class="stepcalc" id="pb-balance"></div><p class="backpart"><a href="lecture.html#lab-pb">Back to the lecture: Layout: Balance, alignment and where the eye lands</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb#scrollTo=sec-2" target="_blank" rel="noopener">Continue in Colab, section 2</a>: Compute the balance and the edges of screens and a heat map.</p></section><section class="labpart" id="pc"><h3>Part C: Fifty milliseconds in the design studio</h3><p>The design team tests twelve designs for the start screen of the kiosk on the large screen of the studio. In round 1, a cross appears first, then a design for only 50 ms, then a mask of coloured blocks. Rate how appealing the design looked with the buttons from 1 to 9 below the view, or with the number keys.</p>
+<p>In round 2, the same designs return in a new order, and each one stays on the screen until you rate it. The designs differ in their number of elements, their colours and their alignment, as in Section 3 of the Colab notebook. The page records how long each flash really stayed on the screen, which depends on the refresh rate of the display.</p>
+<div class="three" id="fl-3d"></div>
+<div id="fl-rate" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;justify-content:center;margin:6px 0" aria-label="Rating from 1 to 9"></div>
+<p><button class="btn" id="fl-start" type="button">Start the fifty-millisecond test</button> <button class="btn ghost" id="fl-clr" type="button">Clear the results</button></p>
+<p class="small" id="fl-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Design</th><th>Rating after 50 ms</th><th>Rating after a long view</th></tr></thead><tbody id="fl-tb"></tbody></table></div>
+<p class="small" id="fl-sum" aria-live="polite"></p>
+<p><button class="btn" id="fl-copy" type="button">Copy the results for Colab</button> <span class="small" id="fl-msg" aria-live="polite"></span></p>
+<textarea id="fl-csv" rows="5" readonly aria-label="Ratings of the designs as comma-separated values" hidden></textarea>
+<p class="backpart"><a href="lecture.html#lab-pc">Back to the lecture: First impressions in fifty milliseconds</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb#scrollTo=sec-3" target="_blank" rel="noopener">Continue in Colab, section 3</a>: Paste your ratings into MY_FLASH and compare them with the measures.</p></section><section class="labpart" id="pd"><h3>Part D: Waits at the kiosk</h3><p>The game takes place at the kiosk in the lobby, with other patients waiting for their turn. Book eight appointments, five taps each: A department, a doctor, a day, a time and the confirmation. After every tap, the kiosk waits before it shows the next step.</p>
+<p>Every booking waits 6 s in total, but in one of four orders. The long wait comes at the end, at the start or in the middle, or the waits spread evenly. The page does not tell you which order comes next. After each booking, rate how it felt with the buttons from 1 to 9 below the view, or with the number keys.</p>
+<div class="three" id="wt-3d"></div>
+<div id="wt-rate" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;justify-content:center;margin:6px 0" aria-label="Rating from 1 to 9"></div>
+<p><button class="btn" id="wt-start" type="button">Start the bookings</button> <button class="btn ghost" id="wt-clr" type="button">Clear the results</button></p>
+<p class="small" id="wt-say" aria-live="polite"></p>
+<div class="tablewrap"><table><thead><tr><th>Order</th><th>Waits after the five taps (s)</th><th>Peak-end (s)</th><th>Bookings</th><th>Mean rating</th></tr></thead><tbody id="wt-tb"></tbody></table></div>
+<p class="small" id="wt-sum" aria-live="polite"></p>
+<p><button class="btn" id="wt-copy" type="button">Copy the results for Colab</button> <span class="small" id="wt-msg" aria-live="polite"></span></p>
+<textarea id="wt-csv" rows="5" readonly aria-label="Ratings of the bookings as comma-separated values" hidden></textarea>
+<p>The calculator below repeats the worked example of the peak-end rule one step at a time. Its sliders set the discomfort in three periods and in a fourth period added at the end. The figure shows both series with their peak-end values.</p><div class="stepcalc" id="pd-peak"></div><p class="backpart"><a href="lecture.html#lab-pd">Back to the lecture: Emotion: Beauty, usability and the remembered experience</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb#scrollTo=sec-4" target="_blank" rel="noopener">Continue in Colab, section 4</a>: Paste your ratings into MY_WAITS and test the peak-end rule.</p></section><section class="labpart" id="pe"><h3>Part E: By hand: The waits of stage 8</h3><p>The current app waits 0.4, 0.4, 0.5, 0.4 and 3.0 s after the five steps of a booking. The redesign waits 3.0, 0.4, 0.4, 0.5 and 0.4 s. Compute the mean wait per step to two decimals. Then compute the peak-end value of the current waits and that of the redesign.</p><div id="pe-n"></div><p class="backpart"><a href="lecture.html#lab-pe">Back to the lecture: The clinic app, stage 8: Redesigned screens with a clear visual hierarchy</a>, where the text continues after the box of this part.<br><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-08/NB08_visual_design_and_emotion.ipynb#scrollTo=sec-5" target="_blank" rel="noopener">Continue in Colab, section 5</a>: Compute the results of stage 8 of the clinic app.</p></section></section><section class="tabpanel" hidden><p>Answer each question, rate your confidence and check the answer. The self-assessment is for your own practice and does not count towards the grade. Results stay in this browser.</p><div id="quiz"></div></section><section class="tabpanel" hidden><p>Write a short answer to each question. The text is saved in this browser and is included when you export the learning log, together with the results of the practice parts.</p><div id="reflect"></div></section><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script>(function(){
+window.WEEK=8;
+window.W8_DESIGNS = [[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#2F5D8A"],[16,14,24,24,"#E8EEF5"],[52,20,150,12,"#E8EEF5"],[16,68,296,110,"#2F5D8A"],[26,156,207,7,"#FFFFFF"],[328,68,296,110,"#2F5D8A"],[338,156,207,7,"#FFFFFF"],[338,142,138,7,"#FFFFFF"],[16,192,296,110,"#2F5D8A"],[26,280,207,7,"#FFFFFF"],[328,192,296,110,"#2F5D8A"],[338,280,207,7,"#FFFFFF"],[338,266,138,7,"#FFFFFF"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#2F5D8A"],[16,14,24,24,"#E8EEF5"],[52,20,150,12,"#E8EEF5"],[16,68,192,110,"#2F5D8A"],[26,156,129,7,"#FFFFFF"],[224,68,192,110,"#2F5D8A"],[234,156,129,7,"#FFFFFF"],[234,142,86,7,"#FFFFFF"],[432,68,192,110,"#2F5D8A"],[442,156,129,7,"#FFFFFF"],[16,192,192,110,"#2F5D8A"],[26,280,129,7,"#FFFFFF"],[26,266,86,7,"#FFFFFF"],[224,192,192,110,"#2F5D8A"],[234,280,129,7,"#FFFFFF"],[432,192,192,110,"#2F5D8A"],[442,280,129,7,"#FFFFFF"],[442,266,86,7,"#FFFFFF"],[9,108,188,50,"#2F5D8A"],[17,116,148,8,"#E8EEF5"]],[[0,0,640,400,"#ECEDEF"],[0,0,640,52,"#5B6170"],[16,14,24,24,"#D7DADF"],[52,20,150,12,"#D7DADF"],[16,68,192,110,"#9AA1AC"],[26,156,129,7,"#2B2F38"],[224,68,192,110,"#B7BCC4"],[234,156,129,7,"#2B2F38"],[234,142,86,7,"#2B2F38"],[432,68,192,110,"#7D8592"],[442,156,129,7,"#2B2F38"],[16,192,192,110,"#9AA1AC"],[26,280,129,7,"#2B2F38"],[26,266,86,7,"#2B2F38"],[224,192,192,110,"#B7BCC4"],[234,280,129,7,"#2B2F38"],[432,192,192,110,"#7D8592"],[442,280,129,7,"#2B2F38"],[442,266,86,7,"#2B2F38"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#E2533B"],[16,14,24,24,"#FFF4D6"],[52,20,150,12,"#FFF4D6"],[16,68,192,110,"#E2533B"],[26,156,129,7,"#FFFFFF"],[224,68,192,110,"#F2B134"],[234,156,129,7,"#FFFFFF"],[234,142,86,7,"#FFFFFF"],[432,68,192,110,"#3FA34D"],[442,156,129,7,"#FFFFFF"],[16,192,192,110,"#2F7DD1"],[26,280,129,7,"#FFFFFF"],[26,266,86,7,"#FFFFFF"],[224,192,192,110,"#8C4FC7"],[234,280,129,7,"#FFFFFF"],[432,192,192,110,"#E0629B"],[442,280,129,7,"#FFFFFF"],[442,266,86,7,"#FFFFFF"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#E2533B"],[16,14,24,24,"#FFF4D6"],[52,20,150,12,"#FFF4D6"],[16,68,192,96,"#E2533B"],[26,142,129,7,"#FFFFFF"],[224,68,192,96,"#F2B134"],[234,142,129,7,"#FFFFFF"],[234,128,86,7,"#FFFFFF"],[432,68,192,96,"#3FA34D"],[442,142,129,7,"#FFFFFF"],[16,178,192,96,"#2F7DD1"],[26,252,129,7,"#FFFFFF"],[26,238,86,7,"#FFFFFF"],[224,178,192,96,"#8C4FC7"],[234,252,129,7,"#FFFFFF"],[432,178,192,96,"#E0629B"],[442,252,129,7,"#FFFFFF"],[442,238,86,7,"#FFFFFF"],[16,288,192,96,"#E2533B"],[26,362,129,7,"#FFFFFF"],[224,288,192,96,"#F2B134"],[234,362,129,7,"#FFFFFF"],[234,348,86,7,"#FFFFFF"],[432,288,192,96,"#3FA34D"],[442,362,129,7,"#FFFFFF"],[10,227,168,49,"#3FA34D"],[18,235,128,8,"#FFF4D6"],[93,289,26,26,"#F2B134"],[131,289,26,26,"#3FA34D"],[169,289,26,26,"#2F7DD1"],[207,289,26,26,"#8C4FC7"],[245,289,26,26,"#E0629B"]],[[0,0,640,400,"#14121F"],[0,0,640,52,"#FF2E88"],[16,14,24,24,"#3A2F5C"],[52,20,150,12,"#3A2F5C"],[16,68,192,110,"#FF2E88"],[26,156,129,7,"#FFFFFF"],[224,68,192,110,"#00E5FF"],[234,156,129,7,"#FFFFFF"],[234,142,86,7,"#FFFFFF"],[432,68,192,110,"#C6FF00"],[442,156,129,7,"#FFFFFF"],[16,192,192,110,"#FFEA00"],[26,280,129,7,"#FFFFFF"],[26,266,86,7,"#FFFFFF"],[224,192,192,110,"#FF6D00"],[234,280,129,7,"#FFFFFF"],[432,192,192,110,"#FF2E88"],[442,280,129,7,"#FFFFFF"],[442,266,86,7,"#FFFFFF"],[11,266,188,49,"#C6FF00"],[19,274,148,8,"#3A2F5C"],[12,295,26,26,"#00E5FF"],[50,295,26,26,"#C6FF00"],[88,295,26,26,"#FFEA00"],[126,295,26,26,"#FF6D00"],[164,295,26,26,"#FF2E88"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#2F5D8A"],[16,14,24,24,"#E8EEF5"],[52,20,150,12,"#E8EEF5"],[0,78,191,87,"#2F5D8A"],[5,143,128,7,"#FFFFFF"],[239,76,154,82,"#2F5D8A"],[249,136,100,7,"#FFFFFF"],[249,122,67,7,"#FFFFFF"],[422,70,163,94,"#2F5D8A"],[432,142,107,7,"#FFFFFF"],[15,173,156,81,"#2F5D8A"],[25,232,102,7,"#FFFFFF"],[25,218,68,7,"#FFFFFF"],[213,190,163,77,"#2F5D8A"],[223,245,107,7,"#FFFFFF"],[412,181,146,99,"#2F5D8A"],[422,258,94,7,"#FFFFFF"],[422,244,63,7,"#FFFFFF"],[24,300,153,85,"#2F5D8A"],[34,363,99,7,"#FFFFFF"],[209,283,140,92,"#2F5D8A"],[219,353,90,7,"#FFFFFF"],[219,339,60,7,"#FFFFFF"],[452,280,148,75,"#2F5D8A"],[462,333,96,7,"#FFFFFF"],[55,87,214,45,"#2F5D8A"],[63,95,174,8,"#E8EEF5"],[348,126,26,26,"#2F5D8A"],[386,126,26,26,"#2F5D8A"],[424,126,26,26,"#2F5D8A"],[462,126,26,26,"#2F5D8A"],[500,126,26,26,"#2F5D8A"],[0,261,640,20,"#E8EEF5"],[10,267,80,7,"#2B2F38"],[114,267,84,7,"#2B2F38"],[218,267,78,7,"#2B2F38"],[322,267,81,7,"#2B2F38"],[426,267,79,7,"#2B2F38"],[530,267,75,7,"#2B2F38"]],[[0,0,640,400,"#ECEDEF"],[0,0,640,52,"#5B6170"],[16,14,24,24,"#D7DADF"],[52,20,150,12,"#D7DADF"],[0,57,103,87,"#9AA1AC"],[5,122,62,7,"#2B2F38"],[179,76,115,74,"#B7BCC4"],[189,128,71,7,"#2B2F38"],[189,114,47,7,"#2B2F38"],[350,58,134,87,"#7D8592"],[360,123,85,7,"#2B2F38"],[463,62,109,79,"#9AA1AC"],[473,119,66,7,"#2B2F38"],[473,105,44,7,"#2B2F38"],[24,186,112,99,"#B7BCC4"],[34,263,69,7,"#2B2F38"],[152,175,120,75,"#7D8592"],[162,228,75,7,"#2B2F38"],[162,214,50,7,"#2B2F38"],[307,180,116,77,"#9AA1AC"],[317,235,72,7,"#2B2F38"],[494,170,133,73,"#B7BCC4"],[504,221,84,7,"#2B2F38"],[504,207,56,7,"#2B2F38"],[9,282,139,81,"#7D8592"],[19,341,89,7,"#2B2F38"],[178,281,139,97,"#9AA1AC"],[188,356,89,7,"#2B2F38"],[188,342,59,7,"#2B2F38"],[321,281,138,93,"#B7BCC4"],[331,352,88,7,"#2B2F38"],[502,276,108,87,"#7D8592"],[512,341,66,7,"#2B2F38"],[512,327,44,7,"#2B2F38"],[219,190,197,42,"#7D8592"],[227,198,157,8,"#D7DADF"],[185,101,26,26,"#B7BCC4"],[223,101,26,26,"#7D8592"],[261,101,26,26,"#9AA1AC"],[299,101,26,26,"#B7BCC4"],[337,101,26,26,"#7D8592"],[0,306,640,20,"#D7DADF"],[10,312,80,7,"#2B2F38"],[114,312,80,7,"#2B2F38"],[218,312,84,7,"#2B2F38"],[322,312,76,7,"#2B2F38"],[426,312,76,7,"#2B2F38"],[530,312,80,7,"#2B2F38"],[159,178,186,56,"#7D8592"],[167,186,146,8,"#D7DADF"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#E2533B"],[16,14,24,24,"#FFF4D6"],[52,20,150,12,"#FFF4D6"],[0,61,115,87,"#E2533B"],[5,126,71,7,"#FFFFFF"],[171,76,118,95,"#F2B134"],[181,149,73,7,"#FFFFFF"],[181,135,49,7,"#FFFFFF"],[338,70,100,79,"#3FA34D"],[348,127,60,7,"#FFFFFF"],[487,60,104,77,"#2F7DD1"],[497,115,63,7,"#FFFFFF"],[497,101,42,7,"#FFFFFF"],[0,181,106,92,"#8C4FC7"],[9,251,64,7,"#FFFFFF"],[152,170,134,80,"#E0629B"],[162,228,85,7,"#FFFFFF"],[162,214,57,7,"#FFFFFF"],[323,169,120,99,"#E2533B"],[333,246,75,7,"#FFFFFF"],[474,167,116,82,"#F2B134"],[484,227,72,7,"#FFFFFF"],[484,213,48,7,"#FFFFFF"],[28,283,121,88,"#3FA34D"],[38,349,75,7,"#FFFFFF"],[155,285,135,81,"#2F7DD1"],[165,344,86,7,"#FFFFFF"],[165,330,57,7,"#FFFFFF"],[346,281,98,72,"#8C4FC7"],[356,331,58,7,"#FFFFFF"],[467,291,140,90,"#E0629B"],[477,359,90,7,"#FFFFFF"],[477,345,60,7,"#FFFFFF"],[335,156,206,34,"#3FA34D"],[343,164,166,8,"#FFF4D6"],[105,230,26,26,"#F2B134"],[143,230,26,26,"#3FA34D"],[181,230,26,26,"#2F7DD1"],[219,230,26,26,"#8C4FC7"],[257,230,26,26,"#E0629B"],[0,106,640,20,"#FFF4D6"],[10,112,72,7,"#2B2F38"],[114,112,85,7,"#2B2F38"],[218,112,89,7,"#2B2F38"],[322,112,89,7,"#2B2F38"],[426,112,70,7,"#2B2F38"],[530,112,88,7,"#2B2F38"],[186,136,218,52,"#E0629B"],[194,144,178,8,"#FFF4D6"],[343,337,26,26,"#8C4FC7"],[381,337,26,26,"#E0629B"],[419,337,26,26,"#E2533B"],[457,337,26,26,"#F2B134"],[495,337,26,26,"#3FA34D"],[0,116,640,20,"#FFF4D6"],[10,122,81,7,"#2B2F38"],[114,122,77,7,"#2B2F38"],[218,122,78,7,"#2B2F38"],[322,122,86,7,"#2B2F38"],[426,122,78,7,"#2B2F38"],[530,122,83,7,"#2B2F38"]],[[0,0,640,400,"#14121F"],[0,0,640,52,"#FF2E88"],[16,14,24,24,"#3A2F5C"],[52,20,150,12,"#3A2F5C"],[0,64,127,61,"#FF2E88"],[5,103,80,7,"#FFFFFF"],[162,77,120,62,"#00E5FF"],[172,117,75,7,"#FFFFFF"],[172,103,50,7,"#FFFFFF"],[326,58,115,71,"#C6FF00"],[336,107,71,7,"#FFFFFF"],[467,59,99,53,"#FFEA00"],[477,90,59,7,"#FFFFFF"],[477,76,39,7,"#FFFFFF"],[18,149,99,61,"#FF6D00"],[28,188,59,7,"#FFFFFF"],[151,161,99,60,"#FF2E88"],[161,199,59,7,"#FFFFFF"],[161,185,39,7,"#FFFFFF"],[339,156,125,65,"#00E5FF"],[349,199,78,7,"#FFFFFF"],[499,161,98,65,"#C6FF00"],[509,204,58,7,"#FFFFFF"],[509,190,39,7,"#FFFFFF"],[1,228,103,66,"#FFEA00"],[11,272,62,7,"#FFFFFF"],[178,232,131,67,"#FF6D00"],[188,277,83,7,"#FFFFFF"],[188,263,55,7,"#FFFFFF"],[325,225,107,56,"#FF2E88"],[335,259,65,7,"#FFFFFF"],[477,225,123,66,"#00E5FF"],[487,269,77,7,"#FFFFFF"],[487,255,51,7,"#FFFFFF"],[0,307,143,65,"#C6FF00"],[7,350,92,7,"#FFFFFF"],[152,326,122,66,"#FFEA00"],[162,370,76,7,"#FFFFFF"],[162,356,51,7,"#FFFFFF"],[350,306,124,66,"#FF6D00"],[360,350,78,7,"#FFFFFF"],[471,314,104,58,"#FF2E88"],[481,350,63,7,"#FFFFFF"],[481,336,42,7,"#FFFFFF"],[234,222,195,51,"#C6FF00"],[242,230,155,8,"#3A2F5C"],[392,276,26,26,"#00E5FF"],[430,276,26,26,"#C6FF00"],[468,276,26,26,"#FFEA00"],[506,276,26,26,"#FF6D00"],[544,276,26,26,"#FF2E88"],[0,75,640,20,"#3A2F5C"],[10,81,71,7,"#FFFFFF"],[114,81,87,7,"#FFFFFF"],[218,81,82,7,"#FFFFFF"],[322,81,80,7,"#FFFFFF"],[426,81,89,7,"#FFFFFF"],[530,81,90,7,"#FFFFFF"],[244,174,178,54,"#FF2E88"],[252,182,138,8,"#3A2F5C"],[327,174,26,26,"#FF6D00"],[365,174,26,26,"#FF2E88"],[403,174,26,26,"#00E5FF"],[441,174,26,26,"#C6FF00"],[479,174,26,26,"#FFEA00"],[0,234,640,20,"#3A2F5C"],[10,240,79,7,"#FFFFFF"],[114,240,83,7,"#FFFFFF"],[218,240,80,7,"#FFFFFF"],[322,240,78,7,"#FFFFFF"],[426,240,73,7,"#FFFFFF"],[530,240,89,7,"#FFFFFF"],[415,203,159,39,"#FFEA00"],[423,211,119,8,"#3A2F5C"],[382,225,26,26,"#C6FF00"],[420,225,26,26,"#FFEA00"],[458,225,26,26,"#FF6D00"],[496,225,26,26,"#FF2E88"],[534,225,26,26,"#00E5FF"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#2F5D8A"],[16,14,24,24,"#E8EEF5"],[52,20,150,12,"#E8EEF5"],[16,68,140,68,"#2F5D8A"],[26,114,90,7,"#FFFFFF"],[172,68,140,68,"#2F5D8A"],[182,114,90,7,"#FFFFFF"],[182,100,60,7,"#FFFFFF"],[328,68,140,68,"#2F5D8A"],[338,114,90,7,"#FFFFFF"],[484,68,140,68,"#2F5D8A"],[494,114,90,7,"#FFFFFF"],[494,100,60,7,"#FFFFFF"],[16,150,140,68,"#2F5D8A"],[26,196,90,7,"#FFFFFF"],[172,150,140,68,"#2F5D8A"],[182,196,90,7,"#FFFFFF"],[182,182,60,7,"#FFFFFF"],[328,150,140,68,"#2F5D8A"],[338,196,90,7,"#FFFFFF"],[484,150,140,68,"#2F5D8A"],[494,196,90,7,"#FFFFFF"],[494,182,60,7,"#FFFFFF"],[16,232,140,68,"#2F5D8A"],[26,278,90,7,"#FFFFFF"],[172,232,140,68,"#2F5D8A"],[182,278,90,7,"#FFFFFF"],[182,264,60,7,"#FFFFFF"],[328,232,140,68,"#2F5D8A"],[338,278,90,7,"#FFFFFF"],[484,232,140,68,"#2F5D8A"],[494,278,90,7,"#FFFFFF"],[494,264,60,7,"#FFFFFF"],[16,314,140,68,"#2F5D8A"],[26,360,90,7,"#FFFFFF"],[172,314,140,68,"#2F5D8A"],[182,360,90,7,"#FFFFFF"],[182,346,60,7,"#FFFFFF"],[328,314,140,68,"#2F5D8A"],[338,360,90,7,"#FFFFFF"],[484,314,140,68,"#2F5D8A"],[494,360,90,7,"#FFFFFF"],[494,346,60,7,"#FFFFFF"],[12,193,209,47,"#2F5D8A"],[20,201,169,8,"#E8EEF5"],[43,323,26,26,"#2F5D8A"],[81,323,26,26,"#2F5D8A"],[119,323,26,26,"#2F5D8A"],[157,323,26,26,"#2F5D8A"],[195,323,26,26,"#2F5D8A"],[0,220,640,20,"#E8EEF5"],[10,226,75,7,"#2B2F38"],[114,226,73,7,"#2B2F38"],[218,226,82,7,"#2B2F38"],[322,226,84,7,"#2B2F38"],[426,226,85,7,"#2B2F38"],[530,226,83,7,"#2B2F38"],[44,311,143,60,"#2F5D8A"],[52,319,103,8,"#E8EEF5"]],[[0,0,640,400,"#FFFFFF"],[0,0,640,52,"#E2533B"],[16,14,24,24,"#FFF4D6"],[52,20,150,12,"#FFF4D6"],[0,72,217,98,"#E2533B"],[5,148,147,7,"#FFFFFF"],[347,78,266,115,"#F2B134"],[357,171,184,7,"#FFFFFF"],[357,157,123,7,"#FFFFFF"],[34,183,310,97,"#3FA34D"],[44,258,217,7,"#FFFFFF"],[314,181,293,114,"#2F7DD1"],[324,273,204,7,"#FFFFFF"],[324,259,136,7,"#FFFFFF"],[178,82,203,34,"#3FA34D"],[186,90,163,8,"#FFF4D6"],[10,196,26,26,"#F2B134"],[48,196,26,26,"#3FA34D"],[86,196,26,26,"#2F7DD1"],[124,196,26,26,"#8C4FC7"],[162,196,26,26,"#E0629B"]]];
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Week 8 lab: the step calculators of Part B (the balance of a layout) and Part D (the peak-end rule), and the values
+   by hand of Part E. */
+(function () {
+  const r2 = x => Math.round((x + Number.EPSILON) * 100) / 100, r3 = x => Math.round((x + Number.EPSILON) * 1000) / 1000;
+  const f1 = x => x.toFixed(1), f2 = x => x.toFixed(2), f3 = x => x.toFixed(3), sg = x => (x < 0 ? "-" : "") + f3(Math.abs(x));
+  /* Part B: the balance measure of Ngo and colleagues for two elements on a frame of 10 by 10 units. */
+  partSteps("pb-balance", {
+    inputs: [
+      {key: "aA", label: "Area of element A, top left", min: 1, max: 30, step: 1, value: 8, d: 0},
+      {key: "xA", label: "Centre of A: x", min: 0.5, max: 4.5, step: 0.5, value: 2.5, d: 1},
+      {key: "yA", label: "Centre of A: y", min: 0.5, max: 4.5, step: 0.5, value: 2.5, d: 1},
+      {key: "aB", label: "Area of element B, bottom right", min: 1, max: 30, step: 1, value: 12, d: 0},
+      {key: "xB", label: "Centre of B: x", min: 5.5, max: 9.5, step: 0.5, value: 7, d: 1},
+      {key: "yB", label: "Centre of B: y", min: 5.5, max: 9.5, step: 0.5, value: 7.5, d: 1}],
+    presets: [{label: "Lecture: A of 8, B of 12", values: {aA: 8, xA: 2.5, yA: 2.5, aB: 12, xB: 7, yB: 7.5}},
+      {label: "Mirror images: perfect balance", values: {aA: 12, xA: 3, yA: 2.5, aB: 12, xB: 7, yB: 7.5}},
+      {label: "A heavy image far right", values: {aA: 4, xA: 3, yA: 3, aB: 24, xB: 8, yB: 8}}],
+    steps(v) {
+      const dA = r2(5 - v.xA), dB = r2(v.xB - 5), wl = r2(v.aA * dA), wr = r2(v.aB * dB), bv = r3((wl - wr) / Math.max(wl, wr));
+      const eA = r2(5 - v.yA), eB = r2(v.yB - 5), wt = r2(v.aA * eA), wb = r2(v.aB * eB), bh = r3((wt - wb) / Math.max(wt, wb));
+      const bm = r3(1 - (Math.abs(bv) + Math.abs(bh)) / 2);
+      return [
+        {t: "The distances of the two centres from the vertical central line x = 5.", m: `d_A = 5 - ${f1(v.xA)} = ${f2(dA)},\\quad d_B = ${f1(v.xB)} - 5 = ${f2(dB)}`},
+        {t: "The weights of the left and the right side: area times distance.", m: `w_L = ${v.aA} \\times ${f2(dA)} = ${f2(wl)},\\quad w_R = ${v.aB} \\times ${f2(dB)} = ${f2(wr)}`,
+         q: {label: "w_R", ans: wr, tol: 0.006}},
+        {t: "The vertical component: the difference of the weights divided by the larger one.",
+         m: `BM_{vertical} = \\frac{${f2(wl)} - ${f2(wr)}}{${f2(Math.max(wl, wr))}} = ${sg(bv)}`, q: {label: "BM vertical", ans: bv, tol: 0.0015}},
+        {t: "The same for the top and the bottom, with the distances from the horizontal central line y = 5.",
+         m: `w_T = ${v.aA} \\times ${f2(eA)} = ${f2(wt)},\\quad w_B = ${v.aB} \\times ${f2(eB)} = ${f2(wb)},\\quad BM_{horizontal} = \\frac{${f2(wt)} - ${f2(wb)}}{${f2(Math.max(wt, wb))}} = ${sg(bh)}`,
+         q: {label: "BM horizontal", ans: bh, tol: 0.0015}},
+        {t: "The balance measure: 1 minus the mean of the two absolute components.",
+         m: `BM = 1 - \\frac{${f3(Math.abs(bv))} + ${f3(Math.abs(bh))}}{2} = ${f3(bm)}`, q: {label: "BM", ans: bm, tol: 0.0015}}];
+    },
+    viz: {aspect: 0.4, label: "The frame of 10 by 10 units with both elements, the central lines and the four weights",
+      draw(ctx, w, hh, v) {
+        const C = COL(), s = Math.min(hh - 30, w * 0.42) / 10, ox = 16, oy = 14, X = x => ox + x * s, Y = y => oy + y * s;
+        ctx.fillStyle = C.paper; ctx.fillRect(X(0), Y(0), 10 * s, 10 * s); ctx.strokeStyle = C.steel; ctx.strokeRect(X(0), Y(0), 10 * s, 10 * s);
+        ctx.save(); ctx.beginPath(); ctx.rect(X(0), Y(0), 10 * s, 10 * s); ctx.clip();
+        [[v.aA, v.xA, v.yA, C.c[0]], [v.aB, v.xB, v.yB, C.c[1]]].forEach(([a, x, y, col]) => { const e = Math.sqrt(a);
+          ctx.globalAlpha = 0.25; ctx.fillStyle = col; ctx.fillRect(X(x - e / 2), Y(y - e / 2), e * s, e * s); ctx.globalAlpha = 1;
+          ctx.strokeStyle = col; ctx.lineWidth = 1.5; ctx.strokeRect(X(x - e / 2), Y(y - e / 2), e * s, e * s); ctx.lineWidth = 1; dot(ctx, X(x), Y(y), 3.5, col, C.ink); });
+        ctx.restore();
+        ctx.setLineDash([4, 4]); ctx.strokeStyle = C.steel; ctx.beginPath(); ctx.moveTo(X(5), Y(0)); ctx.lineTo(X(5), Y(10)); ctx.moveTo(X(0), Y(5)); ctx.lineTo(X(10), Y(5)); ctx.stroke(); ctx.setLineDash([]);
+        ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.fillStyle = C.ink; ctx.textAlign = "center";
+        ctx.fillText("A", X(v.xA), Y(v.yA) - 8); ctx.fillText("B", X(v.xB), Y(v.yB) - 8);
+        const W = {L: v.aA * (5 - v.xA), R: v.aB * (v.xB - 5), T: v.aA * (5 - v.yA), B: v.aB * (v.yB - 5)}, mx = Math.max(1, ...Object.values(W));
+        const bx = X(10) + 40, bw = w - bx - 60;
+        Object.entries(W).forEach(([k, val], i) => { const y = oy + 12 + i * ((10 * s - 20) / 4);
+          ctx.fillStyle = C.ink; ctx.textAlign = "right"; ctx.fillText(`w_${k}`, bx - 8, y + 10);
+          ctx.fillStyle = (k === "L" || k === "T") ? C.c[0] : C.c[1]; ctx.fillRect(bx, y, bw * val / mx, 16);
+          ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText(val.toFixed(1), bx + bw * val / mx + 6, y + 12); });
+      }}
+  });
+  /* Part D: the peak-end rule for a short series of discomfort and the same series with one more value at the end. */
+  partSteps("pd-peak", {
+    inputs: [
+      {key: "x1", label: "Discomfort in period 1", min: 0, max: 10, step: 1, value: 2, d: 0},
+      {key: "x2", label: "Discomfort in period 2", min: 0, max: 10, step: 1, value: 5, d: 0},
+      {key: "x3", label: "Discomfort in period 3", min: 0, max: 10, step: 1, value: 8, d: 0},
+      {key: "x4", label: "An added period 4 at the end", min: 0, max: 10, step: 1, value: 4, d: 0}],
+    presets: [{label: "Lecture: 2-5-8 and an end of 4", values: {x1: 2, x2: 5, x3: 8, x4: 4}},
+      {label: "A worse end: 2-5-8 and 9", values: {x1: 2, x2: 5, x3: 8, x4: 9}},
+      {label: "A gentle end: 6-6-6 and 2", values: {x1: 6, x2: 6, x3: 6, x4: 2}}],
+    steps(v) {
+      const S = [v.x1, v.x2, v.x3], L = S.concat([v.x4]), mS = r2((v.x1 + v.x2 + v.x3) / 3), mL = r2((v.x1 + v.x2 + v.x3 + v.x4) / 4);
+      const sS = v.x1 + v.x2 + v.x3, sL = sS + v.x4, pS = Math.max(...S), pL = Math.max(...L), eS = r2((pS + v.x3) / 2), eL = r2((pL + v.x4) / 2), d = r2(eS - eL);
+      return [
+        {t: "The mean discomfort of the short series and of the long series.", m: `\\bar{x}_{short} = \\frac{${S.join(" + ")}}{3} = ${f2(mS)},\\quad \\bar{x}_{long} = \\frac{${L.join(" + ")}}{4} = ${f2(mL)}`,
+         q: {label: "Mean of the long series", ans: mL, tol: 0.006}},
+        {t: "The sums, the total discomfort of each series.", m: `\\Sigma_{short} = ${sS},\\quad \\Sigma_{long} = ${sL}`},
+        {t: "The peak-end value of the short series: its worst value and its last value.", m: `PE_{short} = \\frac{${pS} + ${v.x3}}{2} = ${f2(eS)}`, q: {label: "PE short", ans: eS, tol: 0.006}},
+        {t: "The peak-end value of the long series.", m: `PE_{long} = \\frac{${pL} + ${v.x4}}{2} = ${f2(eL)}`, q: {label: "PE long", ans: eL, tol: 0.006}},
+        {t: d > 0 ? "The short series should be remembered as worse, although the long one holds more discomfort."
+          : d < 0 ? "The long series should be remembered as worse: Its added end is no relief." : "Both series should be remembered as equally bad.",
+         m: `PE_{short} - PE_{long} = ${f2(eS)} - ${f2(eL)} = ${f2(d)}`}];
+    },
+    viz: {aspect: 0.32, label: "Both series of discomfort with their peak-end values as dashed lines",
+      draw(ctx, w, hh, v) {
+        const C = COL(), f = frame(ctx, w, hh, {x0: 0.7, x1: 4.3, y0: 0, y1: 10, xticks: 3, yticks: 5, xfmt: x => String(Math.round(x)), xlabel: "period", ylabel: "discomfort"});
+        const S = [v.x1, v.x2, v.x3], L = S.concat([v.x4]);
+        [[L, C.c[2], 0.06], [S, C.c[4], -0.06]].forEach(([tr, col, dx]) => {
+          polyline(ctx, tr.map((y, i) => [f.X(i + 1 + dx), f.Y(y)]), col, 2); tr.forEach((y, i) => dot(ctx, f.X(i + 1 + dx), f.Y(y), 4, col, C.ink));
+          const pe = (Math.max(...tr) + tr[tr.length - 1]) / 2; ctx.setLineDash([5, 4]); ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(f.X(0.8), f.Y(pe)); ctx.lineTo(f.X(4.2), f.Y(pe)); ctx.stroke(); ctx.setLineDash([]); });
+      }}
+  });
+  /* Part E: the waits of stage 8, by hand. */
+  partNumbers("pe-n", {
+    key: "w8:pe", title: "Part E",
+    fields: [
+      {label: "Mean wait per step, both flows (s)", short: "mean", answer: 0.94, tol: 0.006},
+      {label: "Peak-end value of the current waits (s)", short: "current", answer: 3.0, tol: 0.006},
+      {label: "Peak-end value of the redesign (s)", short: "redesign", answer: 1.7, tol: 0.006}],
+    explain: "All three values are correct. Both flows wait 0.4 + 0.4 + 0.5 + 0.4 + 3.0 = 4.7 s, so the mean per step is 4.7 / 5 = 0.94 s. "
+      + "The current flow has its worst wait at the end: (3.0 + 3.0) / 2 = 3.00 s. The redesign ends with 0.4 s: (3.0 + 0.4) / 2 = 1.70 s.",
+    hint: "Add the five waits and divide by 5. For each flow, average its largest wait and its last wait."
+  });
+})();
+
+/* Part A: Floor dots in the waiting area. The clinic plans floor markings for its new waiting area, and a ceiling
+   projector flashes rectangular dot lattices onto a dark mat on the floor for 300 ms, followed by a mask. The player
+   reports the direction of the rows that he or she saw, as in the experiments of Kubovy and colleagues. Thirty
+   lattices have the ratios |b|/|a| = 1.0, 1.1, 1.2, 1.3 and 1.4, six times each, at random orientations. */
+(function () {
+  const box = document.getElementById("fd-3d"); if (!box) return;
+  const KEY = "w8:floor", COLS = ["trial", "ratio", "angle", "choice", "time_ms"], RATIOS = [1.0, 1.1, 1.2, 1.3, 1.4], A = 0.36, RAD = 2.05;
+  const tb = $("#fd-tb"), sumP = $("#fd-sum"), sayP = $("#fd-say"), startB = $("#fd-start"), optsEl = $("#fd-opts");
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: [], order: LABKIT.shuffle(RATIOS.flatMap(r => [r, r, r, r, r, r]))});
+  if (!data || !data.rows || !data.order) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, phase = "idle", cur = null, t0 = 0, opts = [];
+  function fit() {                                  /* the attraction constant from the log odds, as in Section 1 */
+    let sxy = 0, sxx = 0; RATIOS.forEach(r => { const rs = data.rows.filter(x => x.ratio === r), na = rs.filter(x => x.choice === "a").length, nb = rs.filter(x => x.choice === "b").length;
+      const x = r - 1; if (rs.length && x > 0) { sxy += x * Math.log((nb + 0.5) / (na + 0.5)); sxx += x * x; } });
+    return sxx ? -sxy / sxx : null;
+  }
+  function table() {
+    tb.textContent = "";
+    RATIOS.forEach(r => { const rs = data.rows.filter(x => x.ratio === r), n = k => rs.filter(x => x.choice === k).length;
+      tb.append(h("tr", {}, h("td", {}, r.toFixed(1)), h("td", {}, String(rs.length)), h("td", {}, String(n("a"))), h("td", {}, String(n("b"))), h("td", {}, String(n("c") + n("d"))))); });
+    const done = data.rows.length >= 30, al = fit();
+    sumP.textContent = done ? `At |b|/|a| = 1.0 you saw the rows of a in ${data.rows.filter(x => x.ratio === 1 && x.choice === "a").length} of 6 lattices, and at 1.4 in `
+      + `${data.rows.filter(x => x.ratio === 1.4 && x.choice === "a").length} of 6. Your attraction constant is about ${al == null ? "-" : al.toFixed(1)}; Kubovy and colleagues report about 6.6 `
+      + "for a representative observer. Section 1 of the Colab notebook fits it with your choices." : data.rows.length ? `${data.rows.length} of 30 lattices done.` : "";
+    startB.disabled = game || done; startB.textContent = data.rows.length && !done ? "Continue the floor dots" : "Start the floor dots";
+  }
+  table();
+  LABKIT.exporter("fd-copy", "fd-csv", "fd-msg", COLS, () => data.rows, "MY_LATTICE in Section 1");
+  /* the four answer buttons: a circle with one line at the orientation of a lattice vector on the screen */
+  const btns = [0, 1, 2, 3].map(i => { const b = h("button", {class: "btn ghost", type: "button", disabled: "", "aria-label": `Direction ${i + 1}`,
+      style: "width:88px;height:88px;padding:6px;margin:4px;position:relative;display:inline-flex;align-items:center;justify-content:center"});
+    b.addEventListener("click", () => answer(opts[i] && opts[i].k)); optsEl.append(b); return b; });
+  function drawOpts() {
+    btns.forEach((b, i) => { const o = opts[i]; b.textContent = "";
+      if (!o) { b.disabled = true; return; }
+      const x = 26 * o.dx, y = 26 * o.dz;
+      b.innerHTML = `<svg width="64" height="64" viewBox="-32 -32 64 64" aria-hidden="true"><circle r="29" fill="none" stroke="currentColor" stroke-width="2"/>`
+        + `<line x1="${-x}" y1="${-y}" x2="${x}" y2="${y}" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg><span style="position:absolute;right:6px;bottom:4px;font-size:12px;font-weight:700">${i + 1}</span>`;
+      b.disabled = phase !== "respond"; });
+  }
+  drawOpts();
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* the waiting area: a dark mat on the floor under a ceiling projector, seats along the walls and people */
+  const PLAY = {camera: [0, 8.3, 0.5], target: [0, 0, 0]};
+  const G = make3D(box, {camera: [0, 5.2, 7.2], target: [0, 0.3, -0.3], limits: [0.8, 16, 1.45], aspect: 0.62, bg: 0xE6EAF0, shadowBox: 7});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z);
+  L.room(G, {w: 11, d: 10, z0: -5, h: 3.3, windows: [{side: -1, z: -1, y: 1.8, w: 2, h: 1.2}, {x: 2.5, y: 1.8, w: 1.8, h: 1.2}]});
+  const mat = new T.Mesh(new T.CircleGeometry(RAD + 0.25, 72), new T.MeshStandardMaterial({color: 0x23272F, roughness: 0.9})); mat.rotation.x = -Math.PI / 2; mat.position.y = 0.004; mat.receiveShadow = true; SC.add(mat);
+  const ring = new T.Mesh(new T.RingGeometry(RAD + 0.25, RAD + 0.32, 72), L.std(G, 0x8E979F, 0.4, 0.5)); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.005; SC.add(ring);
+  const proj = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.16, 0.34, 2, 0.03), L.std(G, 0xF4F5F7, 0.4)); proj.position.set(3.2, 3.08, -3.0); SC.add(proj);
+  const lens = new T.Mesh(new T.CylinderGeometry(0.05, 0.06, 0.06, 18), L.std(G, 0x111317, 0.2, 0.5)); lens.rotation.x = Math.PI / 2; lens.position.set(3.05, 3.08, -2.81); SC.add(lens);
+  L.seats(G, 5, {at: [-4.7, 0, -0.6], face: Math.PI / 2, color: 0x4A7A96}, [{chair: 1, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+    {chair: 3, type: "man", top: 0x55606E, bottom: 0x23283A, skin: L.LOOKS.skin[3], hairColor: 0x111111}]);
+  L.seats(G, 5, {at: [4.7, 0, -0.6], face: -Math.PI / 2, color: 0x4A7A96}, [{chair: 2, type: "woman", top: 0xB8664A, bottom: 0x2E3440, hair: "bun", skin: L.LOOKS.skin[2]}]);
+  L.seats(G, 6, {at: [0, 0, -4.4], face: 0, color: 0x4A7A96}, [{chair: 0, type: "oldman", top: 0x6B7B5A, bottom: 0x3A3F48}, {chair: 4, type: "man", top: 0x3F6E8C, bottom: 0x2B3340, skin: L.LOOKS.skin[1]}]);
+  const planner = L.human(G, {type: "woman", at: [2.7, 0, 2.9], face: -2.4, top: 0x5A4BB5, bottom: 0x2B3340, hair: "bob", skin: L.LOOKS.skin[0]}); planner.set("look", V(0, 0, 0));
+  L.plant(G, {at: [-4.8, 0, -4.4], seed: 3}); L.plant(G, {at: [4.8, 0, -4.4], seed: 9, size: 0.9}); L.plant(G, {at: [4.8, 0, 3.8], seed: 5, size: 0.8});
+  L.desk(G, {w: 1.8, at: [-3.2, 0, 3.6], face: 0}); L.sign(G, "New waiting area", {at: [0, 2.6, -4.94], w: 1.8, h: 0.32});
+  /* dots, mask and cross as instanced discs */
+  const MAXD = 260, dotGeo = new T.CircleGeometry(0.07, 18), dotMat = new T.MeshBasicMaterial({color: 0xFFF3C4});
+  const dots = new T.InstancedMesh(dotGeo, dotMat, MAXD); dots.rotation.x = -Math.PI / 2; dots.position.y = 0.01; dots.count = 0; SC.add(dots);
+  const cross = new T.Group(); [[0.36, 0.035], [0.035, 0.36]].forEach(([w, d]) => { const m = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: 0xFFF3C4})); m.rotation.x = -Math.PI / 2; m.position.y = 0.012; cross.add(m); });
+  cross.visible = false; SC.add(cross);
+  const M4 = new T.Matrix4();
+  function setDots(list) { dots.count = Math.min(MAXD, list.length); list.slice(0, MAXD).forEach(([x, z], i) => { M4.makeTranslation(x, -z, 0); dots.setMatrixAt(i, M4); }); dots.instanceMatrix.needsUpdate = true; G.redraw(); }
+  function lattice(r, th, ph) {                    /* the dots of a rectangular lattice inside the round window */
+    const ux = [Math.cos(th), Math.sin(th)], uy = [-Math.sin(th), Math.cos(th)], out = [];
+    for (let i = -12; i <= 12; i++) for (let j = -12; j <= 12; j++) {
+      const u = (i + ph[0]) * A, v = (j + ph[1]) * A * r, x = u * ux[0] + v * uy[0], z = u * ux[1] + v * uy[1];
+      if (Math.hypot(x, z) <= RAD) out.push([x, z]); }
+    return out;
+  }
+  function maskDots(n, seed) { const r = RNG(seed), out = []; while (out.length < n) { const x = (r() * 2 - 1) * RAD, z = (r() * 2 - 1) * RAD; if (Math.hypot(x, z) <= RAD) out.push([x, z]); } return out; }
+  const STG = L.stage(G, {view: PLAY, hide: [planner]});
+  const H = L.hud(box, 2); H.set(0, "Press Start for the floor dots");
+  /* one trial: the cross for 700 ms, the lattice for 300 ms, a mask for 300 ms, then the answer */
+  let timeline = null;
+  G.onTick(() => {
+    if (!timeline) return false;
+    const t = performance.now() - timeline.start;
+    if (phase === "cross" && t >= 700) { phase = "flash"; cross.visible = false; setDots(cur.dots); timeline.flashAt = performance.now(); }
+    else if (phase === "flash" && performance.now() - timeline.flashAt >= 292) { phase = "mask"; setDots(maskDots(cur.dots.length, 100 + data.rows.length)); timeline.maskAt = performance.now(); }
+    else if (phase === "mask" && performance.now() - timeline.maskAt >= 300) { phase = "respond"; setDots([]); timeline = null; t0 = performance.now(); drawOpts();
+      H.say("Which rows did you see? Click a direction, or press 1 to 4"); sayP.textContent = "Choose the direction of the rows that you saw. There is no right answer: Report what you saw."; return false; }
+    return true;
+  });
+  function trial() {
+    const k = data.rows.length; if (k >= 30) { end(); return; }
+    const r = data.order[k], th = Math.random() * Math.PI, ph = [Math.random(), Math.random()];
+    const ux = [Math.cos(th), Math.sin(th)], uy = [-Math.sin(th), Math.cos(th)], nb = [r * uy[0], r * uy[1]];
+    const vec = {a: ux, b: nb, c: [ux[0] - nb[0], ux[1] - nb[1]], d: [ux[0] + nb[0], ux[1] + nb[1]]};
+    cur = {r, th, dots: lattice(r, th, ph)};
+    opts = LABKIT.shuffle(Object.entries(vec).map(([key, v]) => { const n = Math.hypot(v[0], v[1]); return {k: key, dx: v[0] / n, dz: v[1] / n}; }));
+    phase = "cross"; drawOpts(); cross.visible = true; setDots([]);
+    H.set(1, `Lattice ${k + 1} of 30`); H.say("Look at the cross"); sayP.textContent = `Lattice ${k + 1} of 30: Look at the cross in the middle of the mat.`;
+    if (reduced()) { phase = "respond"; setDots(cur.dots); cross.visible = false; t0 = performance.now(); drawOpts(); H.say("Which rows do you see? Click a direction"); return; }
+    timeline = {start: performance.now()}; G.redraw();
+  }
+  function answer(k) {
+    if (!game || phase !== "respond" || !k) return;
+    data.rows.push({trial: data.rows.length + 1, ratio: cur.r, angle: Math.round(cur.th * 180 / Math.PI), choice: k, time_ms: Math.round(performance.now() - t0)}); save(); table();
+    phase = "wait"; drawOpts(); setDots([]); setTimeout(trial, 450);
+  }
+  function start() { if (game || data.rows.length >= 30) return; game = true; table(); H.set(0, "Floor dots"); STG.play(true, () => trial()); }
+  function end() {
+    game = false; phase = "idle"; opts = []; drawOpts(); table(); H.set(0, "All 30 lattices done"); H.set(1, ""); H.say("");
+    sayP.textContent = "All 30 lattices are done. Copy the results for Section 1 of the Colab notebook.";
+    setTimeout(() => STG.play(false), 400); if (window.labLog) labLog.note("Part A", `30 lattices, attraction constant ${(fit() || 0).toFixed(1)}`);
+  }
+  document.addEventListener("keydown", e => { if (!game || phase !== "respond") return; const i = "1234".indexOf(e.key); if (i >= 0) { e.preventDefault(); answer(opts[i] && opts[i].k); } });
+  startB.addEventListener("click", start);
+  document.getElementById("fd-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); table(); sayP.textContent = ""; H.set(0, "Press Start for the floor dots"); });
+  G.renderer.domElement.setAttribute("aria-label", "A waiting area seen from above with a dark mat on the floor. During the game, dot patterns flash on the mat.");
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["fd-3d"] = () => { planner.group.visible = false; const th = 0.5; cur = {r: 1.2, th, dots: lattice(1.2, th, [0.3, 0.6])}; setDots(cur.dots); STG.jump(PLAY);
+    const ux = [Math.cos(th), Math.sin(th)], uy = [-Math.sin(th) * 1.2, Math.cos(th) * 1.2];
+    opts = [["a", ux], ["d", [ux[0] + uy[0], ux[1] + uy[1]]], ["b", uy], ["c", [ux[0] - uy[0], ux[1] - uy[1]]]].map(([k, v]) => { const n = Math.hypot(v[0], v[1]); return {k, dx: v[0] / n, dz: v[1] / n}; });
+    phase = "respond"; drawOpts(); phase = "idle"; H.set(0, "Floor dots"); H.set(1, "Lattice 7 of 30"); H.say("Which rows did you see? Click a direction, or press 1 to 4"); };
+  window.FLOOR_TEST = {start, answer, state: () => ({game, phase, trial: data.rows.length, n: data.rows.length, ratio: cur && cur.r, opts: opts.map(o => o.k)})};
+})();
+
+/* Part C: Fifty milliseconds in the design studio. The team tests twelve designs for the start screen of the kiosk on
+   the large screen of the studio. In round 1 each design appears for 50 ms between a cross and a mask, and the
+   player rates its visual appeal from 1 to 9. In round 2 each design stays until it is rated. The designs are the
+   rectangles of window.W8_DESIGNS, made by the same code as in Section 3 of the Colab notebook. */
+(function () {
+  const box = document.getElementById("fl-3d"); if (!box) return;
+  const KEY = "w8:flash", COLS = ["design", "round", "rating", "time_ms", "shown_ms"], DES = window.W8_DESIGNS || [];
+  const tb = $("#fl-tb"), sumP = $("#fl-sum"), sayP = $("#fl-say"), startB = $("#fl-start"), rateEl = $("#fl-rate");
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: [], order: [LABKIT.shuffle([...Array(12).keys()]), LABKIT.shuffle([...Array(12).keys()])]});
+  if (!data || !data.rows || !data.order) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, phase = "idle", cur = null, t0 = 0;
+  const pearson = (x, y) => { const n = x.length, mx = x.reduce((a, b) => a + b, 0) / n, my = y.reduce((a, b) => a + b, 0) / n;
+    let sxy = 0, sxx = 0, syy = 0; for (let i = 0; i < n; i++) { sxy += (x[i] - mx) * (y[i] - my); sxx += (x[i] - mx) ** 2; syy += (y[i] - my) ** 2; }
+    return sxx && syy ? sxy / Math.sqrt(sxx * syy) : null; };
+  function table() {
+    tb.textContent = "";
+    for (let k = 0; k < 12; k++) { const r = rd => { const x = data.rows.find(q => q.design === k + 1 && q.round === rd); return x ? String(x.rating) : "-"; };
+      tb.append(h("tr", {}, h("td", {}, String(k + 1)), h("td", {}, r(1)), h("td", {}, r(2)))); }
+    const done = data.rows.length >= 24;
+    if (done) { const a = [], b = []; for (let k = 1; k <= 12; k++) { a.push(data.rows.find(q => q.design === k && q.round === 1).rating); b.push(data.rows.find(q => q.design === k && q.round === 2).rating); }
+      const r = pearson(a, b), best = b.indexOf(Math.max(...b)) + 1, worst = b.indexOf(Math.min(...b)) + 1;
+      sumP.textContent = `Your ratings after 50 ms and after a long view correlate with r = ${r == null ? "-" : r.toFixed(2)}. You liked design ${best} most and design ${worst} least. `
+        + "Section 3 of the Colab notebook compares your ratings with the colourfulness and the edge density of each design.";
+    } else sumP.textContent = data.rows.length ? `${data.rows.length} of 24 ratings done.` : "";
+    startB.disabled = game || done; startB.textContent = data.rows.length && !done ? "Continue the ratings" : "Start the fifty-millisecond test";
+  }
+  table();
+  LABKIT.exporter("fl-copy", "fl-csv", "fl-msg", COLS, () => data.rows, "MY_FLASH in Section 3");
+  const rbtn = [];
+  rateEl.append(h("span", {class: "small", style: "margin-right:6px"}, "very unappealing"));
+  for (let i = 1; i <= 9; i++) { const b = h("button", {class: "btn ghost", type: "button", disabled: "", style: "min-width:42px"}, String(i)); b.addEventListener("click", () => rate(i)); rbtn.push(b); rateEl.append(b); }
+  rateEl.append(h("span", {class: "small", style: "margin-left:6px"}, "very appealing"));
+  const enable = on => rbtn.forEach(b => { b.disabled = !on; });
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* the studio: a large screen on the back wall, a table with the team, a whiteboard and plants */
+  const PLAY = {camera: [0, 1.42, 0.45], target: [0, 1.52, -2.6]};
+  const G = make3D(box, {camera: [3.3, 2.15, 3.4], target: [-0.4, 1.25, -1.2], limits: [0.5, 10, 1.5], aspect: 0.58, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), WZ = -2.6;
+  L.room(G, {w: 8, d: 7.4, z0: WZ, h: 3.1, wall: 0xEFEDE8, windows: [{side: 1, z: -0.6, y: 1.75, w: 1.8, h: 1.2}]});
+  const bez = new T.Mesh(new T.RoundedBoxGeometry(2.46, 1.58, 0.07, 3, 0.02), L.std(G, 0x15171C, 0.35)); bez.position.set(0, 1.52, WZ + 0.05); SC.add(bez);
+  const SW = 2.36, SH = SW * 400 / 640;
+  /* one texture per design, and one each for the cross, the mask and the waiting screen */
+  const tex = c => { const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t; };
+  const mk = draw => { const c = document.createElement("canvas"); c.width = 640; c.height = 400; draw(c.getContext("2d")); return tex(c); };
+  const designTex = DES.map(R => mk(x => R.forEach(([a, b, w, hh, col]) => { x.fillStyle = col; x.fillRect(a, b, w, hh); })));
+  const crossTex = mk(x => { x.fillStyle = "#2B2F38"; x.fillRect(0, 0, 640, 400); x.fillStyle = "#FFFFFF"; x.fillRect(312, 196, 16, 8); x.fillRect(316, 192, 8, 16); });
+  const maskTex = mk(x => { const r = RNG(29); x.fillStyle = "#2B2F38"; x.fillRect(0, 0, 640, 400);
+    for (let i = 0; i < 260; i++) { x.fillStyle = `hsl(${Math.floor(r() * 360)},${30 + r() * 60}%,${30 + r() * 50}%)`; x.fillRect(r() * 640 - 20, r() * 400 - 10, 12 + r() * 60, 8 + r() * 40); } });
+  const msgTex = (a, b) => mk(x => { x.fillStyle = "#2B2F38"; x.fillRect(0, 0, 640, 400); x.fillStyle = "#FFFFFF"; x.textAlign = "center"; x.textBaseline = "middle";
+    x.font = "700 34px Atkinson Hyperlegible, system-ui, sans-serif"; x.fillText(a, 320, 175); x.font = "500 22px Atkinson Hyperlegible, system-ui, sans-serif"; x.fillStyle = "#C9D3E0"; x.fillText(b, 320, 225); });
+  const idleTex = msgTex("First impressions", "The team tests twelve start screens"), rateTex = msgTex("How appealing was it?", "Rate it from 1 to 9 below the view");
+  const screen = new T.Mesh(new T.PlaneGeometry(SW, SH), new T.MeshBasicMaterial({map: idleTex})); screen.position.set(0, 1.52, WZ + 0.09); SC.add(screen);
+  const show = t => { screen.material.map = t; G.redraw(); };
+  L.table(G, {at: [0, 0, 0], w: 2.6, d: 1.15, color: 0xE3E0DA});
+  const seat = (x, o) => { L.chair(G, {at: [x, 0, 0.95], face: Math.PI, color: 0x5A6E8C});
+    return L.human(G, Object.assign({pose: "sit", at: [x, 0, 0.95], face: Math.PI}, o)); };
+  const team = [seat(-0.9, {type: "man", top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416, skin: L.LOOKS.skin[1]}),
+    seat(0.9, {type: "woman", top: 0xB8664A, bottom: 0x2E3440, hair: "bun", skin: L.LOOKS.skin[2]})];
+  const me = seat(0, {type: "man", top: 0x55606E, bottom: 0x23283A, skin: L.LOOKS.skin[3], hairColor: 0x111111});
+  team.concat([me]).forEach(p => p.set("look", V(0, 1.5, WZ)));
+  const lead = L.human(G, {type: "woman", at: [-1.85, 0, -1.85], face: 0.55, top: 0x5A4BB5, bottom: 0x2B3340, hair: "bob", skin: L.LOOKS.skin[0]});
+  lead.set("look", V(0, 1.3, 0.9)).set("reach", {side: "L", at: V(-1.1, 1.5, WZ + 0.12)});
+  const laptop = new T.Mesh(new T.BoxGeometry(0.34, 0.02, 0.24), L.std(G, 0x8E979F, 0.35, 0.5)); laptop.position.set(0.55, 0.75, 0.25); SC.add(laptop);
+  const wb = L.panel(G, 1.5, 0.95, [600, 380], (c, w, hh) => { c.fillStyle = "#FFFFFF"; c.fillRect(0, 0, w, hh); c.strokeStyle = "#BFC5CE"; c.lineWidth = 8; c.strokeRect(4, 4, w - 8, hh - 8);
+    c.fillStyle = "#2F5D8A"; c.font = "700 40px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText("First impressions", 30, 64);
+    c.fillStyle = "#585E6E"; c.font = "500 28px Atkinson Hyperlegible, system-ui, sans-serif"; ["Round 1: 50 ms, then rate", "Round 2: look, then rate", "Compare the two rounds"].forEach((t, i) => c.fillText(t, 30, 140 + i * 60));
+    [["#F2B134", 420, 230], ["#3FA34D", 500, 260], ["#2F7DD1", 440, 300]].forEach(([col, x, y]) => { c.fillStyle = col; c.fillRect(x, y, 70, 50); }); });
+  wb.mesh.position.set(3.94, 1.55, -0.8); wb.mesh.rotation.y = -Math.PI / 2; SC.add(wb.mesh);
+  L.plant(G, {at: [-3.4, 0, -2.1], seed: 6}); L.plant(G, {at: [3.3, 0, 2.6], seed: 10, size: 0.8});
+  const STG = L.stage(G, {view: PLAY, hide: [me, lead]});
+  const H = L.hud(box, 2); H.set(0, "Press Start for the test");
+  /* a trial: cross 500 ms, design 50 ms (round 1) or until rated (round 2), mask 250 ms, then the rating */
+  let tl = null;
+  G.onTick(() => {
+    if (!tl) return false;
+    const now = performance.now();
+    if (phase === "cross" && now - tl.start >= 500) { phase = "design"; show(designTex[cur.k]); tl.on = now;
+      if (cur.round === 2) { tl = null; phase = "rate"; enable(true); t0 = now; H.say("Rate the design from 1 to 9, or press a number key"); return false; } }
+    else if (phase === "design" && now - tl.on >= 42) { phase = "mask"; show(maskTex); tl.mask = now; cur.shown = Math.round(now - tl.on); }
+    else if (phase === "mask" && now - tl.mask >= 250) { phase = "rate"; show(rateTex); tl = null; enable(true); t0 = performance.now(); H.say("How appealing was the design? Rate it from 1 to 9"); return false; }
+    return true;
+  });
+  function next() {
+    const n = data.rows.length; if (n >= 24) { end(); return; }
+    const round = n < 12 ? 1 : 2, k = data.order[round - 1][n % 12];
+    if (n === 12) { show(msgTex("Round 2", "Each design stays until you rate it")); sayP.textContent = "Round 2: Each design stays on the screen until you rate it."; setTimeout(() => go(round, k), 1600); return; }
+    go(round, k);
+  }
+  function go(round, k) {
+    cur = {round, k}; phase = "cross"; enable(false); show(crossTex);
+    H.set(1, `Round ${round} · design ${(data.rows.length % 12) + 1} of 12`); H.say(round === 1 ? "Look at the cross" : "");
+    if (round === 1) sayP.textContent = `Round 1: A design flashes for 50 ms after the cross. Rate how appealing it looked.`;
+    if (reduced() && round === 1) { phase = "rate"; show(designTex[k]); enable(true); t0 = performance.now(); return; }
+    tl = {start: performance.now()}; G.redraw();
+  }
+  function rate(n) {
+    if (!game || phase !== "rate") return;
+    data.rows.push({design: cur.k + 1, round: cur.round, rating: n, time_ms: Math.round(performance.now() - t0), shown_ms: cur.round === 1 ? cur.shown : ""}); save(); table();
+    phase = "wait"; enable(false); show(crossTex); setTimeout(next, 350);
+  }
+  function start() { if (game || data.rows.length >= 24) return; game = true; table(); H.set(0, "Fifty milliseconds"); STG.play(true, () => next()); }
+  function end() { game = false; phase = "idle"; enable(false); show(idleTex); table(); H.set(0, "All 24 ratings done"); H.set(1, ""); H.say("");
+    sayP.textContent = "All ratings are done. Copy the results for Section 3 of the Colab notebook."; setTimeout(() => STG.play(false), 400);
+    if (window.labLog) labLog.note("Part C", "24 ratings of 12 designs"); }
+  document.addEventListener("keydown", e => { if (!game || phase !== "rate") return; const n = parseInt(e.key, 10); if (n >= 1 && n <= 9) { e.preventDefault(); rate(n); } });
+  startB.addEventListener("click", start);
+  document.getElementById("fl-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); table(); show(idleTex); sayP.textContent = ""; H.set(0, "Press Start for the test"); });
+  G.renderer.domElement.setAttribute("aria-label", "A design studio with a large screen, a table and the design team. During the test, designs appear on the screen.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { wb.redraw(); });
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["fl-3d"] = () => { [me, lead].forEach(x => { x.group.visible = false; }); STG.jump(PLAY); show(designTex[8] || idleTex); H.set(0, "Fifty milliseconds"); H.set(1, "Round 2 · design 4 of 12"); H.say("Rate the design from 1 to 9, or press a number key"); };
+  window.FLASH_TEST = {start, rate, state: () => ({game, phase, round: cur && cur.round, k: cur && cur.k, n: data.rows.length, shown: data.rows.filter(r => r.round === 1).map(r => r.shown_ms)})};
+})();
+
+/* Part D: Waits at the kiosk. The player books eight appointments at the kiosk in the lobby, five taps each. After every
+   tap the kiosk waits, and every booking waits 6 s in total, but in one of four orders: the long wait at the end
+   (late), at the start (early), in the middle (middle), or spread evenly (flat). After each booking the player rates
+   how it felt, and the peak-end rule predicts the order of the ratings. */
+(function () {
+  const box = document.getElementById("wt-3d"); if (!box) return;
+  const KEY = "w8:waits", COLS = ["booking", "pattern", "rating", "time_s"];
+  const PAT = {late: [0.5, 0.5, 0.5, 0.5, 4.0], early: [4.0, 0.5, 0.5, 0.5, 0.5], middle: [0.5, 0.5, 4.0, 0.5, 0.5], flat: [1.2, 1.2, 1.2, 1.2, 1.2]};
+  const PE = k => (Math.max(...PAT[k]) + PAT[k][4]) / 2;
+  const STEPS = [["Choose a department", ["Cardiology", "Dermatology", "Neurology"]], ["Choose a doctor", ["Dr. Selin Arslan", "Dr. Murat Yılmaz", "Dr. Ayşe Kaya"]],
+    ["Choose a day", ["Monday 12 May", "Tuesday 13 May", "Wednesday 14 May"]], ["Choose a time", ["09:20", "10:40", "13:00"]], ["Check and confirm", ["Confirm"]]];
+  const tb = $("#wt-tb"), sumP = $("#wt-sum"), sayP = $("#wt-say"), startB = $("#wt-start"), rateEl = $("#wt-rate");
+  let data = store.get(KEY, null);
+  const fresh = () => ({rows: [], order: LABKIT.shuffle(["late", "early", "middle", "flat", "late", "early", "middle", "flat"])});
+  if (!data || !data.rows || !data.order) { data = fresh(); store.set(KEY, data); }
+  const save = () => store.set(KEY, data);
+  let game = false, phase = "idle", cur = null, speed = 1;
+  function table() {
+    tb.textContent = "";
+    Object.keys(PAT).forEach(k => { const r = data.rows.filter(x => x.pattern === k), m = r.length ? r.reduce((a, x) => a + x.rating, 0) / r.length : null;
+      tb.append(h("tr", {}, h("td", {}, k), h("td", {}, PAT[k].map(x => x.toFixed(1)).join(", ")), h("td", {}, PE(k).toFixed(2)), h("td", {}, String(r.length)), h("td", {}, m == null ? "-" : m.toFixed(1)))); });
+    const done = data.rows.length >= 8;
+    if (done) { const m = k => { const r = data.rows.filter(x => x.pattern === k); return r.reduce((a, x) => a + x.rating, 0) / r.length; };
+      const order = Object.keys(PAT).sort((a, b) => m(a) - m(b));
+      sumP.textContent = `You rated the ${order[0]} order lowest (${m(order[0]).toFixed(1)}) and the ${order[3]} order highest (${m(order[3]).toFixed(1)}). All orders wait 6 s in total; `
+        + "the peak-end rule predicts late lowest and flat highest. Section 4 of the Colab notebook compares your ratings with the peak-end values.";
+    } else sumP.textContent = data.rows.length ? `${data.rows.length} of 8 bookings done.` : "";
+    startB.disabled = game || done; startB.textContent = data.rows.length && !done ? "Continue the bookings" : "Start the bookings";
+  }
+  table();
+  LABKIT.exporter("wt-copy", "wt-csv", "wt-msg", COLS, () => data.rows, "MY_WAITS in Section 4");
+  const rbtn = [];
+  rateEl.append(h("span", {class: "small", style: "margin-right:6px"}, "very annoying"));
+  for (let i = 1; i <= 9; i++) { const b = h("button", {class: "btn ghost", type: "button", disabled: "", style: "min-width:42px"}, String(i)); b.addEventListener("click", () => rate(i)); rbtn.push(b); rateEl.append(b); }
+  rateEl.append(h("span", {class: "small", style: "margin-left:6px"}, "very pleasant"));
+  const enable = on => rbtn.forEach(b => { b.disabled = !on; });
+  if (!has3D()) { LABKIT.noGL(box); startB.disabled = true; return; }
+  /* the lobby: the kiosk, the reception desk, seats and people who wait for the kiosk */
+  const PLAY = {camera: [0, 1.37, 0.66], target: [0, 1.21, 0]};
+  const G = make3D(box, {camera: [2.6, 2.0, 3.6], target: [-0.2, 1.1, -0.2], limits: [0.5, 10, 1.5], aspect: 0.58, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z);
+  L.room(G, {w: 9, d: 8, z0: -1.6, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+  L.sign(G, "Outpatient clinics", {at: [0.3, 2.25, -1.54], w: 1.4, h: 0.28}); L.clock(G, {at: [1.55, 2.25, -1.54]});
+  L.plant(G, {at: [0.9, 0, -1.15], seed: 11, size: 0.9}); L.plant(G, {at: [-4.0, 0, -1.2], seed: 4});
+  L.seats(G, 4, {at: [-2.4, 0, -1.05], color: 0x4A7A96}, [{chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+    {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: L.LOOKS.skin[3], hairColor: 0x111111}]);
+  L.desk(G, {w: 1.4, at: [2.6, 0, -0.4], face: -Math.PI / 2});
+  L.human(G, {type: "woman", at: [3.15, 0, -0.4], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: L.LOOKS.skin[1]}).set("look", V(0.5, 1.4, 1.0));
+  const KW = 0.56, KH = 0.36, KY = 1.21, CW = 1120, CH = 720;
+  L.kiosk(G, {w: KW, h: KH, at: [0, KY, 0]});
+  const me = L.human(G, {type: "woman", at: [-0.06, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416});
+  me.set("look", V(0, KY, 0)).set("reach", {side: "R", at: V(0.03, KY + 0.02, 0.008)});
+  const q1 = L.human(G, {type: "man", at: [0.25, 0, 1.25], face: Math.PI + 0.15, top: 0x6B7B5A, bottom: 0x3A3F48, skin: L.LOOKS.skin[2]});
+  const q2 = L.human(G, {type: "oldman", at: [0.55, 0, 1.95], face: Math.PI + 0.3, top: 0x55606E, bottom: 0x2B3340});
+  q1.set("look", V(0, KY, 0)); q2.set("look", V(0, 1.3, 0));
+  /* the screen of the kiosk */
+  const btnRects = n => n === 1 ? [[300, 560, 520, 104]] : [0, 1, 2].map(i => [120, 222 + i * 138, 880, 112]);
+  let spin = 0;
+  const SCR = L.panel(G, KW, KH, [CW, CH], c => {
+    c.fillStyle = "#F7F8FA"; c.fillRect(0, 0, CW, CH); c.fillStyle = "#2F5D8A"; c.fillRect(0, 0, CW, 96);
+    c.fillStyle = "#FFFFFF"; c.textBaseline = "middle"; c.font = "700 44px Atkinson Hyperlegible, system-ui, sans-serif"; c.textAlign = "left"; c.fillText("Book an appointment", 40, 50);
+    if (!cur) { c.fillStyle = "#1E2433"; c.textAlign = "center"; c.font = "700 54px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText("Welcome", CW / 2, 300);
+      c.font = "500 38px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillStyle = "#585E6E"; c.fillText("Tap Start below to book", CW / 2, 380); return; }
+    c.textAlign = "right"; c.font = "600 34px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText(`Step ${Math.min(5, cur.step + 1)} of 5`, CW - 40, 50);
+    if (phase === "booked") { c.fillStyle = "#2E8B57"; c.textAlign = "center"; c.font = "800 120px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText("✓", CW / 2, 300);
+      c.font = "700 54px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText("Booked", CW / 2, 430); c.fillStyle = "#585E6E"; c.font = "500 36px Atkinson Hyperlegible, system-ui, sans-serif";
+      c.fillText(cur.pick.slice(0, 4).join(" · "), CW / 2, 510, CW - 80); return; }
+    const [title, opts] = STEPS[cur.step];
+    c.fillStyle = "#1E2433"; c.textAlign = "left"; c.font = "700 48px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText(title, 120, 160);
+    if (cur.step === 4) { c.fillStyle = "#E8EEF5"; c.beginPath(); c.roundRect(120, 222, 880, 300, 18); c.fill(); c.fillStyle = "#1E2433"; c.font = "500 38px Atkinson Hyperlegible, system-ui, sans-serif";
+      cur.pick.forEach((p, i) => c.fillText(p, 160, 270 + i * 66)); }
+    btnRects(opts.length).forEach((r, i) => { c.fillStyle = cur.step === 4 ? "#2F5D8A" : (cur.hover === i ? "#D5E3F1" : "#FFFFFF"); c.strokeStyle = "#9FB3C8"; c.lineWidth = 3;
+      c.beginPath(); c.roundRect(...r, 16); c.fill(); if (cur.step !== 4) c.stroke();
+      c.fillStyle = cur.step === 4 ? "#FFFFFF" : "#1E2433"; c.font = `${cur.step === 4 ? 700 : 600} 44px Atkinson Hyperlegible, system-ui, sans-serif`; c.textAlign = "center"; c.fillText(opts[i], r[0] + r[2] / 2, r[1] + r[3] / 2 + 2); });
+    if (phase === "wait") { c.fillStyle = "rgba(247,248,250,0.92)"; c.fillRect(0, 96, CW, CH - 96); c.strokeStyle = "#2F5D8A"; c.lineWidth = 16; c.lineCap = "round";
+      c.beginPath(); c.arc(CW / 2, 360, 70, spin, spin + 4.4); c.stroke(); c.fillStyle = "#585E6E"; c.textAlign = "center"; c.font = "600 40px Atkinson Hyperlegible, system-ui, sans-serif"; c.fillText("Please wait…", CW / 2, 500); }
+  });
+  SCR.mesh.position.set(0, KY, 0.002); SC.add(SCR.mesh);
+  const STG = L.stage(G, {view: PLAY, hide: [me]});
+  const H = L.hud(box, 2); H.set(0, "Press Start for the bookings");
+  /* the waits run on real time and keep the spinner turning */
+  let w = null, last = 0;
+  G.onTick(() => {
+    if (!w) { last = 0; return false; }
+    const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+    spin += dt * 7; w.left -= dt;
+    if (w.long && !w.sighed && w.left < w.total * 0.5) { w.sighed = true; H.say("The man behind you sighs and checks his watch"); q1.set("look", V(0, 1.6, 0.44)); }
+    if (w.left <= 0) { const cb = w.cb; w = null; q1.set("look", V(0, KY, 0)); H.say(""); cb(); SCR.redraw(); return false; }
+    SCR.redraw(); return true;
+  });
+  function waitFor(s, cb) { if (reduced() || speed === 0) { cb(); SCR.redraw(); return; } w = {left: s * speed, total: s * speed, long: s >= 2, cb}; G.redraw(); }
+  function startBooking() {
+    const k = data.rows.length; if (k >= 8) { end(); return; }
+    cur = {pattern: data.order[k], step: 0, pick: [], hover: -1, t0: performance.now()}; phase = "tap"; enable(false); SCR.redraw();
+    H.set(1, `Booking ${k + 1} of 8`); H.say("Tap the kiosk screen"); sayP.textContent = `Booking ${k + 1} of 8: Choose any department, doctor, day and time, then confirm.`;
+  }
+  function tap(i) {
+    if (!game || phase !== "tap" || !cur) return;
+    const [, opts] = STEPS[cur.step]; if (i < 0 || i >= opts.length) return;
+    if (cur.step < 4) cur.pick.push(opts[i]);
+    phase = "wait"; SCR.redraw();
+    waitFor(PAT[cur.pattern][cur.step], () => {
+      cur.step++;
+      if (cur.step < 5) { phase = "tap"; return; }
+      phase = "booked"; cur.time = (performance.now() - cur.t0) / 1000; SCR.redraw();
+      setTimeout(() => { phase = "rate"; enable(true); H.say("How did this booking feel? Rate it from 1 to 9 below the view");
+        sayP.textContent = "Rate the booking that you just made: 1 means very annoying and 9 very pleasant."; }, 700);
+    });
+  }
+  function rate(n) {
+    if (!game || phase !== "rate") return;
+    data.rows.push({booking: data.rows.length + 1, pattern: cur.pattern, rating: n, time_s: Math.round(cur.time * 10) / 10}); save(); table();
+    enable(false); phase = "idle"; H.say(""); setTimeout(startBooking, 500);
+  }
+  function hit(e) { const p = G.pick(e, [SCR.mesh]); if (!p || !p.uv || !cur) return -1; const x = p.uv.x * CW, y = (1 - p.uv.y) * CH;
+    return btnRects(STEPS[cur.step][1].length).findIndex(r => x >= r[0] && x <= r[0] + r[2] && y >= r[1] && y <= r[1] + r[3]); }
+  const cvs = G.renderer.domElement;
+  cvs.addEventListener("pointerdown", e => { if (!game || phase !== "tap") return; const i = hit(e); if (i >= 0) tap(i); });
+  cvs.addEventListener("pointermove", e => { if (!game || phase !== "tap" || !cur) return; const i = hit(e); if (i !== cur.hover) { cur.hover = i; SCR.redraw(); } });
+  function start() { if (game || data.rows.length >= 8) return; game = true; table(); H.set(0, "Waits at the kiosk"); STG.play(true, () => startBooking()); }
+  function end() { game = false; phase = "idle"; cur = null; enable(false); SCR.redraw(); table(); H.set(0, "All 8 bookings done"); H.set(1, ""); H.say("");
+    sayP.textContent = "All bookings are done. Copy the results for Section 4 of the Colab notebook."; setTimeout(() => STG.play(false), 400);
+    if (window.labLog) labLog.note("Part D", "8 bookings with four orders of waits"); }
+  document.addEventListener("keydown", e => { if (!game || phase !== "rate") return; const n = parseInt(e.key, 10); if (n >= 1 && n <= 9) { e.preventDefault(); rate(n); } });
+  startB.addEventListener("click", start);
+  document.getElementById("wt-clr").addEventListener("click", () => { if (game) return; data = fresh(); save(); cur = null; SCR.redraw(); table(); sayP.textContent = ""; H.set(0, "Press Start for the bookings"); });
+  cvs.setAttribute("aria-label", "The lobby with the kiosk. During a booking, tap the buttons on the kiosk screen; the kiosk then waits before the next step.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => SCR.redraw());
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP["wt-3d"] = () => { me.group.visible = false; cur = {pattern: "late", step: 2, pick: ["Cardiology", "Dr. Selin Arslan"], hover: 1, t0: 0}; phase = "tap"; SCR.redraw(); STG.jump(PLAY);
+    H.set(0, "Waits at the kiosk"); H.set(1, "Booking 3 of 8"); H.say("Tap the kiosk screen"); phase = "idle"; };
+  window.WAITS_TEST = {start, tap, rate, speed(f) { speed = f; }, state: () => ({game, phase, booking: data.rows.length + (cur ? 1 : 0), step: cur && cur.step, pattern: cur && cur.pattern, n: data.rows.length})};
+})();
+
+initLab(8,"Visual Design and Emotion: Grouping, Layout, First and Last Impressions",[{"q": "Which Gestalt principle groups elements that lie close together?", "options": ["Proximity", "Similarity", "Closure", "Figure and ground"], "answer": 0, "why": "Proximity groups elements by their distance."}, {"q": "In a rectangular lattice with $|b|/|a| = 1.2$ and $\\alpha = 6.6$, how often are the rows of $a$ seen?", "options": ["About 0.47", "About 0.76", "About 0.95", "Always"], "answer": 1, "why": "$p(a) = 1/(1 + 0.267 + 2 \\times 0.0245) = 0.760$."}, {"q": "An element of area 10 lies 3 units left of the centre line, and nothing lies to the right. What is $BM_{vertical}$?", "options": ["0", "0.3", "1", "30"], "answer": 2, "why": "$(30 - 0)/30 = 1$: All weight lies on one side."}, {"q": "What does the width $\\sigma$ of the blobs in a heat map usually match?", "options": ["About one degree of visual angle", "The size of the screen", "The number of fixations", "One pixel"], "answer": 0, "why": "About one degree, close to the size of the fovea."}, {"q": "Lindgaard and colleagues showed web pages for 50 ms. What did they find?", "options": ["Ratings after 50 ms agreed well with ratings after 500 ms", "Nobody could judge the pages", "Only text-heavy pages were liked", "Ratings were random"], "answer": 0, "why": "Visual appeal was judged consistently even after 50 ms."}, {"q": "Which websites did Tuch and colleagues find most appealing at first sight?", "options": ["Low complexity and high prototypicality", "High complexity and low prototypicality", "High complexity and high prototypicality", "Only colourful ones"], "answer": 0, "why": "Simple designs that look typical for their kind were rated as the most appealing."}, {"q": "What is the colourfulness $M$ of an image whose pixels all have $R = G = B$?", "options": ["0", "0.3", "1", "255"], "answer": 0, "why": "$rg$ and $yb$ are 0 everywhere."}, {"q": "Tuch, Roth and colleagues tested an online shop. What did poor usability do?", "options": ["It lowered the perceived beauty after use", "It raised the perceived beauty", "It had no effect on any judgement", "It made the shop load slower"], "answer": 0, "why": "The relation between beauty and usability can also run from usability to beauty."}, {"q": "Discomfort ratings run 2, 6, 3. What is their peak-end value?", "options": ["3.0", "3.7", "4.5", "6.0"], "answer": 2, "why": "$(6 + 3)/2 = 4.5$."}, {"q": "Why should a kiosk ask patients rather than read their faces?", "options": ["Facial movements are not reliable signs of specific emotions", "Cameras are too expensive", "Faces cannot be detected by software", "Patients never show emotions"], "answer": 0, "why": "Barrett and colleagues found facial movements neither reliable nor specific across contexts."}],["From which ratio on did you always see the rows of the shorter distance in Part A?", "Which design of Part C did you rate differently after 50 ms and after a long view, and why?", "Did your ratings in Part D follow the peak-end rule? Which order did you like least?", "Which measure of stage 8 would you trust most, and which least?", "How would you explain the peak-end rule to a nurse who plans the waits of a clinic?"]);
+})();</script></body></html>

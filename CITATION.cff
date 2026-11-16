@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use these course materials, please cite them as below."
+title: "Human-Computer Interaction: open course materials"
+type: software
+authors:
+  - family-names: Kose
+    given-names: Utku
+    orcid: "https://orcid.org/0000-0002-9652-6415"
+    affiliation: "Süleyman Demirel University"
+    email: utkukose@sdu.edu.tr
+repository-code: "https://github.com/utkukose/human-computer-interaction-NB-lecture"
+url: "https://utkukose.github.io/human-computer-interaction-NB-lecture/"
+license: CC-BY-4.0
+version: "1.0.0"
+date-released: "2026-11-16"
+keywords:
+  - human-computer interaction
+  - user-centred design
+  - usability
+  - user experience
+  - interaction design
+  - colour psychology
+  - Fitts' law
+  - accessibility
+  - human-AI interaction
+  - 3D user interfaces
+  - Python for beginners

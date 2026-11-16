@@ -1,0 +1,1420 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototypes and Navigation: Menu Trees, Scent and State Machines | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 7 of 14</p><h1>Prototypes and Navigation: Menu Trees, Scent and State Machines</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-07">Week overview</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb">Colab notebook</a><a href="lab.html">Interactive lab</a><a href="Week07_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2 id="overview">Overview</h2><p>Weeks 1 to 6 measured the clinic app and found out who its patients are. This week turns the findings into a prototype that people can try. It starts with the fidelity of prototypes, from paper to code. The menus of the app form a tree, and a model predicts how breadth, depth and the clarity of labels decide the time to a department. Card sorting asks future users how they group the content. A state machine describes the prototype exactly, so its traps and its shortest paths can be found before any test. The clinic app reaches stage 7, a checked prototype of the new booking flow. The Python step writes such a machine as a class, and the week closes with Wizard of Oz studies of assistants based on artificial intelligence (AI).</p><h2 id="week-at-a-glance">Week at a glance</h2><pre class="mermaid">flowchart LR
+  A[&quot;Prototypes and fidelity&quot;] --&gt; B[&quot;Menu trees: Breadth and depth&quot;]
+  B --&gt; C[&quot;Information scent&quot;]
+  C --&gt; D[&quot;Card sorting&quot;]
+  D --&gt; E[&quot;State machines&quot;]
+  E --&gt; F[&quot;Interface clinic&quot;]
+  F --&gt; G[&quot;The human side&quot;]
+  G --&gt; S[&quot;The clinic app, stage 7&quot;]
+  S --&gt; H[&quot;Toward human-AI interaction&quot;]</pre><div class="callout"><b class="t">Python code of this week</b><p>Every method on this page is also written as Python code in the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb">Colab notebook of the week</a>. Its code is divided into numbered sections. Each orange box on this page names the section whose code carries out what the text above the box explains. The box says what to run and what to look at in that section, and its button opens the Colab notebook at that place. The games, the practice parts and the self-assessment of the week are in the <a href="lab.html">interactive lab</a>. Each violet box opens one part of the interactive lab. The part ends with a link back to its box on this page, and the Colab notebook is always opened from the orange boxes here.</p></div><h2 id="python-step">Python step 7: Classes and events</h2><div class="colabbox" id="colab-python-step"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=python-step" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, right after Section 0 (setup).</b> Open the Colab notebook and run this step cell by cell: It consists of short pieces of Python code with their explanations, a quick check and three exercises. Topics: A class with attributes and methods · A state machine as a class · Events that change the state · Counting ignored events.</p></div><p>The step continues with Python <span class="cite" tabindex="0" data-refs="1">[1]</span> and introduces <i>classes</i>, which bundle data with the functions that act on them. It defines a small counter first and then a state machine whose rules map a state and an event to the next state. A loop feeds it a list of taps, as a user would. Students who have never programmed start with the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/start-here/NB00_start_here.ipynb">start-here notebook</a> of the course.</p><div class="callout"><b class="t">The clinic app so far</b><p>Weeks 1 to 5 measured the booking flow and fitted its colours, menus and targets to human abilities. Week 5 ranked sixteen problems, and Week 6 described three personas and predicted their booking times.</p><p>This week builds these results into a prototype of the new booking flow. Stage 7 chooses the menu of departments and checks the flow as a state machine before Week 9 tests it with patients.</p></div><figure><img src="figures/w07_project_roadmap.png" alt="The clinic app through the fourteen weeks of the course. The figure marks the stage of this week." loading="lazy"><figcaption>The clinic app through the fourteen weeks of the course. The figure marks the stage of this week.</figcaption></figure><h2 id="prototypes">Prototypes and fidelity</h2><p>A <i>prototype</i> is a draft of a design that people can try before it is built. Houde and Hill asked what a prototype is meant to explore <span class="cite" tabindex="0" data-refs="2">[2]</span>. It can explore the role of a product in the lives of its users, its look and feel, or its implementation. A paper sketch answers questions about the role and the flow of a booking, while a coded prototype shows how fast the screens respond.</p><div class="tablewrap"><table><thead><tr><th>Fidelity</th><th>Example</th><th>Good for</th><th>Cost</th></tr></thead><tbody><tr><td>Low</td><td>Paper sketches and sticky notes</td><td>Flow, structure and early ideas</td><td>Minutes per screen</td></tr><tr><td>Medium</td><td>Clickable wireframes without colour</td><td>Navigation and wording</td><td>Hours</td></tr><tr><td>High</td><td>A coded or detailed digital prototype</td><td>Look and feel, timing and tests of a near-final design</td><td>Days, and every change is expensive</td></tr></tbody></table></div><p>Rudd, Stern and Isensee weighed the two ends of the scale <span class="cite" tabindex="0" data-refs="3">[3]</span>. Low-fidelity prototypes are cheap and fast and let a team compare several concepts. High-fidelity prototypes are fully interactive and serve as a living specification of the product. Walker, Takayama and Landay compared prototypes of a website at low and high fidelity, on paper and on a computer <span class="cite" tabindex="0" data-refs="4">[4]</span>. They found no reliable difference in the number of usability issues that the prototypes revealed.</p><p>A paper prototype needs a person who plays the computer: After each tap of a participant, this person lays down the next screen. The rules that this person follows are the subject of the last section before the interface clinic.</p><div class="kc" data-answer="0" data-why="Paper shows the flow and the structure; speed, colour and battery need a coded prototype or the product."><p class="q">Check your understanding. Which question can a paper prototype of the booking flow answer best?</p><label><input type="radio" name="KC0" value="0"> Whether patients understand the order of the steps</label><label><input type="radio" name="KC0" value="1"> How fast the server responds</label><label><input type="radio" name="KC0" value="2"> Which colour profile the kiosk screen uses</label><label><input type="radio" name="KC0" value="3"> How much battery the app needs</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><h2 id="breadth-and-depth">Menu trees: Breadth and depth</h2><p>The menus of an app form a tree. A tree with \(b\) items in each menu and \(d\) levels holds \(N = b^d\) items, so the same items can be arranged broad and shallow or narrow and deep. Each level costs a fixed time \(a\) for the screen, the decision and the tap, and a time \(c\) for each label that must be read. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-03/lecture.html#menus-from-search-to-decision">Week 3</a> modelled a single menu; a tree repeats such a menu at every level:</p><div class="eq">\[T = d\,(a + c\,b), \qquad d = \frac{\ln N}{\ln b}\]</div><p>\(T\) is the time to reach one item in seconds, and \(d\) counts the menus on the way. A broad menu takes longer to read but saves levels. Setting the derivative of \(T\) with respect to \(b\) to zero gives the fastest breadth, the solution of \(b(\ln b - 1) = a/c\).</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, calculator, steps 1 to 3.</p><p><b>A worked example.</b> The values \(a = 1.2\) s and \(c = 0.11\) s reproduce the flat menu of 40 departments of Week 3: \(1.2 + 0.11 \times 40 = 5.60\) s. For 64 items, breadth 2 needs six levels and \(6 \times (1.2 + 0.22) = 8.52\) s. Breadth 4 needs \(3 \times 1.64 = 4.92\) s, breadth 8 needs \(2 \times 2.08 = 4.16\) s, and one list of 64 needs \(1.2 + 7.04 = 8.24\) s. With \(a/c = 10.9\), the fastest breadth is about 9.</p><div class="anim" id="depth"><p class="small"><strong>Animation.</strong> The tree of 64 departments for the chosen breadth. Play scans the labels of each level, yellow, before it opens the right one, green, and the clock in the right panel adds the time. The sliders set \(a\) and \(c\), and the curve shows the model for every breadth with its fastest breadth.</p><div class="row" id="dp-sl"></div><div class="sn-btns" id="dp-btn"></div><canvas class="paper" id="dp-cv" aria-label="The levels of a menu tree with a walk through them, and the time of the tree against its breadth"></canvas><div id="dp-ro"></div></div><p>Studies agree with the shape of the model. Miller arranged 64 items as six menus of two, three of four, two of eight and one of 64 <span class="cite" tabindex="0" data-refs="5">[5]</span>. The two levels of eight were the fastest and the most accurate. Larson and Czerwinski asked the same question on the web with 512 links and 19 participants <span class="cite" tabindex="0" data-refs="6">[6]</span>. Items were found in 36 s with 16 and then 32 links, in 46 s with 32 and then 16 links, and in 58 s with three levels of eight. In the deep tree, participants also got lost most often.</p><figure><img src="figures/w07_fig_depth.png" alt="Left: The time to an item among 64 against the breadth of the tree, for three pairs of a and c, with the fastest breadth of each as a dot. Right: The mean search times of Larson and Czerwinski for 512 items in three trees." loading="lazy"><figcaption>Left: The time to an item among 64 against the breadth of the tree, for three pairs of \(a\) and \(c\), with the fastest breadth of each as a dot. Right: The mean search times of Larson and Czerwinski for 512 items in three trees.</figcaption></figure><div class="kc" data-answer="1" data-why="\(d = \ln 64 / \ln 4 = 3\), because \(4^3 = 64\)."><p class="q">Check your understanding. A tree has breadth 4 and holds 64 items. How many menus does a walk pass?</p><label><input type="radio" name="KC1" value="0"> 2</label><label><input type="radio" name="KC1" value="1"> 3</label><label><input type="radio" name="KC1" value="2"> 4</label><label><input type="radio" name="KC1" value="3"> 16</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part A of the interactive lab turns the menus into a building. A wayfinding board leads through doors to the next board, and you find departments in three trees of 64 departments.</p><div class="labbox" id="lab-pa"><a class="btn" href="lab.html#pa" target="_blank" rel="noopener">Open lab Part A</a><p><b>Interactive lab, Part A.</b> Signposts in the hospital in 3D: Twelve walks to departments in trees of breadth 4, 8 and 64, timed with every wrong turn. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-1"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-1" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 1.</b> Open Section 1 of the Colab notebook and run it. The function <code>tree_time</code> carries out the formula of this section and is checked on the worked example. Paste the results of Part A into <code>MY_SIGNS</code>, and the code fits \(a\) and \(c\) to your walks with least squares. A figure compares your times with the model.</p></div><div class="callout discuss"><b class="t">Discuss: Broad or deep?</b><ol><li>Count the menus that you pass in the settings of your phone to reach the brightness of the display. Would a broader menu be faster?</li><li>When is a deep tree better than a broad one, for example on the small screen of a watch?</li></ol></div><h2 id="information-scent">Information scent</h2><p>Pirolli and Card described how people search for information as animals forage for food <span class="cite" tabindex="0" data-refs="7">[7]</span>. Users follow the <i>information scent</i> of labels: The cues that suggest which path leads to their goal. A label with a strong scent, such as Heart, lungs and blood for a patient of cardiology, is chosen right almost always. A vague label, such as Services, sends many users the wrong way.</p><p>Let \(s\) be the probability of choosing the right label at one level. A walk without a wrong turn needs the right label at every level. If a wrong turn is noticed one level down and costs one more pass of the level, each level is passed \(1/s\) times on average:</p><div class="eq">\[P_0 = s^d, \qquad E[T] = \sum_{l=1}^{d} \frac{a + c\,b_l}{s_l}\]</div><p>\(P_0\) is the share of walks without a wrong turn. \(b_l\) and \(s_l\) are the breadth and the probability of level \(l\), and \(E[T]\) is the expected time in seconds.</p><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, calculator, steps 4 and 5.</p><p><b>A worked example.</b> With \(s = 0.9\) at each of three levels, \(P_0 = 0.9^3 = 0.729\), so more than a quarter of the walks take at least one wrong turn. The tree of breadth 4 then needs \(E[T] = 3 \times 1.64 / 0.9 = 5.47\) s instead of 4.92 s. Two levels with the same labels keep \(0.9^2 = 0.81\) of the walks free of wrong turns, one more reason for broad trees with clear labels.</p><figure><img src="figures/w07_fig_scent.png" alt="Left: The share of walks without a wrong turn against the depth, for four values of s. Right: The expected time to a department in a flat list of 40 and in two levels of 5 and 8. Each bar splits into the time without wrong turns and the time that wrong turns add." loading="lazy"><figcaption>Left: The share of walks without a wrong turn against the depth, for four values of \(s\). Right: The expected time to a department in a flat list of 40 and in two levels of 5 and 8. Each bar splits into the time without wrong turns and the time that wrong turns add.</figcaption></figure><p><i>Tree testing</i> measures \(s\) before any screen is drawn: Participants see only the labels of the tree as text and choose where they would look for a task. Section 2 of the Colab notebook estimates \(s\) from the wrong turns of your walks in Part A.</p><div class="kc" data-answer="1" data-why="\(0.95^2 = 0.9025\)."><p class="q">Check your understanding. Labels are chosen right with \(s = 0.95\) at each of two levels. What share of the walks has no wrong turn?</p><label><input type="radio" name="KC2" value="0"> 0.85</label><label><input type="radio" name="KC2" value="1"> 0.9025</label><label><input type="radio" name="KC2" value="2"> 0.95</label><label><input type="radio" name="KC2" value="3"> 0.975</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pb"><a class="btn" href="lab.html#pb" target="_blank" rel="noopener">Open lab Part B</a><p><b>Interactive lab, Part B.</b> The time and the scent of a menu tree step by step, from the depth to the expected time, with four presets.</p></div><div class="colabbox" id="colab-sec-2"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-2" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 2.</b> Open Section 2 of the Colab notebook and run it. The function <code>time_with_errors</code> carries out the second formula of this section and is checked on the worked example. The code estimates \(s\) for each tree of your walks and the share without a wrong turn. A figure compares your trees with the curves of \(s^d\).</p></div><div class="callout discuss"><b class="t">Discuss: Labels with scent</b><ol><li>Find a vague label in an app or on a website that you use. What would a stronger label say?</li><li>Why can a label that is clear to the staff of a hospital be vague for its patients?</li></ol></div><h2 id="card-sorting">Card sorting</h2><p><i>Card sorting</i> asks future users how they group the content of a system. Each card names one item, such as a service of the app. In an <i>open</i> card sort, participants form and name their own groups. In a <i>closed</i> card sort, they sort the cards into given groups. The sorts of many participants are combined through the share of participants who put two cards together:</p><div class="eq">\[S_{ij} = \frac{n_{ij}}{n}, \qquad D_{ij} = 1 - S_{ij}\]</div><p>\(n\) is the number of participants and \(n_{ij}\) the number who put cards \(i\) and \(j\) in the same group. \(S_{ij}\) is the similarity and \(D_{ij}\) the distance of the two cards, both between 0 and 1. <i>Hierarchical clustering</i> joins the two closest cards or groups again and again. With <i>average linkage</i>, the distance between two groups is the mean of the distances between their cards. The joins form a tree, a <i>dendrogram</i>, and cutting it gives the groups of a menu.</p><p><b>A worked example.</b> Four participants sort Parking, Directions and Visiting hours. Three of them put Parking and Directions together, two put Directions and Visiting hours together, and one puts Parking and Visiting hours together. The distances are \(1 - 3/4 = 0.25\), \(1 - 2/4 = 0.50\) and \(1 - 1/4 = 0.75\). Parking and Directions join first. Visiting hours then joins them at the average distance \((0.75 + 0.50)/2 = 0.625\).</p><p>Lantz and colleagues compared card sorts with ratings of all pairs of the same items <span class="cite" tabindex="0" data-refs="8">[8]</span>. About 10 to 15 participants estimated the similarities well, and more participants added little. The code of Section 3 clusters the sorts with SciPy, a library of scientific algorithms for Python <span class="cite" tabindex="0" data-refs="9">[9]</span>.</p><figure><img src="figures/w07_fig_cards.png" alt="Left: The similarity of the sixteen cards of the clinic app in 20 simulated sorts. Right: The dendrogram of average linkage; the dashed cut gives five groups." loading="lazy"><figcaption>Left: The similarity of the sixteen cards of the clinic app in 20 simulated sorts. Right: The dendrogram of average linkage; the dashed cut gives five groups.</figcaption></figure><div class="kc" data-answer="0" data-why="\(1 - 6/8 = 0.25\)."><p class="q">Check your understanding. Six of eight participants put two cards together. What is the distance of the two cards?</p><label><input type="radio" name="KC3" value="0"> 0.25</label><label><input type="radio" name="KC3" value="1"> 0.60</label><label><input type="radio" name="KC3" value="2"> 0.75</label><label><input type="radio" name="KC3" value="3"> 6</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pc"><a class="btn" href="lab.html#pc" target="_blank" rel="noopener">Open lab Part C</a><p><b>Interactive lab, Part C.</b> A card sort in 3D: Sixteen services of the clinic app, sorted into up to five named piles at the meeting table. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-3"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-3" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 3.</b> Open Section 3 of the Colab notebook and run it. The function <code>similarity</code> turns sorts into the shares \(S_{ij}\), and SciPy joins the cards with average linkage. Paste the results of Part C into <code>MY_CARDS</code>, and the code compares your sort with the groups of the class and lists the most disputed pairs. A figure draws the dendrogram with its cut.</p></div><div class="callout discuss"><b class="t">Discuss: Whose groups?</b><ol><li>Would doctors and patients sort the services of the app in the same way? Which cards would they place differently?</li><li>When should a team overrule the result of a card sort?</li></ol></div><h2 id="state-machines">State machines and interactive prototypes</h2><p>Every interactive prototype is a <i>state machine</i>. It has a set of states, such as the screens of the app, and a set of events, such as taps. Rules say which event leads from which state to which next state. Harel extended such machines to <i>statecharts</i>, which nest states and run parts in parallel, so that large systems stay readable <span class="cite" tabindex="0" data-refs="10">[10]</span>.</p><p>Written as a machine, a prototype can be checked before anyone tests it. A search from the home screen gives the <i>shortest path</i> to the goal, and a search toward home finds states that trap the user. Thimbleby, Cairns and Jones added probabilities to the rules and predicted with <i>Markov models</i> how many actions users need <span class="cite" tabindex="0" data-refs="11">[11]</span>. With \(t_s\) the expected taps from state \(s\) to the goal and \(p_{ss'}\) the probability of a move from \(s\) to \(s'\),</p><div class="eq">\[t_s = 1 + \sum_{s'} p_{ss'}\, t_{s'}, \qquad t_{\text{goal}} = 0\]</div><p>Each tap leads to a next state, so the expected taps of a state are one plus the expected taps of the states that follow, weighted by their probabilities. One equation per state gives a system of linear equations. In matrix form, \(t = (I - Q)^{-1}\mathbf{1}\), where \(Q\) holds the probabilities between the states other than the goal.</p><p class="labref">→ These equations with numbers, step by step: <a href="lab.html#pd" target="_blank" rel="noopener">Lab Part D</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> A home screen H leads to a list D of departments. From the list, a patient reaches the times T with the probability 0.8 and returns home with 0.2. From the times, the patient books with 0.9 or returns to the list with 0.1. So \(t_H = 1 + t_D\), \(t_D = 1 + 0.8\,t_T + 0.2\,t_H\) and \(t_T = 1 + 0.1\,t_D\). Inserting the first and the last equation gives \(t_D = 2 + 0.28\,t_D\), so \(t_D = 2/0.72 = 2.778\). Then \(t_T = 1.278\) and \(t_H = 3.778\) taps, against 3 taps on the shortest path.</p><div class="scene" id="scene"><p class="small"><strong>Scene: The prototype wall.</strong> The design team pins the screens of the booking flow to a cork board and joins them with strings for the transitions. Purple strings lead toward the goal, red strings are wrong turns, and grey strings lead back. A marker walks the board like a patient: An expert takes the shortest path, and a novice takes wrong turns with the probabilities of stage 7. The buttons switch between the current app, which traps patients in three states, and the prototype, and they run 100 novices to compare their mean with the Markov model.</p><div class="three" id="sw-3d"></div><div class="sn-btns" id="sw-mach"></div><div class="sn-btns" id="sw-walk"></div><p class="sn-say" id="sw-say" aria-live="polite"></p><div class="sn-ro" id="sw-ro"></div></div><figure><img src="figures/w07_fig_machine.png" alt="The state machine of the new booking flow. Purple arrows lead toward the goal, dashed grey arrows step back, and the red arrow is the wrong turn of a weak scent." loading="lazy"><figcaption>The state machine of the new booking flow. Purple arrows lead toward the goal, dashed grey arrows step back, and the red arrow is the wrong turn of a weak scent.</figcaption></figure><div class="kc" data-answer="2" data-why="\(t = 1 + 0.5\,t\), so \(t = 2\)."><p class="q">Check your understanding. From a screen, a patient reaches the goal with the probability 0.5 per tap and otherwise stays. How many taps are expected?</p><label><input type="radio" name="KC4" value="0"> 1</label><label><input type="radio" name="KC4" value="1"> 1.5</label><label><input type="radio" name="KC4" value="2"> 2</label><label><input type="radio" name="KC4" value="3"> 4</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="kc" data-answer="0" data-why="No sequence of events leads from the state back to the home screen."><p class="q">Check your understanding. What does a state without a way home mean for a patient?</p><label><input type="radio" name="KC5" value="0"> The patient cannot return to the start without closing the app</label><label><input type="radio" name="KC5" value="1"> The state is never reached</label><label><input type="radio" name="KC5" value="2"> The state needs two taps</label><label><input type="radio" name="KC5" value="3"> The screen has no title</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pd"><a class="btn" href="lab.html#pd" target="_blank" rel="noopener">Open lab Part D</a><p><b>Interactive lab, Part D.</b> A paper prototype in 3D: You are the computer for eleven taps of a participant and lay down the next paper screen, with the Markov model step by step. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-4"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-4" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 4.</b> Open Section 4 of the Colab notebook and run it. The functions <code>shortest</code>, <code>no_way_home</code> and <code>expected_taps</code> check a machine and carry out the formula of this section; the last is checked on the worked example. Paste the results of Part D into <code>MY_PAPER</code>, and the class <code>Machine</code> of the Python step replays your session.</p></div><div class="callout discuss"><b class="t">Discuss: Traps and exits</b><ol><li>Find a screen in an app that offers no way back. How did you leave it?</li><li>Should every screen have a way home? Name a screen where a way home could harm, for example in the middle of a payment.</li></ol></div><h2 id="interface-clinic">Interface clinic: Navigation on the clinic screens, before and after</h2><p>The four pairs below show screens of the clinic app before and after a redesign. Each pair names the idea of this week that the redesign applies.</p><div class="uiclinic" id="ui-where"><p class="small"><strong>Interface clinic: Where am I?</strong> A list of doctors after a choice of department.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A list without a context</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹</div><div class="bd"><div class="list"><div>Dr. Selin Arslan</div><div>Dr. Murat Yılmaz</div><div>Dr. Ayşe Kaya</div></div></div></div><p class="ui-why">Nothing says which department the patient chose. A patient who took a wrong turn cannot notice it.</p></div><div class="ui-col"><h4><span class="tag good">After</span>The title and the path</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Cardiology</div><div class="bd"><div class="muted">Departments › Heart, lungs and blood › Cardiology</div><div class="list"><div>Dr. Selin Arslan</div><div>Dr. Murat Yılmaz</div><div>Dr. Ayşe Kaya</div></div></div></div><p class="ui-why">The title and the path show where the patient stands, and a wrong turn is visible at once.</p></div></div></div><div class="uiclinic" id="ui-labels"><p class="small"><strong>Interface clinic: Labels with scent.</strong> The home screen of the app.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Words of the system</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="list"><div>Services</div><div>Transactions</div><div>Modules</div><div>Records</div></div></div></div><p class="ui-why">No label tells a patient where a booking lives, so the information scent is weak at the first step.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Words of the tasks</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="list"><div>Book an appointment</div><div>My results</div><div>Prescriptions</div><div>Find a doctor</div></div></div></div><p class="ui-why">Each label names a task in the words of patients, as the card sort grouped them.</p></div></div></div><div class="uiclinic" id="ui-trap"><p class="small"><strong>Interface clinic: A screen without an exit.</strong> The step that asks for the patient number.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Only forward</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Patient number</div><div class="bd"><div class="card2">47182039561</div><div class="pb">Book</div></div></div><p class="ui-why">The screen has no Back and no Cancel. The state machine check finds it as a state without a way home.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Back, Cancel and the card</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Patient number</div><div class="bd"><div class="card2">47182039561</div><div class="pb">Continue</div><div class="muted">Or hold your patient card at the reader · Cancel</div></div></div><p class="ui-why">Every way out is visible, and the card makes typing the number optional.</p></div></div></div><div class="uiclinic" id="ui-deep"><p class="small"><strong>Interface clinic: Six levels to a department.</strong> The path to the cardiologists.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A deep tree</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Doctors</div><div class="bd"><div class="muted">Services › Clinics › Internal › Cardiovascular › Cardiology › Doctors</div><div class="list"><div>Dr. Selin Arslan</div></div></div></div><p class="ui-why">Six levels multiply the chances of a wrong turn: With \(s = 0.9\) per level, only 0.53 of the walks arrive without one.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Two levels and a search</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Departments</div><div class="bd"><div class="fld">🔍 heart</div><div class="list"><div>Heart, lungs and blood</div><div>Bones, muscles and nerves</div><div>Stomach, kidneys and hormones</div></div></div></div><p class="ui-why">Two levels keep \(0.9^2 = 0.81\) of the walks free of wrong turns, and the search skips the tree for patients who know a word.</p></div></div></div><div class="callout discuss"><b class="t">Discuss: Read the clinic</b><ol><li>Which of the four screens marked Before would cost patients the most wrong turns?</li><li>Which redesign changes the state machine, and which changes only the scent of its labels?</li></ol></div><h2 id="the-human-side">The human side: Rough on purpose</h2><p>Teams often keep early prototypes rough on purpose. Participants then comment on the flow instead of the colours, and the team does not grow attached to a design that took days to build. A sketch on paper also signals that every screen may still change.</p><p>The person who plays the computer must follow the rules exactly, even when a participant struggles. A helpful computer hides the very problems that the test should find. When participants were not told that a person played the system, they are told after the session.</p><div class="callout life"><b class="t">In everyday life: Road signs</b><p>A good road sign gives the next decision at the next junction, not the whole map. Drivers follow the scent of the signs, and one missing sign sends them the wrong way, however good the others are.</p></div><div class="callout discuss"><b class="t">Discuss: The helpful computer</b><ol><li>What should the computer do when a participant taps a part of the paper that the prototype does not cover?</li><li>Is it fair to let participants believe that a system is real? When would you tell them?</li></ol></div><h2 id="the-clinic-app-stage-7">The clinic app, stage 7: A prototype of the new booking flow</h2><p>Stage 7 builds the redesign of Weeks 3 to 6 into a prototype and checks it before Week 9 tests it with patients. The frequent departments of Week 3 stay at the top of the first screen. The stage answers two questions: How should the other patients reach their department, and does the flow lead every patient to the goal and back?</p><div class="tablewrap"><table><thead><tr><th>Menu of departments</th><th>Breadth</th><th>Probability \(s\)</th><th>Expected time</th></tr></thead><tbody><tr><td>Current: one list of 40, A to Z</td><td>40</td><td>0.80</td><td>7.00 s</td></tr><tr><td>Prototype: 5 categories, then 8 departments</td><td>5 and 8</td><td>0.90 and 0.98</td><td>4.07 s</td></tr></tbody></table></div><p>For the list, \(E[T] \)​\({}= (1.2 + 0.11 \times 40)/0.80 \)​\({}= 5.60/0.80 \)​\({}= 7.00\) s. For the two levels, \(E[T] \)​\({}= 1.75/0.90 \)​\({}+ 2.08/0.98 \)​\({}= 1.944 \)​\({}+ 2.122 \)​\({}= 4.07\) s. A share of \(0.90 \times 0.98 = 0.882\) of the walks has no wrong turn, instead of 0.80. The probability 0.80 repeats the slip rate of the department step of <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#the-clinic-app-stage-1">Week 1</a>. The values 0.90 and 0.98 are assumptions for labels taken from the card sort, and Week 9 measures them.</p><div class="tablewrap"><table><thead><tr><th>State machine</th><th>Current app</th><th>Prototype</th></tr></thead><tbody><tr><td>States</td><td>15</td><td>8</td></tr><tr><td>Shortest path from Home to Booked</td><td>8 taps</td><td>6 taps</td></tr><tr><td>Expected taps of a novice</td><td>11.02</td><td>6.55</td></tr><tr><td>States without a way home</td><td>3</td><td>0</td></tr></tbody></table></div><p>The current app traps patients on the screens Number, Wrong number and Booked: None of them has a way home, and a wrong number can only be typed again. The prototype adds Back to every screen and Home to the confirmation. The probabilities of the novice model are listed in Section 5 of the Colab notebook.</p><figure><img src="figures/w07_project_stage.png" alt="The clinic app, stage 7. Left: The expected time to a department in the list of 40 and in two levels. Right: The taps from Home to Booked on the shortest path and for a novice, in the current app and in the prototype. The values come from Section 5 of the Colab notebook." loading="lazy"><figcaption>The clinic app, stage 7. Left: The expected time to a department in the list of 40 and in two levels. Right: The taps from Home to Booked on the shortest path and for a novice, in the current app and in the prototype. The values come from Section 5 of the Colab notebook.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question of stage 7</th><th>Answer of the analysis</th><th>Where</th></tr></thead><tbody><tr><td>How should patients reach their department?</td><td>Five categories, then eight departments: 4.07 s instead of 7.00 s</td><td>Section 5</td></tr><tr><td>How many taps does a booking take?</td><td>6 on the shortest path and 6.55 for a novice, instead of 8 and 11.02</td><td>Section 5</td></tr><tr><td>Can every patient get back home?</td><td>Yes; the current app traps patients in three states</td><td>Section 5</td></tr></tbody></table></div><p>Stage 7 gives Week 8 a flow to style and Week 9 a prototype to test. The probabilities of the novice model are assumptions, and the test of Week 9 shows whether 6.55 taps hold.</p><div class="kc" data-answer="0" data-why="The shortest path loses Services, Appointments, Doctors and Number and gains a category and a summary: 8 taps become 6."><p class="q">Check your understanding. Why does the prototype need fewer taps than the current app, even for experts?</p><label><input type="radio" name="KC6" value="0"> It skips the screens Services and Appointments and the typed patient number</label><label><input type="radio" name="KC6" value="1"> It uses larger buttons</label><label><input type="radio" name="KC6" value="2"> It loads faster</label><label><input type="radio" name="KC6" value="3"> It has no Back buttons</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pe"><a class="btn" href="lab.html#pe" target="_blank" rel="noopener">Open lab Part E</a><p><b>Interactive lab, Part E.</b> Stage 7 by hand: A tree of four categories with ten departments each, its expected time and its share of walks without a wrong turn.</p></div><div class="colabbox" id="colab-sec-5"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-5" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 5.</b> Open Section 5 of the Colab notebook and run it. The code collects the results of stage 7 in the dictionary <code>STAGE7</code>. It holds the expected times of both menus, the shares without a wrong turn, the shortest paths, the expected taps of a novice and the states without a way home. A figure draws the two panels of the figure above.</p></div><h2 id="your-application">Your application</h2><p>The model of breadth, depth and scent applies to any menu tree. The Colab notebook holds an application switch with four further apps: Online banking, an e-government service, food delivery and course registration at a university. Each has a current tree and a redesign for one frequent task.</p><div class="colabbox" id="colab-sec-6"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-07/NB07_prototypes_and_navigation.ipynb#scrollTo=sec-6" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 6.</b> Open Section 6 of the Colab notebook, set <code>APP</code> to one of the five names in the comment and run the cell. The code computes the expected time of both trees with <code>time_with_errors</code> and the share of walks without a wrong turn.</p></div><h2 id="toward-human-ai-interaction">Toward human-AI interaction</h2><p>A conversational assistant is hard to prototype on paper, because its answers depend on what users say. In a <i>Wizard of Oz</i> study, a hidden person, the wizard, produces the answers of the system, while participants believe that they talk to a computer. Dahlbäck, Jönsson and Ahrenberg used such studies to collect the language that people actually address to a dialogue system <span class="cite" tabindex="0" data-refs="12">[12]</span>.</p><p>Part D of this week made you the computer of a paper prototype, the same role in a simpler form. A wizard who answers better than any real system would teach the team the wrong lessons, so wizards usually follow written rules. The logs of the sessions then show which questions patients ask and how they phrase them.</p><div class="callout ai"><b class="t">A wizard behind the booking assistant</b><p>Suppose that the team tests a chat assistant for bookings. A nurse in the next room types the answers by a script. It has three rules: Answer only about bookings, ask one question at a time and say when you do not know. The script keeps the wizard as limited as a real assistant would be, and the transcripts become the first data for its design.</p></div><div class="callout discuss"><b class="t">Discuss: The wizard and the truth</b><ol><li>What could go wrong if the wizard is friendlier and smarter than the assistant that is built later?</li><li>How would you tell participants after the session that a person answered, and why does it matter?</li></ol></div><h2 id="review-cards">Review cards</h2><p class="small">Select a card to turn it over.</p><div class="cards"><div class="card" tabindex="0" role="button"><div class="f">Prototype</div><div class="b">A draft of a design that people can try before it is built <span class="cite" tabindex="0" data-refs="2">[2]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Fidelity</div><div class="b">How closely a prototype resembles the final product, from paper sketches to code <span class="cite" tabindex="0" data-refs="3">[3]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Breadth and depth</div><div class="b">The items per menu \(b\) and the levels \(d\) of a menu tree with \(N = b^d\) items.</div></div><div class="card" tabindex="0" role="button"><div class="f">Time of a menu tree</div><div class="b">\(T = d\,(a + c\,b)\), with \(a\) per screen and \(c\) per label.</div></div><div class="card" tabindex="0" role="button"><div class="f">Fastest breadth</div><div class="b">The solution of \(b(\ln b - 1) = a/c\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Information scent</div><div class="b">The cues of a label that suggest whether a path leads to the goal <span class="cite" tabindex="0" data-refs="7">[7]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Share without a wrong turn</div><div class="b">\(P_0 = s^d\) for the probability \(s\) of a right choice at each level.</div></div><div class="card" tabindex="0" role="button"><div class="f">Tree testing</div><div class="b">Participants choose where to look for tasks in a tree of labels shown as text.</div></div><div class="card" tabindex="0" role="button"><div class="f">Card sorting</div><div class="b">Participants group cards of content, into their own groups (open) or given groups (closed).</div></div><div class="card" tabindex="0" role="button"><div class="f">Similarity of two cards</div><div class="b">\(S_{ij} = n_{ij}/n\), the share of participants who put both cards together.</div></div><div class="card" tabindex="0" role="button"><div class="f">Average linkage</div><div class="b">The distance between two groups is the mean of the distances between their cards.</div></div><div class="card" tabindex="0" role="button"><div class="f">Dendrogram</div><div class="b">The tree of the joins of hierarchical clustering; cutting it gives groups.</div></div><div class="card" tabindex="0" role="button"><div class="f">State machine</div><div class="b">States, events and rules that map a state and an event to the next state.</div></div><div class="card" tabindex="0" role="button"><div class="f">Statechart</div><div class="b">A state machine with nested and parallel states <span class="cite" tabindex="0" data-refs="10">[10]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">State without a way home</div><div class="b">A state from which no sequence of events leads back to the home screen.</div></div><div class="card" tabindex="0" role="button"><div class="f">Markov model of a user</div><div class="b">\(t_s = 1 + \sum_{s'} p_{ss'} t_{s'}\), the expected actions to the goal <span class="cite" tabindex="0" data-refs="11">[11]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Wizard of Oz study</div><div class="b">A hidden person produces the answers of a system that participants believe to be real <span class="cite" tabindex="0" data-refs="12">[12]</span>.</div></div></div><h2 id="references">References</h2><p class="small" id="ref-1">[1] Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.</p><p class="small" id="ref-2">[2] Houde, S., &amp; Hill, C. (1997). What do prototypes prototype? In M. G. Helander, T. K. Landauer, &amp; P. V. Prabhu (Eds.), <i>Handbook of Human-Computer Interaction</i> (2nd ed., pp. 367-381). Elsevier. <a href="https://doi.org/10.1016/B978-044481862-1.50082-0">https://doi.org/10.1016/B978-044481862-1.50082-0</a></p><p class="small" id="ref-3">[3] Rudd, J., Stern, K., &amp; Isensee, S. (1996). Low vs. high-fidelity prototyping debate. <i>Interactions</i>, <i>3</i>(1), 76-85. <a href="https://doi.org/10.1145/223500.223514">https://doi.org/10.1145/223500.223514</a></p><p class="small" id="ref-4">[4] Walker, M., Takayama, L., &amp; Landay, J. A. (2002). High-fidelity or low-fidelity, paper or computer? Choosing attributes when testing web prototypes. <i>Proceedings of the Human Factors and Ergonomics Society Annual Meeting</i>, <i>46</i>(5), 661-665. <a href="https://doi.org/10.1177/154193120204600513">https://doi.org/10.1177/154193120204600513</a></p><p class="small" id="ref-5">[5] Miller, D. P. (1981). The depth/breadth tradeoff in hierarchical computer menus. <i>Proceedings of the Human Factors Society Annual Meeting</i>, <i>25</i>(1), 296-300. <a href="https://doi.org/10.1177/107118138102500179">https://doi.org/10.1177/107118138102500179</a></p><p class="small" id="ref-6">[6] Larson, K., &amp; Czerwinski, M. (1998). Web page design: Implications of memory, structure and scent for information retrieval. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 25-32). ACM. <a href="https://doi.org/10.1145/274644.274649">https://doi.org/10.1145/274644.274649</a></p><p class="small" id="ref-7">[7] Pirolli, P., &amp; Card, S. (1999). Information foraging. <i>Psychological Review</i>, <i>106</i>(4), 643-675. <a href="https://doi.org/10.1037/0033-295X.106.4.643">https://doi.org/10.1037/0033-295X.106.4.643</a></p><p class="small" id="ref-8">[8] Lantz, E., Keeley, J. W., Roberts, M. C., Medina-Mora, M. E., Sharan, P., &amp; Reed, G. M. (2019). Card sorting data collection methodology: How many participants is most efficient? <i>Journal of Classification</i>, <i>36</i>(3), 649-658. <a href="https://doi.org/10.1007/s00357-018-9292-8">https://doi.org/10.1007/s00357-018-9292-8</a></p><p class="small" id="ref-9">[9] Virtanen, P., Gommers, R., Oliphant, T. E., Haberland, M., Reddy, T., Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J., van der Walt, S. J., Brett, M., Wilson, J., Millman, K. J., Mayorov, N., Nelson, A. R. J., Jones, E., Kern, R., Larson, E., Carey, C. J., Polat, İ., Feng, Y., Moore, E. W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman, R., Henriksen, I., Quintero, E. A., Harris, C. R., Archibald, A. M., Ribeiro, A. H., Pedregosa, F., van Mulbregt, P., &amp; SciPy 1.0 Contributors. (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. <i>Nature Methods</i>, <i>17</i>(3), 261-272. <a href="https://doi.org/10.1038/s41592-019-0686-2">https://doi.org/10.1038/s41592-019-0686-2</a></p><p class="small" id="ref-10">[10] Harel, D. (1987). Statecharts: A visual formalism for complex systems. <i>Science of Computer Programming</i>, <i>8</i>(3), 231-274. <a href="https://doi.org/10.1016/0167-6423(87)90035-9">https://doi.org/10.1016/0167-6423(87)90035-9</a></p><p class="small" id="ref-11">[11] Thimbleby, H., Cairns, P., &amp; Jones, M. (2001). Usability analysis with Markov models. <i>ACM Transactions on Computer-Human Interaction</i>, <i>8</i>(2), 99-132. <a href="https://doi.org/10.1145/376929.376941">https://doi.org/10.1145/376929.376941</a></p><p class="small" id="ref-12">[12] Dahlbäck, N., Jönsson, A., &amp; Ahrenberg, L. (1993). Wizard of Oz studies: Why and how. In <i>Proceedings of the 1st International Conference on Intelligent User Interfaces</i> (pp. 193-200). ACM. <a href="https://doi.org/10.1145/169891.169968">https://doi.org/10.1145/169891.169968</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="application/json" id="refdata">{"1": "Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.", "2": "Houde, S., &amp; Hill, C. (1997). What do prototypes prototype? In M. G. Helander, T. K. Landauer, &amp; P. V. Prabhu (Eds.), <i>Handbook of Human-Computer Interaction</i> (2nd ed., pp. 367-381). Elsevier. <a href=\"https://doi.org/10.1016/B978-044481862-1.50082-0\">https://doi.org/10.1016/B978-044481862-1.50082-0</a>", "3": "Rudd, J., Stern, K., &amp; Isensee, S. (1996). Low vs. high-fidelity prototyping debate. <i>Interactions</i>, <i>3</i>(1), 76-85. <a href=\"https://doi.org/10.1145/223500.223514\">https://doi.org/10.1145/223500.223514</a>", "4": "Walker, M., Takayama, L., &amp; Landay, J. A. (2002). High-fidelity or low-fidelity, paper or computer? Choosing attributes when testing web prototypes. <i>Proceedings of the Human Factors and Ergonomics Society Annual Meeting</i>, <i>46</i>(5), 661-665. <a href=\"https://doi.org/10.1177/154193120204600513\">https://doi.org/10.1177/154193120204600513</a>", "5": "Miller, D. P. (1981). The depth/breadth tradeoff in hierarchical computer menus. <i>Proceedings of the Human Factors Society Annual Meeting</i>, <i>25</i>(1), 296-300. <a href=\"https://doi.org/10.1177/107118138102500179\">https://doi.org/10.1177/107118138102500179</a>", "6": "Larson, K., &amp; Czerwinski, M. (1998). Web page design: Implications of memory, structure and scent for information retrieval. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 25-32). ACM. <a href=\"https://doi.org/10.1145/274644.274649\">https://doi.org/10.1145/274644.274649</a>", "7": "Pirolli, P., &amp; Card, S. (1999). Information foraging. <i>Psychological Review</i>, <i>106</i>(4), 643-675. <a href=\"https://doi.org/10.1037/0033-295X.106.4.643\">https://doi.org/10.1037/0033-295X.106.4.643</a>", "8": "Lantz, E., Keeley, J. W., Roberts, M. C., Medina-Mora, M. E., Sharan, P., &amp; Reed, G. M. (2019). Card sorting data collection methodology: How many participants is most efficient? <i>Journal of Classification</i>, <i>36</i>(3), 649-658. <a href=\"https://doi.org/10.1007/s00357-018-9292-8\">https://doi.org/10.1007/s00357-018-9292-8</a>", "9": "Virtanen, P., Gommers, R., Oliphant, T. E., Haberland, M., Reddy, T., Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J., van der Walt, S. J., Brett, M., Wilson, J., Millman, K. J., Mayorov, N., Nelson, A. R. J., Jones, E., Kern, R., Larson, E., Carey, C. J., Polat, İ., Feng, Y., Moore, E. W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman, R., Henriksen, I., Quintero, E. A., Harris, C. R., Archibald, A. M., Ribeiro, A. H., Pedregosa, F., van Mulbregt, P., &amp; SciPy 1.0 Contributors. (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. <i>Nature Methods</i>, <i>17</i>(3), 261-272. <a href=\"https://doi.org/10.1038/s41592-019-0686-2\">https://doi.org/10.1038/s41592-019-0686-2</a>", "10": "Harel, D. (1987). Statecharts: A visual formalism for complex systems. <i>Science of Computer Programming</i>, <i>8</i>(3), 231-274. <a href=\"https://doi.org/10.1016/0167-6423(87)90035-9\">https://doi.org/10.1016/0167-6423(87)90035-9</a>", "11": "Thimbleby, H., Cairns, P., &amp; Jones, M. (2001). Usability analysis with Markov models. <i>ACM Transactions on Computer-Human Interaction</i>, <i>8</i>(2), 99-132. <a href=\"https://doi.org/10.1145/376929.376941\">https://doi.org/10.1145/376929.376941</a>", "12": "Dahlbäck, N., Jönsson, A., &amp; Ahrenberg, L. (1993). Wizard of Oz studies: Why and how. In <i>Proceedings of the 1st International Conference on Intelligent User Interfaces</i> (pp. 193-200). ACM. <a href=\"https://doi.org/10.1145/169891.169968\">https://doi.org/10.1145/169891.169968</a>"}</script><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:"neutral"});</script><script>(function(){
+
+/* Animation: Breadth and depth. A tree holds 64 departments. For the chosen breadth, the left panel shows its levels,
+   and Play scans the labels of each level one by one before it opens the right one. The right panel shows the model
+   T = d (a + c b) for all breadths, with the chosen breadth and the clock of the walk. */
+(function () {
+  const cv = document.getElementById("dp-cv"); if (!cv) return;
+  const P = {a: 1.2, c: 0.11, b: 8}, N = 64, BS = [2, 4, 8, 64];
+  const depth = b => Math.log(N) / Math.log(b), T = b => depth(b) * (P.a + P.c * b);
+  const ro = readout(document.getElementById("dp-ro"), ["Depth d", "One level a + c b", "Model T", "Fastest breadth"]);
+  const sl = document.getElementById("dp-sl");
+  slider(sl, {label: "Time per screen a (s)", min: 0.4, max: 3, step: 0.05, value: 1.2, fmt: v => v.toFixed(2)}, v => { P.a = v; reset(); });
+  slider(sl, {label: "Time per label c (s)", min: 0.03, max: 0.4, step: 0.01, value: 0.11, fmt: v => v.toFixed(2)}, v => { P.c = v; reset(); });
+  const btns = document.getElementById("dp-btn");
+  btns.append(h("span", {class: "sn-lab"}, "Breadth:"));
+  const bb = BS.map(b => { const x = h("button", {class: "btn ghost", type: "button", "aria-pressed": b === P.b ? "true" : "false"}, String(b));
+    x.addEventListener("click", () => { P.b = b; bb.forEach((y, i) => y.setAttribute("aria-pressed", BS[i] === b ? "true" : "false")); reset(); }); btns.append(x); return x; });
+  const playB = h("button", {class: "btn", type: "button"}, "Play the walk"); btns.append(playB);
+  const PATH = {2: [1, 0, 1, 1, 0, 1], 4: [2, 1, 3], 8: [5, 3], 64: [43]};
+  let clock = 0, run = false, raf = 0, last = 0;
+  function best() { let bm = 2, tm = Infinity; for (let b = 2; b <= 64; b += 0.25) { const t = T(b); if (t < tm) { tm = t; bm = b; } } return bm; }
+  function show() {
+    const d = depth(P.b);
+    ro("Depth d", d.toFixed(0)); ro("One level a + c b", `${(P.a + P.c * P.b).toFixed(2)} s`); ro("Model T", `${T(P.b).toFixed(2)} s`); ro("Fastest breadth", `about ${best().toFixed(1)}`);
+  }
+  function state() {                                /* where the walk is: level, scanned labels, chosen */
+    const d = Math.round(depth(P.b)), lev = P.a + P.c * P.b; let t = clock;
+    for (let k = 0; k < d; k++) { if (t < lev) { const scan = Math.min(P.b, Math.floor(t / P.c)); return {k, scan, done: false}; } t -= lev; }
+    return {k: d, scan: 0, done: true};
+  }
+  const S = stage(cv, 0.42, (ctx, w, hh) => {
+    const C = COL(); ctx.clearRect(0, 0, w, hh);
+    const lw = w * 0.5, d = Math.round(depth(P.b)), path = PATH[P.b], s = state();
+    ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.fillStyle = C.ink; ctx.textAlign = "left";
+    ctx.fillText(`${N} departments as ${d} level${d > 1 ? "s" : ""} of ${P.b}`, 10, 16);
+    const rowH = Math.min(34, (hh - 40) / d);
+    for (let k = 0; k < d; k++) {
+      const y = 30 + k * rowH, cw = (lw - 30) / P.b;
+      for (let i = 0; i < P.b; i++) {
+        const passed = k < s.k || s.done, here = k === s.k && !s.done, chosen = path[k] === i;
+        ctx.fillStyle = (passed && chosen) ? "#2E8B57" : (here && i < s.scan) ? "#FFE58A" : C.grid; ctx.globalAlpha = (passed && !chosen) ? 0.45 : 1;
+        ctx.fillRect(14 + i * cw, y, Math.max(1, cw - (P.b > 16 ? 0.6 : 3)), rowH - 8); ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = C.steel; ctx.textAlign = "right"; ctx.fillText(String(k + 1), 10, y + rowH / 2);
+      ctx.textAlign = "left";
+    }
+    const f = frame(ctx, w, hh, {x0: 1, x1: 6, y0: 0, y1: Math.max(10, Math.ceil(Math.max(T(2), T(64)) / 5) * 5), xticks: 5, yticks: 4, xfmt: x => String(Math.round(Math.pow(2, x))),
+      xlabel: "breadth b (log scale)", pad: {l: lw + 46, r: 12, t: 12, b: 36}});
+    ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText("T (s)", lw + 8, 12);
+    const pts = []; for (let x = 1; x <= 6.001; x += 0.05) pts.push([f.X(x), f.Y(T(Math.pow(2, x)))]); polyline(ctx, pts, C.c[0], 2);
+    BS.forEach(b => dot(ctx, f.X(Math.log2(b)), f.Y(T(b)), b === P.b ? 6 : 3.5, b === P.b ? C.c[1] : C.c[0], C.ink));
+    if (clock > 0) { ctx.strokeStyle = C.c[1]; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(f.X(Math.log2(P.b)), f.Y(0)); ctx.lineTo(f.X(Math.log2(P.b)), f.Y(Math.min(clock, T(P.b)))); ctx.stroke(); ctx.lineWidth = 1;
+      ctx.fillStyle = C.ink; ctx.textAlign = "left"; ctx.fillText(`clock ${Math.min(clock, T(P.b)).toFixed(2)} s`, f.X(Math.log2(P.b)) + 8, f.Y(Math.min(clock, T(P.b))) - 4); }
+  });
+  function reset() { cancelAnimationFrame(raf); run = false; clock = 0; show(); S.redraw(); }
+  function tick(now) { const dt = last ? Math.min(0.1, (now - last) / 1000) : 0.016; last = now; clock += dt * 1.5; S.redraw();
+    if (clock >= T(P.b)) { clock = T(P.b); run = false; S.redraw(); return; } raf = requestAnimationFrame(tick); }
+  playB.addEventListener("click", () => { cancelAnimationFrame(raf); clock = 0; if (reduced()) { clock = T(P.b); S.redraw(); return; } run = true; last = 0; raf = requestAnimationFrame(tick); });
+  show();
+  window.DEPTH_TEST = {state: () => ({b: P.b, T: T(P.b), best: best(), clock}), finish: () => { cancelAnimationFrame(raf); clock = T(P.b); S.redraw(); }};
+})();
+
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Scene: The prototype wall. The design team pins the screens of the booking flow to a board and joins them with
+   strings for the transitions, as a state machine. A marker walks the board like a patient: an expert takes the
+   shortest path, a novice takes wrong turns with the probabilities of stage 7. The buttons switch between the current
+   app, which traps patients in three states, and the prototype. */
+(function () {
+  const box = document.getElementById("sw-3d"); if (!box) return;
+  const M = {
+    current: {label: "Current app", home: "Home", goal: "Booked", trapped: ["Number", "Wrong number", "Booked"],
+      pos: {"Home": [-1.7, 2.5], "Services": [-0.85, 2.5], "Appointments": [0, 2.5], "Departments": [0.85, 2.5], "Doctors": [1.7, 2.5],
+        "Messages": [-1.7, 1.9], "Results": [-0.85, 1.9], "My bookings": [0, 1.9], "Wrong doctors": [0.85, 1.9], "Dates": [1.7, 1.9],
+        "Booked": [-0.85, 1.3], "Number": [0, 1.3], "Times": [0.85, 1.3], "Closed day": [1.7, 1.3], "Wrong number": [0, 0.72]},
+      P: {"Home": {"Services": 0.75, "Messages": 0.25}, "Messages": {"Home": 1}, "Services": {"Appointments": 0.75, "Results": 0.25}, "Results": {"Services": 1},
+        "My bookings": {"Appointments": 1}, "Appointments": {"Departments": 0.9, "My bookings": 0.1}, "Departments": {"Doctors": 0.8, "Wrong doctors": 0.2},
+        "Wrong doctors": {"Departments": 1}, "Doctors": {"Dates": 0.95, "Departments": 0.05}, "Dates": {"Times": 0.85, "Closed day": 0.15}, "Closed day": {"Dates": 1},
+        "Times": {"Number": 0.92, "Dates": 0.08}, "Number": {"Booked": 0.88, "Wrong number": 0.12}, "Wrong number": {"Number": 1}},
+      edges: [["Home", "Services"], ["Home", "Messages"], ["Messages", "Home"], ["Services", "Appointments"], ["Services", "Results"], ["Services", "Home"],
+        ["Results", "Services"], ["Appointments", "Departments"], ["Appointments", "My bookings"], ["Appointments", "Services"], ["My bookings", "Appointments"],
+        ["Departments", "Doctors"], ["Departments", "Wrong doctors"], ["Departments", "Appointments"], ["Wrong doctors", "Departments"], ["Doctors", "Dates"],
+        ["Doctors", "Departments"], ["Dates", "Times"], ["Dates", "Closed day"], ["Dates", "Doctors"], ["Closed day", "Dates"], ["Times", "Number"], ["Times", "Dates"],
+        ["Number", "Booked"], ["Number", "Wrong number"], ["Wrong number", "Number"]], expect: 11.02, shortest: 8},
+    proto: {label: "Prototype", home: "Home", goal: "Booked", trapped: [],
+      pos: {"Home": [-1.7, 2.5], "Departments": [-0.85, 2.5], "Heart and lungs": [0, 2.5], "Days": [0.85, 2.5], "Times": [1.7, 2.5],
+        "Bones and muscles": [-0.85, 1.75], "Summary": [1.7, 1.75], "Booked": [1.7, 1.0]},
+      P: {"Home": {"Departments": 1}, "Bones and muscles": {"Departments": 1}, "Departments": {"Heart and lungs": 0.9, "Bones and muscles": 0.1},
+        "Heart and lungs": {"Days": 0.98, "Departments": 0.02}, "Days": {"Times": 0.95, "Heart and lungs": 0.05}, "Times": {"Summary": 0.95, "Days": 0.05},
+        "Summary": {"Booked": 0.97, "Times": 0.03}},
+      edges: [["Home", "Departments"], ["Departments", "Heart and lungs"], ["Departments", "Bones and muscles"], ["Departments", "Home"], ["Bones and muscles", "Departments"],
+        ["Bones and muscles", "Days"], ["Heart and lungs", "Days"], ["Heart and lungs", "Departments"], ["Days", "Times"], ["Days", "Heart and lungs"], ["Times", "Summary"],
+        ["Times", "Days"], ["Summary", "Booked"], ["Summary", "Times"], ["Booked", "Home"]], expect: 6.55, shortest: 6}};
+  const st = {m: "proto", walks: [], playing: false};
+  const machB = document.getElementById("sw-mach"), walkB = document.getElementById("sw-walk"), say = document.getElementById("sw-say"), roEl = document.getElementById("sw-ro");
+  machB.append(h("span", {class: "sn-lab"}, "Board:"));
+  const machBtns = [["proto", "Prototype"], ["current", "Current app"]].map(([k, lab]) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": k === st.m ? "true" : "false"}, lab);
+    b.addEventListener("click", () => setMachine(k)); machB.append(b); b.dataset.k = k; return b; });
+  walkB.append(h("span", {class: "sn-lab"}, "Walk:"));
+  const expB = h("button", {class: "btn ghost", type: "button"}, "An expert"), novB = h("button", {class: "btn", type: "button"}, "A novice"), manyB = h("button", {class: "btn ghost", type: "button"}, "100 novices");
+  walkB.append(expB, novB, manyB);
+  function bfs(m) {                                 /* the shortest path from home to the goal, as a list of states */
+    const prev = {[m.home]: null}, q = [m.home];
+    while (q.length) { const s = q.shift(); m.edges.filter(e => e[0] === s).forEach(([, t]) => { if (!(t in prev)) { prev[t] = s; q.push(t); } }); }
+    const path = []; let s = m.goal; while (s != null) { path.unshift(s); s = prev[s]; } return path;
+  }
+  function novice(m, r) {                           /* one walk of a novice with the probabilities of the model */
+    const path = [m.home]; let s = m.home;
+    while (s !== m.goal && path.length < 200) { const row = m.P[s]; let u = r(), nx = null; for (const [t, p] of Object.entries(row)) { u -= p; if (u <= 0) { nx = t; break; } }
+      s = nx || Object.keys(row)[0]; path.push(s); }
+    return path;
+  }
+  function readouts(text) {
+    const m = M[st.m], n = st.walks.length, mean = n ? st.walks.reduce((a, x) => a + x, 0) / n : null;
+    roEl.textContent = "";
+    [["Board", m.label], ["Shortest path", `${m.shortest} taps`], ["Novice, Markov model", `${m.expect.toFixed(2)} taps`], ["Walks so far", String(n)],
+      ["Mean of the walks", mean == null ? "-" : `${mean.toFixed(2)} taps`], ["States without a way home", String(m.trapped.length)]]
+      .forEach(([k, v]) => roEl.append(h("span", {}, k + " ", h("b", {}, v))));
+    say.textContent = text || (m.trapped.length ? `The current app traps patients in ${m.trapped.join(", ")}: From these screens no string leads back home. `
+      + "Walk the board as an expert or as a novice." : "Every screen of the prototype has a string back toward home. Walk the board as an expert or as a novice.");
+  }
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. The buttons and readouts below still work."));
+    const r = RNG(5); novB.addEventListener("click", () => { st.walks.push(novice(M[st.m], r).length - 1); readouts(); }); readouts(); return; }
+  const G = make3D(box, {camera: [0, 1.7, 2.5], target: [0, 1.5, -1.92], limits: [0.8, 9, 1.5], aspect: 0.56, bg: 0xE6EAF0, shadowBox: 5});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), BZ = -1.92;
+  L.room(G, {w: 8, d: 7, z0: -2.0, h: 3.2, windows: [{side: 1, z: 0.6, y: 1.8, w: 1.6, h: 1.15}]});
+  const cork = L.canvasTex(G, 512, 256, (c, w, hh) => { c.fillStyle = "#C9A27A"; c.fillRect(0, 0, w, hh); const r = RNG(3);
+    for (let i = 0; i < 2600; i++) { c.fillStyle = `rgba(${90 + r() * 60},${60 + r() * 40},${30 + r() * 20},${0.15 + r() * 0.25})`; c.fillRect(r() * w, r() * hh, 2, 2); } }, [3, 1.5]);
+  const board = new T.Mesh(new T.BoxGeometry(4.5, 2.5, 0.04), new T.MeshStandardMaterial({map: cork, roughness: 0.95})); board.position.set(0, 1.72, BZ - 0.02); SC.add(board);
+  const frame = new T.Mesh(new T.BoxGeometry(4.62, 2.62, 0.03), L.std(G, 0x6B4A2E, 0.6)); frame.position.set(0, 1.72, BZ - 0.045); SC.add(frame);
+  L.plant(G, {at: [3.05, 0, -1.6], seed: 7}); L.plant(G, {at: [-3.1, 0, -1.6], seed: 2, size: 0.9});
+  const designer = L.human(G, {type: "woman", at: [-2.5, 0, -1.45], face: 0.9, top: 0x5A4BB5, bottom: 0x2B3340, hair: "bob", skin: L.LOOKS.skin[2]});
+  const lead = L.human(G, {type: "man", at: [2.38, 0, -1.2], face: -0.8, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x2B1E16, skin: L.LOOKS.skin[1]});
+  lead.set("look", V(0.5, 1.7, BZ));
+  /* the cards and strings of the current board */
+  let parts = [], cards = {}, curves = {};
+  const marker = new T.Mesh(new T.SphereGeometry(0.06, 20, 14), new T.MeshBasicMaterial({color: 0xFFB000})); marker.visible = false; SC.add(marker);
+  const ring = new T.Mesh(new T.TorusGeometry(0.09, 0.012, 8, 30), new T.MeshBasicMaterial({color: 0xFFB000})); marker.add(ring);
+  const HW = 0.31, HH = 0.18, MZ = BZ + 0.09;           /* half width and height of a card, height of the marker */
+  const font = fs => `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  function fit(c, name, w, fs) {                    /* one line if it fits, otherwise two lines of about equal width */
+    c.font = font(fs); let lines = [name]; const words = name.split(" ");
+    if (c.measureText(name).width > w && words.length > 1) { let best = 1e9;
+      for (let j = 1; j < words.length; j++) { const a = words.slice(0, j).join(" "), b = words.slice(j).join(" "), m = Math.max(c.measureText(a).width, c.measureText(b).width);
+        if (m < best) { best = m; lines = [a, b]; } } }
+    while (Math.max(...lines.map(l => c.measureText(l).width)) > w && fs > 30) { fs -= 2; c.font = font(fs); }
+    return {lines, fs};
+  }
+  function card(name, x, y, trapped) {
+    const p = L.panel(G, 2 * HW, 2 * HH, [496, 288], (c, w, hh) => { c.fillStyle = trapped ? "#FBE3DE" : "#FCFBF6"; c.fillRect(0, 0, w, hh);
+      c.fillStyle = trapped ? "#F2C4BA" : "#E4E0D6"; c.fillRect(0, 0, w, 30); c.strokeStyle = trapped ? "#B53F2E" : "#C9C2B3"; c.lineWidth = 8; c.strokeRect(4, 4, w - 8, hh - 8);
+      c.fillStyle = "#2B2F38"; c.textAlign = "center"; c.textBaseline = "middle";
+      const {lines, fs} = fit(c, name, w - 44, 74); lines.forEach((l, j) => c.fillText(l, w / 2, 122 + (j - (lines.length - 1) / 2) * fs * 1.06));
+      if (trapped) { c.fillStyle = "#B53F2E"; c.font = font(44); c.fillText("no way home", w / 2, 244); return; }
+      c.strokeStyle = "#A8AEB6"; c.lineWidth = 4; [222, 252].forEach(yy => { c.beginPath(); c.roundRect(70, yy - 9, w - 140, 18, 8); c.stroke(); }); });
+    p.mesh.position.set(x, y, BZ + 0.01); SC.add(p.mesh); parts.push(p.mesh);
+    const pin = new T.Mesh(new T.SphereGeometry(0.022, 12, 8), L.std(G, 0xB53F2E, 0.3)); pin.position.set(x, y + HH - 0.035, BZ + 0.03); SC.add(pin); parts.push(pin);
+    return p;
+  }
+  const rest = (m, n) => V(m.pos[n][0], m.pos[n][1] - 0.1, MZ);   /* where the marker waits on a screen */
+  function rim(x, y, ux, uy) { const t = Math.min(ux ? HW / Math.abs(ux) : 1e9, uy ? HH / Math.abs(uy) : 1e9); return [x + ux * t, y + uy * t]; }
+  const COLS = {go: 0x5A4BB5, wrong: 0xC0392B, back: 0x7E8794};
+  function string(a, b, side, kind, m) {            /* a string from the rim of card a to the rim of card b */
+    const [x0, y0] = m.pos[a], [x1, y1] = m.pos[b], dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len, nx = -uy, ny = ux;
+    const off = 0.05 * side, bend = (len > 1.5 ? 0.2 : 0.04) * (side || 1);
+    const [sx, sy] = rim(x0, y0, ux, uy), [ex, ey] = rim(x1, y1, -ux, -uy);
+    const q0 = [sx + nx * off, sy + ny * off], q2 = [ex + nx * off, ey + ny * off], q1 = [(q0[0] + q2[0]) / 2 + nx * bend, (q0[1] + q2[1]) / 2 + ny * bend];
+    const cv = new T.QuadraticBezierCurve3(V(q0[0], q0[1], BZ + 0.035), V(q1[0], q1[1], BZ + 0.05), V(q2[0], q2[1], BZ + 0.035));
+    const tube = new T.Mesh(new T.TubeGeometry(cv, 24, 0.009, 6, false), new T.MeshStandardMaterial({color: COLS[kind], roughness: 0.6}));
+    tube.userData.noShadow = true; SC.add(tube); parts.push(tube);
+    const path = new T.CurvePath(), A = rest(m, a), B = rest(m, b), P0 = V(q0[0], q0[1], MZ), P2 = V(q2[0], q2[1], MZ);
+    path.add(new T.LineCurve3(A, P0)); path.add(new T.QuadraticBezierCurve3(P0, V(q1[0], q1[1], MZ), P2)); path.add(new T.LineCurve3(P2, B));
+    return path;
+  }
+  function build() {
+    parts.forEach(o => { SC.remove(o); if (o.geometry) o.geometry.dispose(); }); parts = []; cards = {}; curves = {};
+    const m = M[st.m], on = new Set(bfs(m)), dist = {[m.home]: 0}, q = [m.home];
+    while (q.length) { const s0 = q.shift(); m.edges.filter(e => e[0] === s0).forEach(([, t]) => { if (!(t in dist)) { dist[t] = dist[s0] + 1; q.push(t); } }); }
+    Object.entries(m.pos).forEach(([n, [x, y]]) => { cards[n] = card(n, x, y, m.trapped.includes(n)); });
+    m.edges.forEach(([a, b]) => { const pair = m.edges.some(([c, d]) => c === b && d === a), side = pair ? 1 : 0;   /* the normal flips with the direction, so a pair parts */
+      const kind = on.has(b) && dist[b] === dist[a] + 1 ? "go" : (on.has(a) && !on.has(b) ? "wrong" : "back");
+      curves[a + ">" + b] = string(a, b, side, kind, m); });
+    marker.position.copy(rest(m, m.home)); marker.visible = true;
+    const [hx, hy] = m.pos[m.home]; designer.set("look", V(hx, hy, BZ)).set("reach", {side: "L", at: V(hx - 0.22, hy - 0.05, BZ + 0.06)});
+    G.redraw();
+  }
+  /* walking the board */
+  let walk = null, lastT = 0;
+  G.onTick(() => {
+    if (!walk) { lastT = 0; return false; }
+    const now = performance.now(), dt = lastT ? Math.min(0.25, (now - lastT) / 1000) : 0.016; lastT = now;
+    walk.u += dt / 0.42;
+    while (walk && walk.u >= 1) { walk.u -= 1; walk.k++; if (walk.k >= walk.path.length - 1) { const n = walk.path.length - 1; st.walks.push(n); const kind = walk.kind; walk = null; st.playing = false;
+        readouts(`${kind === "expert" ? "The expert" : "The novice"} reached the goal in ${n} taps. ${kind === "novice" ? `The Markov model expects ${M[st.m].expect.toFixed(2)} taps on average.` : ""}`); return true; } }
+    const a = walk.path[walk.k], b = walk.path[walk.k + 1], cv = curves[a + ">" + b];
+    if (cv) marker.position.copy(cv.getPoint(walk.u));
+    return true;
+  });
+  function go(kind) {
+    if (st.playing) return; const m = M[st.m];
+    const path = kind === "expert" ? bfs(m) : novice(m, RNG(Math.floor(Math.random() * 1e6) + 1));
+    if (reduced()) { st.walks.push(path.length - 1); readouts(`${kind === "expert" ? "The expert" : "The novice"} reached the goal in ${path.length - 1} taps.`); return; }
+    st.playing = true; walk = {path, k: 0, u: 0, kind}; readouts(`${kind === "expert" ? "An expert" : "A novice"} walks the board ...`); G.redraw();
+  }
+  function many() { if (st.playing) return; const m = M[st.m], r = RNG(Math.floor(Math.random() * 1e6) + 1); for (let i = 0; i < 100; i++) st.walks.push(novice(m, r).length - 1);
+    const n = st.walks.length; readouts(`100 more novices walked the board. The mean of all ${n} walks is ${(st.walks.reduce((a, x) => a + x, 0) / n).toFixed(2)} taps, and the Markov model expects ${m.expect.toFixed(2)}.`); }
+  function setMachine(k) { if (st.playing) return; st.m = k; st.walks = []; machBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false")); build(); readouts(); }
+  expB.addEventListener("click", () => go("expert")); novB.addEventListener("click", () => go("novice")); manyB.addEventListener("click", many);
+  G.renderer.domElement.setAttribute("aria-label", "A cork board with the screens of the booking flow joined by strings, and a marker that walks along the strings.");
+  build(); readouts();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { Object.values(cards).forEach(c => c.redraw()); });
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP.scene = () => { setMachine("current"); const m = M.current, p = bfs(m); const a = p[5], b = p[6]; marker.position.copy(curves[a + ">" + b].getPoint(0.5)); G.redraw(); };
+  window.SCENE_TEST = {setMachine, go, many, state: () => ({m: st.m, playing: st.playing, walks: st.walks.slice(), mean: st.walks.length ? st.walks.reduce((a, x) => a + x, 0) / st.walks.length : null}),
+    shortest: k => bfs(M[k]).length - 1};
+})();
+
+initLecture(7);
+})();</script></body></html>

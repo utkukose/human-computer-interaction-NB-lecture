@@ -1,0 +1,1375 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usability Testing: Observing People and Measuring with Confidence | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 9 of 14</p><h1>Usability Testing: Observing People and Measuring with Confidence</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-09">Week overview</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb">Colab notebook</a><a href="lab.html">Interactive lab</a><a href="Week09_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2 id="overview">Overview</h2><p>Weeks 1 to 8 measured the clinic app, described its patients and redesigned its screens. This week tests the current and the new design with patients and asks how much a handful of people can tell. It starts with the test session: A realistic task, thinking aloud, a neutral moderator and observers who code what happens. Completion rates and task times from a few people are uncertain, so confidence intervals put a range around them. The week then asks who should take part and how many, and how two designs are compared without being fooled by chance. The clinic app reaches stage 9, a usability test of both designs with 26 patients. The Python step introduces distributions and tests with SciPy. The week closes with artificial intelligence (AI) that helps to analyse test sessions.</p><h2 id="week-at-a-glance">Week at a glance</h2><pre class="mermaid">flowchart LR
+  A[&quot;The test session&quot;] --&gt; B[&quot;Completion rates&quot;]
+  B --&gt; C[&quot;Time on task&quot;]
+  C --&gt; D[&quot;Who and how many&quot;]
+  D --&gt; E[&quot;Comparing two designs&quot;]
+  E --&gt; F[&quot;Interface clinic&quot;]
+  F --&gt; G[&quot;The human side&quot;]
+  G --&gt; S[&quot;The clinic app, stage 9&quot;]
+  S --&gt; H[&quot;Toward human-AI interaction&quot;]</pre><div class="callout"><b class="t">Python code of this week</b><p>Every method on this page is also written as Python code in the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb">Colab notebook of the week</a>. Its code is divided into numbered sections. Each orange box on this page names the section whose code carries out what the text above the box explains. The box says what to run and what to look at in that section, and its button opens the Colab notebook at that place. The games, the practice parts and the self-assessment of the week are in the <a href="lab.html">interactive lab</a>. Each violet box opens one part of the interactive lab. The part ends with a link back to its box on this page, and the Colab notebook is always opened from the orange boxes here.</p></div><h2 id="python-step">Python step 9: Distributions and tests with SciPy</h2><div class="colabbox" id="colab-python-step"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=python-step" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, right after Section 0 (setup).</b> Open the Colab notebook and run this step cell by cell: It consists of short pieces of Python code with their explanations, a quick check and three exercises. Topics: The normal distribution · Small samples and the t distribution · Counting successes with the binomial distribution · A test gives a p-value.</p></div><p>The step introduces SciPy, the scientific library of Python <span class="cite" tabindex="0" data-refs="1,2">[1, 2]</span>. Its distributions give the numbers behind every interval of this week: The normal distribution, the t distribution for small samples and the binomial distribution of successes. The step ends with a first test and its p-value. Students who have never programmed start with the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/start-here/NB00_start_here.ipynb">start-here notebook</a> of the course.</p><div class="callout"><b class="t">The clinic app so far</b><p>Weeks 1 to 7 measured the booking flow, fitted it to human abilities, described three personas and built a prototype. Week 8 gave the summary screen a calm visual design and moved a long wait to the start.</p><p>This week tests both designs with patients. Stage 9 compares the current app and the redesign on completion, time, errors, satisfaction and first impressions, each with its uncertainty.</p></div><figure><img src="figures/w09_project_roadmap.png" alt="The clinic app through the fourteen weeks of the course. The figure marks the stage of this week." loading="lazy"><figcaption>The clinic app through the fourteen weeks of the course. The figure marks the stage of this week.</figcaption></figure><h2 id="the-test-session">The test session: Tasks, thinking aloud and coding</h2><p><a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#usability-effectiveness-efficiency-and-satisfaction">Week 1</a> defined usability by effectiveness, efficiency and satisfaction and turned them into measures. A <i>usability test</i> produces these measures with real people. Each participant receives a realistic task, such as booking the earliest appointment in cardiology, and tries it alone while a moderator watches. A <i>formative</i> test looks for problems to fix, and a <i>summative</i> test measures how well a design performs.</p><p>In a <i>think-aloud</i> test, participants say what they look for, read and decide while they work. Boren and Ramey compared the classic protocol of Ericsson and Simon with what practitioners actually do <span class="cite" tabindex="0" data-refs="3">[3]</span>. The classic protocol allows only short reminders to keep talking, while practitioners often probe and help. Boren and Ramey proposed to keep participants talking with brief acknowledgements, such as <i>mm-hm</i>, which do not steer them.</p><p>A moderator who points to the right button changes the outcome itself: The session no longer shows what a patient alone would do. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-06/lecture.html#interviews">Week 6</a> showed how a leading question bends the answer of an interview, and a hint in a test bends the result in the same way.</p><p>The team therefore writes coding rules before the test. A task is <i>completed</i> when the confirmation screen appears without help. It is completed <i>with help</i> when the moderator gave information that moved the participant on, such as where to tap or whether a choice was right. For the completion rate, such a task counts as not completed. A neutral question such as <i>What are you looking for?</i> is no help. Every tap on a wrong option is an <i>error</i>, and the time runs from <i>Please begin</i> to the end of the task.</p><p>After each task, a single question can add the participant's own view, such as a rating of how difficult or easy the task was on seven points. Sauro and Dumas compared three such one-question ratings with 26 participants, who did five tasks in two applications <span class="cite" tabindex="0" data-refs="4">[4]</span>. All three separated the applications, and the seven-point scale was among the more sensitive with small samples.</p><p>Observers do not see the same things. Jacobsen, Hertzum and John let four evaluators analyse the same four videotaped test sessions <span class="cite" tabindex="0" data-refs="5">[5]</span>. Of 93 problems, only 20 percent were found by all four, and 46 percent by a single evaluator. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-05/lecture.html#heuristic-evaluation">Week 5</a> met the same effect in heuristic evaluation. Codes of outcomes need the same care, and Cohen's kappa measures how far two observers agree beyond chance <span class="cite" tabindex="0" data-refs="6">[6]</span>:</p><div class="eq">\[\kappa = \frac{p_o - p_e}{1 - p_e}, \qquad p_e = \sum_{k} p_{a,k}\, p_{b,k}\]</div><p>\(p_o\) is the share of items that both observers coded alike. \(p_{a,k}\) and \(p_{b,k}\) are the shares of code \(k\) in the codes of observers \(a\) and \(b\), so \(p_e\) is the agreement expected by chance alone. A kappa of 1 means perfect agreement and 0 the agreement of chance. Landis and Koch called values from 0.61 to 0.80 substantial and from 0.81 to 1 almost perfect <span class="cite" tabindex="0" data-refs="7">[7]</span>.</p><p><b>A worked example.</b> The reference observer coded the seven pilot sessions of Part A as 4 completed, 2 with help and 1 gave up. A new observer codes session 6, where the moderator confirmed a choice, as completed. The two agree on 6 of 7 sessions, so \(p_o = 6/7 = 0.857\). The new observer's codes are 5 completed, 1 with help and 1 gave up. Then \(p_e \)​\({}= (4 \times 5 + 2 \times 1 + 1 \times 1)/49 \)​\({}= 23/49 \)​\({}= 0.469\), and \(\kappa \)​\({}= (0.857 - 0.469)/(1 - 0.469) \)​\({}= 0.388/0.531 \)​\({}= 0.731\): Substantial, but not almost perfect.</p><figure><img src="figures/w09_fig_coding.png" alt="Left: Session 6 of Part A on a timeline, with the reference events and the keys of an observer who pressed about one second late. Right: The cross table of the worked example, with the agreements on the diagonal." loading="lazy"><figcaption>Left: Session 6 of Part A on a timeline, with the reference events and the keys of an observer who pressed about one second late. Right: The cross table of the worked example, with the agreements on the diagonal.</figcaption></figure><div class="kc" data-answer="0" data-why="The answer moved the participant on, so the task is completed with help. In the completion rate it counts as not completed."><p class="q">Check your understanding. A participant asks whether a button is right, and the moderator answers <i>Yes, that is the one</i>. How is the task coded if the participant then completes it?</p><label><input type="radio" name="KC0" value="0"> Completed with help</label><label><input type="radio" name="KC0" value="1"> Completed</label><label><input type="radio" name="KC0" value="2"> Gave up</label><label><input type="radio" name="KC0" value="3"> An error</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part A of the interactive lab puts you behind the one-way mirror of the usability lab. You code seven sessions of the current app live, and the Colab notebook compares your codes with the reference.</p><div class="labbox" id="lab-pa"><a class="btn" href="lab.html#pa" target="_blank" rel="noopener">Open lab Part A</a><p><b>Interactive lab, Part A.</b> The observation room in 3D: Seven think-aloud sessions of the current app, coded live with five keys. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-1"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-1" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 1.</b> Open Section 1 of the Colab notebook and run it. The function <code>kappa</code> carries out the formula of this section and is checked on the worked example. Paste the results of Part A into <code>MY_SESSIONS</code>, and the code compares your outcomes, errors and times with the reference. A figure shows your times next to the reference times and the cross table of the outcomes.</p></div><div class="callout discuss"><b class="t">Discuss: Help or not?</b><ol><li>A participant asks <i>Is this right?</i>, and the moderator smiles without a word. Is that help?</li><li>Which rules would your team write down before a test, so that two observers code a session alike?</li></ol></div><h2 id="completion-rates">Completion rates with confidence</h2><p><a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#usability-effectiveness-efficiency-and-satisfaction">Week 1</a> computed the completion rate \(E = s/n\). With 4 of 7 patients, \(E = 0.571\), but another seven patients could easily give 3 or 6. A <i>confidence interval</i> states the range of true rates that fit a result. A 95 % interval is built so that 95 of 100 tests of this kind capture the true rate.</p><p>The textbook interval \(\hat{p} \pm z\sqrt{\hat{p}(1 - \hat{p})/n}\), called the Wald interval, fails for small samples and for rates near 0 or 1. Agresti and Coull added \(z^2/2\) successes and \(z^2/2\) failures before computing it, about two of each for 95 % <span class="cite" tabindex="0" data-refs="8">[8]</span>. Sauro and Lewis compared intervals on samples drawn from large usability tests and recommended this <i>adjusted Wald</i> interval for completion rates <span class="cite" tabindex="0" data-refs="9">[9]</span>:</p><div class="eq">\[\hat{p}_{adj} = \frac{x + z^2/2}{n + z^2}, \qquad \hat{p}_{adj} \pm z\sqrt{\frac{\hat{p}_{adj}(1 - \hat{p}_{adj})}{n + z^2}}\]</div><p>\(x\) is the number of participants who completed the task and \(n\) the number who tried. \(z\) is the quantile of the standard normal distribution, 1.96 for 95 %, so \(z^2 = 3.84\) and \(z^2/2 = 1.92\). An interval that would leave the range from 0 to 1 is cut at the limit.</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, first calculator, steps 1 to 5.</p><p><b>A worked example.</b> In the pilot of Part A, 4 of 7 patients completed the booking without help. Then \(\hat{p}_{adj} \)​\({}= (4 + 1.92)/(7 + 3.84) \)​\({}= 5.92/10.84 \)​\({}= 0.546\). The standard error is \(\sqrt{0.546 \times 0.454/10.84} \)​\({}= 0.151\), and the margin is \(1.96 \times 0.151 = 0.296\). The interval runs from \(0.546 - 0.296 = 0.250\) to \(0.546 + 0.296 = 0.842\). The current app may complete anything from a quarter to over four fifths of bookings.</p><p>The adjusted interval also helps when everybody succeeds. With 7 of 7, the Wald interval shrinks to the single point 1, as if no patient could ever fail. The adjusted interval runs from 0.596 to 1.</p><div class="scene" id="scene"><p class="small"><strong>Scene: The same test, run again.</strong> Twelve patients test the redesign in the training room of the clinic, each at a tablet. Each of them completes the booking with the probability 0.75. Run the test, and the tablets turn green or red; the interval of this run appears on the board. Run it twenty times, and the board stacks the intervals: Those that miss the true rate of 0.75 turn red. Switch between the Wald interval and the adjusted Wald interval for the same runs.</p><div class="three" id="rr-3d"></div><div class="sn-btns" id="rr-run"></div><div class="sn-btns" id="rr-way"></div><p class="sn-say" id="rr-say" aria-live="polite"></p><div class="sn-ro" id="rr-ro"></div></div><p>Consider tests with twelve patients and a true rate of 0.75. Computed exactly with the binomial distribution, the Wald interval contains the true rate in only 82.7 % of them. The adjusted interval contains it in 94.6 %, close to the promised 95 %.</p><figure><img src="figures/w09_fig_wald.png" alt="Left: Both intervals for the worked examples, 4 of 7 and 7 of 7. Right: How often each interval contains the true rate in tests with seven participants, computed with the binomial distribution. The dotted line marks 95 %." loading="lazy"><figcaption>Left: Both intervals for the worked examples, 4 of 7 and 7 of 7. Right: How often each interval contains the true rate in tests with seven participants, computed with the binomial distribution. The dotted line marks 95 %.</figcaption></figure><div class="kc" data-answer="0" data-why="\(\hat{p}_{adj} = 8.92/10.84 = 0.823\) with a margin of 0.227 gives 0.596 to 1."><p class="q">Check your understanding. Seven of seven patients complete a task. What does the adjusted Wald interval say?</p><label><input type="radio" name="KC1" value="0"> The true rate probably lies between about 0.6 and 1</label><label><input type="radio" name="KC1" value="1"> The true rate is exactly 1</label><label><input type="radio" name="KC1" value="2"> Nothing, because nobody failed</label><label><input type="radio" name="KC1" value="3"> The true rate lies below 0.5</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pb"><a class="btn" href="lab.html#pb" target="_blank" rel="noopener">Open lab Part B</a><p><b>Interactive lab, Part B.</b> The adjusted Wald interval and the geometric mean step by step: Two calculators with presets.</p></div><div class="colabbox" id="colab-sec-2"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-2" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 2.</b> Open Section 2 of the Colab notebook and run it. The functions <code>adjusted_wald</code> and <code>wald</code> carry out both intervals and are checked on the worked examples. The function <code>coverage</code> computes how often each interval contains the true rate, and a figure compares them for 7 and 13 participants. The <i>Explore</i> panel draws both intervals for any result.</p></div><div class="callout discuss"><b class="t">Discuss: One number or a range?</b><ol><li>A report says <i>Success: 75 %</i> after eight participants. Which question would you ask first?</li><li>Why can an interval from 0.25 to 0.84 still help the clinic to decide?</li></ol></div><h2 id="time-on-task">Time on task: Skewed times and the geometric mean</h2><p><a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#usability-effectiveness-efficiency-and-satisfaction">Week 1</a> averaged the times of the successful patients with the arithmetic mean. Task times are skewed, however: Most people finish near a typical time, and a few take much longer. A single patient who needs five minutes pulls the arithmetic mean far above the time of a typical patient.</p><p>The logarithms of task times are close to symmetric, so their mean is a fair centre. Turned back into seconds, it is the <i>geometric mean</i> \(GM\). Sauro and Lewis compared averages in simulations with the data of 61 large usability tests <span class="cite" tabindex="0" data-refs="10">[10]</span>. The geometric mean estimated the centre of the times with, on average, 13 percent less error and 22 percent less bias than the sample median. Its interval comes from the t distribution of the logarithms:</p><div class="eq">\[GM = e^{\bar{y}}, \qquad \bar{y} = \frac{1}{n}\sum_{i=1}^{n} \ln t_i, \qquad e^{\,\bar{y} \,\pm\, t_{n-1}\, s_y/\sqrt{n}}\]</div><p>\(t_i\) is the time of participant \(i\) in seconds, \(\bar{y}\) the mean of the logarithms and \(s_y\) their standard deviation. \(t_{n-1}\) is the quantile of the t distribution with \(n - 1\) degrees of freedom: 3.182 for four participants and 95 %.</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, second calculator, steps 1 to 6.</p><p><b>A worked example.</b> The four pilot sessions completed without help took 51, 68, 46 and 59 s. Their logarithms are 3.932, 4.220, 3.829 and 4.078, with the mean \(\bar{y} = 4.015\) and the standard deviation \(s_y = 0.171\). The geometric mean is \(e^{4.015} = 55.4\) s, while the arithmetic mean is 56.0 s. The standard error is \(0.171/\sqrt{4} = 0.0855\), and the margin is \(3.182 \times 0.0855 = 0.272\). The interval runs from \(e^{3.743} = 42.2\) s to \(e^{4.287} = 72.7\) s.</p><div class="anim" id="skew"><p class="small"><strong>Animation.</strong> Task times of a large group of patients with a typical time of 60 s. The slider for the spread sets the standard deviation of the logarithms, and the slider for the sample sets the number of participants. Draw a sample, and its arithmetic mean, median and geometric mean appear; draw a hundred, and the readout shows how far each average lands from 60 s on average.</p><div class="row" id="sk-sl"></div><div class="sn-btns" id="sk-btn"></div><canvas class="paper" id="sk-cv" aria-label="A skewed distribution of task times with a sample and its three averages"></canvas><div id="sk-ro"></div></div><p>Two designs are compared on the same logarithms with Welch's t test, which does not assume equal spreads in both groups <span class="cite" tabindex="0" data-refs="11">[11]</span>:</p><div class="eq">\[t = \frac{\bar{y}_A - \bar{y}_B}{\sqrt{s_A^2/n_A + s_B^2/n_B}}, \qquad \nu = \frac{(s_A^2/n_A + s_B^2/n_B)^2}{\frac{(s_A^2/n_A)^2}{n_A - 1} + \frac{(s_B^2/n_B)^2}{n_B - 1}}\]</div><p>\(\bar{y}_A\) and \(\bar{y}_B\) are the means of the logarithms of designs A and B, \(s_A\) and \(s_B\) their standard deviations and \(n_A\) and \(n_B\) their participants. \(\nu\) (the Greek letter nu) is the number of degrees of freedom of the t distribution that gives the p-value.</p><p><b>A worked example.</b> A pilot of the redesign took 31, 39, 43 and 49 s, with \(\bar{y}_B = 3.688\), \(s_B = 0.193\) and a geometric mean of 40.0 s. The means of the logarithms differ by \(4.015 - 3.688 = 0.327\). The squared standard errors are \(0.171^2/4 = 0.00731\) and \(0.193^2/4 = 0.00931\), so the denominator is \(\sqrt{0.01662} = 0.129\) and \(t = 0.327/0.129 = 2.535\). For \(\nu\), the numerator is \(0.01662^2 = 0.000276\) and the denominator \((0.00731^2 + 0.00931^2)/3 = 0.0000467\), so \(\nu = 5.9\). SciPy gives \(p = 0.045\). Four patients per design are thin evidence, so stage 9 tests thirteen.</p><figure><img src="figures/w09_fig_times.png" alt="Left: 3000 simulated task times with a typical time of 60 s and the three averages. Right: The pilots of both designs on a logarithmic axis, with their geometric means and 95 % intervals." loading="lazy"><figcaption>Left: 3000 simulated task times with a typical time of 60 s and the three averages. Right: The pilots of both designs on a logarithmic axis, with their geometric means and 95 % intervals.</figcaption></figure><div class="kc" data-answer="0" data-why="Task times are skewed to the right, and the arithmetic mean follows the long tail."><p class="q">Check your understanding. Why is the arithmetic mean a poor summary of task times?</p><label><input type="radio" name="KC2" value="0"> A few very slow participants pull it far above the typical time</label><label><input type="radio" name="KC2" value="1"> It cannot be computed for times</label><label><input type="radio" name="KC2" value="2"> It is always lower than the median</label><label><input type="radio" name="KC2" value="3"> It ignores the slow participants</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="colabbox" id="colab-sec-3"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-3" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 3.</b> Open Section 3 of the Colab notebook and run it. The function <code>geo_mean_ci</code> carries out the first formula of this section and is checked on the worked example, and <code>stats.ttest_ind</code> runs Welch's test on the logarithms. The code also computes the geometric mean of your coded times from Part A. A simulation then compares three averages of skewed times, and a figure shows the skew and the error of each average.</p></div><div class="callout discuss"><b class="t">Discuss: Typical or total?</b><ol><li>When would the clinic care about the total time of all bookings rather than the typical one?</li><li>Should the time of a patient who gave up enter the average? Why or why not?</li></ol></div><h2 id="recruiting">Who takes part, and how many</h2><p><a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-06/lecture.html#the-human-side">Week 6</a> noted that interviews reach only the patients who come and have time to talk. A test has the same weakness in numbers. If most participants are young, the completion rate describes young patients, whatever its interval says. An interval measures chance, not a biased choice of people.</p><p>One remedy is to recruit by <i>quotas</i>, a fixed number of participants from each group in proportion to the users. Another is to weight the result of each group by its share of the users:</p><div class="eq">\[\hat{p}_w = \sum_{g} w_g\, \hat{p}_g\]</div><p>\(w_g\) is the share of group \(g\) among the clinic's patients, and \(\hat{p}_g\) the completion rate of the participants in that group. Weighting needs participants in every group. In a group of one person, a single result carries the whole weight of the group.</p><p><b>A worked example.</b> The patients of the clinic are 25 % under 40, 40 % aged 40 to 64 and 35 % aged 65 and over. Eight people recruited at the entrance are six under 40, one aged 40 to 64 and one aged 65 or over. All of them complete the booking except the oldest, so the simple rate is \(7/8 = 0.875\). The weighted rate is \(0.25 \times 1 \)​\({}+ 0.40 \times 1 \)​\({}+ 0.35 \times 0 \)​\({}= 0.650\). The true rate of the patients in this lab is 0.70: The simple rate overstates it, and the weighted rate rests on two single people.</p><p>The adjusted Wald interval also tells how many participants a wanted precision needs. Solving its margin \(d\) for \(n\) gives</p><div class="eq">\[n = \frac{z^2\, p\,(1 - p)}{d^2} - z^2\]</div><p>where \(p\) is the completion rate expected before the test, rounded up to a whole number of participants. <b>A worked example.</b> For \(p = 0.70\) and \(d = 0.10\), \(n \)​\({}= 3.84 \times 0.7 \times 0.3/0.01 \)​\({}- 3.84 \)​\({}= 80.64 \)​\({}- 3.84 \)​\({}= 76.8\), so 77 participants. For \(d = 0.20\), \(n = 20.16 - 3.84 = 16.32\), so 17.</p><p>Finding problems needs far fewer people than measuring rates. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-05/lecture.html#how-many-evaluators">Week 5</a> modelled how many evaluators find a given share of problems, and the same model applies to test participants. Faulkner tested 60 users and drew random sets from them <span class="cite" tabindex="0" data-refs="12">[12]</span>. Some sets of five users found 99 percent of the problems and others only 55 percent. With 10 users the weakest set still found 80 percent, and with 20 users 95 percent.</p><figure><img src="figures/w09_fig_samples.png" alt="Left: The margin of the adjusted Wald interval against the number of participants, for an expected rate of 0.70. Right: The completion rates of 4000 simulated tests with eight participants, recruited first at the entrance, at random or by quotas." loading="lazy"><figcaption>Left: The margin of the adjusted Wald interval against the number of participants, for an expected rate of 0.70. Right: The completion rates of 4000 simulated tests with eight participants, recruited first at the entrance, at random or by quotas.</figcaption></figure><div class="kc" data-answer="0" data-why="The interval covers chance only. A sample of students describes students, not the patients of the clinic."><p class="q">Check your understanding. A test with 20 students gives a completion rate of 0.95 with a narrow interval. What is the main risk for the clinic's decision?</p><label><input type="radio" name="KC3" value="0"> The students do not represent the patients</label><label><input type="radio" name="KC3" value="1"> The interval is too narrow to be valid</label><label><input type="radio" name="KC3" value="2"> Twenty is too many participants</label><label><input type="radio" name="KC3" value="3"> The adjusted Wald interval fails for 20 people</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part C of the interactive lab puts you at the recruiting desk at the entrance of the hospital. In round 1 you fill eight places as fast as you can, and in round 2 you fill quotas by age group.</p><div class="labbox" id="lab-pc"><a class="btn" href="lab.html#pc" target="_blank" rel="noopener">Open lab Part C</a><p><b>Interactive lab, Part C.</b> The recruiting desk in 3D: Two rounds of inviting people at the entrance, fast and by quotas. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-4"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-4" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 4.</b> Open Section 4 of the Colab notebook and run it. The functions <code>weighted_rate</code> and <code>sample_size</code> carry out the formulas of this section and are checked on the worked examples. Paste the results of Part C into <code>MY_RECRUITS</code>, and the code compares both rounds with the patients of the clinic. A simulation shows how far tests with eight participants land from the true rate when they are recruited at the entrance, at random or by quotas.</p></div><div class="callout discuss"><b class="t">Discuss: Whose test?</b><ol><li>Which patients of the clinic would a test with volunteers from a university never reach?</li><li>When is a test with five people enough, and when is it not?</li></ol></div><h2 id="comparing-designs">Comparing two designs: Tests, power and peeking</h2><p>A comparison asks whether the difference between two designs is larger than chance alone would make it. In an <i>A/B test</i>, each user meets one of two versions at random, and both are compared on a measure fixed in advance. Kohavi, Longbotham, Sommerfield and Henne describe such controlled experiments on the web and the lessons of running many of them <span class="cite" tabindex="0" data-refs="13">[13]</span>. At the clinic, kiosk A can run the current design and kiosk B the redesign.</p><p>For completion rates, Campbell recommended the N-1 chi-squared test of two-by-two tables when the smallest expected count is at least 1 <span class="cite" tabindex="0" data-refs="14">[14]</span>. Its square root is a z statistic:</p><div class="eq">\[z = \frac{\hat{p}_B - \hat{p}_A}{\sqrt{\bar{p}\,(1 - \bar{p})\,(1/n_A + 1/n_B)}}\,\sqrt{\frac{N - 1}{N}}, \qquad p = 2\,\bigl(1 - \Phi(|z|)\bigr)\]</div><p>\(\hat{p}_A\) and \(\hat{p}_B\) are the completion rates of both designs, \(n_A\) and \(n_B\) their participants and \(N = n_A + n_B\). \(\bar{p}\) is the completion rate of both groups together, and \(\Phi\) the distribution function of the standard normal distribution. \(p\) is the two-sided p-value.</p><p class="labref">→ This formula with numbers, step by step: <a href="lab.html#pd" target="_blank" rel="noopener">Lab Part D</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> After 100 patients per kiosk, kiosk A completed 70 bookings and kiosk B 80. The pooled rate is \(\bar{p} = 150/200 = 0.75\), and the standard error is \(\sqrt{0.75 \times 0.25 \times (1/100 + 1/100)} \)​\({}= 0.0612\). Then \(z = (0.80 - 0.70)/0.0612 = 1.634\), and the factor \(\sqrt{199/200} = 0.997\) gives \(z = 1.629\). The p-value is \(2(1 - \Phi(1.629)) = 0.103\): A difference of ten points is not yet clear.</p><p>How many patients would make it clear? The <i>power</i> of a test is the probability that it finds a difference that exists. Lachin derived the number of participants per group for a two-sided test of two proportions <span class="cite" tabindex="0" data-refs="15">[15]</span>:</p><div class="eq">\[n = \frac{\left(z_{1-\alpha/2}\sqrt{2\bar{p}(1 - \bar{p})} + z_{1-\beta}\sqrt{p_A(1 - p_A) + p_B(1 - p_B)}\right)^2}{(p_A - p_B)^2}\]</div><p>\(\alpha\) is the level of the test, 0.05, and \(1 - \beta\) its power, often 0.80, so \(z_{1-\beta} = 0.842\). \(p_A\) and \(p_B\) are the expected rates and \(\bar{p}\) their mean. <b>A worked example.</b> For 0.70 against 0.80, \(\bar{p} = 0.75\) and the first square root is \(\sqrt{2 \times 0.75 \times 0.25} \)​\({}= \sqrt{0.375} \)​\({}= 0.612\). The second is \(\sqrt{0.21 + 0.16} \)​\({}= \sqrt{0.37} \)​\({}= 0.608\). The bracket is \(1.96 \times 0.612 + 0.842 \times 0.608\) \(= 1.200 + 0.512 = 1.712\), and \(n = 1.712^2/0.01 = 2.931/0.01 = 293.1\), so 294 patients per kiosk.</p><p>A team that watches the results every day is tempted to stop as soon as p falls below 0.05. Armitage, McPherson and Rowe showed that such repeated tests raise the chance of a false alarm far above the nominal level <span class="cite" tabindex="0" data-refs="16">[16]</span>. In the Colab notebook, 4000 simulated A/A tests with two identical kiosks give p &lt; 0.05 at the planned end in 4.5 % of cases. Stopping at the first of ten looks with p &lt; 0.05 raises this share to 18.5 %.</p><p>The remedy is a plan: The measure, the test and the number of patients are fixed before the start, and the decision waits for the planned end.</p><figure><img src="figures/w09_fig_peeking.png" alt="Left: The p-values of twenty simulated A/A tests after each look of ten more patients per kiosk. Right: The share of false alarms when a team stops at the first p-value below 0.05, and when it decides only at the planned end." loading="lazy"><figcaption>Left: The p-values of twenty simulated A/A tests after each look of ten more patients per kiosk. Right: The share of false alarms when a team stops at the first p-value below 0.05, and when it decides only at the planned end.</figcaption></figure><div class="kc" data-answer="0" data-why="Each look is another chance for a low p-value by chance. With ten looks, about 18.5 % of A/A tests stop with a false winner."><p class="q">Check your understanding. In an A/A test both kiosks run the same design. A team checks the p-value after every ten patients and stops at the first p &lt; 0.05. What happens?</p><label><input type="radio" name="KC4" value="0"> False alarms become much more frequent than 5 %</label><label><input type="radio" name="KC4" value="1"> False alarms disappear</label><label><input type="radio" name="KC4" value="2"> The test needs fewer patients and stays fair</label><label><input type="radio" name="KC4" value="3"> The p-value can no longer fall below 0.05</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part D of the interactive lab lets you watch six A/B tests at two kiosks in the lobby, ten patients per kiosk at a time. You decide when to stop and which kiosk is better, and the page reveals the truth after each decision.</p><div class="labbox" id="lab-pd"><a class="btn" href="lab.html#pd" target="_blank" rel="noopener">Open lab Part D</a><p><b>Interactive lab, Part D.</b> Two kiosks in 3D: Six A/B tests with a decision after every ten patients per kiosk, and the N-1 test step by step. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-5"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-5" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 5.</b> Open Section 5 of the Colab notebook and run it. The functions <code>n1_test</code> and <code>per_group</code> carry out the formulas of this section and are checked on the worked examples. Paste the results of Part D into <code>MY_AB</code>, and the code lists your decisions with their verdicts. A simulation of 4000 A/A tests then measures the false alarms of peeking, and a figure shows wandering p-values.</p></div><div class="callout discuss"><b class="t">Discuss: When to stop?</b><ol><li>A manager wants to stop the test of the kiosks after two days because B is clearly winning. What do you answer?</li><li>Which differences between the kiosks matter enough to the clinic to be worth 300 patients per kiosk?</li></ol></div><h2 id="interface-clinic">Interface clinic: Reporting and asking, before and after</h2><p>The four pairs below show screens of the clinic app and of the team's results app before and after a redesign. Each pair names the idea of this week that the redesign applies.</p><div class="uiclinic" id="ui-range"><p class="small"><strong>Interface clinic: One number or a range.</strong> The result of a test in the team's app.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A single percentage</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Test results</div><div class="bd"><div class="card2"><div class="muted">Booking task</div><div style="font-size:34px;font-weight:700;margin:6px 0">75 %</div><div class="muted">success</div></div><div class="pb">Switch to the redesign</div></div></div><p class="ui-why">The percentage hides that only eight patients took part. The large button invites a decision that the data cannot carry.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Count, interval and sample</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Test results</div><div class="bd"><div class="card2"><div class="muted">Booking task, redesign</div><div style="font-size:20px;font-weight:700;margin:6px 0">11 of 13 completed</div><div class="muted">95 % interval: 57 % to 97 %</div><div style="height:10px;background:#E8EEF5;border-radius:5px;margin:8px 0;position:relative"><div style="position:absolute;left:57%;width:40%;top:0;bottom:0;background:#2E8B57;border-radius:5px"></div></div><div class="muted">13 patients, 5 of them aged 65 and over</div></div></div></div><p class="ui-why">The count and the interval show how far the result can move, and the sample says whom it describes.</p></div></div></div><div class="uiclinic" id="ui-seq"><p class="small"><strong>Interface clinic: How was the booking?</strong> The question after a booking.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Five stars for what?</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Thank you!</div><div class="bd"><div style="text-align:center;margin-top:18px"><div>Rate us!</div><div style="font-size:30px;color:#E0A21B;margin:10px 0">★★★★★</div><div class="muted">Tell your friends about City Hospital</div></div><div class="pb">Send</div></div></div><p class="ui-why">The stars rate nothing in particular: The hospital, the doctor or the app. The request to tell friends adds pressure to please.</p></div><div class="ui-col"><h4><span class="tag good">After</span>One clear question</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Thank you!</div><div class="bd"><div style="margin:6px 0 2px">Overall, how difficult or easy was it to book this appointment?</div><div style="display:flex;gap:4px;margin:8px 0"><div class="fld" style="flex:1;text-align:center;padding:6px 0">1</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">2</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">3</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">4</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">5</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">6</div><div class="fld" style="flex:1;text-align:center;padding:6px 0">7</div></div><div class="muted" style="display:flex;justify-content:space-between"><span>Very difficult</span><span>Very easy</span></div><div class="muted" style="margin-top:12px">Optional. Your answer does not affect your appointment.</div></div></div><p class="ui-why">One question about the task itself, on a labelled scale of seven points, gives comparable answers in seconds.</p></div></div></div><div class="uiclinic" id="ui-ab"><p class="small"><strong>Interface clinic: Who is winning?</strong> The A/B test of the kiosks in the team's app.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A winner after two days</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Kiosk test</div><div class="bd"><div class="msg o" style="font-weight:700">Kiosk B wins! +15 points</div><div class="card2">A: 15 of 20 completed (75 %)<br>B: 18 of 20 completed (90 %)</div><div class="pb">Stop the test and switch all kiosks</div></div></div><p class="ui-why">After 20 patients per kiosk, the difference can still be chance, and the button to stop invites peeking.</p></div><div class="ui-col"><h4><span class="tag good">After</span>The plan first</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Kiosk test</div><div class="bd"><div class="card2"><div class="muted">Planned: 300 patients per kiosk</div><div style="height:10px;background:#E8EEF5;border-radius:5px;margin:8px 0;position:relative"><div style="position:absolute;left:0%;width:7%;top:0;bottom:0;background:#2F5D8A;border-radius:5px"></div></div><div class="muted">So far: 20 per kiosk. Decision on 14 June.</div></div><div class="muted" style="margin-top:10px">Interim results stay hidden until the planned end.</div></div></div><p class="ui-why">The plan fixes the number of patients and the day of the decision. Hidden interim results keep anyone from stopping at a lucky moment.</p></div></div></div><div class="uiclinic" id="ui-time"><p class="small"><strong>Interface clinic: How long does a booking take?</strong> The time report in the team's app.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>The arithmetic mean</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Booking time</div><div class="bd"><div class="card2"><div class="muted">Average time</div><div style="font-size:28px;font-weight:700;margin:6px 0">96 s</div><div class="muted">8 patients</div></div></div></div><p class="ui-why">One patient who needed almost seven minutes lifts the mean far above the time of a typical patient.</p></div><div class="ui-col"><h4><span class="tag good">After</span>The typical time with its range</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Booking time</div><div class="bd"><div class="card2"><div class="muted">Typical time (geometric mean)</div><div style="font-size:24px;font-weight:700;margin:6px 0">68 s</div><div class="muted">95 % interval: 37 to 124 s · 8 patients</div></div><div class="msg">One patient took 6 min 40 s. Watch this session.</div></div></div><p class="ui-why">The geometric mean describes a typical patient, and the slow session becomes a lead for the next fix.</p></div></div></div><div class="callout discuss"><b class="t">Discuss: Read the clinic</b><ol><li>Which of the four screens marked Before could lead the clinic to a wrong decision?</li><li>Which redesign helps the team, and which helps the patients?</li></ol></div><h2 id="the-human-side">The human side: Tested, not testing</h2><p>A test is a strange situation for a patient. Strangers watch, a camera records, and a moderator asks to think aloud. Many participants feel that they themselves are being tested and blame themselves for the problems of the design. A moderator therefore says at the start: We are testing the app, not you, and everything that goes wrong helps us.</p><p>Participants also want to please. Dell, Vaidyanathan, Medhi, Cutrell and Thies ran 450 interviews in Bangalore, India <span class="cite" tabindex="0" data-refs="17">[17]</span>. Respondents were about 2.5 times more likely to prefer a technology that they believed the interviewer had made, even when both options were identical. With a foreign interviewer who needed a translator, the bias rose to five times. A moderator therefore never calls a design new or their own, and the team trusts what patients do more than what they say.</p><p>Tests with patients in a hospital follow the ethics of research with people. The Declaration of Helsinki asks for informed consent and for the right to withdraw at any time without reprisal <span class="cite" tabindex="0" data-refs="18">[18]</span>. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-06/lecture.html#the-human-side">Week 6</a> applied this to interviews, and a test adds the recording of faces, voices and screens.</p><div class="callout life"><b class="t">In everyday life: The driving test</b><p>Few people drive as well in a driving test as on an ordinary day. The examiner sits beside them, takes notes and says little, and every small mistake feels large. A usability test can feel the same, which is why moderators explain that the app is examined, not the person.</p></div><div class="callout discuss"><b class="t">Discuss: Pleasing the team</b><ol><li>How would you introduce a test to an older patient who fears making mistakes?</li><li>Which behaviour would you trust more: A patient who says the app is easy, or one who finds the button at once?</li></ol></div><h2 id="the-clinic-app-stage-9">The clinic app, stage 9: A usability test of both designs</h2><p>Stage 9 tests the current app and the redesign of <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-08/lecture.html#the-clinic-app-stage-8">Week 8</a> with 26 patients. Thirteen patients use each design: Three under 40, five aged 40 to 64 and five aged 65 and over, close to the patients of the clinic. Each patient books the earliest appointment in cardiology while thinking aloud. Afterwards, each one answers the System Usability Scale (SUS) of Week 1 and rates the first impression of the summary screen after 50 ms, as in Week 8.</p><div class="tablewrap"><table><thead><tr><th>Measure</th><th>Current app</th><th>Redesign</th><th>Comparison</th></tr></thead><tbody><tr><td>Completed without help</td><td>8 of 13; 0.354 to 0.824</td><td>11 of 13; 0.565 to 0.969</td><td>N-1 test: p = 0.193</td></tr><tr><td>Time of completed bookings, geometric mean</td><td>83.5 s; 63.7 to 109.3 s</td><td>51.3 s; 43.1 to 61.0 s</td><td>Welch on logarithms: p = 0.004</td></tr><tr><td>Errors per patient</td><td>2.23</td><td>0.85</td><td>-</td></tr><tr><td>SUS score</td><td>53.8; 45.8 to 61.9</td><td>75.8; 70.0 to 81.5</td><td>Welch: p &lt; 0.001</td></tr><tr><td>First impression after 50 ms, 1 to 9</td><td>4.15</td><td>6.54</td><td>Welch: p &lt; 0.001</td></tr></tbody></table></div><p>The redesign is faster, better liked and more appealing at first sight, and these differences are clear. The intervals of the times do not overlap, and the SUS score rises from below the average of 68 to above it. The completion rate looks better as well, 11 of 13 instead of 8 of 13, but its intervals overlap and \(p = 0.193\). For these two rates, a test would need 57 patients per design to find the difference with a power of 0.80.</p><p>The failures show where to look next. All five patients who failed with the current app were aged 40 or over, three of them 65 or over. Both failures with the redesign came from patients aged 65 and over.</p><figure><img src="figures/w09_project_stage.png" alt="The clinic app, stage 9. Left: Completion rates with adjusted Wald intervals. Middle: The times of the completed bookings on a logarithmic axis, with geometric means and intervals. Right: The SUS scores of all patients. The values come from Section 6 of the Colab notebook." loading="lazy"><figcaption>The clinic app, stage 9. Left: Completion rates with adjusted Wald intervals. Middle: The times of the completed bookings on a logarithmic axis, with geometric means and intervals. Right: The SUS scores of all patients. The values come from Section 6 of the Colab notebook.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question of stage 9</th><th>Answer of the analysis</th><th>Where</th></tr></thead><tbody><tr><td>Do more patients complete the booking with the redesign?</td><td>Probably: 11 of 13 against 8 of 13, but the intervals overlap and p = 0.193</td><td>Section 6</td></tr><tr><td>Is the redesign faster?</td><td>Yes: 51.3 s against 83.5 s, p = 0.004</td><td>Section 6</td></tr><tr><td>Do patients like it more?</td><td>Yes: SUS 75.8 against 53.8, first impression 6.54 against 4.15</td><td>Section 6</td></tr><tr><td>How many patients would settle the completion rates?</td><td>57 per design for a power of 0.80</td><td>Section 6</td></tr></tbody></table></div><p>Stage 9 confirms the predictions of Week 8 with patients: The calmer screens look more appealing within 50 ms and are used faster. Week 10 asks who can use the app at all and audits its accessibility, with the older patients of this test in mind.</p><div class="kc" data-answer="0" data-why="A p-value above 0.05 does not show that the designs are equal. It shows that 13 patients per design cannot yet tell them apart."><p class="q">Check your understanding. The intervals of the completion rates of both designs overlap, and \(p = 0.193\). What follows?</p><label><input type="radio" name="KC5" value="0"> The difference is not yet certain, and a larger test is needed to decide</label><label><input type="radio" name="KC5" value="1"> Both designs complete exactly as many bookings</label><label><input type="radio" name="KC5" value="2"> The redesign is worse</label><label><input type="radio" name="KC5" value="3"> Completion rates cannot be compared</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pe"><a class="btn" href="lab.html#pe" target="_blank" rel="noopener">Open lab Part E</a><p><b>Interactive lab, Part E.</b> Stage 9 by hand: The adjusted Wald intervals of both designs.</p></div><div class="colabbox" id="colab-sec-6"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-6" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 6.</b> Open Section 6 of the Colab notebook and run it. The code holds the results of all 26 patients in the table <code>PATIENTS</code> and collects the analysis in the dictionary <code>STAGE9</code>. It holds the intervals, the geometric means, the SUS scores, the first impressions and the tests. A figure draws the three main measures of both designs.</p></div><h2 id="your-application">Your application</h2><p>The methods of this week apply to any test of two designs. The Colab notebook holds an application switch with four further apps: Online banking, an e-government service, food delivery and course registration at a university. Each has the results of a small test of its current design and of a redesign.</p><div class="colabbox" id="colab-sec-7"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-09/NB09_usability_testing.ipynb#scrollTo=sec-7" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 7.</b> Open Section 7 of the Colab notebook, set <code>APP</code> to one of the five names in the comment and run the cell. The code computes the intervals of the completion rates and of the times, both tests and the number of people per design that the observed difference would need.</p></div><h2 id="toward-human-ai-interaction">Toward human-AI interaction</h2><p>Analysing test sessions takes long: A team watches hours of video to find the moments when participants struggled. Fan, Li and Truong trained machine learning models on what participants said in think-aloud sessions and how they said it <span class="cite" tabindex="0" data-refs="19">[19]</span>. The models used the words and features of the speech to mark the moments when a participant met a usability problem.</p><p>In a second study, 30 user experience (UX) professionals analysed recorded sessions with VisTA, a tool that showed such marks on a timeline <span class="cite" tabindex="0" data-refs="20">[20]</span>. They identified more problem encounters with the tool than without it. A mark is a hint, however, not a finding. An assistant can miss problems and mark false ones, and people may come to trust it too much, the question of Week 13.</p><div class="callout ai"><b class="t">An assistant in the observation room</b><p>Suppose that the clinic team lets an assistant mark moments of trouble in the videos of stage 9. Before trusting it, the team compares the assistant's marks with two human observers, with the kappa of this week. Every marked moment is checked by a person, and the moments that the assistant missed are still searched by hand.</p></div><div class="callout discuss"><b class="t">Discuss: A second pair of eyes</b><ol><li>Would you want an assistant to mark the sessions of your own test? What would you check first?</li><li>Which problems of a patient could an assistant that only listens to the speech never notice?</li></ol></div><h2 id="review-cards">Review cards</h2><p class="small">Select a card to turn it over.</p><div class="cards"><div class="card" tabindex="0" role="button"><div class="f">Think-aloud test</div><div class="b">Participants say what they look for, read and decide while they work on a task <span class="cite" tabindex="0" data-refs="3">[3]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Completed with help</div><div class="b">A task finished after the moderator moved the participant on; it counts as not completed.</div></div><div class="card" tabindex="0" role="button"><div class="f">Evaluator effect</div><div class="b">Observers of the same sessions find different problems <span class="cite" tabindex="0" data-refs="5">[5]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Cohen's kappa</div><div class="b">\(\kappa = (p_o - p_e)/(1 - p_e)\): Agreement of two observers beyond chance <span class="cite" tabindex="0" data-refs="6">[6]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Post-task question</div><div class="b">One rating of how difficult or easy a task was, asked right after it <span class="cite" tabindex="0" data-refs="4">[4]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Confidence interval</div><div class="b">A range of true values that fit a result; a 95 % interval captures the truth in 95 of 100 tests.</div></div><div class="card" tabindex="0" role="button"><div class="f">Adjusted Wald interval</div><div class="b">\(\hat{p}_{adj} = (x + z^2/2)/(n + z^2)\) with the Wald margin on \(n + z^2\) <span class="cite" tabindex="0" data-refs="8,9">[8, 9]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Geometric mean</div><div class="b">\(e^{\bar{y}}\) with \(\bar{y}\) the mean of the logarithms of the times <span class="cite" tabindex="0" data-refs="10">[10]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Welch's t test</div><div class="b">Compares two means without assuming equal spreads <span class="cite" tabindex="0" data-refs="11">[11]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Quota and weighting</div><div class="b">Participants by group, or results weighted by group, \(\hat{p}_w = \sum_g w_g \hat{p}_g\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Sample size for a margin</div><div class="b">\(n = z^2 p(1 - p)/d^2 - z^2\) for an interval of \(\pm d\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Five-user assumption</div><div class="b">Sets of five users found from 55 to 99 percent of the problems <span class="cite" tabindex="0" data-refs="12">[12]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">N-1 two-proportion test</div><div class="b">\(z\) from the pooled rate, times \(\sqrt{(N - 1)/N}\) <span class="cite" tabindex="0" data-refs="14">[14]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Power</div><div class="b">The probability that a test finds a difference that exists <span class="cite" tabindex="0" data-refs="15">[15]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Peeking</div><div class="b">Repeated tests on accumulating data raise false alarms <span class="cite" tabindex="0" data-refs="16">[16]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Response bias</div><div class="b">Participants favour what they believe the researcher made <span class="cite" tabindex="0" data-refs="17">[17]</span>.</div></div></div><h2 id="references">References</h2><p class="small" id="ref-1">[1] Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.</p><p class="small" id="ref-2">[2] Virtanen, P., Gommers, R., Oliphant, T. E., Haberland, M., Reddy, T., Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J., van der Walt, S. J., Brett, M., Wilson, J., Millman, K. J., Mayorov, N., Nelson, A. R. J., Jones, E., Kern, R., Larson, E., Carey, C. J., Polat, İ., Feng, Y., Moore, E. W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman, R., Henriksen, I., Quintero, E. A., Harris, C. R., Archibald, A. M., Ribeiro, A. H., Pedregosa, F., van Mulbregt, P., &amp; SciPy 1.0 Contributors. (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. <i>Nature Methods</i>, <i>17</i>(3), 261-272. <a href="https://doi.org/10.1038/s41592-019-0686-2">https://doi.org/10.1038/s41592-019-0686-2</a></p><p class="small" id="ref-3">[3] Boren, M. T., &amp; Ramey, J. (2000). Thinking aloud: Reconciling theory and practice. <i>IEEE Transactions on Professional Communication</i>, 43(3), 261-278. <a href="https://doi.org/10.1109/47.867942">https://doi.org/10.1109/47.867942</a></p><p class="small" id="ref-4">[4] Sauro, J., &amp; Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1599-1608). ACM. <a href="https://doi.org/10.1145/1518701.1518946">https://doi.org/10.1145/1518701.1518946</a></p><p class="small" id="ref-5">[5] Jacobsen, N. E., Hertzum, M., &amp; John, B. E. (1998). The evaluator effect in usability tests. In <i>CHI 98 Conference Summary on Human Factors in Computing Systems</i> (pp. 255-256). ACM. <a href="https://doi.org/10.1145/286498.286737">https://doi.org/10.1145/286498.286737</a></p><p class="small" id="ref-6">[6] Cohen, J. (1960). A coefficient of agreement for nominal scales. <i>Educational and Psychological Measurement</i>, 20(1), 37-46. <a href="https://doi.org/10.1177/001316446002000104">https://doi.org/10.1177/001316446002000104</a></p><p class="small" id="ref-7">[7] Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. <i>Biometrics</i>, 33(1), 159-174. <a href="https://doi.org/10.2307/2529310">https://doi.org/10.2307/2529310</a></p><p class="small" id="ref-8">[8] Agresti, A., &amp; Coull, B. A. (1998). Approximate is better than "exact" for interval estimation of binomial proportions. <i>The American Statistician</i>, 52(2), 119-126. <a href="https://doi.org/10.1080/00031305.1998.10480550">https://doi.org/10.1080/00031305.1998.10480550</a></p><p class="small" id="ref-9">[9] Sauro, J., &amp; Lewis, J. R. (2005). Estimating completion rates from small samples using binomial confidence intervals: Comparisons and recommendations. <i>Proceedings of the Human Factors and Ergonomics Society Annual Meeting</i>, 49(24), 2100-2103. <a href="https://doi.org/10.1177/154193120504902407">https://doi.org/10.1177/154193120504902407</a></p><p class="small" id="ref-10">[10] Sauro, J., &amp; Lewis, J. R. (2010). Average task times in usability tests: What to report? In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 2347-2350). ACM. <a href="https://doi.org/10.1145/1753326.1753679">https://doi.org/10.1145/1753326.1753679</a></p><p class="small" id="ref-11">[11] Welch, B. L. (1947). The generalization of 'Student's' problem when several different population variances are involved. <i>Biometrika</i>, 34(1-2), 28-35. <a href="https://doi.org/10.1093/biomet/34.1-2.28">https://doi.org/10.1093/biomet/34.1-2.28</a></p><p class="small" id="ref-12">[12] Faulkner, L. (2003). Beyond the five-user assumption: Benefits of increased sample sizes in usability testing. <i>Behavior Research Methods, Instruments, &amp; Computers</i>, 35(3), 379-383. <a href="https://doi.org/10.3758/BF03195514">https://doi.org/10.3758/BF03195514</a></p><p class="small" id="ref-13">[13] Kohavi, R., Longbotham, R., Sommerfield, D., &amp; Henne, R. M. (2009). Controlled experiments on the web: Survey and practical guide. <i>Data Mining and Knowledge Discovery</i>, 18(1), 140-181. <a href="https://doi.org/10.1007/s10618-008-0114-1">https://doi.org/10.1007/s10618-008-0114-1</a></p><p class="small" id="ref-14">[14] Campbell, I. (2007). Chi-squared and Fisher-Irwin tests of two-by-two tables with small sample recommendations. <i>Statistics in Medicine</i>, 26(19), 3661-3675. <a href="https://doi.org/10.1002/sim.2832">https://doi.org/10.1002/sim.2832</a></p><p class="small" id="ref-15">[15] Lachin, J. M. (1981). Introduction to sample size determination and power analysis for clinical trials. <i>Controlled Clinical Trials</i>, 2(2), 93-113. <a href="https://doi.org/10.1016/0197-2456(81)90001-5">https://doi.org/10.1016/0197-2456(81)90001-5</a></p><p class="small" id="ref-16">[16] Armitage, P., McPherson, C. K., &amp; Rowe, B. C. (1969). Repeated significance tests on accumulating data. <i>Journal of the Royal Statistical Society. Series A (General)</i>, 132(2), 235-244. <a href="https://doi.org/10.2307/2343787">https://doi.org/10.2307/2343787</a></p><p class="small" id="ref-17">[17] Dell, N., Vaidyanathan, V., Medhi, I., Cutrell, E., &amp; Thies, W. (2012). "Yours is better!": Participant response bias in HCI. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1321-1330). ACM. <a href="https://doi.org/10.1145/2207676.2208589">https://doi.org/10.1145/2207676.2208589</a></p><p class="small" id="ref-18">[18] World Medical Association. (2025). World Medical Association Declaration of Helsinki: Ethical principles for medical research involving human participants. <i>JAMA</i>, 333(1), 71-74. <a href="https://doi.org/10.1001/jama.2024.21972">https://doi.org/10.1001/jama.2024.21972</a></p><p class="small" id="ref-19">[19] Fan, M., Li, Y., &amp; Truong, K. N. (2020). Automatic detection of usability problem encounters in think-aloud sessions. <i>ACM Transactions on Interactive Intelligent Systems</i>, 10(2), Article 16. <a href="https://doi.org/10.1145/3385732">https://doi.org/10.1145/3385732</a></p><p class="small" id="ref-20">[20] Fan, M., Wu, K., Zhao, J., Li, Y., Wei, W., &amp; Truong, K. N. (2020). VisTA: Integrating machine intelligence with visualization to support the investigation of think-aloud sessions. <i>IEEE Transactions on Visualization and Computer Graphics</i>, 26(1), 343-352. <a href="https://doi.org/10.1109/TVCG.2019.2934797">https://doi.org/10.1109/TVCG.2019.2934797</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="application/json" id="refdata">{"1": "Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.", "2": "Virtanen, P., Gommers, R., Oliphant, T. E., Haberland, M., Reddy, T., Cournapeau, D., Burovski, E., Peterson, P., Weckesser, W., Bright, J., van der Walt, S. J., Brett, M., Wilson, J., Millman, K. J., Mayorov, N., Nelson, A. R. J., Jones, E., Kern, R., Larson, E., Carey, C. J., Polat, İ., Feng, Y., Moore, E. W., VanderPlas, J., Laxalde, D., Perktold, J., Cimrman, R., Henriksen, I., Quintero, E. A., Harris, C. R., Archibald, A. M., Ribeiro, A. H., Pedregosa, F., van Mulbregt, P., &amp; SciPy 1.0 Contributors. (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. <i>Nature Methods</i>, <i>17</i>(3), 261-272. <a href=\"https://doi.org/10.1038/s41592-019-0686-2\">https://doi.org/10.1038/s41592-019-0686-2</a>", "3": "Boren, M. T., &amp; Ramey, J. (2000). Thinking aloud: Reconciling theory and practice. <i>IEEE Transactions on Professional Communication</i>, 43(3), 261-278. <a href=\"https://doi.org/10.1109/47.867942\">https://doi.org/10.1109/47.867942</a>", "4": "Sauro, J., &amp; Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1599-1608). ACM. <a href=\"https://doi.org/10.1145/1518701.1518946\">https://doi.org/10.1145/1518701.1518946</a>", "5": "Jacobsen, N. E., Hertzum, M., &amp; John, B. E. (1998). The evaluator effect in usability tests. In <i>CHI 98 Conference Summary on Human Factors in Computing Systems</i> (pp. 255-256). ACM. <a href=\"https://doi.org/10.1145/286498.286737\">https://doi.org/10.1145/286498.286737</a>", "6": "Cohen, J. (1960). A coefficient of agreement for nominal scales. <i>Educational and Psychological Measurement</i>, 20(1), 37-46. <a href=\"https://doi.org/10.1177/001316446002000104\">https://doi.org/10.1177/001316446002000104</a>", "7": "Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. <i>Biometrics</i>, 33(1), 159-174. <a href=\"https://doi.org/10.2307/2529310\">https://doi.org/10.2307/2529310</a>", "8": "Agresti, A., &amp; Coull, B. A. (1998). Approximate is better than \"exact\" for interval estimation of binomial proportions. <i>The American Statistician</i>, 52(2), 119-126. <a href=\"https://doi.org/10.1080/00031305.1998.10480550\">https://doi.org/10.1080/00031305.1998.10480550</a>", "9": "Sauro, J., &amp; Lewis, J. R. (2005). Estimating completion rates from small samples using binomial confidence intervals: Comparisons and recommendations. <i>Proceedings of the Human Factors and Ergonomics Society Annual Meeting</i>, 49(24), 2100-2103. <a href=\"https://doi.org/10.1177/154193120504902407\">https://doi.org/10.1177/154193120504902407</a>", "10": "Sauro, J., &amp; Lewis, J. R. (2010). Average task times in usability tests: What to report? In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 2347-2350). ACM. <a href=\"https://doi.org/10.1145/1753326.1753679\">https://doi.org/10.1145/1753326.1753679</a>", "11": "Welch, B. L. (1947). The generalization of 'Student's' problem when several different population variances are involved. <i>Biometrika</i>, 34(1-2), 28-35. <a href=\"https://doi.org/10.1093/biomet/34.1-2.28\">https://doi.org/10.1093/biomet/34.1-2.28</a>", "12": "Faulkner, L. (2003). Beyond the five-user assumption: Benefits of increased sample sizes in usability testing. <i>Behavior Research Methods, Instruments, &amp; Computers</i>, 35(3), 379-383. <a href=\"https://doi.org/10.3758/BF03195514\">https://doi.org/10.3758/BF03195514</a>", "13": "Kohavi, R., Longbotham, R., Sommerfield, D., &amp; Henne, R. M. (2009). Controlled experiments on the web: Survey and practical guide. <i>Data Mining and Knowledge Discovery</i>, 18(1), 140-181. <a href=\"https://doi.org/10.1007/s10618-008-0114-1\">https://doi.org/10.1007/s10618-008-0114-1</a>", "14": "Campbell, I. (2007). Chi-squared and Fisher-Irwin tests of two-by-two tables with small sample recommendations. <i>Statistics in Medicine</i>, 26(19), 3661-3675. <a href=\"https://doi.org/10.1002/sim.2832\">https://doi.org/10.1002/sim.2832</a>", "15": "Lachin, J. M. (1981). Introduction to sample size determination and power analysis for clinical trials. <i>Controlled Clinical Trials</i>, 2(2), 93-113. <a href=\"https://doi.org/10.1016/0197-2456(81)90001-5\">https://doi.org/10.1016/0197-2456(81)90001-5</a>", "16": "Armitage, P., McPherson, C. K., &amp; Rowe, B. C. (1969). Repeated significance tests on accumulating data. <i>Journal of the Royal Statistical Society. Series A (General)</i>, 132(2), 235-244. <a href=\"https://doi.org/10.2307/2343787\">https://doi.org/10.2307/2343787</a>", "17": "Dell, N., Vaidyanathan, V., Medhi, I., Cutrell, E., &amp; Thies, W. (2012). \"Yours is better!\": Participant response bias in HCI. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1321-1330). ACM. <a href=\"https://doi.org/10.1145/2207676.2208589\">https://doi.org/10.1145/2207676.2208589</a>", "18": "World Medical Association. (2025). World Medical Association Declaration of Helsinki: Ethical principles for medical research involving human participants. <i>JAMA</i>, 333(1), 71-74. <a href=\"https://doi.org/10.1001/jama.2024.21972\">https://doi.org/10.1001/jama.2024.21972</a>", "19": "Fan, M., Li, Y., &amp; Truong, K. N. (2020). Automatic detection of usability problem encounters in think-aloud sessions. <i>ACM Transactions on Interactive Intelligent Systems</i>, 10(2), Article 16. <a href=\"https://doi.org/10.1145/3385732\">https://doi.org/10.1145/3385732</a>", "20": "Fan, M., Wu, K., Zhao, J., Li, Y., Wei, W., &amp; Truong, K. N. (2020). VisTA: Integrating machine intelligence with visualization to support the investigation of think-aloud sessions. <i>IEEE Transactions on Visualization and Computer Graphics</i>, 26(1), 343-352. <a href=\"https://doi.org/10.1109/TVCG.2019.2934797\">https://doi.org/10.1109/TVCG.2019.2934797</a>"}</script><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:"neutral"});</script><script>(function(){
+
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Scene: The same test, run again. Twelve patients test the redesign in the training room of the clinic, each at a
+   tablet, and each completes the booking with the probability 0.75. Every run lights the tablets green or red and adds
+   the interval of the run to the board. The board shows the plain Wald interval or the adjusted Wald interval of the
+   same runs; intervals that miss the true rate of 0.75 turn red. */
+(function () {
+  const box = document.getElementById("rr-3d"); if (!box) return;
+  const N = 12, P = 0.75, MAXR = 30, FONT = "Atkinson Hyperlegible, system-ui, sans-serif";
+  const st = {runs: [], way: "adjusted", busy: false, rng: RNG(9), lit: null};
+  const runB = document.getElementById("rr-run"), wayB = document.getElementById("rr-way"), say = document.getElementById("rr-say"), roEl = document.getElementById("rr-ro");
+  const interval = (x, way) => { if (way === "wald") { const p = x / N, m = 1.96 * Math.sqrt(p * (1 - p) / N); return [p, Math.max(0, p - m), Math.min(1, p + m)]; }
+    const p = (x + 1.9208) / (N + 3.8416), m = 1.96 * Math.sqrt(p * (1 - p) / (N + 3.8416)); return [p, Math.max(0, p - m), Math.min(1, p + m)]; };
+  const covers = (x, way) => { const [, a, b] = interval(x, way); return a <= P && P <= b; };
+  runB.append(h("span", {class: "sn-lab"}, "Test:"));
+  const oneB = h("button", {class: "btn", type: "button"}, "Run the test once"), manyB = h("button", {class: "btn ghost", type: "button"}, "Run it twenty times"),
+    clrB = h("button", {class: "btn ghost", type: "button"}, "Clear the board");
+  runB.append(oneB, manyB, clrB);
+  wayB.append(h("span", {class: "sn-lab"}, "Interval:"));
+  const wBtns = [["adjusted", "Adjusted Wald"], ["wald", "Plain Wald"]].map(([k, lab]) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": k === st.way ? "true" : "false"}, lab);
+    b.dataset.k = k; b.addEventListener("click", () => setWay(k)); wayB.append(b); return b; });
+  function readouts(text) {
+    const n = st.runs.length, c = st.runs.filter(r => covers(r.x, st.way)).length, last = st.runs[n - 1];
+    roEl.textContent = "";
+    [["Interval", st.way === "wald" ? "plain Wald" : "adjusted Wald"], ["Runs", String(n)], ["Last run", last ? `${last.x} of ${N}` : "-"],
+      ["Contain 0.75", n ? `${c} of ${n}` : "-"], ["Share", n ? `${Math.round(100 * c / n)} %` : "-"]]
+      .forEach(([k, v]) => roEl.append(h("span", {}, k + " ", h("b", {}, v))));
+    say.textContent = text || (n ? "" : "Each patient completes the booking with the probability 0.75. Run the test and watch the interval of each run on the board.");
+  }
+  function draw(c, W, H) {
+    const C = {ink: "#1E2433", steel: "#585E6E", grid: "#E3E6EC", ok: "#5A4BB5", bad: "#C0392B"};
+    c.fillStyle = "#FAFAF7"; c.fillRect(0, 0, W, H); c.textBaseline = "middle";
+    c.fillStyle = C.ink; c.font = `700 40px ${FONT}`; c.textAlign = "left";
+    c.fillText(`Intervals of the runs: ${st.way === "wald" ? "plain Wald" : "adjusted Wald"}`, 50, 46);
+    const x0 = 120, x1 = W - 70, y0 = 100, y1 = H - 80, X = v => x0 + v * (x1 - x0);
+    c.strokeStyle = C.grid; c.lineWidth = 2;
+    for (let k = 0; k <= 10; k++) { c.beginPath(); c.moveTo(X(k / 10), y0); c.lineTo(X(k / 10), y1); c.stroke();
+      c.fillStyle = C.steel; c.font = `500 26px ${FONT}`; c.textAlign = "center"; c.fillText((k / 10).toFixed(1), X(k / 10), y1 + 34); }
+    c.setLineDash([14, 10]); c.strokeStyle = "#2E8B57"; c.lineWidth = 4; c.beginPath(); c.moveTo(X(P), y0 - 10); c.lineTo(X(P), y1); c.stroke(); c.setLineDash([]);
+    c.fillStyle = "#2E8B57"; c.font = `700 26px ${FONT}`; c.textAlign = "center"; c.fillText("true rate 0.75", X(P), y0 - 24);
+    const runs = st.runs.slice(-MAXR), dy = (y1 - y0) / MAXR;
+    runs.forEach((r, i) => { const [p, a, b] = interval(r.x, st.way), y = y0 + (i + 0.5) * dy, ok = a <= P && P <= b;
+      c.strokeStyle = ok ? C.ok : C.bad; c.lineWidth = Math.max(5, dy * 0.45); c.lineCap = "round";
+      c.beginPath(); c.moveTo(X(a), y); c.lineTo(Math.max(X(b), X(a) + 2), y); c.stroke();
+      c.fillStyle = C.ink; c.beginPath(); c.arc(X(p), y, Math.max(4, dy * 0.28), 0, 2 * Math.PI); c.fill(); });
+    if (!runs.length) { c.fillStyle = C.steel; c.font = `500 30px ${FONT}`; c.textAlign = "center"; c.fillText("No runs yet", (x0 + x1) / 2, (y0 + y1) / 2); }
+    c.lineCap = "butt";
+  }
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. The buttons and readouts below still work."));
+    oneB.addEventListener("click", () => { st.runs.push({x: outcomes().filter(Boolean).length}); readouts(); });
+    manyB.addEventListener("click", () => { for (let i = 0; i < 20; i++) st.runs.push({x: outcomes().filter(Boolean).length}); readouts(); }); readouts(); return; }
+  const G = make3D(box, {camera: [2.7, 2.45, 3.1], target: [-0.45, 1.35, -1.9], limits: [0.8, 10, 1.5], aspect: 0.56, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), WZ = -2.6;
+  L.room(G, {w: 9, d: 8, z0: WZ, h: 3.2, windows: [{side: 1, z: 0.4, y: 1.75, w: 1.6, h: 1.15}, {side: 1, z: 2.6, y: 1.75, w: 1.6, h: 1.15}]});
+  const BOARD = L.panel(G, 3.6, 1.71, [1600, 760], draw);
+  BOARD.mesh.position.set(-0.2, 1.75, WZ + 0.03); SC.add(BOARD.mesh);
+  const frameM = new T.Mesh(new T.BoxGeometry(3.72, 1.83, 0.02), L.std(G, 0x8E979F, 0.5, 0.3)); frameM.position.set(-0.2, 1.75, WZ + 0.005); SC.add(frameM);
+  L.sign(G, "Training room 2", {at: [3.0, 2.55, WZ + 0.02], w: 1.2, h: 0.26}); L.clock(G, {at: [-3.2, 2.5, WZ + 0.02]});
+  L.plant(G, {at: [-4.0, 0, -2.1], seed: 5}); L.plant(G, {at: [4.0, 0, -2.0], seed: 9, size: 0.9});
+  /* two rows of tables with three patients each side by side, all facing the board */
+  const LOOKS = [["woman", 0x3F6E8C], ["oldman", 0x6B7B5A], ["man", 0x9C4A5E], ["oldwoman", 0x7B5E8C], ["woman", 0x4FA3A5], ["man", 0x55606E],
+    ["oldman", 0x7B6A58], ["woman", 0xB8664A], ["man", 0x2E6B5E], ["oldwoman", 0x6F8FB0], ["man", 0xC98510], ["woman", 0x5A4BB5]];
+  const screens = [], people = [];
+  const tabletM = L.std(G, 0x23262E, 0.4);
+  let k = 0;
+  [[-0.5, -2.05], [-0.5, 1.15], [1.0, -2.05], [1.0, 1.15]].forEach(([z, tx]) => {
+    L.table(G, {at: [tx, 0, z - 0.5], w: 1.9, d: 0.62, h: 0.74, color: 0xD9C7AE});
+    for (let s = 0; s < 3; s++) {
+      const x = tx + (s - 1) * 0.62, [type, top] = LOOKS[k];
+      L.chair(G, {at: [x, 0, z], face: Math.PI, color: 0x4A7A96});
+      const p = L.human(G, {type, pose: "sit", at: [x, 0, z], face: Math.PI, top, bottom: 0x2B3340, skin: L.LOOKS.skin[(k * 2) % 5],
+        skirt: type === "oldwoman", skirtColor: 0x3E4658, hairColor: type.startsWith("old") ? 0xC9C4BE : L.LOOKS.hair[k % 3]});
+      const tab = new T.Mesh(new T.BoxGeometry(0.26, 0.012, 0.19), tabletM); tab.position.set(x, 0.752, z - 0.42); tab.rotation.x = 0.18; SC.add(tab);
+      const scr = new T.Mesh(new T.PlaneGeometry(0.23, 0.16), new T.MeshBasicMaterial({color: 0x9CC6E8})); scr.rotation.x = -Math.PI / 2 + 0.18;
+      scr.position.set(x, 0.76, z - 0.42); SC.add(scr); screens.push(scr);
+      p.set("look", V(x, 0.76, z - 0.42)); people.push(p); k++;
+    }
+  });
+  const host = L.human(G, {type: "woman", at: [2.25, 0, -2.0], face: -Math.PI / 2 - 0.5, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: L.LOOKS.skin[1]});
+  host.set("look", V(0, 1.2, 0));
+  function outcomes() { return Array.from({length: N}, () => st.rng() < P); }
+  function light(res) { screens.forEach((s, i) => { s.material.color.setHex(res == null ? 0x9CC6E8 : (res[i] ? 0x2E8B57 : 0xC0392B)); }); G.redraw(); }
+  let anim = null, last = 0;
+  G.onTick(() => {
+    if (!anim) { last = 0; return false; }
+    const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now; anim.t += dt;
+    const shown = Math.min(N, Math.floor(anim.t / anim.step));
+    screens.forEach((s, i) => s.material.color.setHex(i < shown ? (anim.res[i] ? 0x2E8B57 : 0xC0392B) : 0x9CC6E8));
+    if (shown >= N && anim.t >= N * anim.step + anim.hold) { const a = anim; anim = null; a.done(); }
+    return true;
+  });
+  function runOnce(fast, cb) {
+    const res = outcomes(), x = res.filter(Boolean).length;
+    const done = () => { st.runs.push({x}); BOARD.redraw(); st.lit = res; light(res); readouts(fast ? "" : `${x} of ${N} patients completed the booking. Its interval ${covers(x, st.way) ? "contains" : "misses"} the true rate of 0.75.`); if (cb) cb(); };
+    if (reduced() || fast === "now") { done(); return; }
+    anim = {res, t: 0, step: fast ? 0.012 : 0.09, hold: fast ? 0.05 : 0.3, done}; G.redraw();
+  }
+  function many(n, cb) { if (st.busy) return; st.busy = true; let i = 0;
+    const next = () => { if (i++ >= n) { st.busy = false; const c = st.runs.filter(r => covers(r.x, st.way)).length;
+      readouts(`${c} of ${st.runs.length} intervals contain the true rate. In the long run, the plain Wald interval of twelve patients contains it in 82.7 % of tests and the adjusted one in 94.6 %.`); if (cb) cb(); return; }
+      runOnce(true, next); };
+    next(); }
+  function setWay(k) { st.way = k; wBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false")); BOARD.redraw(); readouts(); }
+  oneB.addEventListener("click", () => { if (st.busy || anim) return; st.busy = true; runOnce(false, () => { st.busy = false; }); });
+  manyB.addEventListener("click", () => { if (anim) return; many(20); });
+  clrB.addEventListener("click", () => { if (st.busy) return; st.runs = []; st.lit = null; light(null); BOARD.redraw(); readouts(); });
+  G.renderer.domElement.setAttribute("aria-label", "A training room with twelve patients at tablets in two rows, facing a board that stacks the intervals of the test runs.");
+  readouts();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => BOARD.redraw());
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP.scene = () => { st.rng = RNG(9); st.runs = []; for (let i = 0; i < 24; i++) runOnce("now"); setWay("adjusted"); BOARD.redraw(); };
+  window.SCENE_TEST = {runs(n) { for (let i = 0; i < n; i++) runOnce("now"); BOARD.redraw(); readouts(); }, setWay, many,
+    state: () => ({runs: st.runs.length, way: st.way, covered: st.runs.filter(r => covers(r.x, st.way)).length, xs: st.runs.map(r => r.x), busy: st.busy})};
+})();
+
+/* Animation: Skewed task times. The task times of a large group of patients follow a log-normal distribution with a
+   typical time (median) of 60 s. A sample of n patients is drawn, and its arithmetic mean, median and geometric mean
+   are marked; many samples show how far each average lands from 60 s on average. */
+(function () {
+  const cv = document.getElementById("sk-cv"); if (!cv) return;
+  const MED = 60, XMAX = 300;
+  const P = {sigma: 0.5, n: 8, sample: [], err: {am: 0, md: 0, gm: 0}, draws: 0, rng: RNG(21)};
+  const ro = readout(document.getElementById("sk-ro"), ["Samples drawn", "Arithmetic mean", "Median", "Geometric mean", "Mean error: arithmetic", "Mean error: median", "Mean error: geometric"]);
+  const sl = document.getElementById("sk-sl");
+  slider(sl, {label: "Spread of the logarithms σ", min: 0.2, max: 0.9, step: 0.05, value: 0.5, fmt: v => v.toFixed(2)}, v => { P.sigma = v; reset(); });
+  slider(sl, {label: "Participants in a sample", min: 3, max: 30, step: 1, value: 8}, v => { P.n = v; reset(); });
+  const btns = document.getElementById("sk-btn");
+  const oneB = h("button", {class: "btn", type: "button"}, "Draw a sample"), manyB = h("button", {class: "btn ghost", type: "button"}, "Draw 100 samples"),
+    clrB = h("button", {class: "btn ghost", type: "button"}, "Clear");
+  btns.append(oneB, manyB, clrB);
+  const draw1 = () => Array.from({length: P.n}, () => MED * Math.exp(P.sigma * P.rng.normal()));
+  const avgs = s => { const a = s.slice().sort((x, y) => x - y), n = a.length, md = n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2;
+    return {am: s.reduce((x, y) => x + y, 0) / n, md, gm: Math.exp(s.reduce((x, y) => x + Math.log(y), 0) / n)}; };
+  function sampleOnce() { P.sample = draw1(); const a = avgs(P.sample); P.draws++;
+    ["am", "md", "gm"].forEach(k => { P.err[k] += Math.abs(a[k] - MED); }); }
+  function show() {
+    const a = P.sample.length ? avgs(P.sample) : null, f = v => v.toFixed(1) + " s";
+    ro("Samples drawn", String(P.draws)); ro("Arithmetic mean", a ? f(a.am) : "-"); ro("Median", a ? f(a.md) : "-"); ro("Geometric mean", a ? f(a.gm) : "-");
+    ro("Mean error: arithmetic", P.draws ? f(P.err.am / P.draws) : "-"); ro("Mean error: median", P.draws ? f(P.err.md / P.draws) : "-");
+    ro("Mean error: geometric", P.draws ? f(P.err.gm / P.draws) : "-"); S.redraw();
+  }
+  function reset() { P.sample = []; P.draws = 0; P.err = {am: 0, md: 0, gm: 0}; show(); }
+  const S = stage(cv, 0.42, (ctx, w, hh) => {
+    const C = COL(); ctx.clearRect(0, 0, w, hh);
+    const mu = Math.log(MED), dens = t => Math.exp(-((Math.log(t) - mu) ** 2) / (2 * P.sigma * P.sigma)) / (t * P.sigma * Math.sqrt(2 * Math.PI));
+    let ymax = 0; for (let t = 1; t <= XMAX; t += 1) ymax = Math.max(ymax, dens(t));
+    const f = frame(ctx, w, hh, {x0: 0, x1: XMAX, y0: 0, y1: ymax * 1.25, xticks: 6, yticks: 2, yfmt: () => "", xfmt: x => String(Math.round(x)), xlabel: "task time (s)",
+      pad: {l: 24, r: 14, t: 10, b: 36}});
+    const pts = []; for (let t = 1; t <= XMAX; t += 2) pts.push([f.X(t), f.Y(dens(t))]);
+    ctx.fillStyle = "rgba(90,75,181,0.10)"; ctx.beginPath(); ctx.moveTo(f.X(0), f.Y(0)); pts.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(f.X(XMAX), f.Y(0)); ctx.fill();
+    polyline(ctx, pts, C.steel, 1.5);
+    ctx.setLineDash([5, 4]); ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(f.X(MED), f.Y(0)); ctx.lineTo(f.X(MED), f.Y(ymax * 1.2)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = C.ink; ctx.font = "12px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.textAlign = "left"; ctx.fillText("typical time 60 s", f.X(MED) + 5, f.Y(ymax * 1.18));
+    P.sample.forEach((t, i) => { const x = f.X(Math.min(t, XMAX - 2)); dot(ctx, x, f.Y(ymax * (0.06 + 0.05 * (i % 3))), 4.5, t > XMAX - 2 ? C.c[4] : C.c[1], C.ink); });
+    if (P.sample.length) {
+      const a = avgs(P.sample);
+      [["arithmetic mean", a.am, C.c[4], 0.95], ["median", a.md, C.c[2], 0.82], ["geometric mean", a.gm, C.c[0], 0.69]].forEach(([lab, v, col, yy]) => {
+        const x = f.X(Math.min(v, XMAX)); ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(x, f.Y(0)); ctx.lineTo(x, f.Y(ymax * yy)); ctx.stroke(); ctx.lineWidth = 1;
+        ctx.fillStyle = col; ctx.textAlign = v > XMAX * 0.7 ? "right" : "left"; ctx.fillText(`${lab} ${v.toFixed(1)} s`, x + (v > XMAX * 0.7 ? -5 : 5), f.Y(ymax * yy) + 2); });
+    }
+  });
+  oneB.addEventListener("click", () => { sampleOnce(); show(); });
+  manyB.addEventListener("click", () => { for (let i = 0; i < 100; i++) sampleOnce(); show(); });
+  clrB.addEventListener("click", () => { P.rng = RNG(21); reset(); });
+  show();
+  window.SKEW_TEST = {set(sigma, n) { P.sigma = sigma; P.n = n; reset(); }, draw(k) { for (let i = 0; i < k; i++) sampleOnce(); show(); },
+    state: () => ({sigma: P.sigma, n: P.n, draws: P.draws, err: {am: P.err.am / Math.max(1, P.draws), md: P.err.md / Math.max(1, P.draws), gm: P.err.gm / Math.max(1, P.draws)},
+      last: P.sample.length ? avgs(P.sample) : null})};
+})();
+
+initLecture(9);
+})();</script></body></html>

@@ -1,0 +1,1388 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundations: The Interaction Loop, User-Centred Design and Usability | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 1 of 14</p><h1>Foundations: The Interaction Loop, User-Centred Design and Usability</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-01">Week overview</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb">Colab notebook</a><a href="lab.html">Interactive lab</a><a href="Week01_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2 id="overview">Overview</h2><p>Human-computer interaction (HCI) studies how people use interactive computing systems and how such systems should be designed, evaluated and built for human use <span class="cite" tabindex="0" data-refs="1">[1]</span>. The field joins computer science with psychology, design and ergonomics. This week starts with the central choice of the field: Should people adapt to the system, or should the system be designed around people? It contrasts system-centred with user-centred design and introduces the loop of action described by Norman, with its two gulfs <span class="cite" tabindex="0" data-refs="2">[2]</span>. It defines usability as the International Organization for Standardization (ISO) does in its standard ISO 9241-11 <span class="cite" tabindex="0" data-refs="3">[3]</span>. Four numbers measure it, from the completion rate to a questionnaire score. Signifiers and mappings follow, with experiments to play in three dimensions (3D), and then a probability model of a task with several steps. The project of the course, a clinic appointment app, starts with a baseline in numbers. The week closes with what changes when the system on the other side of the loop is an artificial intelligence (AI).</p><h2 id="week-at-a-glance">Week at a glance</h2><pre class="mermaid">flowchart LR
+  A[&quot;What is HCI?&quot;] --&gt; U[&quot;System-centred or user-centred?&quot;]
+  U --&gt; B[&quot;The interaction loop&quot;]
+  B --&gt; C[&quot;Usability in numbers&quot;]
+  C --&gt; D[&quot;Signifiers and mapping&quot;]
+  D --&gt; E[&quot;A task as a chain of steps&quot;]
+  E --&gt; F[&quot;Interface clinic&quot;]
+  F --&gt; G[&quot;The human side&quot;]
+  G --&gt; S[&quot;The clinic app, stage 1&quot;]
+  S --&gt; H[&quot;Toward human-AI interaction&quot;]</pre><div class="callout"><b class="t">Python code of this week</b><p>Every method on this page is also written as Python code in the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb">Colab notebook of the week</a>. A Colab notebook is a document of text and Python code that runs in the web browser, with nothing to install <span class="cite" tabindex="0" data-refs="4">[4]</span>. Its code is divided into numbered sections. Each orange box on this page names the section whose code carries out what the text above the box explains. The box says what to run and what to look at in that section, and its button opens the Colab notebook at that place. The games, the practice parts and the self-assessment of the week are in the <a href="lab.html">interactive lab</a>. Each violet box opens one part of the interactive lab. The part ends with a link back to its box on this page, and the Colab notebook is always opened from the orange boxes here.</p></div><h2 id="python-step">Python step 1: Values, variables, lists and decisions</h2><div class="colabbox" id="colab-python-step"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=python-step" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, right after Section 0 (setup).</b> Open the Colab notebook and run this step cell by cell: It consists of short pieces of Python code with their explanations, a quick check and three exercises. Topics: Values and variables · A decision is an if statement · Lists and loops · Functions · Dictionaries · A list of dictionaries.</p></div><p>Python <span class="cite" tabindex="0" data-refs="5">[5]</span> is the language of the course. The step works with data from the kiosk of the clinic app. It stores one booking session as values and checks it against a target time. It then computes means and shares of many sessions with loops and functions, and it compares two groups of patients with dictionaries. The hands-on sections then use the libraries NumPy <span class="cite" tabindex="0" data-refs="6">[6]</span>, pandas <span class="cite" tabindex="0" data-refs="7">[7]</span> and Matplotlib <span class="cite" tabindex="0" data-refs="8">[8]</span>. Students who have never programmed start with the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/start-here/NB00_start_here.ipynb">start-here notebook</a> of the course.</p><div class="callout"><b class="t">The clinic app, the project of the course</b><p>One project runs through all fourteen weeks: The appointment app of a city hospital, called <i>the clinic app</i> in this course. Patients use it to book, change and cancel appointments, and a kiosk in the hospital lobby runs the same service for check-in and booking. The app, the hospital and the patients are invented, so that every number can be computed and checked, and the limits of this choice are part of the discussion.</p><p>Week 1 races two versions of the kiosk against each other and measures the booking flow of the app as it is. Weeks 2 to 4 audit the app against human perception, memory and movement. Week 5 runs a heuristic evaluation, Week 6 builds personas and predicts task times, and Week 7 prototypes a new flow. Week 8 redesigns the screens, Week 9 tests old and new designs with simulated patients, and Week 10 audits accessibility. Week 11 moves the app to the phone and adds voice, and Week 12 guides patients through the hospital in augmented reality. Weeks 13 and 14 add an AI assistant and measure trust, reliance and the ethics of its design.</p></div><figure><img src="figures/w01_project_roadmap.png" alt="The clinic app through the fourteen weeks of the course. Each week takes the app one stage further, and the figure marks the stage of this week." loading="lazy"><figcaption>The clinic app through the fourteen weeks of the course. Each week takes the app one stage further, and the figure marks the stage of this week.</figcaption></figure><h2 id="what-is-hci">What is human-computer interaction?</h2><p>The curriculum of the Association for Computing Machinery (ACM) describes HCI as a discipline concerned with the design, evaluation and implementation of interactive computing systems for human use <span class="cite" tabindex="0" data-refs="1">[1]</span>. It also covers the study of the major phenomena that surround such systems. The <i>interface</i> is the part of a system that a person sees, hears and touches: Screens, buttons, menus, sounds and voices. The <i>interaction</i> is what happens over time between the person and the system, as a sequence of actions and responses. HCI designs both, and it measures them through studies with people.</p><p>Interactive computing is younger than most of its users. Sutherland's Sketchpad let a designer draw on a screen with a light pen in 1963 <span class="cite" tabindex="0" data-refs="9">[9]</span>. In 1968 Engelbart and English demonstrated the mouse, linked text and shared screens to a live audience <span class="cite" tabindex="0" data-refs="10">[10]</span>. Windows, icons and menus were developed at the Xerox Palo Alto Research Center (PARC) in the 1970s and reached the mass market in the 1980s <span class="cite" tabindex="0" data-refs="11">[11]</span>. The World Wide Web, touch screens, voice assistants and conversational AI each changed again how people reach computers.</p><figure><img src="figures/w01_fig1.png" alt="Milestones of interactive computing, from Sketchpad to conversational AI. The early dates follow the history by Myers {cite:myers1998}." loading="lazy"><figcaption>Milestones of interactive computing, from Sketchpad to conversational AI. The early dates follow the history by Myers <span class="cite" tabindex="0" data-refs="11">[11]</span>.</figcaption></figure><p>Every new style of interaction raised the same questions. Can people find what the system offers? Do they understand what it tells them? Can they reach their goals quickly and without errors? This course answers these questions with models of the human, design principles and measurements, and it applies them to one app from week to week.</p><div class="callout discuss"><b class="t">Discuss: Interfaces in your day</b><ol><li>Which interface did you use most today, and which parts of it did you not notice at all? Good interaction often becomes invisible.</li><li>Recall an interface that made you feel clumsy. Was the problem in you or in its design?</li><li>Which of the three questions above did that interface fail to answer?</li></ol></div><h2 id="system-centred-and-user-centred-design">System-centred and user-centred design</h2><p>Every interactive system embodies a decision about who adapts to whom. In <i>system-centred design</i>, the starting point is the machine: Its data structures, its database and the organisation that runs it. The interface then mirrors those structures. Users must learn internal codes, type dates in the format that the database stores and look for services under the names of departments. They pay for the convenience of the system with their time and their errors.</p><p><i>User-centred design</i> (UCD) starts from the people who will use the system, their goals, their tasks and their context, and shapes the system around them. The term spread with a book edited by Norman and Draper, <i>User Centered System Design</i> <span class="cite" tabindex="0" data-refs="2">[2]</span>. Gould and Lewis condensed the approach into three principles <span class="cite" tabindex="0" data-refs="12">[12]</span>. The first is an early and continual focus on users and their tasks. The second is the empirical measurement of how people actually use prototypes. The third is iterative design: Build, test, change and test again.</p><p>The standard ISO 9241-210 calls the approach <i>human-centred design</i>, because it also considers people who are affected by a system without using it <span class="cite" tabindex="0" data-refs="13">[13]</span>. It states six principles. The design rests on an explicit understanding of users, tasks and environments, and users take part throughout design and development. Evaluation with users drives and refines the design, and the process is iterative. Finally, the design addresses the whole user experience, and the team brings together several disciplines.</p><figure><img src="figures/w01_fig_ucd.png" alt="Two ways to build a system. System-centred design runs once from the technical requirements to delivery. Human-centred design cycles through the four activities of ISO 9241-210 until an evaluation shows that the requirements of the users are met {cite:iso9241_210}." loading="lazy"><figcaption>Two ways to build a system. System-centred design runs once from the technical requirements to delivery. Human-centred design cycles through the four activities of ISO 9241-210 until an evaluation shows that the requirements of the users are met <span class="cite" tabindex="0" data-refs="13">[13]</span>.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question</th><th>System-centred design</th><th>User-centred design</th></tr></thead><tbody><tr><td>Where does the design start?</td><td>From the data, the technology and the organisation</td><td>From the users, their goals, tasks and context</td></tr><tr><td>Whose language does the interface speak?</td><td>Codes, field names and internal terms</td><td>The words of the users</td></tr><tr><td>Who adapts?</td><td>The user learns the system</td><td>The system fits the user</td></tr><tr><td>How are errors seen?</td><td>As mistakes of the user</td><td>As signs of a design problem</td></tr><tr><td>How is success measured?</td><td>Features delivered and working</td><td>Users reach their goals with effectiveness, efficiency and satisfaction</td></tr><tr><td>An example at the clinic kiosk</td><td>Type the polyclinic code PC-112 and the date 20270316</td><td>Tap Cardiology, then Tomorrow</td></tr></tbody></table></div><p>Small costs add up because interfaces are used often. Suppose that a design makes each use longer by \(\Delta t\) seconds, and the system is used \(N\) times a day on \(D\) days a year. The time that its users lose in a year is then</p><div class="eq">\[C = N \, D \, \Delta t\]</div><p>Here \(C\) is in seconds and is usually converted into hours by dividing by 3600. Suppose that the lobby kiosks of the clinic app take 600 bookings a day on 250 working days. A system-centred kiosk needs 95 seconds per booking and a user-centred kiosk 55 seconds, so \(\Delta t = 95 - 55 = 40\) seconds. In a year the kiosks take \(600 \times 250 = 150{,}000\) bookings, and \(C \)​\({}= 150{,}000 \times 40 \)​\({}= 6{,}000{,}000\) seconds. That is \(6{,}000{,}000 / 3600 = 1666.67\) hours, close to the working year of one full-time employee. The cost does not appear in the budget of the hospital, because the patients pay it.</p><div class="kc" data-answer="1" data-why="The format serves the database, and every patient must translate a date into it. User-centred design would offer the days in the patients&#x27; terms, such as Tomorrow."><p class="q">Check your understanding. A kiosk asks patients to type the date of their appointment as YYYYMMDD: Year, month and day as eight digits. The hospital's database stores dates that way. Which approach does this reflect?</p><label><input type="radio" name="KC0" value="0"> User-centred design</label><label><input type="radio" name="KC0" value="1"> System-centred design</label><label><input type="radio" name="KC0" value="2"> Iterative design</label><label><input type="radio" name="KC0" value="3"> Human-centred evaluation</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="callout discuss"><b class="t">Discuss: Who adapts to whom?</b><ol><li>Find a system-centred design in a service that you used this month. Whose convenience did it serve, and who paid the cost?</li><li>A patient types a wrong date into the kiosk. Is the patient wrong? Keep your answer and test it against the gulfs of the next section.</li><li>When can a system-centred decision be justified, for example by security, law or cost?</li></ol></div><p>Part A of the interactive lab turns the comparison into a game. Two kiosks stand in the 3D lobby of the hospital, and both book appointments in the same database. Play three booking tasks on each, in the order that the page draws, and rate each kiosk with a short questionnaire. The page reveals at the end which kiosk was designed in which way, and Section 1 of the Colab notebook analyses the results.</p><div class="labbox" id="lab-pa"><a class="btn" href="lab.html#pa" target="_blank" rel="noopener">Open lab Part A</a><p><b>Interactive lab, Part A.</b> The kiosk race in 3D: Two kiosks of the clinic app, three timed booking tasks on each and a questionnaire after each kiosk. The results can be copied into the Colab notebook.</p></div><h2 id="the-interaction-loop">The interaction loop: Execution and evaluation</h2><p>Norman describes an action as a loop of seven stages <span class="cite" tabindex="0" data-refs="2,14">[2, 14]</span>. It starts with a <i>goal</i>, a state of the world that the person wants. Three stages of <i>execution</i> turn the goal into action: Plan the action, specify the sequence of steps and perform it. Three stages of <i>evaluation</i> compare the result with the goal: Perceive the state of the system, interpret it and compare it with the goal. The loop repeats until the goal is reached or abandoned.</p><figure><img src="figures/w01_fig2.png" alt="The seven stages of action. Execution runs from the goal to the world on the left, and evaluation runs back from the world to the goal on the right {cite:norman2013}." loading="lazy"><figcaption>The seven stages of action. Execution runs from the goal to the world on the left, and evaluation runs back from the world to the goal on the right <span class="cite" tabindex="0" data-refs="14">[14]</span>.</figcaption></figure><p>A patient who wants a cardiology appointment for next week shows the loop at work. The goal is an appointment. The plan is to use the hospital's app. The specified sequence is to open the app, find the appointments, choose cardiology, pick a day and confirm. The patient performs the taps. Then the patient perceives a new screen, interprets it as a confirmation or not, and compares it with the goal.</p><p>Two gaps can open in this loop <span class="cite" tabindex="0" data-refs="15">[15]</span>. The <i>gulf of execution</i> is the distance between what a person wants to do and the actions that the system makes available. It is wide when the person cannot see how to start, for example when booking hides under a menu item called Services. The <i>gulf of evaluation</i> is the distance between the state of the system and the person's understanding of it. It is wide when the system gives no feedback or when its message cannot be interpreted, for example <i>Error 0x45</i>. Good design bridges both gulfs: It makes the possible actions visible and the results clear <span class="cite" tabindex="0" data-refs="14">[14]</span>.</p><p>The two gulfs also answer the question of the last discussion. A patient who types a wrong date at a system-centred kiosk met a wide gulf of execution, because the kiosk demanded a format instead of offering days. The error belongs to the design at least as much as to the patient.</p><div class="scene" id="scene"><p class="small"><strong>Scene: Two gulfs.</strong> A patient of 74 and the clinic app stand on two cliffs, joined by two bridges: Execution and evaluation. Each button adds one design change to the app and closes part of a gap. The scene shows how the expected time and the chance of a slip change, computed with the eight-step model of this week. Drag the scene to look at it from another side.</p><div class="three" id="sn-3d"></div><div class="sn-btns" id="sn-btns"></div><p class="sn-say" id="sn-say" aria-live="polite"></p><div class="sn-ro" id="sn-ro"></div></div><div class="callout life"><b class="t">In everyday life: Two gulfs at a door and in a lift</b><p>A glass door with identical bars on both sides leaves the gulf of execution wide: Nothing shows whether to push or to pull. A lift whose call button does not light up leaves the gulf of evaluation wide: Nobody knows whether the call was registered, so people press again.</p></div><div class="kc" data-answer="1" data-why="The action was possible, but its result cannot be perceived or interpreted, so the evaluation half of the loop fails."><p class="q">Check your understanding. After a patient taps Book, the screen stays unchanged for five seconds and then returns to the home page. Which gulf is wide?</p><label><input type="radio" name="KC1" value="0"> The gulf of execution</label><label><input type="radio" name="KC1" value="1"> The gulf of evaluation</label><label><input type="radio" name="KC1" value="2"> Both gulfs are narrow</label><label><input type="radio" name="KC1" value="3"> Neither gulf applies to this case</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><h2 id="usability-effectiveness-efficiency-and-satisfaction">Usability: Effectiveness, efficiency and satisfaction</h2><p>The international standard ISO 9241-11 defines usability as the extent to which a system can be used by specified users to achieve specified goals with effectiveness, efficiency and satisfaction in a specified context of use <span class="cite" tabindex="0" data-refs="3">[3]</span>. Each part of the definition matters. <i>Effectiveness</i> is the accuracy and completeness with which users reach their goals. <i>Efficiency</i> relates the resources spent, such as time, to the results achieved. <i>Satisfaction</i> covers how the user responds to the use, from comfort to frustration.</p><p>The <i>context of use</i> names the users, their goals and tasks, their equipment and the environment. A booking app can be usable for a student on a quiet train and unusable for a patient of 75 in a noisy waiting room. Nielsen breaks usability into five attributes: Learnability, efficiency, memorability, few and recoverable errors, and satisfaction <span class="cite" tabindex="0" data-refs="16">[16]</span>. <i>User experience</i> (UX) is a wider term. The standard on human-centred design, ISO 9241-210, describes it as the perceptions and responses of a person that result from the use or the expected use of a system <span class="cite" tabindex="0" data-refs="13">[13]</span>. Usability is measured during use, while user experience also includes the expectations before use and the memories after it.</p><p>Four numbers turn the definition into measurements. In a usability test, \(n\) participants attempt the same task. The <i>completion rate</i> measures effectiveness:</p><div class="eq">\[E = \frac{s}{n}\]</div><p>Here \(s\) is the number of participants who completed the task and \(n\) the number who attempted it. \(E\) has no unit and lies between 0 and 1, and it is often written as a percentage. The <i>mean time on task</i> of the successful participants is</p><div class="eq">\[\bar{t}_s = \frac{1}{s} \sum_{i \in S} t_i\]</div><p>where \(S\) is the set of successful participants and \(t_i\) the time of participant \(i\), in minutes. The symbol \(\sum\) (capital sigma) adds the times of all members of \(S\). Efficiency relates the results to the resources. A simple measure counts the completed tasks per minute of total time spent by all participants, including those who failed, because their time was spent as well:</p><div class="eq">\[\eta = \frac{s}{\sum_{i=1}^{n} t_i}\]</div><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, first calculator, steps 1 to 6.</p><p>The unit of \(\eta\) (the Greek letter eta) is tasks per minute when the times are in minutes. Studies report such measures for many kinds of systems, for example an internet-based exam system for mobile devices <span class="cite" tabindex="0" data-refs="17">[17]</span>.</p><p>Satisfaction is measured with questionnaires. The most widely used one in usability work is the System Usability Scale (SUS) of Brooke <span class="cite" tabindex="0" data-refs="18,19">[18, 19]</span>. It has ten statements, each rated from 1 (strongly disagree) to 5 (strongly agree). The odd statements are positive, such as <i>I thought the system was easy to use</i>. The even statements are negative, such as <i>I found the system unnecessarily complex</i>. Each answer \(x_j\) to statement \(j\) becomes a contribution \(c_j\) between 0 and 4, and the contributions give the score:</p><div class="eq">\[c_j = \begin{cases} x_j - 1 &amp; \text{for odd } j \\ 5 - x_j &amp; \text{for even } j \end{cases}\qquad \mathrm{SUS} = 2.5 \sum_{j=1}^{10} c_j\]</div><p class="labref">→ This scale with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, second calculator, steps 1 to 5.</p><p>The ten contributions add up to a number between 0 and 40, so the factor 2.5 stretches the score to the range from 0 to 100. The score is not a percentage. Across hundreds of published studies the mean SUS score is about 68, so a score above 68 is better than average <span class="cite" tabindex="0" data-refs="20">[20]</span>.</p><p><b>A worked example.</b> Twelve patients try to book an appointment with the current clinic app, and nine succeed. The nine successful times are 2.1, 2.6, 3.0, 3.2, 3.5, 3.9, 4.4, 5.0 and 5.6 minutes, which add up to 33.3 minutes. The three patients who gave up spent 4.9, 5.5 and 6.7 minutes, or 17.1 minutes together. The completion rate is \(E = 9/12 = 0.75\), so three patients in four reach their goal. The mean time of the successful patients is \(\bar{t}_s = 33.3/9 = 3.70\) minutes. All twelve patients spent \(33.3 + 17.1 = 50.4\) minutes, so \(\eta = 9/50.4 = 0.179\) tasks per minute. That is \(60 \times 0.179 = 10.7\) completed bookings per hour of the patients' time.</p><p>For satisfaction, one of the patients answers 4, 2, 4, 1, 3, 2, 4, 2, 3 and 3 to the ten statements. The odd statements contribute \(3 + 3 + 2 + 3 + 2 = 13\), and the even statements contribute \(3 + 4 + 3 + 3 + 2 = 15\). The SUS score is \(2.5 \times (13 + 15) \)​\({}= 2.5 \times 28 \)​\({}= 70.0\), slightly above the average of 68.</p><div class="kc" data-answer="1" data-why="\(E = s/n = 18/24 = 0.75\)."><p class="q">Check your understanding. In a test, 18 of 24 participants complete a task. What is the completion rate?</p><label><input type="radio" name="KC2" value="0"> 0.65</label><label><input type="radio" name="KC2" value="1"> 0.75</label><label><input type="radio" name="KC2" value="2"> 0.80</label><label><input type="radio" name="KC2" value="3"> 1.33</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="kc" data-answer="2" data-why="\(\mathrm{SUS} = 2.5 \times 30 = 75\), above the average of 68."><p class="q">Check your understanding. The ten SUS contributions of one participant add up to 30. What is the SUS score?</p><label><input type="radio" name="KC3" value="0"> 30</label><label><input type="radio" name="KC3" value="1"> 60</label><label><input type="radio" name="KC3" value="2"> 75</label><label><input type="radio" name="KC3" value="3"> 300</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="colabbox" id="colab-sec-1"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-1" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 1.</b> Open Section 1 of the Colab notebook and run it. The function <code>usability_measures</code> computes \(E\), \(\bar{t}_s\) and \(\eta\) for any table of runs, and <code>sus_score</code> scores one questionnaire. Both are first checked on the worked examples above. Paste the results of Part A of the interactive lab into <code>MY_KIOSK</code>, or leave it empty for a simulated class of 24 students. A table then compares the two kiosks on all four measures and turns the difference in time into the yearly cost \(C\). Two figures show the times of the completed runs and the two SUS scores of every student.</p></div><div class="labbox" id="lab-pb"><a class="btn" href="lab.html#pb" target="_blank" rel="noopener">Open lab Part B</a><p><b>Interactive lab, Part B.</b> The four measures of this section step by step: Sliders for the participants, the successes and the mean times, and ten sliders for the answers of one questionnaire.</p></div><h2 id="affordances-signifiers-mapping-and-feedback">Affordances, signifiers, mapping and feedback</h2><p>Norman names a set of principles that bridge the two gulfs <span class="cite" tabindex="0" data-refs="14">[14]</span>. An <i>affordance</i> is a relationship between an object and a person that determines how the object could be used: A button affords pressing, and a slider affords dragging. The term comes from the psychologist Gibson <span class="cite" tabindex="0" data-refs="21">[21]</span>. A <i>signifier</i> is a perceivable cue that shows where and how to act, such as a raised border around a button or the word Push on a door. <i>Constraints</i> limit the possible actions, for example a calendar that greys out the days in the past. <i>Feedback</i> reports the result of an action at once, and a <i>conceptual model</i> is the person's understanding of how the system works.</p><p>Doors are the classic test of signifiers <span class="cite" tabindex="0" data-refs="14">[14]</span>. A flat plate shows where to push, and a vertical bar handle invites a pull. Trouble starts when the hardware contradicts the action: A door with a pull handle that must be pushed makes people pull first. A sign that says <i>Push</i> can prevent the error, but only after it is read, which costs time. When a simple object needs a label to be operated, its signifiers have failed.</p><p><i>Mapping</i> is the relationship between controls and their effects. A <i>natural mapping</i> uses spatial correspondence: The control on the left acts on the thing on the left. Chapanis and Lindenbaum tested fifteen people on four model stoves with different arrangements of burners and knobs, over eighty trials each <span class="cite" tabindex="0" data-refs="22">[22]</span>. In the second half of the trials, one arrangement was clearly better than all others. In that arrangement the burners were offset, so that their order from left to right matched the order of the knobs.</p><figure><img src="figures/w01_fig3.png" alt="Three layouts of a cooktop with four burners, seen from above. The knob that lights each burner carries the same number. Offset burners give a natural mapping, a row of knobs under a square of burners does not, and a square of knobs repeats the square of burners." loading="lazy"><figcaption>Three layouts of a cooktop with four burners, seen from above. The knob that lights each burner carries the same number. Offset burners give a natural mapping, a row of knobs under a square of burners does not, and a square of knobs repeats the square of burners.</figcaption></figure><p>The interactive lab rebuilds both experiments in 3D: A corridor of doors and a cooktop. Two numbers describe each kind of door and each layout. The <i>error rate</i> is the share of wrong first choices among the \(N\) trials, and the <i>mean reaction time</i> is taken over the correct trials only:</p><div class="eq">\[p_{\mathrm{err}} = \frac{n_{\mathrm{err}}}{N}, \qquad \bar{t}_{\mathrm{rt}} = \frac{1}{N - n_{\mathrm{err}}} \sum_{j\ \mathrm{correct}} t_j\]</div><p>The <i>cost of a poor mapping</i> is the difference between a layout and the natural one: \(\Delta t \)​\({}= \bar{t}_{\mathrm{rt}}^{\,\mathrm{poor}} \)​\({}- \bar{t}_{\mathrm{rt}}^{\,\mathrm{natural}}\) for the time and \(\Delta p \)​\({}= p_{\mathrm{err}}^{\,\mathrm{poor}} \)​\({}- p_{\mathrm{err}}^{\,\mathrm{natural}}\) for the errors. Suppose that a student makes no error in 12 trials with the offset burners, at a mean of 0.71 seconds. With the row of knobs the same student makes 3 errors in 12 trials, at a mean of 1.12 seconds for the 9 correct trials. Then \(p_{\mathrm{err}}\) rises from \(0/12 = 0\) to \(3/12 = 0.25\), so \(\Delta p = 0.25\). Each correct choice costs \(\Delta t = 1.12 - 0.71 = 0.41\) seconds more. The cost of a poor signifier is defined in the same way, against the door whose hardware matches its action.</p><p>The same principles govern screens. A flat label that looks like a button breaks what people expect. So do radio buttons whose labels sit far from their circles, and a volume slider that moves down to make the sound louder. People adapt, but they pay with time and errors, and the price rises under stress.</p><div class="kc" data-answer="1" data-why="Spatial correspondence makes the mapping visible without labels. Labels help, but they must be read and interpreted."><p class="q">Check your understanding. Which arrangement gives a natural mapping between four knobs in a row and four burners?</p><label><input type="radio" name="KC4" value="0"> A square of burners, with the knobs ordered by burner size</label><label><input type="radio" name="KC4" value="1"> Burners offset so that their order from left to right matches the order of the knobs</label><label><input type="radio" name="KC4" value="2"> A square of burners, with a printed label under every knob</label><label><input type="radio" name="KC4" value="3"> Any arrangement, because people learn it after a few trials</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pc"><a class="btn" href="lab.html#pc" target="_blank" rel="noopener">Open lab Part C</a><p><b>Interactive lab, Part C.</b> The corridor of doors in 3D: Twelve doors with four kinds of handles and signs, with the first try and the time of each. The results can be copied into the Colab notebook.</p></div><div class="labbox" id="lab-pd"><a class="btn" href="lab.html#pd" target="_blank" rel="noopener">Open lab Part D</a><p><b>Interactive lab, Part D.</b> The cooktop in 3D: Three layouts of burners and knobs, twelve timed trials each, and a table of errors and reaction times that can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-2"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-2" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 2.</b> Open Section 2 of the Colab notebook and paste the results of Parts C and D of the interactive lab into <code>MY_DOORS</code> and <code>MY_COOKTOP</code>. Left empty, each variable makes the code use a simulated class of twenty students. The code computes \(p_{\mathrm{err}}\) and \(\bar{t}_{\mathrm{rt}}\) for each kind of door and each layout of the cooktop, with the cost of each poor signifier and mapping. Two figures compare the conditions.</p></div><h2 id="a-task-as-a-chain-of-steps">A task as a chain of steps</h2><p>A booking is not one action but a chain of steps, and every step is a small loop of execution and evaluation. A simple model gives each step \(k\) four numbers. The step takes the time \(t_k\) when it goes well. With the probability \(e_k\) a <i>slip</i> happens, such as a wrong tap or a mistyped number. A slip costs the extra time \(r_k\) to notice and repair it, or, with the probability \(a_k\), the person gives up. These numbers are assumptions of the model, chosen to be plausible. Week 6 shows how to predict step times, and Week 9 shows how to measure them.</p><p>If the steps are independent, the probability that a person passes all \(K\) steps without a single slip is the product of the probabilities of a smooth step:</p><div class="eq">\[P_0 = \prod_{k=1}^{K} \left(1 - e_k\right)\]</div><p>The symbol \(\prod\) (capital pi) multiplies the factors for \(k = 1\) to \(K\), as \(\sum\) adds them. If every slip is repaired, the expected duration of the task is the time of the steps plus the expected repair time:</p><div class="eq">\[\mathrm{E}[T] = \sum_{k=1}^{K} \left(t_k + e_k \, r_k\right)\]</div><p>\(\mathrm{E}[T]\) is the expected value of the duration \(T\), its long-run average over many people. A person gives up at step \(k\) only after a slip, so the probability of giving up there is \(e_k a_k\). The probability of completing the task is then</p><div class="eq">\[P_c = \prod_{k=1}^{K} \left(1 - e_k \, a_k\right)\]</div><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pe" target="_blank" rel="noopener">Lab Part E</a>, steps 1 to 6.</p><p><b>A worked example.</b> Three steps of a booking flow are choosing the department, picking a date and confirming. Their times are \(t = (12, 10, 4)\) seconds, their slip probabilities \(e = (0.20, 0.15, 0.12)\) and their repair times \(r = (10, 12, 25)\) seconds. One slip in five ends with giving up, so \(a_k = 0.20\). Then \(P_0 = 0.80 \times 0.85 \times 0.88\). In two rounded steps, \(0.80 \times 0.85 = 0.680\) and \(0.680 \times 0.88 = 0.598\). The expected time is \(\mathrm{E}[T] \)​\({}= (12 + 0.20 \times 10) \)​\({}+ (10 + 0.15 \times 12) \)​\({}+ (4 + 0.12 \times 25)\), which is \(14.0 + 11.8 + 7.0 = 32.8\) seconds. The probabilities of giving up are 0.040, 0.030 and 0.024, so \(P_c = 0.960 \times 0.970 \times 0.976\). Rounded step by step, \(0.960 \times 0.970 = 0.931\) and \(0.931 \times 0.976 = 0.909\). Only 60 percent of the patients pass these three steps without a slip, but 90.9 percent complete them.</p><p>Two lessons follow. Small error probabilities multiply: Ten steps with \(e = 0.05\) each give \(P_0 = 0.95^{10} = 0.599\), so four people in ten meet at least one slip. And every step adds to the time even when it rarely fails, so removing a step can help more than polishing it. System-centred designs tend to add steps, such as typing a number that the system already knows.</p><figure><img src="figures/w01_fig4.png" alt="The probability of a task without any slip, P_0 = (1 - e)^K, against the number of steps K for four slip probabilities e per step." loading="lazy"><figcaption>The probability of a task without any slip, \(P_0 = (1 - e)^K\), against the number of steps \(K\) for four slip probabilities \(e\) per step.</figcaption></figure><div class="anim" id="funnel"><p class="small"><strong>Animation.</strong> One hundred patients go through a flow of steps. Each dot is a patient: Grey dots move on smoothly, orange dots slip and repair, and red dots give up. The sliders set the number of steps, the slip probability of each step and the share of slips that end with giving up. The readouts compare the simulated shares with the formulas for \(P_0\) and \(P_c\).</p><div class="row" id="fn-sl"></div><p><button class="btn" id="fn-play" type="button">Send 100 patients</button> <button class="btn ghost" id="fn-new" type="button">New random patients</button></p><canvas class="paper" id="fn-cv" aria-label="Patients moving through the steps of a flow"></canvas><div id="fn-ro"></div></div><div class="kc" data-answer="1" data-why="Each step loses \(e \, a = 0.1 \times 0.5 = 0.05\), so \(P_c = 0.95^3 = 0.857\)."><p class="q">Check your understanding. Three steps each have a slip probability of 0.1, and half of all slips end with giving up. What is the probability of completing the task?</p><label><input type="radio" name="KC5" value="0"> 0.729</label><label><input type="radio" name="KC5" value="1"> 0.857</label><label><input type="radio" name="KC5" value="2"> 0.950</label><label><input type="radio" name="KC5" value="3"> 0.500</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pe"><a class="btn" href="lab.html#pe" target="_blank" rel="noopener">Open lab Part E</a><p><b>Interactive lab, Part E.</b> The three formulas of this section step by step for the three steps of the worked example. Sliders set the slip probabilities and the share of slips that end with giving up.</p></div><div class="colabbox" id="colab-sec-3"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-3" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 3.</b> Open Section 3 of the Colab notebook and run it. The functions <code>p_smooth</code>, <code>expected_time</code> and <code>p_complete</code> carry out the three formulas for a flow given as a list of dictionaries. The function <code>simulate</code> sends simulated patients through the same flow with random numbers. A table shows the formulas next to the simulation, and a figure draws how the simulated share approaches \(P_c\) as more patients are simulated. The last figure shows \(P_0\) as a surface in three dimensions over the slip probability and the number of steps.</p></div><div class="labbox" id="lab-pf"><a class="btn" href="lab.html#pf" target="_blank" rel="noopener">Open lab Part F</a><p><b>Interactive lab, Part F.</b> A simulation of 200 patients in the browser. Switch five design changes of the clinic app on and off, and compare the completion rate and the mean time of each version in a table.</p></div><div class="colabbox" id="colab-sec-4"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-4" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 4.</b> Open Section 4 of the Colab notebook and run it. For each step of the booking flow of the clinic app, the code halves the slip probability and records how much \(P_c\) and \(\mathrm{E}[T]\) improve. A table ranks the steps by their gain, and a bar chart shows both gains for every step. The <i>Explore</i> panel at the end has sliders for the numbers of one step.</p></div><h2 id="interface-clinic">Interface clinic: The booking screens, before and after</h2><p>Usability problems are easiest to see side by side. The four pairs below show screens of the clinic app before and after a redesign. Each pair names the gulf that the redesign narrows and the principle that it uses. Weeks 2 to 5 add the reasons from human perception, memory and movement, and Week 5 turns them into heuristics for evaluating any screen.</p><div class="uiclinic" id="ui-find"><p class="small"><strong>Interface clinic: Where is the booking?</strong> The home screen of the clinic app, the first thing a patient sees.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>News first, booking hidden</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">☰ &nbsp;City Hospital</div><div class="bd"><div class="card2"><b>New parking area opens</b><div class="muted">The east car park opens on Monday.</div></div><div class="card2"><b>Flu vaccination days</b><div class="muted">Every Wednesday in November.</div></div><div class="card2"><b>Visiting hours</b><div class="muted">Daily from 13:00 to 20:00.</div></div></div></div><p class="ui-why">Booking hides three levels deep, under ☰, Services and Appointments, and nothing on the screen signals it. The gulf of execution is wide.</p></div><div class="ui-col"><h4><span class="tag good">After</span>The main goal one tap away</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">City Hospital</div><div class="bd"><div class="pb">Book an appointment</div><div class="pb" style="background:#fff;color:#2F5D8A;border:1px solid #2F5D8A">My appointments</div><div class="pb" style="background:#fff;color:#2F5D8A;border:1px solid #2F5D8A">Test results</div><div class="muted" style="margin-top:12px">Hospital news</div></div><div class="tabbar"><div class="on">Home</div><div>Appointments</div><div>Results</div><div>Profile</div></div></div><p class="ui-why">The most frequent goal is a large, labelled button, and the tab bar keeps Appointments visible on every screen. Visibility and signifiers narrow the gulf of execution.</p></div></div></div><div class="uiclinic" id="ui-department"><p class="small"><strong>Interface clinic: Choosing a department.</strong> Step 3 of the booking flow, where a complaint must become a medical department.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Forty names in alphabetical order</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Department</div><div class="bd"><div class="lbl">Select department</div><div class="list"><div>Allergy and Immunology</div><div>Anaesthesiology</div><div>Audiology</div><div>Brain Surgery</div><div>Cardiology</div><div>Cardiovascular Surgery</div><div>Chest Diseases</div><div>Child Health</div><div>Dentistry</div></div><div class="muted">31 more below</div></div></div><p class="ui-why">A patient with chest pain thinks of the heart, but the list offers Cardiology, Cardiovascular Surgery and Chest Diseases. Reading forty names and recalling the medical term widen the gulf of execution.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Search in the patient's words</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Department</div><div class="bd"><div class="fld">🔍 heart</div><div class="card2"><b>Cardiology</b><div class="muted">Heart and blood vessels</div></div><div class="lbl">Frequent</div><div class="chips"><span class="chip">Family medicine</span><span class="chip">Internal medicine</span><span class="chip">Eye diseases</span><span class="chip">Dermatology</span></div><div class="muted">Not sure? Describe your complaint.</div></div></div><p class="ui-why">Search accepts everyday words, each result explains itself, and the frequent departments are visible as chips. Recognising an option is easier than recalling it, as Week 3 explains.</p></div></div></div><div class="uiclinic" id="ui-error"><p class="small"><strong>Interface clinic: The error message.</strong> A date typed by hand that does not exist.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A code without a way out</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Date</div><div class="bd"><div class="lbl">Date</div><div class="fld err">31.02.2027</div><div class="msg raw">Error 0x45: INVALID_INPUT</div><div class="pb dis">Continue</div></div></div><p class="ui-why">The message names no field, no cause and no next step. The patient cannot interpret it, so the gulf of evaluation stays wide.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Cause and next step in plain words</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Date</div><div class="bd"><div class="lbl">Date</div><div class="fld err">31.02.2027</div><div class="msg e">February 2027 has 28 days. Choose a date in the calendar below.</div><div class="pb">Open the calendar</div></div></div><p class="ui-why">The message names the field, explains the cause and offers the next step. A calendar that only shows valid dates would prevent the error altogether, which is a constraint.</p></div></div></div><div class="uiclinic" id="ui-confirm"><p class="small"><strong>Interface clinic: After pressing Book.</strong> The last step of the flow, where the patient learns whether the booking worked.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A grey button and silence</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">‹ &nbsp;Summary</div><div class="bd"><div class="card2">Cardiology<br>Dr. Selin Arslan<br>Tue 9 March, 10:40</div><div class="pb dis"><span class="spin"></span>&nbsp; Book</div></div></div><p class="ui-why">The button turns grey and nothing else happens. Patients cannot tell whether the booking worked, so some press again and others call the hospital.</p></div><div class="ui-col"><h4><span class="tag good">After</span>A confirmation in the patient's terms</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Appointment booked</div><div class="bd"><div class="msg o">✓ Your appointment is booked.</div><div class="card2"><b>Cardiology, Dr. Selin Arslan</b><br>Tuesday 9 March 2027, 10:40<br>Building B, floor 2, room 214</div><div class="pb">Add to calendar</div><div class="pb" style="background:#fff;color:#8A1F11;border:1px solid #C0392B">Cancel this booking</div></div></div><p class="ui-why">The card states who, when and where, and it offers the next actions, including an easy way back. Feedback narrows the gulf of evaluation.</p></div></div></div><div class="callout discuss"><b class="t">Discuss: Read the clinic</b><ol><li>Which of the four screens marked Before follows a system-centred logic, and whose logic is it?</li><li>Each screen marked After adds something: A button, a word or a message. What does each addition cost, for example in screen space or in development time?</li><li>Which redesign would you test first with real patients, and what would you measure?</li></ol></div><h2 id="the-human-side-of-the-loop">The human side of the loop</h2><p>The loop has a person on one side, and every stage depends on human abilities. Perceiving needs vision and hearing, interpreting and comparing need attention and memory, and performing needs movement. These abilities differ between people and change with age, fatigue and stress. Weeks 2 to 4 treat them one by one, with formulas that predict how long an action takes and how likely it fails. Week 2 also covers the psychological effects of colour, which shape whether a screen feels calm or urgent.</p><p>The context of use matters as much as the person <span class="cite" tabindex="0" data-refs="3">[3]</span>. The clinic app is used by a pensioner with reading glasses in a noisy waiting room and by a parent with a sick child on one arm. It is also used by a nurse at the front desk who books for others all day. The same screen can be easy for one of them and hard for another. The course therefore keeps these three users in view, and Week 6 turns them into personas.</p><p>Accessibility asks whether people with disabilities can use a system at all. A kiosk screen mounted at standing height excludes a patient in a wheelchair. Small grey text excludes a patient with low vision, and small buttons exclude a hand with a tremor. The Web Content Accessibility Guidelines (WCAG) turn such needs into testable criteria <span class="cite" tabindex="0" data-refs="23">[23]</span>, and Week 10 audits the clinic app against them. Designs that serve these users often help others as well: Large buttons are also easier to hit on a moving bus.</p><div class="callout life"><b class="t">In everyday life: One remote control, two users</b><p>A television remote with forty small buttons suits an owner who knows it by heart. A grandparent who uses it once a week sees forty choices, cannot read the labels and fears pressing the wrong one. The device has not changed, only the user and the context of use.</p></div><div class="callout discuss"><b class="t">Discuss: The same screen, different people</b><ol><li>Pick one screen of an app that you use daily. How would it work for your grandparent, for a person with low vision and for someone carrying two shopping bags?</li><li>Which of these users did the designers probably test the screen with, and how can you tell?</li></ol></div><h2 id="the-clinic-app-stage-1">The clinic app, stage 1: A baseline of the booking flow</h2><p>The current booking flow of the clinic app has eight steps. The table gives the assumed time, slip probability, repair time and probability of giving up after a slip for each step. The values are illustrative and chosen to be plausible for a first version of such an app. Later weeks replace them with predictions and measurements.</p><div class="tablewrap"><table><thead><tr><th>Step</th><th>Action</th><th>\(t_k\) (s)</th><th>\(e_k\)</th><th>\(r_k\) (s)</th><th>\(a_k\)</th></tr></thead><tbody><tr><td>1</td><td>Log in with the patient number and a password</td><td>20</td><td>0.10</td><td>30</td><td>0.20</td></tr><tr><td>2</td><td>Find Appointments under the Services menu</td><td>8</td><td>0.25</td><td>15</td><td>0.10</td></tr><tr><td>3</td><td>Choose the department from a list of 40</td><td>12</td><td>0.20</td><td>10</td><td>0.10</td></tr><tr><td>4</td><td>Choose the doctor</td><td>6</td><td>0.05</td><td>6</td><td>0.05</td></tr><tr><td>5</td><td>Pick a date in the calendar</td><td>10</td><td>0.15</td><td>12</td><td>0.10</td></tr><tr><td>6</td><td>Pick a time slot</td><td>5</td><td>0.08</td><td>6</td><td>0.05</td></tr><tr><td>7</td><td>Type the patient number again</td><td>15</td><td>0.12</td><td>20</td><td>0.15</td></tr><tr><td>8</td><td>Press Book, with no confirmation screen</td><td>4</td><td>0.10</td><td>25</td><td>0.10</td></tr></tbody></table></div><p>The formulas of this week give the baseline. The product of the eight smooth-step probabilities is \(P_0 = 0.318\), so fewer than one patient in three books without a single slip. The expected time is \(\mathrm{E}[T] = 96.2\) seconds, of which \(\sum t_k = 80\) seconds are the steps themselves and 16.2 seconds are repairs. The probability of completing the booking is \(P_c = 0.891\), so about eleven patients in a hundred give up. The largest losses come from step 2, where \(e_2 a_2 = 0.025\), and from steps 1 and 3, with 0.020 each. Step 2 also costs the most repair time on average, \(e_2 r_2 = 3.75\) seconds.</p><figure><img src="figures/w01_project_stage.png" alt="The clinic app, stage 1. Left: The expected share of patients still in the flow after each step. Right: The expected repair time e_k r_k of each step. The values come from Section 5 of the Colab notebook." loading="lazy"><figcaption>The clinic app, stage 1. Left: The expected share of patients still in the flow after each step. Right: The expected repair time \(e_k r_k\) of each step. The values come from Section 5 of the Colab notebook.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question of stage 1</th><th>Answer of the baseline</th><th>Where</th></tr></thead><tbody><tr><td>How many patients book without any slip?</td><td>\(P_0 = 0.318\)</td><td>Section 5</td></tr><tr><td>How long does a booking take on average?</td><td>\(\mathrm{E}[T] = 96.2\) s, 16.2 s of it for repairs</td><td>Section 5</td></tr><tr><td>How many patients complete the booking?</td><td>\(P_c = 0.891\); 10,000 simulated patients: 0.889</td><td>Section 5</td></tr><tr><td>Which steps lose the most patients?</td><td>Step 2 (0.025), then steps 1 and 3 (0.020 each)</td><td>Section 5</td></tr></tbody></table></div><p>The baseline already points to the gulfs and to their origin. Steps 2 and 3 are gulfs of execution: Patients cannot find the booking, and they must translate a complaint into a medical department. Step 7 is a system-centred step, because the app asks again for a number that it already knows. Step 8 is a gulf of evaluation, because the app gives no confirmation. The next weeks explain these failures with human abilities and redesign the steps, and Week 9 measures the new flow against this baseline.</p><div class="kc" data-answer="1" data-why="\(e_2 a_2 = 0.25 \times 0.10 = 0.025\), more than step 1 and step 3 with 0.020 each."><p class="q">Check your understanding. In the baseline, which step has the largest probability of giving up, \(e_k a_k\)?</p><label><input type="radio" name="KC6" value="0"> Step 1, logging in</label><label><input type="radio" name="KC6" value="1"> Step 2, finding Appointments</label><label><input type="radio" name="KC6" value="2"> Step 7, typing the patient number again</label><label><input type="radio" name="KC6" value="3"> Step 8, pressing Book</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pg"><a class="btn" href="lab.html#pg" target="_blank" rel="noopener">Open lab Part G</a><p><b>Interactive lab, Part G.</b> A short flow of four steps for a pharmacy app, with \(P_0\), \(\mathrm{E}[T]\) and \(P_c\) computed by hand.</p></div><div class="colabbox" id="colab-sec-5"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-5" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 5.</b> Open Section 5 of the Colab notebook and run it. The code applies the three functions of Section 3 to the eight steps of the table and simulates 10,000 patients. It prints the baseline, draws the two panels of the figure above and stores the results in the dictionary <code>BASELINE</code>.</p></div><h2 id="your-application">Your application</h2><p>The same model applies to any app with a flow of steps. The Colab notebook holds an application switch with four further flows: Online banking, an e-government service, food delivery and course registration at a university. Choose one, run the analysis and find its weakest step.</p><div class="colabbox" id="colab-sec-6"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-01/NB01_interaction_loop_and_usability.ipynb#scrollTo=sec-6" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 6.</b> Open Section 6 of the Colab notebook, set <code>APP</code> to one of the five names in the comment and run the cells. The code prints \(P_0\), \(\mathrm{E}[T]\) and \(P_c\) of the chosen flow, names its weakest step and draws its funnel.</p></div><h2 id="toward-human-ai-interaction">Toward human-AI interaction</h2><p>The loop of this week assumes a system that does what it shows. An AI assistant changes both gulfs. The gulf of execution widens when the assistant accepts any sentence: Users cannot see what it can do, so they do not know what to ask. The gulf of evaluation widens when its answers can be fluent and wrong: A confident reply about the right department can still be a mistake. Amershi and colleagues therefore put two rules at the top of their eighteen guidelines for human-AI interaction <span class="cite" tabindex="0" data-refs="24">[24]</span>. The first is to make clear what the system can do, and the second is to make clear how well it can do it.</p><p>Human-centred AI asks the questions that HCI asks of every system, with higher stakes <span class="cite" tabindex="0" data-refs="25,26">[25, 26]</span>. An AI system can also be built system-centred, around what the model happens to produce rather than what people need. Weeks 13 and 14 add an AI assistant to the clinic app and measure when patients rely on it too much or too little.</p><div class="callout ai"><b class="t">An assistant that shows its limits</b><p>A navigation app that says it has no traffic data for a road narrows the gulf of evaluation, because the driver knows when to trust the route. A chatbot that answers every question in the same confident tone leaves the user to guess.</p></div><div class="callout discuss"><b class="t">Discuss: Gulfs with an AI</b><ol><li>How does a chatbot show you what it can do? Compare it with a menu.</li><li>How do you notice that an answer of an AI is wrong, and what does the interface do to help you?</li></ol></div><h2 id="review-cards">Review cards</h2><p class="small">Select a card to turn it over.</p><div class="cards"><div class="card" tabindex="0" role="button"><div class="f">Human-computer interaction (HCI)</div><div class="b">The discipline of designing, evaluating and implementing interactive computing systems for human use <span class="cite" tabindex="0" data-refs="1">[1]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Interface and interaction</div><div class="b">The interface is what a person sees, hears and touches; the interaction is the sequence of actions and responses over time.</div></div><div class="card" tabindex="0" role="button"><div class="f">System-centred design</div><div class="b">Design that starts from the data, the technology and the organisation, so that users adapt to the system.</div></div><div class="card" tabindex="0" role="button"><div class="f">User-centred design (UCD)</div><div class="b">Design that starts from the users, their goals, tasks and context, and shapes the system around them <span class="cite" tabindex="0" data-refs="12">[12]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Human-centred design</div><div class="b">The term of ISO 9241-210 for user-centred design that also considers other people affected by a system <span class="cite" tabindex="0" data-refs="13">[13]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Cost of a design decision</div><div class="b">\(C = N D \Delta t\): Uses per day times days per year times the extra time of each use.</div></div><div class="card" tabindex="0" role="button"><div class="f">Seven stages of action</div><div class="b">Goal, then plan, specify and perform (execution), then perceive, interpret and compare (evaluation) <span class="cite" tabindex="0" data-refs="14">[14]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Gulf of execution</div><div class="b">The distance between what a person wants to do and the actions that the system makes available.</div></div><div class="card" tabindex="0" role="button"><div class="f">Gulf of evaluation</div><div class="b">The distance between the state of the system and the person's understanding of it.</div></div><div class="card" tabindex="0" role="button"><div class="f">Usability</div><div class="b">The extent to which specified users reach specified goals with effectiveness, efficiency and satisfaction in a specified context of use <span class="cite" tabindex="0" data-refs="3">[3]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">User experience (UX)</div><div class="b">The perceptions and responses that result from the use or the expected use of a system <span class="cite" tabindex="0" data-refs="13">[13]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Completion rate</div><div class="b">\(E = s/n\): The share of the participants who complete a task.</div></div><div class="card" tabindex="0" role="button"><div class="f">Efficiency in this course</div><div class="b">\(\eta\): Completed tasks per minute of total time spent by all participants.</div></div><div class="card" tabindex="0" role="button"><div class="f">System Usability Scale (SUS)</div><div class="b">Ten statements rated from 1 to 5, scored from 0 to 100; the mean of published studies is about 68 <span class="cite" tabindex="0" data-refs="18,20">[18, 20]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Affordance</div><div class="b">A relationship between an object and a person that determines how the object could be used.</div></div><div class="card" tabindex="0" role="button"><div class="f">Signifier</div><div class="b">A perceivable cue that shows where and how to act.</div></div><div class="card" tabindex="0" role="button"><div class="f">Mapping</div><div class="b">The relationship between controls and their effects; natural when it uses spatial correspondence.</div></div><div class="card" tabindex="0" role="button"><div class="f">Constraint</div><div class="b">A limit on the possible actions that prevents errors, such as a greyed-out past date.</div></div><div class="card" tabindex="0" role="button"><div class="f">Feedback</div><div class="b">Information about the result of an action, given at once.</div></div><div class="card" tabindex="0" role="button"><div class="f">Context of use</div><div class="b">The users, their goals and tasks, their equipment and the environment.</div></div><div class="card" tabindex="0" role="button"><div class="f">Accessibility</div><div class="b">The extent to which people with disabilities can use a system; WCAG gives testable criteria <span class="cite" tabindex="0" data-refs="23">[23]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Slip</div><div class="b">An error in carrying out an intended action, such as a wrong tap.</div></div><div class="card" tabindex="0" role="button"><div class="f">\(P_0\), \(\mathrm{E}[T]\) and \(P_c\)</div><div class="b">The probability of no slip, the expected time with repairs and the probability of completing a chain of steps.</div></div></div><h2 id="references">References</h2><p class="small" id="ref-1">[1] Hewett, T., Baecker, R., Card, S., Carey, T., Gasen, J., Mantei, M., Perlman, G., Strong, G., &amp; Verplank, W. (1992). <i>ACM SIGCHI Curricula for Human-Computer Interaction</i>. Association for Computing Machinery. <a href="https://doi.org/10.1145/2594128">https://doi.org/10.1145/2594128</a></p><p class="small" id="ref-2">[2] Norman, D. A. (1986). Cognitive engineering. In D. A. Norman &amp; S. W. Draper (Eds.), <i>User Centered System Design: New Perspectives on Human-Computer Interaction</i> (pp. 31-62). Lawrence Erlbaum Associates. <a href="https://doi.org/10.1201/b15703-3">https://doi.org/10.1201/b15703-3</a></p><p class="small" id="ref-3">[3] International Organization for Standardization. (2018). <i>Ergonomics of human-system interaction - Part 11: Usability: Definitions and concepts</i> (ISO Standard No. 9241-11:2018). ISO. <a href="https://www.iso.org/standard/63500.html">https://www.iso.org/standard/63500.html</a></p><p class="small" id="ref-4">[4] Kluyver, T., Ragan-Kelley, B., Pérez, F., Granger, B., Bussonnier, M., Frederic, J., Kelley, K., Hamrick, J., Grout, J., Corlay, S., Ivanov, P., Avila, D., Abdalla, S., Willing, C., &amp; Jupyter development team. (2016). Jupyter Notebooks: A publishing format for reproducible computational workflows. In F. Loizides &amp; B. Schmidt (Eds.), <i>Positioning and Power in Academic Publishing: Players, Agents and Agendas</i> (pp. 87-90). IOS Press. <a href="https://doi.org/10.3233/978-1-61499-649-1-87">https://doi.org/10.3233/978-1-61499-649-1-87</a></p><p class="small" id="ref-5">[5] Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.</p><p class="small" id="ref-6">[6] Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a></p><p class="small" id="ref-7">[7] McKinney, W. (2010). Data structures for statistical computing in Python. In <i>Proceedings of the 9th Python in Science Conference</i> (pp. 56-61). <a href="https://doi.org/10.25080/Majora-92bf1922-00a">https://doi.org/10.25080/Majora-92bf1922-00a</a></p><p class="small" id="ref-8">[8] Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. <i>Computing in Science &amp; Engineering</i>, <i>9</i>(3), 90-95. <a href="https://doi.org/10.1109/MCSE.2007.55">https://doi.org/10.1109/MCSE.2007.55</a></p><p class="small" id="ref-9">[9] Sutherland, I. E. (1963). Sketchpad: A man-machine graphical communication system. In <i>Proceedings of the May 21-23, 1963, Spring Joint Computer Conference (AFIPS '63 Spring)</i> (pp. 329-346). ACM. <a href="https://doi.org/10.1145/1461551.1461591">https://doi.org/10.1145/1461551.1461591</a></p><p class="small" id="ref-10">[10] Engelbart, D. C., &amp; English, W. K. (1968). A research center for augmenting human intellect. In <i>Proceedings of the December 9-11, 1968, Fall Joint Computer Conference, Part I (AFIPS '68 Fall, Part I)</i> (pp. 395-410). ACM. <a href="https://doi.org/10.1145/1476589.1476645">https://doi.org/10.1145/1476589.1476645</a></p><p class="small" id="ref-11">[11] Myers, B. A. (1998). A brief history of human-computer interaction technology. <i>Interactions</i>, <i>5</i>(2), 44-54. <a href="https://doi.org/10.1145/274430.274436">https://doi.org/10.1145/274430.274436</a></p><p class="small" id="ref-12">[12] Gould, J. D., &amp; Lewis, C. (1985). Designing for usability: Key principles and what designers think. <i>Communications of the ACM</i>, <i>28</i>(3), 300-311. <a href="https://doi.org/10.1145/3166.3170">https://doi.org/10.1145/3166.3170</a></p><p class="small" id="ref-13">[13] International Organization for Standardization. (2019). <i>Ergonomics of human-system interaction - Part 210: Human-centred design for interactive systems</i> (ISO Standard No. 9241-210:2019). ISO. <a href="https://www.iso.org/standard/77520.html">https://www.iso.org/standard/77520.html</a></p><p class="small" id="ref-14">[14] Norman, D. A. (2013). <i>The Design of Everyday Things</i> (Revised and expanded edition). Basic Books. <a href="https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/">https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/</a></p><p class="small" id="ref-15">[15] Hutchins, E. L., Hollan, J. D., &amp; Norman, D. A. (1985). Direct manipulation interfaces. <i>Human-Computer Interaction</i>, <i>1</i>(4), 311-338. <a href="https://doi.org/10.1207/s15327051hci0104_2">https://doi.org/10.1207/s15327051hci0104_2</a></p><p class="small" id="ref-16">[16] Nielsen, J. (1993). What is usability? In <i>Usability Engineering</i> (pp. 23-48). Academic Press. <a href="https://doi.org/10.1016/B978-0-08-052029-2.50005-X">https://doi.org/10.1016/B978-0-08-052029-2.50005-X</a></p><p class="small" id="ref-17">[17] Tüfekçi, A., Ekinci, H., &amp; Köse, U. (2013). Development of an internet-based exam system for mobile environments and evaluation of its usability. <i>Mevlana International Journal of Education</i>, <i>3</i>(4), 57-74. <a href="https://doi.org/10.13054/mije.13.59.3.4">https://doi.org/10.13054/mije.13.59.3.4</a></p><p class="small" id="ref-18">[18] Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan, B. Thomas, B. A. Weerdmeester, &amp; I. L. McClelland (Eds.), <i>Usability Evaluation in Industry</i> (pp. 189-194). Taylor &amp; Francis. <a href="https://doi.org/10.1201/9781498710411-35">https://doi.org/10.1201/9781498710411-35</a></p><p class="small" id="ref-19">[19] Lewis, J. R. (2018). The System Usability Scale: Past, present, and future. <i>International Journal of Human-Computer Interaction</i>, <i>34</i>(7), 577-590. <a href="https://doi.org/10.1080/10447318.2018.1455307">https://doi.org/10.1080/10447318.2018.1455307</a></p><p class="small" id="ref-20">[20] Sauro, J., &amp; Lewis, J. R. (2016). <i>Quantifying the User Experience: Practical Statistics for User Research</i> (2nd ed.). Morgan Kaufmann. <a href="https://shop.elsevier.com/books/catalog/isbn/9780128023082">https://shop.elsevier.com/books/catalog/isbn/9780128023082</a></p><p class="small" id="ref-21">[21] Gibson, J. J. (2014). <i>The Ecological Approach to Visual Perception</i> (Classic edition). Psychology Press. Original work published 1979. <a href="https://doi.org/10.4324/9781315740218">https://doi.org/10.4324/9781315740218</a></p><p class="small" id="ref-22">[22] Chapanis, A., &amp; Lindenbaum, L. E. (1959). A reaction time study of four control-display linkages. <i>Human Factors</i>, <i>1</i>(4), 1-7. <a href="https://doi.org/10.1177/001872085900100401">https://doi.org/10.1177/001872085900100401</a></p><p class="small" id="ref-23">[23] Campbell, A., Adams, C., Bradley Montgomery, R., Cooper, M., &amp; Kirkpatrick, A. (Eds.). (2023). <i>Web Content Accessibility Guidelines (WCAG) 2.2</i> (W3C Recommendation). World Wide Web Consortium. <a href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a></p><p class="small" id="ref-24">[24] Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., &amp; Horvitz, E. (2019). Guidelines for human-AI interaction. In <i>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-13). ACM. <a href="https://doi.org/10.1145/3290605.3300233">https://doi.org/10.1145/3290605.3300233</a></p><p class="small" id="ref-25">[25] Shneiderman, B. (2020). Human-centered artificial intelligence: Reliable, safe &amp; trustworthy. <i>International Journal of Human-Computer Interaction</i>, <i>36</i>(6), 495-504. <a href="https://doi.org/10.1080/10447318.2020.1741118">https://doi.org/10.1080/10447318.2020.1741118</a></p><p class="small" id="ref-26">[26] Xu, W. (2019). Toward human-centered AI: A perspective from human-computer interaction. <i>Interactions</i>, <i>26</i>(4), 42-46. <a href="https://doi.org/10.1145/3328485">https://doi.org/10.1145/3328485</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="application/json" id="refdata">{"1": "Hewett, T., Baecker, R., Card, S., Carey, T., Gasen, J., Mantei, M., Perlman, G., Strong, G., &amp; Verplank, W. (1992). <i>ACM SIGCHI Curricula for Human-Computer Interaction</i>. Association for Computing Machinery. <a href=\"https://doi.org/10.1145/2594128\">https://doi.org/10.1145/2594128</a>", "2": "Norman, D. A. (1986). Cognitive engineering. In D. A. Norman &amp; S. W. Draper (Eds.), <i>User Centered System Design: New Perspectives on Human-Computer Interaction</i> (pp. 31-62). Lawrence Erlbaum Associates. <a href=\"https://doi.org/10.1201/b15703-3\">https://doi.org/10.1201/b15703-3</a>", "3": "International Organization for Standardization. (2018). <i>Ergonomics of human-system interaction - Part 11: Usability: Definitions and concepts</i> (ISO Standard No. 9241-11:2018). ISO. <a href=\"https://www.iso.org/standard/63500.html\">https://www.iso.org/standard/63500.html</a>", "4": "Kluyver, T., Ragan-Kelley, B., Pérez, F., Granger, B., Bussonnier, M., Frederic, J., Kelley, K., Hamrick, J., Grout, J., Corlay, S., Ivanov, P., Avila, D., Abdalla, S., Willing, C., &amp; Jupyter development team. (2016). Jupyter Notebooks: A publishing format for reproducible computational workflows. In F. Loizides &amp; B. Schmidt (Eds.), <i>Positioning and Power in Academic Publishing: Players, Agents and Agendas</i> (pp. 87-90). IOS Press. <a href=\"https://doi.org/10.3233/978-1-61499-649-1-87\">https://doi.org/10.3233/978-1-61499-649-1-87</a>", "5": "Van Rossum, G., &amp; Drake, F. L. (2009). <i>Python 3 Reference Manual</i>. CreateSpace.", "6": "Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href=\"https://doi.org/10.1038/s41586-020-2649-2\">https://doi.org/10.1038/s41586-020-2649-2</a>", "7": "McKinney, W. (2010). Data structures for statistical computing in Python. In <i>Proceedings of the 9th Python in Science Conference</i> (pp. 56-61). <a href=\"https://doi.org/10.25080/Majora-92bf1922-00a\">https://doi.org/10.25080/Majora-92bf1922-00a</a>", "8": "Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. <i>Computing in Science &amp; Engineering</i>, <i>9</i>(3), 90-95. <a href=\"https://doi.org/10.1109/MCSE.2007.55\">https://doi.org/10.1109/MCSE.2007.55</a>", "9": "Sutherland, I. E. (1963). Sketchpad: A man-machine graphical communication system. In <i>Proceedings of the May 21-23, 1963, Spring Joint Computer Conference (AFIPS '63 Spring)</i> (pp. 329-346). ACM. <a href=\"https://doi.org/10.1145/1461551.1461591\">https://doi.org/10.1145/1461551.1461591</a>", "10": "Engelbart, D. C., &amp; English, W. K. (1968). A research center for augmenting human intellect. In <i>Proceedings of the December 9-11, 1968, Fall Joint Computer Conference, Part I (AFIPS '68 Fall, Part I)</i> (pp. 395-410). ACM. <a href=\"https://doi.org/10.1145/1476589.1476645\">https://doi.org/10.1145/1476589.1476645</a>", "11": "Myers, B. A. (1998). A brief history of human-computer interaction technology. <i>Interactions</i>, <i>5</i>(2), 44-54. <a href=\"https://doi.org/10.1145/274430.274436\">https://doi.org/10.1145/274430.274436</a>", "12": "Gould, J. D., &amp; Lewis, C. (1985). Designing for usability: Key principles and what designers think. <i>Communications of the ACM</i>, <i>28</i>(3), 300-311. <a href=\"https://doi.org/10.1145/3166.3170\">https://doi.org/10.1145/3166.3170</a>", "13": "International Organization for Standardization. (2019). <i>Ergonomics of human-system interaction - Part 210: Human-centred design for interactive systems</i> (ISO Standard No. 9241-210:2019). ISO. <a href=\"https://www.iso.org/standard/77520.html\">https://www.iso.org/standard/77520.html</a>", "14": "Norman, D. A. (2013). <i>The Design of Everyday Things</i> (Revised and expanded edition). Basic Books. <a href=\"https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/\">https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/</a>", "15": "Hutchins, E. L., Hollan, J. D., &amp; Norman, D. A. (1985). Direct manipulation interfaces. <i>Human-Computer Interaction</i>, <i>1</i>(4), 311-338. <a href=\"https://doi.org/10.1207/s15327051hci0104_2\">https://doi.org/10.1207/s15327051hci0104_2</a>", "16": "Nielsen, J. (1993). What is usability? In <i>Usability Engineering</i> (pp. 23-48). Academic Press. <a href=\"https://doi.org/10.1016/B978-0-08-052029-2.50005-X\">https://doi.org/10.1016/B978-0-08-052029-2.50005-X</a>", "17": "Tüfekçi, A., Ekinci, H., &amp; Köse, U. (2013). Development of an internet-based exam system for mobile environments and evaluation of its usability. <i>Mevlana International Journal of Education</i>, <i>3</i>(4), 57-74. <a href=\"https://doi.org/10.13054/mije.13.59.3.4\">https://doi.org/10.13054/mije.13.59.3.4</a>", "18": "Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan, B. Thomas, B. A. Weerdmeester, &amp; I. L. McClelland (Eds.), <i>Usability Evaluation in Industry</i> (pp. 189-194). Taylor &amp; Francis. <a href=\"https://doi.org/10.1201/9781498710411-35\">https://doi.org/10.1201/9781498710411-35</a>", "19": "Lewis, J. R. (2018). The System Usability Scale: Past, present, and future. <i>International Journal of Human-Computer Interaction</i>, <i>34</i>(7), 577-590. <a href=\"https://doi.org/10.1080/10447318.2018.1455307\">https://doi.org/10.1080/10447318.2018.1455307</a>", "20": "Sauro, J., &amp; Lewis, J. R. (2016). <i>Quantifying the User Experience: Practical Statistics for User Research</i> (2nd ed.). Morgan Kaufmann. <a href=\"https://shop.elsevier.com/books/catalog/isbn/9780128023082\">https://shop.elsevier.com/books/catalog/isbn/9780128023082</a>", "21": "Gibson, J. J. (2014). <i>The Ecological Approach to Visual Perception</i> (Classic edition). Psychology Press. Original work published 1979. <a href=\"https://doi.org/10.4324/9781315740218\">https://doi.org/10.4324/9781315740218</a>", "22": "Chapanis, A., &amp; Lindenbaum, L. E. (1959). A reaction time study of four control-display linkages. <i>Human Factors</i>, <i>1</i>(4), 1-7. <a href=\"https://doi.org/10.1177/001872085900100401\">https://doi.org/10.1177/001872085900100401</a>", "23": "Campbell, A., Adams, C., Bradley Montgomery, R., Cooper, M., &amp; Kirkpatrick, A. (Eds.). (2023). <i>Web Content Accessibility Guidelines (WCAG) 2.2</i> (W3C Recommendation). World Wide Web Consortium. <a href=\"https://www.w3.org/TR/WCAG22/\">https://www.w3.org/TR/WCAG22/</a>", "24": "Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh, J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., &amp; Horvitz, E. (2019). Guidelines for human-AI interaction. In <i>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-13). ACM. <a href=\"https://doi.org/10.1145/3290605.3300233\">https://doi.org/10.1145/3290605.3300233</a>", "25": "Shneiderman, B. (2020). Human-centered artificial intelligence: Reliable, safe &amp; trustworthy. <i>International Journal of Human-Computer Interaction</i>, <i>36</i>(6), 495-504. <a href=\"https://doi.org/10.1080/10447318.2020.1741118\">https://doi.org/10.1080/10447318.2020.1741118</a>", "26": "Xu, W. (2019). Toward human-centered AI: A perspective from human-computer interaction. <i>Interactions</i>, <i>26</i>(4), 42-46. <a href=\"https://doi.org/10.1145/3328485\">https://doi.org/10.1145/3328485</a>"}</script><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:"neutral"});</script><script>(function(){
+
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Scene: Two gulfs in 3D. A patient and the clinic app on two cliffs, joined by the bridges of execution and evaluation. */
+(function () {
+  const box = document.getElementById("sn-3d"); if (!box) return;
+  const BASE = [{t: 20, e: 0.10, r: 30, a: 0.20}, {t: 8, e: 0.25, r: 15, a: 0.10}, {t: 12, e: 0.20, r: 10, a: 0.10},
+    {t: 6, e: 0.05, r: 6, a: 0.05}, {t: 10, e: 0.15, r: 12, a: 0.10}, {t: 5, e: 0.08, r: 6, a: 0.05},
+    {t: 15, e: 0.12, r: 20, a: 0.15}, {t: 4, e: 0.10, r: 25, a: 0.10}];
+  const CH = [
+    {id: "vis", side: "x", label: "Show Appointments on the home screen", apply: f => { f[1] = {t: 3, e: 0.05, r: 8, a: 0.05}; }},
+    {id: "words", side: "x", label: "Use the patient's words", apply: f => { f[2] = {t: 9, e: 0.08, r: 8, a: 0.05}; f[6].e = 0.08; }},
+    {id: "fb", side: "v", label: "Give immediate feedback", apply: f => { f[7].e = f[7].e / 2; f[7].r = f[7].r * 0.48; }},
+    {id: "conf", side: "v", label: "Confirm in the patient's terms", apply: f => { f[7].e = f[7].e / 2; f[7].r = f[7].r * 0.6; f[4].e = 0.10; }},
+  ];
+  const on = {vis: false, words: false, fb: false, conf: false};
+  const btns = document.getElementById("sn-btns"), say = document.getElementById("sn-say"), ro = document.getElementById("sn-ro");
+  btns.append(h("span", {class: "sn-lab"}, "Design changes:"));
+  CH.forEach(c => {
+    const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": "false"}, c.label);
+    b.addEventListener("click", () => { on[c.id] = !on[c.id]; b.setAttribute("aria-pressed", on[c.id] ? "true" : "false"); update(); });
+    btns.append(b);
+  });
+  const rst = h("button", {class: "btn ghost", type: "button"}, "Start again");
+  rst.addEventListener("click", () => { Object.keys(on).forEach(k => { on[k] = false; }); $$("button[aria-pressed]", btns).forEach(b => b.setAttribute("aria-pressed", "false")); update(); });
+  btns.append(rst);
+  const SAYX = {
+    "00": "Ayşe Hanım sees hospital news but no way to book. She opens the menu, then Services, and scrolls through forty departments looking for the heart.",
+    "10": "She taps Book an appointment at once. In the list of forty departments, she still does not know which name means the heart.",
+    "01": "Booking still hides behind the menu, but once she finds it, a search for heart shows Cardiology first.",
+    "11": "She taps Book an appointment and types heart. Cardiology is the first result, with a short explanation."};
+  const SAYV = {
+    "00": "After she presses Book, the button turns grey and nothing else happens. Did it work? She presses again.",
+    "10": "Booking... appears at once, then Booked. She knows that it worked, but not for which day.",
+    "01": "After a long silence, a card shows the doctor, the day and the room. She almost pressed again.",
+    "11": "Booking... appears at once, then a card with the doctor, the day, the room and a button to add it to her calendar."};
+  const gap = (a, b) => 1.7 - 0.7 * a - 0.7 * b;  // half-width of the hole in a bridge, in metres
+  let G = null, bridges = null;
+  function update() {
+    const f = BASE.map(s => Object.assign({}, s));
+    CH.forEach(c => { if (on[c.id]) c.apply(f); });
+    const P0 = f.reduce((p, s) => p * (1 - s.e), 1), ET = f.reduce((x, s) => x + s.t + s.e * s.r, 0), Pc = f.reduce((p, s) => p * (1 - s.e * s.a), 1);
+    say.textContent = SAYX[(on.vis ? "1" : "0") + (on.words ? "1" : "0")] + " " + SAYV[(on.fb ? "1" : "0") + (on.conf ? "1" : "0")];
+    ro.textContent = "";
+    const gx = gap(on.vis, on.words), gv = gap(on.fb, on.conf), word = g => g > 1.2 ? "wide" : g > 0.6 ? "narrower" : "narrow";
+    [["gulf of execution", word(gx)], ["gulf of evaluation", word(gv)], ["expected time E[T]", ET.toFixed(1) + " s"],
+      ["chance of at least one slip", (100 * (1 - P0)).toFixed(0) + " %"], ["completes the booking", (100 * Pc).toFixed(1) + " %"]]
+      .forEach(([k, v]) => ro.append(h("span", {}, k + ": ", h("b", {}, v))));
+    if (bridges) { bridges.x.setGap(gx); bridges.v.setGap(gv); G.redraw(); }
+  }
+  if (!has3D()) { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser; the buttons and numbers below still work.")); update(); return; }
+  G = make3D(box, {camera: [0, 3.5, 7.6], target: [0, 0.7, 0], limits: [4, 16, 1.4], aspect: 0.5, bg: 0xDCE6EE});
+  const T = G.T, scene = G.scene;
+  const mat = (c, o) => new T.MeshStandardMaterial(Object.assign({color: c, roughness: 0.85}, o || {}));
+  [-1, 1].forEach(sd => {
+    const cliff = new T.Mesh(new T.BoxGeometry(3.2, 3.2, 4.6), mat(0xB49E7E)); cliff.position.set(sd * 4.4, -0.6, 0); scene.add(cliff);
+    const grass = new T.Mesh(new T.BoxGeometry(3.2, 0.12, 4.6), mat(0x7FA86A)); grass.position.set(sd * 4.4, 1.06, 0); scene.add(grass);
+  });
+  const river = new T.Mesh(new T.PlaneGeometry(5.6, 4.6), mat(0x5C8FB0, {roughness: 0.3})); river.rotation.x = -Math.PI / 2; river.position.set(0, -1.9, 0); scene.add(river);
+  // The patient on the left, the app on the right
+  const patient = LABKIT.human(G, {type: "oldman", at: [-4.75, 1.12, 0.05], face: Math.PI / 2, top: 0x8B6FB0, bottom: 0x3A3F4A, skin: LABKIT.LOOKS.skin[1]});
+  const cane = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 10), mat(0x4A3A2A, {roughness: 0.5})); cane.position.set(-0.27, 0.43, 0.16); cane.rotation.z = -0.06;
+  const grip = new T.Mesh(new T.TorusGeometry(0.045, 0.013, 8, 16, Math.PI), mat(0x4A3A2A, {roughness: 0.5})); grip.position.set(-0.27 + 0.045, 0.86, 0.16); grip.rotation.z = 0; cane.userData.noShadow = false;
+  patient.group.add(cane, grip);
+  patient.set("look", new T.Vector3(4.6, 2.2, 0));
+  const ag = new T.Group(); ag.position.set(4.6, 1.12, 0); scene.add(ag);
+  const kb = new T.Mesh(new T.BoxGeometry(0.7, 1.5, 0.5), mat(0xF4F6F9)); kb.position.y = 0.75;
+  const ks = new T.Mesh(new T.BoxGeometry(0.62, 0.48, 0.04), mat(0x2F5D8A, {roughness: 0.3})); ks.position.set(0, 1.12, 0.26);
+  ag.add(kb, ks);
+  const lab = (t, x, y, z, s) => { const sp = label3D(t, {size: 44, scale: s || 0.0062, depthTest: false}); sp.position.set(x, y, z); scene.add(sp); return sp; };
+  lab("Patient, 74", -4.6, 3.2, 0); lab("Clinic app", 4.6, 3.2, 0);
+  lab("Execution: goal → actions", -1.7, 1.9, -1.0, 0.0052); lab("Evaluation: state → understanding", 1.5, 0.62, 1.7, 0.0052);
+  // Two bridges of planks; the planks inside the gulf are missing
+  function bridge(z, col) {
+    const planks = [], posts = [], railMat = mat(col, {roughness: 0.5}), postMat = mat(col);
+    let segs = [], half = 1.7;
+    for (let i = 0; i < 26; i++) {
+      const p = new T.Mesh(new T.BoxGeometry(0.19, 0.06, 0.62), mat(0x9C7A55)); p.position.set(-2.75 + i * 0.22, 1.04, z); scene.add(p); planks.push(p);
+      if (i % 5 === 0) [-0.33, 0.33].forEach(dz => { const q = new T.Mesh(new T.BoxGeometry(0.05, 0.32, 0.05), postMat); q.position.set(p.position.x, 1.2, z + dz); scene.add(q); posts.push(q); });
+    }
+    function setGap(g) {
+      half = g;
+      planks.forEach(p => { p.visible = Math.abs(p.position.x) > g; });
+      posts.forEach(q => { q.visible = Math.abs(q.position.x) > g; });
+      segs.forEach(m => scene.remove(m)); segs = [];
+      const L = 2.85 - g, pieces = g < 0.15 ? [[0, 5.7]] : [[-(g + L / 2), L], [g + L / 2, L]];
+      pieces.forEach(([cx, w]) => [-0.33, 0.33].forEach(dz => { const m = new T.Mesh(new T.BoxGeometry(w, 0.05, 0.05), railMat); m.position.set(cx, 1.36, z + dz); scene.add(m); segs.push(m); }));
+    }
+    setGap(1.7);
+    return {z, get half() { return half; }, setGap};
+  }
+  const bx = bridge(-1.0, 0x5A4BB5), bv = bridge(1.0, 0x2E8B57);
+  bridges = {x: bx, v: bv};
+  // Tokens that cross the bridges: an intention to the right and the feedback back to the left
+  const tok = (col) => { const m = new T.Mesh(new T.SphereGeometry(0.14, 18, 12), new T.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity: 0.35})); scene.add(m); return m; };
+  const tx = {m: tok(0x7B6CE0), b: bx, dir: 1, s: 0, fall: 0}, tv = {m: tok(0x39B072), b: bv, dir: -1, s: 0.5, fall: 0};
+  const still = reduced();
+  G.onTick(dt => {
+    [tx, tv].forEach(t => {
+      const half = t.b.half;
+      if (t.fall > 0) { t.fall += dt; t.m.position.y -= dt * 4.5; if (t.m.position.y < -1.8) { t.fall = 0; t.s = 0; t.drop = undefined; } return; }
+      if (still) { t.s = 0.25; } else t.s += dt * 0.22;
+      if (t.s > 1) { t.s = 0; t.drop = undefined; }
+      const x = t.dir * (-2.75 + 5.5 * t.s);
+      if (t.drop === undefined) t.drop = half > 0.2 && Math.random() < 0.6 * half / 1.7;
+      if (Math.abs(x) < half && t.drop && !still) { t.fall = 0.001; }
+      const hop = Math.abs(x) < half && !t.drop ? Math.sin(Math.PI * (x + half) / (2 * half)) * 0.9 : 0;
+      t.m.position.set(x, 1.22 + Math.max(0, hop), t.b.z);
+    });
+    return !still;
+  });
+  update();
+})();
+
+/* Animation: the booking funnel. Patients move through K steps; slips and giving up are random. */
+(function () {
+  const cv = document.getElementById("fn-cv"); if (!cv) return;
+  const P = {K: 8, e: 0.15, a: 0.2};
+  const sl = document.getElementById("fn-sl");
+  slider(sl, {label: "Number of steps K", min: 1, max: 12, step: 1, value: P.K}, v => { P.K = v; reset(); });
+  slider(sl, {label: "Slip probability e per step", min: 0, max: 0.4, step: 0.01, value: P.e, fmt: v => (+v).toFixed(2)}, v => { P.e = v; reset(); });
+  slider(sl, {label: "Share of slips that end with giving up, a", min: 0, max: 1, step: 0.05, value: P.a, fmt: v => (+v).toFixed(2)}, v => { P.a = v; reset(); });
+  const ro = readout(document.getElementById("fn-ro"), ["no slip at all: simulated", "no slip at all: formula P₀", "completed: simulated", "completed: formula P_c"]);
+  let seed = 7, dots = [], T = 0, running = false;
+  const N = 100, SPEED = 2.4, PAUSE = 0.4;
+  function reset() {
+    const r = RNG(seed); dots = [];
+    for (let i = 0; i < N; i++) {
+      // Decide the fate of each patient in advance: the first step with a slip, and whether it ends there.
+      const plan = []; let gaveUp = -1;
+      for (let k = 0; k < P.K; k++) { const slip = r() < P.e; const quit = slip && r() < P.a; plan.push(slip); if (quit) { gaveUp = k; break; } }
+      dots.push({i, plan, gaveUp, x: 0, y: 0.08 + 0.84 * (i % 25) / 24 + 0.004 * Math.floor(i / 25), start: i * 0.025, pause: 0, slipped: false, done: false, fall: 0});
+    }
+    T = 0; stats(false); stg.redraw();
+  }
+  function stats(final) {
+    const smooth = dots.filter(d => d.gaveUp < 0 && !d.plan.some(Boolean)).length, done = dots.filter(d => d.gaveUp < 0).length;
+    const P0 = Math.pow(1 - P.e, P.K), Pc = Math.pow(1 - P.e * P.a, P.K);
+    ro("no slip at all: simulated", final ? smooth + " %" : "-"); ro("no slip at all: formula P₀", (100 * P0).toFixed(1) + " %");
+    ro("completed: simulated", final ? done + " %" : "-"); ro("completed: formula P_c", (100 * Pc).toFixed(1) + " %");
+  }
+  const stg = stage(cv, 0.42, (ctx, w, hh) => {
+    const C = COL(); ctx.clearRect(0, 0, w, hh);
+    const L = 34, Rr = w - 70, top = 16, bot = hh - 46;
+    const X = s => L + (Rr - L) * s / P.K;
+    ctx.font = "11px " + cssv("--sans"); ctx.textAlign = "center";
+    for (let k = 0; k <= P.K; k++) {
+      ctx.strokeStyle = C.line; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(X(k), top); ctx.lineTo(X(k), bot); ctx.stroke(); ctx.setLineDash([]);
+      if (k < P.K) { ctx.fillStyle = C.steel; ctx.fillText("step " + (k + 1), (X(k) + X(k + 1)) / 2, bot + 14); }
+    }
+    ctx.fillStyle = C.ok; ctx.textAlign = "left"; ctx.fillText("booked", Rr + 8, top + 10);
+    ctx.fillStyle = C.bad; ctx.textAlign = "left"; ctx.fillText("gave up", L, hh - 6);
+    dots.forEach(d => {
+      const px = X(Math.min(d.x, P.K)) + (d.done ? 18 + (d.i % 4) * 6 : 0);
+      let py = top + (bot - top) * d.y;
+      let col = d.slipped ? C.c[1] : C.steel;
+      if (d.gaveUp >= 0 && d.fall > 0) { col = C.bad; py = py + (hh - 18 - py) * Math.min(1, d.fall); }
+      if (d.done) col = d.slipped ? C.c[1] : C.ok;
+      dot(ctx, px, py, 3.2, col);
+    });
+  });
+  const lp = loop(dt => {
+    T += dt; let moving = false;
+    dots.forEach(d => {
+      if (T < d.start || d.done) return;
+      if (d.fall > 0) { if (d.fall < 1) { d.fall += dt * 1.5; moving = true; } return; }
+      moving = true;
+      if (d.pause > 0) { d.pause -= dt; if (d.pause <= 0 && d.gaveUp === Math.floor(d.x)) d.fall = 0.01; return; }
+      const k0 = Math.floor(d.x); d.x += dt * SPEED;
+      const mid = k0 + 0.5;
+      if (d.x - dt * SPEED < mid && d.x >= mid && d.plan[k0]) { d.slipped = true; d.pause = PAUSE; d.x = mid; }
+      if (d.gaveUp >= 0 && d.x >= d.gaveUp + 0.5 && d.pause <= 0 && d.fall === 0 && d.plan[d.gaveUp]) { d.fall = 0.01; }
+      if (d.x >= P.K) { d.x = P.K; d.done = true; }
+    });
+    stg.redraw();
+    if (!moving && T > 1) { lp.stop(); running = false; stats(true); }
+  });
+  document.getElementById("fn-play").addEventListener("click", () => { reset(); running = true; if (reduced()) { finish(); return; } lp.start(); });
+  document.getElementById("fn-new").addEventListener("click", () => { seed += 1; reset(); });
+  function finish() { dots.forEach(d => { if (d.gaveUp >= 0) { d.x = d.gaveUp + 0.5; d.fall = 1; d.slipped = true; } else { d.x = P.K; d.done = true; d.slipped = d.plan.some(Boolean); } }); stg.redraw(); stats(true); }
+  reset();
+})();
+
+initLecture(1);
+})();</script></body></html>

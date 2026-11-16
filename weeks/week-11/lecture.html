@@ -1,0 +1,1420 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobile, Multimodal and Ubiquitous Interaction | Human-Computer Interaction</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#1E2433; --paper:#F5F4F8; --panel:#FFFFFF; --steel:#585E6E; --line:#D8D5E2; --grid:#E9E7F0;
+  --accent:#5A4BB5; --ok:#2E8B57; --bad:#B53F2E; --band:rgba(90,75,181,.09);
+  --c1:#1F5F8B; --c2:#C98510; --c3:#2E8B57; --c4:#8B3F82; --c5:#B53F2E;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E6E6EE; --paper:#121219; --panel:#1B1B26; --steel:#A5A5B8; --line:#302E40; --grid:#201F2C;
+  --accent:#A99CF2; --ok:#63C08E; --bad:#E58372; --band:rgba(169,156,242,.13);
+  --c1:#6FB0DA; --c2:#E6A83F; --c3:#63C08E; --c4:#CC8CC3; --c5:#E58372;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:920px;margin:0 auto;padding:26px 20px 64px}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.93rem}
+header.top h1{font-family:var(--head);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.08;margin:.3rem 0 .45rem;letter-spacing:.005em}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 16px}
+header.top nav a{font-size:.95rem}
+h2{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.15;margin:2rem 0 .55rem;scroll-margin-top:44px}
+h3{font-family:var(--head);font-weight:600;font-size:1.28rem;margin:1.4rem 0 .4rem;scroll-margin-top:44px}
+p,li{max-width:72ch;overflow-wrap:break-word}
+.small{font-size:.87rem;color:var(--steel)}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--band);padding:.08em .3em;border-radius:3px}
+p code,li code,td code{overflow-wrap:anywhere}
+pre{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c1);padding:12px 14px;overflow-x:auto;border-radius:4px;line-height:1.45}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem;background:var(--panel)}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--band)}
+.tablewrap{overflow-x:auto}
+img{max-width:100%;height:auto}
+figure{margin:1.3rem 0}
+figure img{border:1px solid var(--line);border-radius:4px;background:#fff}
+figcaption{font-size:.87rem;color:var(--steel);margin-top:.35rem}
+button,select,input,textarea{font:inherit}
+select{padding:.3rem .45rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink);max-width:100%}
+.btn{background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:.42rem .9rem;cursor:pointer;min-height:2.2rem}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:170px;flex:1}
+.ctl label{font-size:.86rem;color:var(--steel)}
+.ctl output{font-family:var(--mono);font-size:.85rem;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;margin:12px 0}
+.paper{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:4px;display:block;width:100%;touch-action:none}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.readout div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:.86rem}
+.readout b{display:block;font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--steel)}
+.legend i{display:inline-block;width:14px;height:4px;margin-right:5px;vertical-align:middle;border-radius:2px}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--line);flex-wrap:wrap;margin-top:8px}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:.5rem .85rem;cursor:pointer;color:var(--steel)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+.tabpanel[hidden]{display:none}
+.kc{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:1.2rem 0}
+.kc .q{font-weight:700;margin:0 0 6px}
+.kc label{display:block;padding:3px 0;cursor:pointer}
+.kc .fb{margin-top:6px;font-size:.93rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.anim{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:1.3rem 0}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+.lec-prog{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--steel)}
+.lec-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cite{cursor:pointer;color:var(--c1);border-bottom:1px dotted var(--c1)}
+.pop{position:absolute;z-index:20;max-width:420px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);padding:10px 12px;border-radius:6px;font-size:.86rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.card{min-height:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;font-size:.93rem}
+.card .f{font-weight:700}
+.card .b{display:none;color:var(--steel)} .card.flip .f{display:none} .card.flip .b{display:block}
+footer.sig{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:.84rem;color:var(--steel)}
+footer.sig p{max-width:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;margin:14px 0;border-radius:4px}
+.callout b.t{display:block;margin-bottom:4px;color:var(--accent)}
+.callout.life{border-left-color:var(--c2)}
+.callout.life b.t{color:var(--c2)}
+.callout.ai{border-left-color:var(--c4)}
+.callout.ai b.t{color:var(--c4)}
+.callout.discuss{border-left-color:var(--c3)}
+.callout.discuss b.t{color:var(--c3)}
+.callout.discuss ol{margin:4px 0 2px;padding-left:1.3rem}
+.callout.discuss li{margin:3px 0}
+.sus-t td,.sus-t th{text-align:center;padding:4px 6px}
+.sus-t td:first-child,.sus-t th:first-child{text-align:left;min-width:14rem}
+.sus-t input{width:1.1rem;height:1.1rem}
+.eq{overflow-x:auto;overflow-y:hidden;margin:10px 0;text-align:center}
+.labref{margin:-4px 0 14px;text-align:center;font-size:.87rem;color:var(--steel);max-width:none}
+.labref a{color:var(--accent);font-weight:600;white-space:nowrap}
+.colabbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid #f9ab00;background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.colabbox p{margin:0}
+.colabbox .colabbtn img{display:block;height:22px}
+.labbox{display:flex;gap:.8rem;align-items:center;border:1px solid var(--line);border-left:5px solid var(--accent);background:var(--panel);border-radius:10px;padding:.65rem .9rem;margin:1.1rem 0;scroll-margin-top:50px}
+.labbox p{margin:0}
+.labbox a.btn{white-space:nowrap;text-decoration:none;font-size:.9rem}
+@media (max-width:560px){.labbox,.colabbox{flex-direction:column;align-items:flex-start}}
+.backpart{margin:.9rem 0 0;font-size:.95rem;border-left:4px solid var(--accent);padding:.35rem .7rem;background:var(--panel);border-radius:6px}
+.backpart a{font-weight:600}
+.labpart{scroll-margin-top:10px}
+/* Step-by-step calculators of the lab */
+.stepcalc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;outline:none}
+.stepcalc .bench{margin:0 0 10px}
+.sc-presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.sc-presets .btn{font-size:.86rem;padding:.22rem .6rem;min-height:0}
+ol.sc-steps{list-style:none;margin:8px 0 0;padding:0}
+ol.sc-steps li{max-width:none;border:1px solid var(--line);border-left:4px solid var(--line);border-radius:0 6px 6px 0;padding:8px 12px;margin:8px 0;background:var(--paper)}
+ol.sc-steps li.cur{border-left-color:var(--accent);background:var(--panel);box-shadow:0 1px 8px rgba(0,0,0,.07)}
+ol.sc-steps li.new{animation:scin .35s ease}
+.sc-st{font-weight:700;font-size:.97rem}
+.sc-st .sc-n{display:inline-block;min-width:4.2em;color:var(--accent);font-family:var(--head);font-weight:600}
+.sc-x{font-size:.93rem;color:var(--steel);margin:3px 0;max-width:none}
+.sc-m{overflow-x:auto;overflow-y:hidden;margin:4px 0;padding:2px 0;font-size:1.04em}
+.sc-q{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px;font-size:.93rem}
+.sc-q input{width:7.5rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+.sc-ok{font-size:.86rem;color:var(--ok);font-weight:600}
+.sc-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)}
+.sc-nav .sc-count{margin-left:auto;font-size:.88rem;color:var(--steel)}
+.sc-dots{display:flex;gap:4px;width:100%}
+.sc-dots i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.sc-dots i.on{background:var(--accent)}
+code.tex{font-size:.8rem;white-space:pre-wrap;word-break:break-word}
+@keyframes scin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* Interactive scenes of the lecture pages */
+.scene{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:12px 14px;margin:1.4rem 0;scroll-margin-top:50px}
+.scene>p.small{margin:0 0 4px}
+.scene .sn-svg{display:block;width:100%;max-width:600px;height:auto;margin:6px auto 2px}
+.scene svg text{font-family:var(--sans);fill:var(--ink)}
+.sn-btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;align-items:center}
+.sn-btns .btn{font-size:.9rem;padding:.34rem .75rem;min-height:2.15rem;line-height:1.25}
+.sn-btns .btn[aria-pressed=true]{background:var(--band);border-color:var(--accent);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.sn-say{min-height:3.3em;margin:6px 0 4px;padding:7px 11px;border-radius:8px;background:var(--band);font-size:.95rem;max-width:none}
+.sn-ro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:var(--steel);margin:4px 0 0}
+.sn-ro b{font-family:var(--mono);color:var(--ink);font-weight:600;font-size:.84rem}
+/* Interface clinic: mock screens of the clinic app, before and after */
+.uiclinic{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:12px 14px;margin:1.4rem 0}
+.uiclinic>p.small{margin:0 0 8px}
+.ui-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:620px){.ui-pair{grid-template-columns:1fr}}
+.ui-col h4{margin:0 0 6px;font-family:var(--head);font-weight:600;font-size:1.05rem}
+.ui-col h4 .tag{display:inline-block;font-size:.78rem;font-family:var(--sans);font-weight:700;border-radius:999px;padding:.05rem .55rem;margin-right:6px;color:#fff}
+.ui-col h4 .tag.bad{background:#B53F2E} .ui-col h4 .tag.good{background:#2E8B57}
+.ui-col p.ui-why{font-size:.88rem;color:var(--steel);margin:8px 0 0}
+.phone{width:100%;max-width:270px;margin:0 auto;border:9px solid #23262E;border-radius:26px;background:#fff;color:#1E2433;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.18);font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+.phone .st{display:flex;justify-content:space-between;font-size:11px;padding:4px 12px;background:#F2F2F5;color:#555}
+.phone .ab{background:#2F5D8A;color:#fff;padding:9px 12px;font-weight:700;font-size:15px}
+.phone .bd{padding:10px 12px;min-height:250px;position:relative}
+.phone .lbl{font-size:12px;color:#555;margin:6px 0 3px}
+.phone .fld{border:1px solid #B9BEC9;border-radius:6px;padding:7px 9px;background:#fff;font-size:13px;color:#1E2433}
+.phone .fld.err{border-color:#C0392B}
+.phone .pb{display:block;width:100%;margin:12px 0 0;border:0;border-radius:8px;padding:10px;background:#2F5D8A;color:#fff;font-weight:700;font-size:14px;text-align:center}
+.phone .pb.dis{background:#B9BEC9;color:#fff}
+.phone .msg{border-radius:6px;padding:7px 9px;font-size:12.5px;margin:8px 0}
+.phone .msg.e{background:#FDECEA;color:#8A1F11;border:1px solid #F3B8AE}
+.phone .msg.o{background:#E8F5EC;color:#1E5E34;border:1px solid #A9D8B8}
+.phone .msg.raw{background:#EEE;color:#333;font-family:monospace;border:1px solid #CCC}
+.phone .chips{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}
+.phone .chip{border:1px solid #9FB3C8;border-radius:999px;padding:3px 9px;font-size:12px;background:#F4F8FC;color:#1E2433}
+.phone .list{border:1px solid #B9BEC9;border-radius:6px;max-height:140px;overflow:hidden;font-size:12px}
+.phone .list div{padding:4px 8px;border-bottom:1px solid #E5E7EC}
+.phone .tabbar{display:flex;border-top:1px solid #D5D8DF;background:#F7F7FA}
+.phone .tabbar div{flex:1;text-align:center;font-size:11px;padding:7px 2px;color:#555}
+.phone .tabbar div.on{color:#2F5D8A;font-weight:700}
+.phone .menu{position:absolute;left:0;top:0;bottom:0;width:72%;background:#F7F7FA;border-right:1px solid #D5D8DF;padding:10px;font-size:13px}
+.phone .menu div{padding:7px 4px;border-bottom:1px solid #E5E7EC}
+.phone .menu div.sub{padding-left:16px;color:#777;font-size:12px}
+.phone .card2{border:1px solid #D5D8DF;border-radius:8px;padding:9px;margin:8px 0;font-size:12.5px}
+.phone .muted{color:#888;font-size:12px}
+.phone .spin{display:inline-block;width:12px;height:12px;border:2px solid #B9BEC9;border-top-color:#2F5D8A;border-radius:50%;vertical-align:-2px}
+/* 3D parts of the interactive lab */
+.three{position:relative;width:100%;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#DDE3EA;touch-action:none}
+.three canvas{display:block;width:100%;height:100%}
+.three .hud{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none}
+.three .hud span:empty{display:none}
+.three .hud span{background:rgba(255,255,255,.88);color:#1E2433;border-radius:6px;padding:3px 8px;font-size:.84rem}
+.three .big{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#1E2433;border-radius:10px;padding:10px 16px;font-size:1.05rem;font-weight:700;pointer-events:none;text-align:center}
+.three .tools3d{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;z-index:2}
+.three .tools3d button{min-width:30px;height:30px;padding:0 6px;border:1px solid rgba(30,36,51,.25);border-radius:7px;background:rgba(255,255,255,.9);color:#1E2433;font:600 .9rem/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.three .tools3d button:hover{background:#fff}
+.three .tools3d button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.three .tools3d.off{opacity:.35;pointer-events:none}
+.three .inset3d{position:absolute;left:10px;bottom:10px;width:min(38%,330px);height:auto;border:3px solid #fff;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.28);pointer-events:none;z-index:2;background:#F4F6F9}
+.three .no3d{padding:18px;color:#1E2433}
+.kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-family:var(--mono);font-size:.82rem;background:var(--panel)}
+/* Self-assessment and reflection */
+.sa{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin:12px 0}
+.sa .q{font-weight:700;margin:0 0 6px}
+.sa label{display:block;padding:2px 0;cursor:pointer}
+.conf{display:flex;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--steel);margin-top:4px}
+textarea{width:100%;min-height:6em;border:1px solid var(--line);border-radius:4px;padding:8px;background:var(--panel);color:var(--ink)}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.wk{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:4px;padding:10px 12px}
+.wk h3{margin:.1rem 0 .3rem;font-size:1.12rem}
+.wk .n{font-family:var(--head);color:var(--steel);font-size:.9rem}
+.wk .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.88rem;margin-top:6px}
+.wk .done{font-size:.8rem;color:var(--ok)}
+.wk.soon{border-top-color:var(--line);opacity:.8}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.lec-tools,.tabs,nav,.btn{display:none}}
+</style><script>MathJax={tex:{inlineMath:[["\\(","\\)"]]},svg:{fontCache:"global"}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body><div class="wrap"><header class="top"><p class="course">Human-Computer Interaction (BIL-429), week 11 of 14</p><h1>Mobile, Multimodal and Ubiquitous Interaction</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="https://github.com/utkukose/human-computer-interaction-NB-lecture/tree/main/weeks/week-11">Week overview</a><a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb">Colab notebook</a><a href="lab.html">Interactive lab</a><a href="Week11_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2 id="overview">Overview</h2><p>Weeks 1 to 10 designed the clinic app for its patients and audited its accessibility. Most patients, however, will meet the app on a phone held in one hand, in a corridor or in a waiting room. This week moves the app onto the phone. It measures the reach of the thumb, recognises gestures and counts the errors of typing and of speech. It also models the notifications that interrupt. The clinic app reaches stage 11, the app on the phone with voice. The Python step works with points and paths in NumPy. The week closes with voice assistants of artificial intelligence (AI) that answer medical questions.</p><h2 id="week-at-a-glance">Week at a glance</h2><pre class="mermaid">flowchart LR
+  A[&quot;The reach of the thumb&quot;] --&gt; B[&quot;Gestures&quot;]
+  B --&gt; C[&quot;Typing on glass&quot;]
+  C --&gt; D[&quot;Speech and multimodal input&quot;]
+  D --&gt; E[&quot;Notifications&quot;]
+  E --&gt; F[&quot;Interface clinic&quot;]
+  F --&gt; G[&quot;The human side&quot;]
+  G --&gt; S[&quot;The clinic app, stage 11&quot;]
+  S --&gt; H[&quot;Toward human-AI interaction&quot;]</pre><div class="callout"><b class="t">Python code of this week</b><p>Every method on this page is also written as Python code in the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb">Colab notebook of the week</a>. Its code is divided into numbered sections. Each orange box on this page names the section whose code carries out what the text above the box explains. The box says what to run and what to look at in that section, and its button opens the Colab notebook at that place. The games, the practice parts and the self-assessment of the week are in the <a href="lab.html">interactive lab</a>. Each violet box opens one part of the interactive lab. The part ends with a link back to its box on this page, and the Colab notebook is always opened from the orange boxes here.</p></div><h2 id="python-step">Python step 11: Points and paths with NumPy</h2><div class="colabbox" id="colab-python-step"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=python-step" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, right after Section 0 (setup).</b> Open the Colab notebook and run this step cell by cell: It consists of short pieces of Python code with their explanations, a quick check and three exercises. Topics: Points as rows of an array · Distances along a path · Points at equal distances with np.interp · Turning points with a rotation.</p></div><p>The step stores the points of a stroke as the rows of a NumPy array <span class="cite" tabindex="0" data-refs="1">[1]</span>. It measures the length of a path, places points at equal distances along it and turns points around their centre. Section 2 builds a gesture recognizer from these pieces. Students who have never programmed start with the <a href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/start-here/NB00_start_here.ipynb">start-here notebook</a> of the course.</p><div class="callout"><b class="t">The clinic app so far</b><p>Weeks 1 to 9 measured the booking flow, fitted it to human abilities, built a prototype and tested it with patients. Week 10 audited the app and its kiosk for accessibility and removed the barriers that the audit found.</p><p>This week moves the app onto the phone. Stage 11 places the main actions within reach of the thumb and adds voice with a read-back. It also sends reminders and the call of the waiting room to the phone.</p></div><figure><img src="figures/w11_project_roadmap.png" alt="The clinic app through the fourteen weeks of the course. The figure marks the stage of this week." loading="lazy"><figcaption>The clinic app through the fourteen weeks of the course. The figure marks the stage of this week.</figcaption></figure><h2 id="thumb-reach">Phones in the hand: Grips and the reach of the thumb</h2><p>A phone is held while it is used, and the hand that holds it often operates it too. With one hand, only the thumb of the holding hand can touch the screen. Bergstrom-Lehtovirta and Oulasvirta called the area that this thumb can reach its <i>functional area</i> <span class="cite" tabindex="0" data-refs="2">[2]</span>. They derived a quadratic formula for it from the kinematics of the gripping hand. Their model predicts the area from the size of the surface and the size of the hand. It also takes the position of the index finger on the back of the device into account <span class="cite" tabindex="0" data-refs="2">[2]</span>.</p><p>In a hospital, one hand is often busy. Patients carry bags, documents, a child or a crutch, and the other hand holds the phone. Ng, Brewster and Williamson studied this <i>encumbrance</i> while participants walked with a bag in each hand <span class="cite" tabindex="0" data-refs="3">[3]</span>. With the preferred thumb, the targeting error grew to 4.2 mm, 40 percent more than without the bags. The accuracy of targeting with the index finger fell to 48.1 percent <span class="cite" tabindex="0" data-refs="3">[3]</span>.</p><p>The clinic describes the reach of a thumb with a simplified, illustrative version of the functional area. The base of the thumb lies 12 mm outside the edge of the screen, at the height \(g\) where the hand grips the phone. The thumb reaches the points whose distance from its base lies between a fraction of its length and its full length:</p><div class="eq">\[d = \sqrt{(x - x_p)^2 + (y - y_p)^2}, \qquad r L \le d \le L\]</div><p>\((x, y)\) is a point of the screen in millimetres, measured from its left and its bottom edge. \((x_p, y_p)\) is the base of the thumb, with \(y_p = g\). On a screen 68 mm wide, \(x_p = 80\) mm for the right hand and \(x_p = -12\) mm for the left hand. \(L\) is the functional length of the thumb, and \(r = 0.32\) the share of it that the folded thumb cannot reach. Close to its own base, the thumb has to fold, so the corner next to the grip is hard to reach as well.</p><p><b>A worked example.</b> The current app places its Book button in the top right cell of the screen, at (56.7, 135.7) mm. Ayşe holds the phone in her right hand with \(g = 30\) mm and \(L = 80\) mm, so the base of her thumb lies at (80, 30). Then \(d \)​\({}= \sqrt{(56.7 - 80)^2 + (135.7 - 30)^2}\) \(= \sqrt{542.89 + 11172.49} \)​\({}= \sqrt{11715.38} \)​\({}= 108.24\) mm, far beyond 80 mm. Stage 11 places the button at (34.0, 37.0) mm, where \(d \)​\({}= \sqrt{46.0^2 + 7.0^2} \)​\({}= \sqrt{2116 + 49} \)​\({}= 46.53\) mm. This lies between \(0.32 \times 80 = 25.6\) mm and 80 mm, so her thumb reaches it.</p><p>For all patients, the clinic assumes thumb lengths with a mean of 82 mm and a standard deviation of 7 mm, and grips between 20 and 45 mm. A quarter of the patients hold the phone in the left hand, because they are left-handed or their right hand is busy. No thumb reaches the top row of the screen in this model. The lower three cells of the middle column, however, are reached by practically every thumb, left or right. The four actions of the current app are reached by 0.096 of the patients on average, those of stage 11 by 0.987.</p><figure><img src="figures/w11_fig_thumb.png" alt="Left and middle: The functional areas of four thumbs on the screen of the clinic phone, with the base of each thumb as a dot. Right: The share of all patients who reach each cell with one thumb, with the actions of the current app (squares) and of stage 11 (circles)." loading="lazy"><figcaption>Left and middle: The functional areas of four thumbs on the screen of the clinic phone, with the base of each thumb as a dot. Right: The share of all patients who reach each cell with one thumb, with the actions of the current app (squares) and of stage 11 (circles).</figcaption></figure><div class="kc" data-answer="0" data-why="The thumb must fold to reach points near its own base. In the model, the functional area starts at 25.6 mm."><p class="q">Check your understanding. A button lies 20 mm from the base of a thumb with \(L = 80\) mm. Is it in reach in the model of this section?</p><label><input type="radio" name="KC0" value="0"> No, it is closer than \(0.32 \times 80 = 25.6\) mm</label><label><input type="radio" name="KC0" value="1"> Yes, every point closer than \(L\) is in reach</label><label><input type="radio" name="KC0" value="2"> Yes, because 20 is less than 80</label><label><input type="radio" name="KC0" value="3"> It depends on the colour of the button</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part A of the interactive lab hands the phone to ten patients in the waiting room. Each one holds it in one hand, and the thumb tries the four main actions of the app. You first watch the current layout and then place the four buttons yourself.</p><div class="labbox" id="lab-pa"><a class="btn" href="lab.html#pa" target="_blank" rel="noopener">Open lab Part A</a><p><b>Interactive lab, Part A.</b> One hand on the phone in 3D: Ten patients with small and large hands, left and right, try the four main actions in the current layout and in your own. The results can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-1"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-1" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 1.</b> Open Section 1 of the Colab notebook and run it. The functions <code>thumb_distance</code> and <code>in_reach</code> carry out the model of this section and are checked on the worked example. <code>cell_share</code> applies the model to 100,000 simulated patients, and a figure draws the functional areas and the share of each cell. Paste the results of Part A into <code>MY_LAYOUT</code> to apply your layout to all patients.</p></div><div class="callout discuss"><b class="t">Discuss: One hand or two?</b><ol><li>When did you last use your phone with one hand because the other was busy?</li><li>Many apps place their navigation in a bar at the bottom of the screen. Which cells of such a bar does the figure question?</li><li>Should an app ask which hand holds the phone, or simply design for both?</li></ol></div><h2 id="gestures">Gestures: Recognising a stroke</h2><p>A gesture turns a stroke of the finger into a command, such as a check mark that confirms a booking. Gestures need no space on a small screen and no search for a button. They are also invisible, so patients must learn them first. The Web Content Accessibility Guidelines (WCAG) 2.2 therefore ask for a simple alternative to every gesture that follows a path. This is criterion 2.5.1 <span class="cite" tabindex="0" data-refs="4">[4]</span>, one of the success criteria of <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-10/lecture.html#wcag">Week 10</a>.</p><p>Recognising strokes used to be a task for experts in pattern matching. Wobbrock, Wilson and Li designed the <i>$1 recognizer</i> so that designers of prototypes could add gestures in about 100 lines of code <span class="cite" tabindex="0" data-refs="5">[5]</span>. It compares a stroke with stored <i>templates</i>, one or more examples of each gesture. Before the comparison, four steps remove what does not matter: The speed of the finger, the angle, the size and the position.</p><p>First, the stroke is <i>resampled</i> to \(N = 64\) points at equal distances along its path, whatever the speed of the finger. Second, it is turned around its centroid \((\bar{x}, \bar{y})\) until its <i>indicative angle</i> is zero. This is the angle of the line from the first point to the centroid. Third, the stroke is stretched to a square of 250 units, and fourth, its centroid is moved to the origin:</p><div class="eq">\[I = \frac{L}{N - 1}, \qquad \omega = \operatorname{atan2}(\bar{y} - y_1,\; \bar{x} - x_1)\]</div><p>\(L\) is the length of the path, the sum of the distances between its points, and \(I\) the interval between the new points. \(\omega\) is the indicative angle, and the stroke is turned by \(-\omega\). Each template goes through the same four steps once, when it is stored.</p><p>A candidate \(C\) is then compared with each template \(T\) point by point. The mean distance between corresponding points decides, at the best rotation within ±45 degrees. It is turned into a score between 0 and 1:</p><div class="eq">\[d = \frac{1}{N}\sum_{k=1}^{N} \lVert C_k - T_k \rVert, \qquad \mathrm{score} = 1 - \frac{d}{\tfrac{1}{2}\sqrt{250^2 + 250^2}}\]</div><p>\(C_k\) and \(T_k\) are the \(k\)-th points of the candidate and the template, and \(\lVert \cdot \rVert\) the distance between them. The denominator, 176.777, is half the diagonal of the square. The best rotation is found by a <i>golden section search</i>, which narrows the range of angles until it is smaller than 2 degrees <span class="cite" tabindex="0" data-refs="5">[5]</span>.</p><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pb" target="_blank" rel="noopener">Lab Part B</a>, calculator, steps 1 to 5.</p><p><b>A worked example.</b> A check drawn through (20, 60), (40, 80) and (100, 20) has two segments of \(\sqrt{20^2 + 20^2} = 28.284\) and \(\sqrt{60^2 + 60^2} = 84.853\). So \(L = 113.137\) and \(I = 113.137/63 = 1.796\). Its bounding box is 80 units wide and 60 high, so scaling it without the rotation would multiply x by \(250/80 = 3.125\) and y by \(250/60 = 4.167\). If the mean distance to the best template is \(d = 23.5\) after the four steps, the score is \(1 - 23.5/176.777 = 1 - 0.133 = 0.867\).</p><p>In the study of Wobbrock and colleagues, the recognizer was right in over 97 percent of the cases with one template per gesture. With three or more templates, it was right in 99 percent <span class="cite" tabindex="0" data-refs="5">[5]</span>. These results were nearly identical to those of dynamic time warping, a more complex method, and better than those of the Rubine classifier. All three recognizers recognised gestures drawn at medium speed better than slow or fast ones.</p><p>The four steps also explain the limits of the method. Because the rotation is removed, an arrow drawn upwards counts as the same gesture as an arrow drawn to the right. Because the points are compared in the order drawn, a circle drawn the other way round matches no template. The Colab notebook finds a score of 0.672 for a backward circle, below the threshold of 0.8 below which the app reports no match.</p><figure><img src="figures/w11_fig_gesture.png" alt="The four steps of the \1 recognizer on a check drawn by hand. The first point is red and the centroid a cross. After step 3, the first point lies to the left of the centroid, at the indicative angle 0. Right: The scores of the stroke against the five templates, with the threshold of 0.8." loading="lazy"><figcaption>The four steps of the $1 recognizer on a check drawn by hand. The first point is red and the centroid a cross. After step 3, the first point lies to the left of the centroid, at the indicative angle 0. Right: The scores of the stroke against the five templates, with the threshold of 0.8.</figcaption></figure><div class="kc" data-answer="0" data-why="A fast stroke yields few points and a slow one many. Equal distances along the path make the k-th points of two strokes correspond."><p class="q">Check your understanding. Why does the $1 recognizer resample every stroke to 64 points?</p><label><input type="radio" name="KC1" value="0"> So that strokes drawn fast or slowly can be compared point by point</label><label><input type="radio" name="KC1" value="1"> To make the stroke smoother</label><label><input type="radio" name="KC1" value="2"> Because screens have 64 pixels per row</label><label><input type="radio" name="KC1" value="3"> To store fewer templates</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pb"><a class="btn" href="lab.html#pb" target="_blank" rel="noopener">Open lab Part B</a><p><b>Interactive lab, Part B.</b> The $1 recognizer step by step: The length of a stroke, the interval of the resampling, the scale factors and the score, with presets.</p></div><p>Part C of the interactive lab sets up a check-in tablet in the waiting room with five gestures of the clinic app. You draw each gesture twice at a comfortable speed and twice as fast as you can. The recognizer of this section scores every stroke as you draw it.</p><div class="labbox" id="lab-pc"><a class="btn" href="lab.html#pc" target="_blank" rel="noopener">Open lab Part C</a><p><b>Interactive lab, Part C.</b> Gestures on the tablet in 3D: Five gestures of the clinic app, drawn at a comfortable speed and fast, recognised and scored as you draw. The strokes can be copied into the Colab notebook.</p></div><div class="colabbox" id="colab-sec-2"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-2" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 2.</b> Open Section 2 of the Colab notebook and run it. The functions <code>resample</code>, <code>indicative_angle</code>, <code>rotate_by</code>, <code>scale_to</code> and <code>translate_to</code> carry out the four steps, and <code>recognise</code> compares a stroke with the five templates. A test with strokes drawn with noise measures the accuracy, and a figure shows the four steps. Paste your strokes of Part C into <code>MY_STROKES</code> to recognise them again.</p></div><div class="callout discuss"><b class="t">Discuss: Hidden commands</b><ol><li>How would a patient learn that a zigzag cancels an appointment?</li><li>Which gestures of the apps on your phone did you discover by accident?</li><li>A recognizer that answers <i>no match</i> asks the user to try again. When is that better than a wrong guess?</li></ol></div><h2 id="text-entry">Typing on glass: Text entry speed and errors</h2><p>Typing on a touch screen gives no tactile feedback, and the keys are smaller than a fingertip. Text entry is measured by its speed and its errors, and both must be measured together, because typists can trade one for the other <span class="cite" tabindex="0" data-refs="6">[6]</span>. Speed is counted in <i>words per minute</i> (WPM), where a word is defined as five characters, spaces included <span class="cite" tabindex="0" data-refs="7">[7]</span>:</p><div class="eq">\[WPM = \frac{|T| - 1}{S} \times 60 \times \frac{1}{5}\]</div><p>\(|T|\) is the length of the transcribed text in characters, and \(S\) the time in seconds from the first to the last keystroke. The first character is not counted, because the clock starts with it.</p><p>Palin, Feit, Kim, Kristensson and Oulasvirta measured mobile typing in a web test with 37,370 volunteers <span class="cite" tabindex="0" data-refs="8">[8]</span>. They typed 36.2 WPM on average and left 2.3 percent of the characters wrong. Users of autocorrection were faster, while word prediction slowed typing down. In a similar test on physical keyboards, 168,000 volunteers typed 52 WPM on average <span class="cite" tabindex="0" data-refs="9">[9]</span>.</p><p>Errors are counted by comparing the presented text \(P\) with the transcribed text \(T\). The <i>minimum string distance</i> (MSD) is the smallest number of insertions, deletions and substitutions that turn one into the other. Soukoreff and MacKenzie divided it by the longer of the two texts to obtain an error rate <span class="cite" tabindex="0" data-refs="6">[6]</span>. The <i>keystrokes per character</i> (KSPC) count the keys pressed for each character of the result:</p><div class="eq">\[E = \frac{MSD(P, T)}{\max(|P|, |T|)}, \qquad KSPC = \frac{K}{|T|}\]</div><p>\(K\) is the number of keystrokes, corrections included. KSPC thus shows the effort of corrections, which the error rate of the final text no longer contains. Soukoreff and MacKenzie combined both views in a <i>total error rate</i> that counts the corrected and the uncorrected errors <span class="cite" tabindex="0" data-refs="6">[6]</span>.</p><p class="labref">→ These formulas with numbers, step by step: <a href="lab.html#pd" target="_blank" rel="noopener">Lab Part D</a>, calculator, steps 1 to 4.</p><p><b>A worked example.</b> A patient types <i>please call me after five</i>, 25 characters, in \(S = 9.6\) s. Then \((25 - 1)/9.6 = 2.5\) characters per second and \(2.5 \times 60/5 = 30.0\) WPM. Another patient types <i>my appointmnet is on mondy</i> for <i>my appointment is on monday</i>. Two substitutions swap <i>e</i> and <i>n</i>, and one deletion drops the <i>a</i> of <i>monday</i>, so \(MSD = 3\). With \(|P| = 27\), the error rate is \(3/27 = 0.111\). If the patient pressed 30 keys for the 26 characters of \(T\), then \(KSPC = 30/26 = 1.154\).</p><div class="anim" id="edit"><p class="small"><strong>Animation.</strong> The presented text along the top, the transcribed text down the left, and the table of the minimum string distance. Step fills the table cell by cell, and each cell takes the cheapest of three moves. The path back from the last cell shows the substitutions, insertions and deletions. Switch to words to compute the word error rate of a voice command.</p><div class="sn-btns" id="ed-btn"></div><canvas class="paper" id="ed-cv" aria-label="A table of edit distances between two texts, filled cell by cell, with the path of the cheapest edits"></canvas><div id="ed-ro"></div></div><p>Mobile typing often happens on the move. Kane, Wobbrock and Smith let six participants operate a music player while walking and found that the size of the buttons interacted with the movement <span class="cite" tabindex="0" data-refs="10">[10]</span>. A second study with 29 participants tested an interface that enlarged its buttons while the user walked. It performed at the level of its static layouts, without a penalty for the adaptation.</p><p>Experiments ask all participants to type the same phrases, so that results can be compared. MacKenzie and Soukoreff published a set of 500 short phrases in lower case for this purpose <span class="cite" tabindex="0" data-refs="11">[11]</span>. The phrases of Part D follow their style, with sentences that patients send to a clinic.</p><figure><img src="figures/w11_fig_typing.png" alt="Left: The mean speed of 168,000 volunteers on physical keyboards and of 37,370 volunteers on phones, and the speed of a typical student with the mouse in Part D. Right: Speed and errors of each phrase of the typical student, sitting and walking." loading="lazy"><figcaption>Left: The mean speed of 168,000 volunteers on physical keyboards and of 37,370 volunteers on phones, and the speed of a typical student with the mouse in Part D. Right: Speed and errors of each phrase of the typical student, sitting and walking.</figcaption></figure><div class="kc" data-answer="0" data-why="\((31 - 1)/12 = 2.5\) characters per second, and \(2.5 \times 60/5 = 30.0\) WPM."><p class="q">Check your understanding. A text of 31 characters is typed in 12 s. What is the speed?</p><label><input type="radio" name="KC2" value="0"> 30.0 WPM</label><label><input type="radio" name="KC2" value="1"> 31.0 WPM</label><label><input type="radio" name="KC2" value="2"> 155 WPM</label><label><input type="radio" name="KC2" value="3"> 2.5 WPM</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><p>Part D of the interactive lab gives you the phone of a patient in the waiting room. You type five phrases sitting on a chair and five while walking down the corridor, where the phone moves in your hand.</p><div class="labbox" id="lab-pd"><a class="btn" href="lab.html#pd" target="_blank" rel="noopener">Open lab Part D</a><p><b>Interactive lab, Part D.</b> Typing in the waiting room in 3D: Five phrases sitting and five walking, with the speed, the errors and the keystrokes of each phrase. The calculator below the game repeats the formulas step by step.</p></div><div class="colabbox" id="colab-sec-3"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-3" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 3.</b> Open Section 3 of the Colab notebook and run it. The functions <code>msd</code>, <code>wpm</code>, <code>error_rate</code> and <code>kspc</code> carry out the formulas of this section and are checked on the worked examples. Paste your phrases of Part D into <code>MY_TYPING</code>, and the code compares sitting with walking in a table and a figure.</p></div><div class="callout discuss"><b class="t">Discuss: Typing or choosing?</b><ol><li>Which fields of the clinic app need free text, and which could offer choices instead?</li><li>When could autocorrection change a medical word into a wrong one?</li><li>How would you measure the typing errors that a user corrected?</li></ol></div><h2 id="speech-and-multimodal">Talking to the app: Speech and multimodal input</h2><p>Speech frees the hands and the eyes, and it suits patients who cannot type or cannot see the screen well. A speech recognizer turns sound into words, and its errors are counted in words. The <i>word error rate</i> (WER) uses the same distance as the error rate of typing, over words instead of characters <span class="cite" tabindex="0" data-refs="12">[12]</span>:</p><div class="eq">\[WER = \frac{S + D + I}{N}\]</div><p>\(S\), \(D\) and \(I\) are the substituted, deleted and inserted words, and \(N\) is the number of words that were actually spoken.</p><p>Recognizers do not err equally for everyone. Koenecke and colleagues compared five commercial recognizers on interviews with Black and white speakers in the United States, matched by age and gender <span class="cite" tabindex="0" data-refs="12">[12]</span>. The average WER was 0.35 for Black speakers and 0.19 for white speakers. The gap remained for identical phrases spoken by both groups, which traced it to the acoustic models of the systems.</p><p>Short commands are easier than free conversation, but every word must be right. If each word were wrong independently with the probability \(w\), a command of \(n\) words would be recognised completely with the probability</p><div class="eq">\[P = (1 - w)^{n}\]</div><p>Errors are not truly independent, so the formula is a first approximation. Reading the booking back before it is made lets the patient catch most errors. If a share \(c\) of the errors is caught, wrong bookings fall from \(1 - P\) to \((1 - P)(1 - c)\).</p><p><b>A worked example.</b> The command <i>book cardiology on wednesday at ten thirty</i> has \(n = 7\) words. For a typical speaker with an illustrative WER of 0.05 on such commands, \(0.95^7 = 0.698\), so 0.302 of the commands contain an error. If the read-back catches \(c = 0.9\) of them, wrong bookings fall to \(0.302 \times 0.1 = 0.030\). For an older speaker or a strong accent with \(w = 0.10\), \(0.90^7 = 0.478\), and the wrong bookings fall from 0.522 to 0.052. If the recognizer hears <i>book cardiology wednesday at two thirty</i>, one word is deleted and one substituted, so \(WER = 2/7 = 0.286\).</p><p>Speech works best together with other modes. Bolt's <i>Put-that-there</i> system of 1980 let a user point at a large screen while speaking <span class="cite" tabindex="0" data-refs="13">[13]</span>. Pointing made words such as <i>that</i> and <i>there</i> possible, and speech made pointing more precise in what it referred to.</p><p>Oviatt questioned ten common beliefs about such <i>multimodal</i> systems <span class="cite" tabindex="0" data-refs="14">[14]</span>. Users do not always combine modes when they can. In map tasks with spatial content, 95 to 100 percent of users preferred to interact multimodally. For general actions without a spatial component, such as printing a map, they combined modes less than 1 percent of the time. The modes rarely carry the same content twice. Two error-prone recognizers can even correct each other instead of adding their errors <span class="cite" tabindex="0" data-refs="14">[14]</span>.</p><figure><img src="figures/w11_fig_voice.png" alt="Left: The probability that all words of a command are recognised, for four word error rates, if word errors were independent. Right: Wrong bookings by voice without and with a read-back that catches 0.9 of the errors." loading="lazy"><figcaption>Left: The probability that all words of a command are recognised, for four word error rates, if word errors were independent. Right: Wrong bookings by voice without and with a read-back that catches 0.9 of the errors.</figcaption></figure><div class="kc" data-answer="0" data-why="\((1 + 1 + 0)/8 = 0.25\)."><p class="q">Check your understanding. A recognizer substitutes one word and deletes another in a command of 8 words. What is the WER?</p><label><input type="radio" name="KC3" value="0"> 0.25</label><label><input type="radio" name="KC3" value="1"> 0.125</label><label><input type="radio" name="KC3" value="2"> 2</label><label><input type="radio" name="KC3" value="3"> 0.8</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="colabbox" id="colab-sec-4"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-4" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 4.</b> Open Section 4 of the Colab notebook and run it. The function <code>wer</code> reuses <code>msd</code> of Section 3 for words, and <code>p_command</code> computes the probability of a fully recognised command. The code compares the rates of Koenecke and colleagues with illustrative rates for short commands, without and with a read-back. A figure plots both.</p></div><div class="callout discuss"><b class="t">Discuss: Speaking in the waiting room</b><ol><li>Would you say your symptoms aloud to an app in a full waiting room?</li><li>Whom might the recognizer of the clinic understand worst, and how could the clinic find out?</li><li>When should the app read a booking back, and when would that only cost time?</li></ol></div><h2 id="notifications">Notifications, interruptions and context</h2><p>In 1991, Weiser described computers that recede into the background of everyday life, embedded in the objects and rooms around people <span class="cite" tabindex="0" data-refs="15">[15]</span>. Today's phone is part of this <i>ubiquitous computing</i>: It travels with its owner and knows the time, the place and the activity. Dey defined <i>context</i> as any information that characterises the situation of a person, place or object that matters to the interaction <span class="cite" tabindex="0" data-refs="16">[16]</span>. A context-aware app uses it to decide what to show, and when.</p><p>The phone uses this knowledge most visibly in notifications. Pielot, Church and de Oliveira logged the notifications of 15 phone users for a week <span class="cite" tabindex="0" data-refs="17">[17]</span>. The users received 63.5 notifications a day on average, mostly from messengers and email. They usually viewed them within minutes, whether the phone was silent or not.</p><p>Spread over 16 waking hours, 63.5 notifications a day are \(\lambda = 63.5/16 = 3.97\) per hour. If they arrive independently at random moments, as a <i>Poisson process</i>, a task of \(T\) hours stays free of them with the probability \(P_0\):</p><div class="eq">\[P_0 = e^{-\lambda T}, \qquad P_B = \frac{T}{B}\left(1 - e^{-\lambda B}\right)\]</div><p>\(P_B\) is the probability that a delivery in batches every \(B\) hours interrupts the task, for \(T &lt; B\). The task is hit only if a delivery falls inside it, with the probability \(T/B\), and if the batch is not empty.</p><p><b>A worked example.</b> A booking of three minutes lasts \(T = 0.05\) h, so \(\lambda T = 3.97 \times 0.05 = 0.199\) and \(P_0 = e^{-0.199} = 0.820\). Nearly one booking in five is interrupted. With batches every hour, \(e^{-3.97} = 0.0189\) and \(P_B = 0.05 \times 0.981 = 0.0491\).</p><p>Fitz and colleagues tested batching in a randomised field experiment with 237 participants <span class="cite" tabindex="0" data-refs="18">[18]</span>. Those who received their notifications three times a day felt more attentive, more productive, in a better mood and in greater control of their phones. Batching every hour brought little change, and those who received no notifications at all felt more anxious.</p><p>The waiting room of the clinic shows why context matters. Patients wait for their number on a display and look at their phones in the meantime. A call that comes while a patient looks down is missed, and the next patients wait longer. The clinic app knows when a patient waits in the room and is next in line, so it can send the call to the phone itself.</p><div class="scene" id="scene"><p class="small"><strong>Scene: Called while looking down.</strong> Eight patients wait for their numbers in the waiting room and look at their phones in the meantime. Play the 40 minutes: A phone lights up when a notification arrives, and a patient who looks down when called misses the call. Switch on the two features of stage 11 one by one and play again. The readout counts the missed calls and the notifications before the calls.</p><div class="three" id="wr-3d"></div><div class="sn-btns" id="wr-feat"></div><p class="sn-say" id="wr-say" aria-live="polite"></p><div class="sn-ro" id="wr-ro"></div></div><p>In the scene, two of the eight calls are missed when the call appears only on the display. One miss follows a notification of another app, and holding such notifications until the call removes it. The other miss comes from browsing, and only the call on the phone removes both.</p><figure><img src="figures/w11_fig_notif.png" alt="Left: The probability that a task stays free of notifications, delivered at once or in batches every hour, with the booking of three minutes. Right: The eight patients of the waiting room, with their browsing, the 40 s after each notification and their calls." loading="lazy"><figcaption>Left: The probability that a task stays free of notifications, delivered at once or in batches every hour, with the booking of three minutes. Right: The eight patients of the waiting room, with their browsing, the 40 s after each notification and their calls.</figcaption></figure><div class="kc" data-answer="0" data-why="\(\lambda T = 6 \times 5/60 = 0.5\) and \(e^{-0.5} = 0.607\)."><p class="q">Check your understanding. Notifications arrive at 6 per hour. What is the probability that a task of 5 minutes is not interrupted?</p><label><input type="radio" name="KC4" value="0"> 0.607</label><label><input type="radio" name="KC4" value="1"> 0.5</label><label><input type="radio" name="KC4" value="2"> 0.083</label><label><input type="radio" name="KC4" value="3"> 0.917</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="colabbox" id="colab-sec-5"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-5" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 5.</b> Open Section 5 of the Colab notebook and run it. The functions <code>p_quiet</code> and <code>p_batched</code> carry out the formulas of this section, and a simulation of 100,000 bookings confirms the first one. The function <code>waiting_room</code> rebuilds the waiting room of the 3D scene with the same seed. The code counts the missed calls for each setting, and a figure draws both.</p></div><div class="callout discuss"><b class="t">Discuss: When should the phone speak?</b><ol><li>Which notifications of the clinic should never wait in a batch?</li><li>The app knows that a patient is in the hospital. What else could it infer from that, and what should it not?</li><li>Should the clinic call patients on their phones if that makes them look down even more?</li></ol></div><h2 id="interface-clinic">Interface clinic: The app on the phone, before and after</h2><p>The four pairs below show screens of the clinic app on the phone before and after a redesign. Each pair names the problem and the measure of this week behind it.</p><div class="uiclinic" id="ui-reach"><p class="small"><strong>Interface clinic: Actions within the thumb's reach.</strong> The home screen of the clinic app, held in one hand.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Actions in the top bar</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Clinic &nbsp; ✚ Book &nbsp; ☰ &nbsp; ☏</div><div class="bd"><div class="card2"><b>Next appointment</b><div class="muted">Cardiology, Wednesday 10:30</div></div><div class="muted" style="margin-top:60px;text-align:center">(empty space)</div></div></div><p class="ui-why">No thumb reaches the top row with one hand. The four actions are reached by 0.096 of the patients on average, so most patients shift the phone or use both hands.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Large buttons in the lower middle</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Clinic</div><div class="bd"><div class="card2"><b>Next appointment</b><div class="muted">Cardiology, Wednesday 10:30</div></div><div style="height:28px"></div><div class="pb" style="margin:8px auto;width:82%;text-align:center;padding:12px 0">My visits</div><div class="pb" style="margin:8px auto;width:82%;text-align:center;padding:12px 0">✚ Book</div><div class="pb" style="margin:8px auto;width:82%;text-align:center;padding:12px 0">☏ Call</div></div></div><p class="ui-why">The lower cells of the middle column are reached by practically every thumb, left or right. The mean share rises to 0.987.</p></div></div></div><div class="uiclinic" id="ui-reason"><p class="small"><strong>Interface clinic: The reason for the visit.</strong> The second screen of the booking.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>A free text field</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Reason for the visit</div><div class="bd"><div class="fld" style="height:54px">I have had pain in my kne|</div><div class="muted">q w e r t y u i o p<br>a s d f g h j k l<br>z x c v b n m</div></div></div><p class="ui-why">Typing 60 characters at 36.2 WPM takes 19.6 s and leaves 1.38 wrong characters on average, more for patients who walk or carry something.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Choices, with voice and typing as options</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Reason for the visit</div><div class="bd"><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><div class="fld" style="padding:8px 12px;">Check-up</div><div class="fld" style="padding:8px 12px;background:#2F5D8A;color:#fff;">Pain</div><div class="fld" style="padding:8px 12px;">Results</div><div class="fld" style="padding:8px 12px;">Prescription</div><div class="fld" style="padding:8px 12px;">Other</div></div><div class="muted">🎤 Say it &nbsp; · &nbsp; ⌨ Type it</div></div></div><p class="ui-why">Two taps choose the common reasons. Voice and typing remain for the rest.</p></div></div></div><div class="uiclinic" id="ui-readback"><p class="small"><strong>Interface clinic: A booking by voice.</strong> The patient said: Book cardiology on Wednesday at ten thirty.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Booked at once</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Voice booking</div><div class="bd"><div class="card2"><b>Booked</b><div class="muted">Cardiology, Wednesday 14:30</div></div></div></div><p class="ui-why">One wrong word books the wrong time. With a WER of 0.05, 0.302 of seven-word commands contain an error.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Read back first</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">Voice booking</div><div class="bd"><div class="card2"><b>Cardiology on Wednesday at 10:30. Shall I book it?</b></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><div class="fld" style="padding:8px 12px;background:#2F5D8A;color:#fff;">Yes, book it</div><div class="fld" style="padding:8px 12px;">No, change it</div></div></div></div><p class="ui-why">The patient hears the booking before it is made. If 0.9 of the errors are caught, wrong bookings fall to 0.030.</p></div></div></div><div class="uiclinic" id="ui-lock"><p class="small"><strong>Interface clinic: The reminder on the lock screen.</strong> A reminder one day before the appointment, on a locked phone.</p><div class="ui-pair"><div class="ui-col"><h4><span class="tag bad">Before</span>Every detail on the lock screen</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">09:41</div><div class="bd"><div class="card2"><b>Clinic app</b><div class="muted">Oncology, Dr. Yılmaz: Your biopsy results, tomorrow at 10:30</div></div></div></div><p class="ui-why">Anyone who glances at the phone reads the department and the reason. Notifications are seen within minutes, wherever the phone lies.</p></div><div class="ui-col"><h4><span class="tag good">After</span>Discreet on the lock screen</h4><div class="phone" aria-hidden="true"><div class="st"><span>09:41</span><span>●●● 100%</span></div><div class="ab">09:41</div><div class="bd"><div class="card2"><b>Clinic app</b><div class="muted">You have an appointment tomorrow at 10:30. Unlock to see the details.</div></div></div></div><p class="ui-why">The reminder still arrives in time, and the details stay behind the lock.</p></div></div></div><div class="callout discuss"><b class="t">Discuss: Read the clinic</b><ol><li>Which of the four problems would a patient notice first, and which would only show in the numbers?</li><li>The discreet reminder hides the department. When could that be a problem for the patient?</li></ol></div><h2 id="the-human-side">The human side: Attention on the phone</h2><p>A phone does not have to be used to cost attention. Stothart, Mitchum and Yehnert gave 166 students a task in which they pressed a key for every digit except 3 <span class="cite" tabindex="0" data-refs="19">[19]</span>. During the task, some of them received a call or a text message on their own phones without being told that it would come. The notifications alone disrupted their performance, although the students did not touch their phones. The effect was comparable to that of actually using a phone <span class="cite" tabindex="0" data-refs="19">[19]</span>.</p><p>A waiting room is a place of divided attention. Patients follow the display, keep an eye on their belongings and children, and use their phones to pass the time. <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-03/lecture.html#the-human-side">Week 3</a> showed that interruptions cost time and stress at work. In the waiting room, they can cost a patient the turn.</p><div class="callout life"><b class="t">In everyday life: The call that nobody heard</b><p>A patient reads the news on her phone while she waits at the laboratory. The number on the display changes twice before she looks up. A nurse finally calls her name aloud, and she hurries in, apologising. A message on her phone, <i>You are next, please come to room 3</i>, would have reached her where her attention already was.</p></div><div class="callout discuss"><b class="t">Discuss: Designing for divided attention</b><ol><li>Should a hospital ask patients to put their phones away in the waiting room?</li><li>How could the display and the phone work together so that neither interrupts more than needed?</li></ol></div><h2 id="the-clinic-app-stage-11">The clinic app, stage 11: The app on the phone, with voice</h2><p>Stage 11 moves the booking of the clinic app onto the phone and adds voice. It applies the measures of this week to the main actions, the reason for the visit, the voice booking, the calls in the waiting room and the reminders.</p><p>The four main actions move from the top bar to large buttons in the lower middle of the screen. In the model of this week, their mean reach rises from 0.096 to 0.987 of the patients. The reason for the visit becomes a choice of common reasons. Two taps replace 19.6 s of typing that would leave 1.38 wrong characters on average.</p><p>Booking by voice reads the booking back before it is made. With the illustrative word error rates of 0.05 and 0.10 for short commands, wrong bookings fall from 0.302 to 0.030 and from 0.522 to 0.052. The app also sends the call to the phone when the number of the patient comes up. In the scene, this removed both missed calls of the waiting room.</p><p>Reminders follow the review of Guy and colleagues, which found 18 reports on reminders sent by short message service (SMS) <span class="cite" tabindex="0" data-refs="20">[20]</span>. In its eight randomised trials, the reminders raised the odds of attending by a factor of 1.48, with a 95 percent confidence interval from 1.23 to 1.72. The timing of the message, 24, 48 or 72 and more hours before, made no significant difference. An odds ratio (OR) multiplies the odds of attending, not the share:</p><div class="eq">\[o_0 = \frac{p_0}{1 - p_0}, \qquad o_1 = OR \times o_0, \qquad p_1 = \frac{o_1}{1 + o_1}\]</div><p>\(p_0\) is the share who attend without a reminder, and \(o_0\) are its odds. \(o_1\) and \(p_1\) are the odds and the share with reminders.</p><p><b>A worked example.</b> If 0.82 of the patients attend without reminders, \(o_0 = 0.82/0.18 = 4.556\) and \(o_1 = 1.48 \times 4.556 = 6.743\). Then \(p_1 = 6.743/7.743 = 0.871\): Of 1,000 appointments, 51 more are attended. The confidence interval of the odds ratio gives a range from 0.849 to 0.887.</p><div class="tablewrap"><table><thead><tr><th>Measure</th><th>Before</th><th>Stage 11</th></tr></thead><tbody><tr><td>Main actions in one-thumb reach (mean share of patients)</td><td>0.096</td><td>0.987</td></tr><tr><td>Reason for the visit</td><td>typed: 19.6 s, 1.38 wrong characters</td><td>chosen: 2 taps</td></tr><tr><td>Wrong bookings by voice, typical speaker</td><td>0.302 without read-back</td><td>0.030</td></tr><tr><td>Wrong bookings by voice, older speaker or strong accent</td><td>0.522 without read-back</td><td>0.052</td></tr><tr><td>Missed calls in the waiting room of the scene</td><td>2 of 8</td><td>0 of 8</td></tr><tr><td>Attendance</td><td>0.820</td><td>0.871</td></tr></tbody></table></div><figure><img src="figures/w11_project_stage.png" alt="The clinic app, stage 11. Left: The mean share of patients who reach the four main actions with one thumb. Middle: Wrong bookings by voice without and with a read-back. Right: Attendance without and with reminders." loading="lazy"><figcaption>The clinic app, stage 11. Left: The mean share of patients who reach the four main actions with one thumb. Middle: Wrong bookings by voice without and with a read-back. Right: Attendance without and with reminders.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Question of stage 11</th><th>Answer</th><th>Where</th></tr></thead><tbody><tr><td>Can every thumb reach the main actions?</td><td>0.987 on average, with Directions lowest at 0.948</td><td>Section 1, Part A</td></tr><tr><td>Which gestures does the app recognise?</td><td>Five, as shortcuts next to buttons, with a threshold of 0.8</td><td>Section 2, Parts B and C</td></tr><tr><td>How long does the reason for the visit take?</td><td>Two taps instead of 19.6 s of typing</td><td>Section 3, Part D</td></tr><tr><td>How safe is booking by voice?</td><td>0.030 wrong bookings with a read-back for typical speakers</td><td>Section 4</td></tr><tr><td>Who misses the call in the waiting room?</td><td>Nobody, when the call also goes to the phone</td><td>Section 5, the scene</td></tr><tr><td>Do reminders help?</td><td>Attendance rises from 0.82 to 0.871</td><td>Section 6, Part E</td></tr></tbody></table></div><p>Stage 11 rests on models with illustrative values, such as the thumb lengths and the word error rates of short commands. A test with patients and their own phones, as in <a href="https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-09/lecture.html#overview">Week 9</a>, would check them. Week 12 leaves the flat screen and guides patients through the hospital in three dimensions.</p><div class="kc" data-answer="0" data-why="The odds 4.556 become 6.743, and 6.743/7.743 = 0.871. Multiplying the share itself would give more than 1."><p class="q">Check your understanding. An odds ratio of 1.48 is applied to an attendance of 0.82. What is the attendance with reminders?</p><label><input type="radio" name="KC5" value="0"> 0.871</label><label><input type="radio" name="KC5" value="1"> 1.214</label><label><input type="radio" name="KC5" value="2"> 0.82 plus 1.48</label><label><input type="radio" name="KC5" value="3"> 0.968</label><button class="btn" type="button">Check</button><div class="fb" aria-live="polite"></div></div><div class="labbox" id="lab-pe"><a class="btn" href="lab.html#pe" target="_blank" rel="noopener">Open lab Part E</a><p><b>Interactive lab, Part E.</b> Stage 11 by hand: The attendance with reminders, from the odds and the odds ratio.</p></div><div class="colabbox" id="colab-sec-6"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-6" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 6.</b> Open Section 6 of the Colab notebook and run it. The code collects the results of stage 11 in the dictionary <code>STAGE11</code>. It holds the reach of the two layouts, the time of the reason field, the voice booking with a read-back and the calls in the waiting room. It adds the attendance with reminders, also for both ends of the confidence interval, and a figure draws the results.</p></div><h2 id="your-application">Your application</h2><p>The questions of this week apply to every mobile app: Can the thumb reach the main action, how much must be typed and how often does the app interrupt? The Colab notebook holds an application switch with four further apps: Online banking, an e-government service, food delivery and course registration at a university.</p><div class="colabbox" id="colab-sec-7"><a class="colabbtn" href="https://colab.research.google.com/github/utkukose/human-computer-interaction-NB-lecture/blob/main/weeks/week-11/NB11_mobile_and_multimodal.ipynb#scrollTo=sec-7" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a><p><b>Python code in the Colab notebook, Section 7.</b> Open Section 7 of the Colab notebook, set <code>APP</code> to one of the five names in the comment and run the cell. The code computes the share of users who reach the main action of the app with one thumb and the time of typing its text field. It also estimates how often its notifications interrupt a task of three minutes.</p></div><h2 id="toward-human-ai-interaction">Toward human-AI interaction</h2><p>Voice assistants answer questions in the same way as they book: They hear words and act on them. Bickmore and colleagues asked 54 participants to pose medical problems to Siri, Alexa and Google Assistant in their own words and to decide what to do <span class="cite" tabindex="0" data-refs="21">[21]</span>. The participants completed only 168 of their 394 tasks, 43 percent. In 49 of the completed tasks, 29 percent, the actions they reported could have caused some harm, and 27 of them, 16 percent, could have caused death.</p><p>A spoken answer leaves no text to read again and no source to check, so a misunderstanding can pass unnoticed. The authors concluded that patients should not act on medical answers of such assistants without consulting a health professional <span class="cite" tabindex="0" data-refs="21">[21]</span>.</p><div class="callout ai"><b class="t">An assistant that books by voice</b><p>Suppose that the clinic adds an assistant that understands free speech, such as <i>I need to see someone about my knee next week</i>. It must turn the request into a department, a day and a time, and each step can go wrong. Reading the booking back, as in stage 11, lets the patient correct it before it counts. Week 13 returns to the question of how much users should trust such a system.</p></div><div class="callout discuss"><b class="t">Discuss: Asking a speaker</b><ol><li>Which medical questions would you never ask a voice assistant, and why?</li><li>How should an assistant say that it is unsure of what it heard?</li></ol></div><h2 id="review-cards">Review cards</h2><p class="small">Select a card to turn it over.</p><div class="cards"><div class="card" tabindex="0" role="button"><div class="f">Functional area of the thumb</div><div class="b">The area of the screen that the thumb of the holding hand can reach <span class="cite" tabindex="0" data-refs="2">[2]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Encumbrance</div><div class="b">Carrying objects while using a device; with a bag in each hand, the thumb missed by 4.2 mm, 40 percent more <span class="cite" tabindex="0" data-refs="3">[3]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Reach model of the week</div><div class="b">\(r L \le d \le L\), with \(d\) the distance from the base of the thumb and \(r = 0.32\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Gesture</div><div class="b">A stroke of the finger that the app turns into a command; it needs a simple alternative, criterion 2.5.1 <span class="cite" tabindex="0" data-refs="4">[4]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">$1 recognizer</div><div class="b">Resample to 64 points, rotate to the indicative angle, scale to a square of 250, move to the origin and compare <span class="cite" tabindex="0" data-refs="5">[5]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Indicative angle</div><div class="b">The angle of the line from the first point of a stroke to its centroid.</div></div><div class="card" tabindex="0" role="button"><div class="f">Score of the $1 recognizer</div><div class="b">\(1 - d/176.777\), with \(d\) the mean distance to the best template.</div></div><div class="card" tabindex="0" role="button"><div class="f">Words per minute</div><div class="b">\((|T| - 1)/S \times 60/5\), with a word of five characters <span class="cite" tabindex="0" data-refs="7">[7]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Minimum string distance</div><div class="b">The fewest insertions, deletions and substitutions that turn one text into another <span class="cite" tabindex="0" data-refs="6">[6]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Error rate of text entry</div><div class="b">\(MSD(P, T)/\max(|P|, |T|)\) <span class="cite" tabindex="0" data-refs="6">[6]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Keystrokes per character</div><div class="b">Keystrokes divided by the transcribed characters, the effort of corrections <span class="cite" tabindex="0" data-refs="6">[6]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Mobile typing</div><div class="b">36.2 WPM with 2.3 percent of the characters left wrong, among 37,370 volunteers <span class="cite" tabindex="0" data-refs="8">[8]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Word error rate</div><div class="b">\((S + D + I)/N\) over words; 0.35 for Black and 0.19 for white speakers in one study <span class="cite" tabindex="0" data-refs="12">[12]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Read-back</div><div class="b">The system repeats what it heard before it acts, so that the user can catch its errors.</div></div><div class="card" tabindex="0" role="button"><div class="f">Multimodal interaction</div><div class="b">Combining modes such as speech and pointing; users combine them mainly for spatial content <span class="cite" tabindex="0" data-refs="14">[14]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Context</div><div class="b">Information that characterises the situation of a person, place or object relevant to the interaction <span class="cite" tabindex="0" data-refs="16">[16]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Poisson process</div><div class="b">Random arrivals at the rate \(\lambda\), with no arrival in a time \(T\) with the probability \(e^{-\lambda T}\).</div></div><div class="card" tabindex="0" role="button"><div class="f">Batching</div><div class="b">Delivering notifications at fixed times; three times a day improved well-being <span class="cite" tabindex="0" data-refs="18">[18]</span>.</div></div><div class="card" tabindex="0" role="button"><div class="f">Odds ratio</div><div class="b">The factor by which an intervention multiplies the odds; 1.48 for SMS reminders in randomised trials <span class="cite" tabindex="0" data-refs="20">[20]</span>.</div></div></div><h2 id="references">References</h2><p class="small" id="ref-1">[1] Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a></p><p class="small" id="ref-2">[2] Bergstrom-Lehtovirta, J., &amp; Oulasvirta, A. (2014). Modeling the functional area of the thumb on mobile touchscreen surfaces. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1991-2000). ACM. <a href="https://doi.org/10.1145/2556288.2557354">https://doi.org/10.1145/2556288.2557354</a></p><p class="small" id="ref-3">[3] Ng, A., Brewster, S. A., &amp; Williamson, J. H. (2014). Investigating the effects of encumbrance on one- and two-handed interactions with mobile devices. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1981-1990). ACM. <a href="https://doi.org/10.1145/2556288.2557312">https://doi.org/10.1145/2556288.2557312</a></p><p class="small" id="ref-4">[4] Campbell, A., Adams, C., Bradley Montgomery, R., Cooper, M., &amp; Kirkpatrick, A. (Eds.). (2023). <i>Web Content Accessibility Guidelines (WCAG) 2.2</i> (W3C Recommendation). World Wide Web Consortium. <a href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a></p><p class="small" id="ref-5">[5] Wobbrock, J. O., Wilson, A. D., &amp; Li, Y. (2007). Gestures without libraries, toolkits or training: A $1 recognizer for user interface prototypes. In <i>Proceedings of the 20th Annual ACM Symposium on User Interface Software and Technology</i> (pp. 159-168). ACM. <a href="https://doi.org/10.1145/1294211.1294238">https://doi.org/10.1145/1294211.1294238</a></p><p class="small" id="ref-6">[6] Soukoreff, R. W., &amp; MacKenzie, I. S. (2003). Metrics for text entry research: An evaluation of MSD and KSPC, and a new unified error metric. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 113-120). ACM. <a href="https://doi.org/10.1145/642611.642632">https://doi.org/10.1145/642611.642632</a></p><p class="small" id="ref-7">[7] MacKenzie, I. S. (2024). <i>Human-Computer Interaction: An Empirical Research Perspective</i> (2nd ed.). Morgan Kaufmann. <a href="https://www.oreilly.com/library/view/-/9780443140976/">https://www.oreilly.com/library/view/-/9780443140976/</a></p><p class="small" id="ref-8">[8] Palin, K., Feit, A. M., Kim, S., Kristensson, P. O., &amp; Oulasvirta, A. (2019). How do people type on mobile devices? Observations from a study with 37,000 volunteers. In <i>Proceedings of the 21st International Conference on Human-Computer Interaction with Mobile Devices and Services</i> (pp. 1-12). ACM. <a href="https://doi.org/10.1145/3338286.3340120">https://doi.org/10.1145/3338286.3340120</a></p><p class="small" id="ref-9">[9] Dhakal, V., Feit, A. M., Kristensson, P. O., &amp; Oulasvirta, A. (2018). Observations on typing from 136 million keystrokes. In <i>Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-12). ACM. <a href="https://doi.org/10.1145/3173574.3174220">https://doi.org/10.1145/3173574.3174220</a></p><p class="small" id="ref-10">[10] Kane, S. K., Wobbrock, J. O., &amp; Smith, I. E. (2008). Getting off the treadmill: Evaluating walking user interfaces for mobile devices in public spaces. In <i>Proceedings of the 10th International Conference on Human Computer Interaction with Mobile Devices and Services</i> (pp. 109-118). ACM. <a href="https://doi.org/10.1145/1409240.1409253">https://doi.org/10.1145/1409240.1409253</a></p><p class="small" id="ref-11">[11] MacKenzie, I. S., &amp; Soukoreff, R. W. (2003). Phrase sets for evaluating text entry techniques. In <i>CHI '03 Extended Abstracts on Human Factors in Computing Systems</i> (pp. 754-755). ACM. <a href="https://doi.org/10.1145/765891.765971">https://doi.org/10.1145/765891.765971</a></p><p class="small" id="ref-12">[12] Koenecke, A., Nam, A., Lake, E., Nudell, J., Quartey, M., Mengesha, Z., Toups, C., Rickford, J. R., Jurafsky, D., &amp; Goel, S. (2020). Racial disparities in automated speech recognition. <i>Proceedings of the National Academy of Sciences</i>, <i>117</i>(14), 7684-7689. <a href="https://doi.org/10.1073/pnas.1915768117">https://doi.org/10.1073/pnas.1915768117</a></p><p class="small" id="ref-13">[13] Bolt, R. A. (1980). "Put-that-there": Voice and gesture at the graphics interface. In <i>Proceedings of the 7th Annual Conference on Computer Graphics and Interactive Techniques</i> (pp. 262-270). ACM. <a href="https://doi.org/10.1145/800250.807503">https://doi.org/10.1145/800250.807503</a></p><p class="small" id="ref-14">[14] Oviatt, S. (1999). Ten myths of multimodal interaction. <i>Communications of the ACM</i>, <i>42</i>(11), 74-81. <a href="https://doi.org/10.1145/319382.319398">https://doi.org/10.1145/319382.319398</a></p><p class="small" id="ref-15">[15] Weiser, M. (1991). The computer for the 21st century. <i>Scientific American</i>, <i>265</i>(3), 94-104. <a href="https://doi.org/10.1038/scientificamerican0991-94">https://doi.org/10.1038/scientificamerican0991-94</a></p><p class="small" id="ref-16">[16] Dey, A. K. (2001). Understanding and using context. <i>Personal and Ubiquitous Computing</i>, <i>5</i>(1), 4-7. <a href="https://doi.org/10.1007/s007790170019">https://doi.org/10.1007/s007790170019</a></p><p class="small" id="ref-17">[17] Pielot, M., Church, K., &amp; de Oliveira, R. (2014). An in-situ study of mobile phone notifications. In <i>Proceedings of the 16th International Conference on Human-Computer Interaction with Mobile Devices and Services</i> (pp. 233-242). ACM. <a href="https://doi.org/10.1145/2628363.2628364">https://doi.org/10.1145/2628363.2628364</a></p><p class="small" id="ref-18">[18] Fitz, N., Kushlev, K., Jagannathan, R., Lewis, T., Paliwal, D., &amp; Ariely, D. (2019). Batching smartphone notifications can improve well-being. <i>Computers in Human Behavior</i>, <i>101</i>, 84-94. <a href="https://doi.org/10.1016/j.chb.2019.07.016">https://doi.org/10.1016/j.chb.2019.07.016</a></p><p class="small" id="ref-19">[19] Stothart, C., Mitchum, A., &amp; Yehnert, C. (2015). The attentional cost of receiving a cell phone notification. <i>Journal of Experimental Psychology: Human Perception and Performance</i>, <i>41</i>(4), 893-897. <a href="https://doi.org/10.1037/xhp0000100">https://doi.org/10.1037/xhp0000100</a></p><p class="small" id="ref-20">[20] Guy, R., Hocking, J., Wand, H., Stott, S., Ali, H., &amp; Kaldor, J. (2012). How effective are short message service reminders at increasing clinic attendance? A meta-analysis and systematic review. <i>Health Services Research</i>, <i>47</i>(2), 614-632. <a href="https://doi.org/10.1111/j.1475-6773.2011.01342.x">https://doi.org/10.1111/j.1475-6773.2011.01342.x</a></p><p class="small" id="ref-21">[21] Bickmore, T. W., Trinh, H., Olafsson, S., O'Leary, T. K., Asadi, R., Rickles, N. M., &amp; Cruz, R. (2018). Patient and consumer safety risks when using conversational assistants for medical information: An observational study of Siri, Alexa, and Google Assistant. <i>Journal of Medical Internet Research</i>, <i>20</i>(9), e11510. <a href="https://doi.org/10.2196/11510">https://doi.org/10.2196/11510</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br>IEEE Senior Member, ACM Professional Member<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a> | <a href="https://www.utkukose.com">utkukose.com</a> | <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a> | <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a> | <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a> | <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: November 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="application/json" id="refdata">{"1": "Harris, C. R., Millman, K. J., van der Walt, S. J., Gommers, R., Virtanen, P., Cournapeau, D., Wieser, E., Taylor, J., Berg, S., Smith, N. J., Kern, R., Picus, M., Hoyer, S., van Kerkwijk, M. H., Brett, M., Haldane, A., Fernández del Río, J., Wiebe, M., Peterson, P., Gérard-Marchant, P., Sheppard, K., Reddy, T., Weckesser, W., Abbasi, H., Gohlke, C., &amp; Oliphant, T. E. (2020). Array programming with NumPy. <i>Nature</i>, <i>585</i>(7825), 357-362. <a href=\"https://doi.org/10.1038/s41586-020-2649-2\">https://doi.org/10.1038/s41586-020-2649-2</a>", "2": "Bergstrom-Lehtovirta, J., &amp; Oulasvirta, A. (2014). Modeling the functional area of the thumb on mobile touchscreen surfaces. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1991-2000). ACM. <a href=\"https://doi.org/10.1145/2556288.2557354\">https://doi.org/10.1145/2556288.2557354</a>", "3": "Ng, A., Brewster, S. A., &amp; Williamson, J. H. (2014). Investigating the effects of encumbrance on one- and two-handed interactions with mobile devices. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 1981-1990). ACM. <a href=\"https://doi.org/10.1145/2556288.2557312\">https://doi.org/10.1145/2556288.2557312</a>", "4": "Campbell, A., Adams, C., Bradley Montgomery, R., Cooper, M., &amp; Kirkpatrick, A. (Eds.). (2023). <i>Web Content Accessibility Guidelines (WCAG) 2.2</i> (W3C Recommendation). World Wide Web Consortium. <a href=\"https://www.w3.org/TR/WCAG22/\">https://www.w3.org/TR/WCAG22/</a>", "5": "Wobbrock, J. O., Wilson, A. D., &amp; Li, Y. (2007). Gestures without libraries, toolkits or training: A $1 recognizer for user interface prototypes. In <i>Proceedings of the 20th Annual ACM Symposium on User Interface Software and Technology</i> (pp. 159-168). ACM. <a href=\"https://doi.org/10.1145/1294211.1294238\">https://doi.org/10.1145/1294211.1294238</a>", "6": "Soukoreff, R. W., &amp; MacKenzie, I. S. (2003). Metrics for text entry research: An evaluation of MSD and KSPC, and a new unified error metric. In <i>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</i> (pp. 113-120). ACM. <a href=\"https://doi.org/10.1145/642611.642632\">https://doi.org/10.1145/642611.642632</a>", "7": "MacKenzie, I. S. (2024). <i>Human-Computer Interaction: An Empirical Research Perspective</i> (2nd ed.). Morgan Kaufmann. <a href=\"https://www.oreilly.com/library/view/-/9780443140976/\">https://www.oreilly.com/library/view/-/9780443140976/</a>", "8": "Palin, K., Feit, A. M., Kim, S., Kristensson, P. O., &amp; Oulasvirta, A. (2019). How do people type on mobile devices? Observations from a study with 37,000 volunteers. In <i>Proceedings of the 21st International Conference on Human-Computer Interaction with Mobile Devices and Services</i> (pp. 1-12). ACM. <a href=\"https://doi.org/10.1145/3338286.3340120\">https://doi.org/10.1145/3338286.3340120</a>", "9": "Dhakal, V., Feit, A. M., Kristensson, P. O., &amp; Oulasvirta, A. (2018). Observations on typing from 136 million keystrokes. In <i>Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems</i> (pp. 1-12). ACM. <a href=\"https://doi.org/10.1145/3173574.3174220\">https://doi.org/10.1145/3173574.3174220</a>", "10": "Kane, S. K., Wobbrock, J. O., &amp; Smith, I. E. (2008). Getting off the treadmill: Evaluating walking user interfaces for mobile devices in public spaces. In <i>Proceedings of the 10th International Conference on Human Computer Interaction with Mobile Devices and Services</i> (pp. 109-118). ACM. <a href=\"https://doi.org/10.1145/1409240.1409253\">https://doi.org/10.1145/1409240.1409253</a>", "11": "MacKenzie, I. S., &amp; Soukoreff, R. W. (2003). Phrase sets for evaluating text entry techniques. In <i>CHI '03 Extended Abstracts on Human Factors in Computing Systems</i> (pp. 754-755). ACM. <a href=\"https://doi.org/10.1145/765891.765971\">https://doi.org/10.1145/765891.765971</a>", "12": "Koenecke, A., Nam, A., Lake, E., Nudell, J., Quartey, M., Mengesha, Z., Toups, C., Rickford, J. R., Jurafsky, D., &amp; Goel, S. (2020). Racial disparities in automated speech recognition. <i>Proceedings of the National Academy of Sciences</i>, <i>117</i>(14), 7684-7689. <a href=\"https://doi.org/10.1073/pnas.1915768117\">https://doi.org/10.1073/pnas.1915768117</a>", "13": "Bolt, R. A. (1980). \"Put-that-there\": Voice and gesture at the graphics interface. In <i>Proceedings of the 7th Annual Conference on Computer Graphics and Interactive Techniques</i> (pp. 262-270). ACM. <a href=\"https://doi.org/10.1145/800250.807503\">https://doi.org/10.1145/800250.807503</a>", "14": "Oviatt, S. (1999). Ten myths of multimodal interaction. <i>Communications of the ACM</i>, <i>42</i>(11), 74-81. <a href=\"https://doi.org/10.1145/319382.319398\">https://doi.org/10.1145/319382.319398</a>", "15": "Weiser, M. (1991). The computer for the 21st century. <i>Scientific American</i>, <i>265</i>(3), 94-104. <a href=\"https://doi.org/10.1038/scientificamerican0991-94\">https://doi.org/10.1038/scientificamerican0991-94</a>", "16": "Dey, A. K. (2001). Understanding and using context. <i>Personal and Ubiquitous Computing</i>, <i>5</i>(1), 4-7. <a href=\"https://doi.org/10.1007/s007790170019\">https://doi.org/10.1007/s007790170019</a>", "17": "Pielot, M., Church, K., &amp; de Oliveira, R. (2014). An in-situ study of mobile phone notifications. In <i>Proceedings of the 16th International Conference on Human-Computer Interaction with Mobile Devices and Services</i> (pp. 233-242). ACM. <a href=\"https://doi.org/10.1145/2628363.2628364\">https://doi.org/10.1145/2628363.2628364</a>", "18": "Fitz, N., Kushlev, K., Jagannathan, R., Lewis, T., Paliwal, D., &amp; Ariely, D. (2019). Batching smartphone notifications can improve well-being. <i>Computers in Human Behavior</i>, <i>101</i>, 84-94. <a href=\"https://doi.org/10.1016/j.chb.2019.07.016\">https://doi.org/10.1016/j.chb.2019.07.016</a>", "19": "Stothart, C., Mitchum, A., &amp; Yehnert, C. (2015). The attentional cost of receiving a cell phone notification. <i>Journal of Experimental Psychology: Human Perception and Performance</i>, <i>41</i>(4), 893-897. <a href=\"https://doi.org/10.1037/xhp0000100\">https://doi.org/10.1037/xhp0000100</a>", "20": "Guy, R., Hocking, J., Wand, H., Stott, S., Ali, H., &amp; Kaldor, J. (2012). How effective are short message service reminders at increasing clinic attendance? A meta-analysis and systematic review. <i>Health Services Research</i>, <i>47</i>(2), 614-632. <a href=\"https://doi.org/10.1111/j.1475-6773.2011.01342.x\">https://doi.org/10.1111/j.1475-6773.2011.01342.x</a>", "21": "Bickmore, T. W., Trinh, H., Olafsson, S., O'Leary, T. K., Asadi, R., Rickles, N. M., &amp; Cruz, R. (2018). Patient and consumer safety risks when using conversational assistants for medical information: An observational study of Siri, Alexa, and Google Assistant. <i>Journal of Medical Internet Research</i>, <i>20</i>(9), e11510. <a href=\"https://doi.org/10.2196/11510\">https://doi.org/10.2196/11510</a>"}</script><script>window.COURSE_PREFIX="hci";</script><script>"use strict";
+/* Shared runtime of the lecture pages and interactive labs. */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2), v);
+    else if (k === "html") e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = () => ({ink: cssv("--ink"), steel: cssv("--steel"), line: cssv("--line"), grid: cssv("--grid"),
+  panel: cssv("--panel"), paper: cssv("--paper"), accent: cssv("--accent"), ok: cssv("--ok"), bad: cssv("--bad"),
+  c: [cssv("--c1"), cssv("--c2"), cssv("--c3"), cssv("--c4"), cssv("--c5")]});
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const R = (x, d) => { const f = Math.pow(10, d == null ? 2 : d); return Math.round((x + Number.EPSILON) * f) / f; };
+function RNG(seed) {
+  let s = seed >>> 0;
+  const r = () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  r.normal = () => { let u = 0, v = 0; while (u === 0) u = r(); while (v === 0) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  r.int = n => Math.floor(r() * n);
+  r.uniform = (a, b) => a + (b - a) * r();
+  return r;
+}
+const store = {
+  key: k => (window.COURSE_PREFIX || "crs") + ":" + k,
+  get(k, d) { try { const v = localStorage.getItem(this.key(k)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(this.key(k), JSON.stringify(v)); } catch (e) {} }
+};
+/* Canvas with device-pixel scaling. draw(ctx, w, h) is called on setup and on resize. */
+function stage(cv, aspect, draw) {
+  const ctx = cv.getContext("2d");
+  const fit = () => {
+    const w = cv.clientWidth || 600, hgt = Math.round(w * aspect), d = window.devicePixelRatio || 1;
+    cv.style.height = hgt + "px"; cv.width = Math.round(w * d); cv.height = Math.round(hgt * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0); cv._w = w; cv._h = hgt; draw && draw(ctx, w, hgt);
+  };
+  if (window.ResizeObserver) new ResizeObserver(() => fit()).observe(cv);
+  fit();
+  return {ctx, redraw: () => draw && draw(ctx, cv._w, cv._h), size: () => [cv._w, cv._h]};
+}
+function fmt(v) { if (Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v)); const a = Math.abs(v); if (a >= 10) return v.toFixed(0); if (a >= 1) return v.toFixed(1); if (a === 0) return "0"; return v.toFixed(2); }
+/* Axes frame: returns mapping helpers. */
+function frame(ctx, w, hgt, o) {
+  const C = COL(), p = Object.assign({l: 50, r: 12, t: 12, b: 36}, o.pad || {});
+  const X = x => p.l + (x - o.x0) / (o.x1 - o.x0) * (w - p.l - p.r);
+  const Y = y => hgt - p.b - (y - o.y0) / (o.y1 - o.y0) * (hgt - p.t - p.b);
+  ctx.save(); ctx.strokeStyle = C.line; ctx.fillStyle = C.steel; ctx.lineWidth = 1; ctx.font = "11px " + cssv("--sans");
+  const nx = o.xticks || o.ticks || 5, ny = o.yticks || o.ticks || 5;
+  for (let i = 0; i <= nx; i++) { const xv = o.x0 + (o.x1 - o.x0) * i / nx;
+    ctx.beginPath(); ctx.moveTo(X(xv), hgt - p.b); ctx.lineTo(X(xv), hgt - p.b + 4); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(o.xfmt ? o.xfmt(xv) : fmt(xv), X(xv), hgt - p.b + 16); }
+  for (let i = 0; i <= ny; i++) { const yv = o.y0 + (o.y1 - o.y0) * i / ny;
+    ctx.beginPath(); ctx.moveTo(p.l - 4, Y(yv)); ctx.lineTo(p.l, Y(yv)); ctx.stroke();
+    ctx.textAlign = "right"; ctx.fillText(o.yfmt ? o.yfmt(yv) : fmt(yv), p.l - 7, Y(yv) + 4); }
+  ctx.strokeStyle = C.ink; ctx.beginPath(); ctx.moveTo(p.l, p.t); ctx.lineTo(p.l, hgt - p.b); ctx.lineTo(w - p.r, hgt - p.b); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.textAlign = "center";
+  if (o.xlabel) ctx.fillText(o.xlabel, (p.l + w - p.r) / 2, hgt - 4);
+  if (o.ylabel) { ctx.save(); ctx.translate(12, (p.t + hgt - p.b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(o.ylabel, 0, 0); ctx.restore(); }
+  ctx.restore();
+  return {X, Y, p};
+}
+function polyline(ctx, pts, color, width, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = width || 2; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+}
+function dot(ctx, x, y, r, color, stroke) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function rrect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* Labelled slider bound to a value. */
+function slider(parent, o, on) {
+  const show = v => o.fmt ? o.fmt(v) : v;
+  const out = h("output", {}, show(o.value));
+  const inp = h("input", {type: "range", min: o.min, max: o.max, step: o.step || 1, value: o.value, "aria-label": o.label});
+  inp.addEventListener("input", () => { const v = parseFloat(inp.value); out.textContent = show(v); on && on(v); });
+  parent.append(h("div", {class: "ctl"}, h("label", {}, o.label, " ", out), inp));
+  inp.setValue = v => { inp.value = v; out.textContent = show(v); };
+  return inp;
+}
+function readout(parent, names) {
+  const box = h("div", {class: "readout"}), cells = {};
+  names.forEach(n => { const b = h("b", {}, "-"); cells[n] = b; box.append(h("div", {}, n, b)); });
+  parent.append(box);
+  return (n, v) => { cells[n].textContent = v; };
+}
+function legend(parent, items) {
+  const C = COL();
+  parent.append(h("div", {class: "legend"}, items.map(([t, i]) => h("span", {}, h("i", {style: "background:" + (typeof i === "number" ? C.c[i] : i)}), t))));
+}
+/* Animation loop that pauses when stopped. */
+function loop(step, ms) {
+  let on = false, raf = 0, last = 0, acc = 0;
+  const f = t => { if (!on) return; const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t; acc += dt * 1000; if (!ms || acc >= ms) { acc = 0; step(dt); } raf = requestAnimationFrame(f); };
+  return {start() { if (!on) { on = true; last = 0; raf = requestAnimationFrame(f); } }, stop() { on = false; cancelAnimationFrame(raf); }, get running() { return on; }};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, type) {
+  const a = h("a", {href: URL.createObjectURL(new Blob([text], {type: type || "text/markdown"})), download: name});
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+/* MathJax helpers: typeset a TeX string to an element, or typeset the \( \) parts of an element. */
+function texEl(tex, display) {
+  const M = window.MathJax;
+  if (M && typeof M.tex2svg === "function") { try { return M.tex2svg(tex, {display: !!display}); } catch (e) {} }
+  return h("code", {class: "tex"}, tex);
+}
+function texInline(el) {
+  const M = window.MathJax; if (!(M && typeof M.tex2svg === "function")) return;
+  const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+  while (tw.nextNode()) if (tw.currentNode.nodeValue.indexOf("\\(") >= 0) nodes.push(tw.currentNode);
+  nodes.forEach(n => { const f = document.createDocumentFragment();
+    n.nodeValue.split(/\\\(([\s\S]+?)\\\)/).forEach((p, i) => f.append(i % 2 ? texEl(p, false) : document.createTextNode(p)));
+    n.replaceWith(f); });
+}
+function whenMJ(f, t) { t = t || 0; const M = window.MathJax;
+  if (M && M.startup && M.startup.promise) { M.startup.promise.then(f); return; }
+  if (t < 300) setTimeout(() => whenMJ(f, t + 1), 100); else f(); }
+function scrollToHashLater() {
+  let moved = false;
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach(e => window.addEventListener(e, () => { moved = true; }, {passive: true}));
+  const go = () => { const id = decodeURIComponent(location.hash.slice(1)), e = id && document.getElementById(id); if (e && !moved) e.scrollIntoView(); };
+  window.addEventListener("load", () => { setTimeout(go, 60); whenMJ(() => setTimeout(go, 80)); });
+}
+
+/* Citation pop-ups: data-refs="1,2" against the JSON block #refdata. */
+function initCites() {
+  const el = $("#refdata"); if (!el) return;
+  const data = JSON.parse(el.textContent); let pop = null;
+  const close = () => { if (pop) { pop.remove(); pop = null; } };
+  $$(".cite").forEach(c => {
+    const open = ev => { ev.stopPropagation(); close();
+      pop = h("div", {class: "pop", html: c.dataset.refs.split(",").map(k => "<p style='margin:.2rem 0'>[" + k + "] " + (data[k] || "") + "</p>").join("")});
+      document.body.append(pop); const r = c.getBoundingClientRect();
+      const left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+      pop.style.left = left + "px"; pop.style.top = (window.scrollY + r.bottom + 6) + "px"; };
+    c.addEventListener("click", open);
+    c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(e); } });
+  });
+  document.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+}
+function initCards() {
+  $$(".card").forEach(c => { const t = () => c.classList.toggle("flip");
+    c.addEventListener("click", t); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); t(); } }); });
+}
+
+/* Knowledge checks and reading progress on lecture pages. */
+function initLecture(week) {
+  const kcs = $$(".kc"), key = "w" + week + ":kc", st = store.get(key, {});
+  const bar = $(".lec-bar i"), txt = $(".lec-txt");
+  const upd = () => {
+    const n = kcs.length, d = Object.values(st).filter(Boolean).length;
+    if (bar) bar.style.width = (n ? 100 * d / n : 0) + "%";
+    if (txt) txt.textContent = n ? `Knowledge checks answered correctly: ${d} of ${n}` : "";
+    store.set(key, st); store.set("w" + week + ":progress", n ? d / n : 0);
+  };
+  kcs.forEach((k, i) => {
+    const ans = +k.dataset.answer, fb = $(".fb", k);
+    $(".btn", k).addEventListener("click", () => {
+      const sel = $("input:checked", k);
+      if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an option first."; return; }
+      const ok = +sel.value === ans; st[i] = ok;
+      fb.className = "fb " + (ok ? "ok" : "bad");
+      fb.innerHTML = (ok ? "Correct. " : "Not quite. ") + (k.dataset.why || "");
+      texInline(fb); upd();
+    });
+  });
+  upd(); initCites(); initCards(); scrollToHashLater();
+}
+
+/* A table of multiple-choice items, checked together (classification parts). */
+function partQuiz(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const saved = store.get(spec.key, {});
+  const tb = h("tbody", {}), t = h("table", {}, h("thead", {}, h("tr", {}, h("th", {}, spec.qhead || "Situation"), h("th", {}, spec.ahead || "Your answer"), h("th", {}, "Feedback"))), tb);
+  root.append(h("div", {class: "tablewrap"}, t));
+  spec.items.forEach((it, i) => {
+    const sel = h("select", {id: `${id}-s${i}`, "aria-label": "Answer to item " + (i + 1)}, [h("option", {value: ""}, "choose")].concat(it.options.map((o, k) => h("option", {value: String(k)}, o))));
+    if (saved[i] !== undefined) sel.value = saved[i];
+    sel.addEventListener("change", () => { const s = store.get(spec.key, {}); s[i] = sel.value; store.set(spec.key, s); });
+    tb.append(h("tr", {}, h("td", {}, it.q), h("td", {}, sel), h("td", {id: `${id}-f${i}`}, "")));
+  });
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my answers"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0;
+    spec.items.forEach((it, i) => { const v = document.getElementById(`${id}-s${i}`).value, f = document.getElementById(`${id}-f${i}`);
+      if (v === "") { f.textContent = "Choose an answer."; return; }
+      const right = +v === it.answer; if (right) ok++; f.textContent = (right ? "Correct. " : "Not quite: " + it.options[it.answer] + ". ") + (it.why || ""); });
+    sc.textContent = `${ok} of ${spec.items.length} correct.`; store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.items.length} correct`); });
+}
+/* Values computed by hand and typed in. */
+function partNumbers(id, spec) {
+  const root = document.getElementById(id); if (!root) return; const row = h("div", {class: "row"});
+  spec.fields.forEach((f, i) => row.append(h("div", {class: "ctl", style: "min-width:220px"}, h("label", {for: `${id}-n${i}`}, f.label),
+    h("input", {type: "number", step: "any", id: `${id}-n${i}`, style: "width:8rem"}))));
+  root.append(row);
+  const btn = h("button", {class: "btn", type: "button"}, spec.button || "Check my values"), sc = h("span", {class: "small", "aria-live": "polite"}, "");
+  root.append(h("p", {}, btn, " ", sc));
+  btn.addEventListener("click", () => { let ok = 0; const out = [];
+    spec.fields.forEach((f, i) => { const v = parseFloat(document.getElementById(`${id}-n${i}`).value), right = Math.abs(v - f.answer) <= f.tol;
+      if (right) ok++; out.push(`${f.short}: ${isNaN(v) ? "missing" : (right ? "correct" : "not yet")}`); });
+    sc.textContent = out.join(", ") + ". " + (ok === spec.fields.length ? (spec.explain || "") : (spec.hint || ""));
+    store.set(spec.key + ":score", ok);
+    if (window.labLog) labLog.note(spec.title || id, `${ok} of ${spec.fields.length} values correct`); });
+}
+/* A calculation revealed one step at a time. spec: inputs [{key, label, min, max, step, value, d}], presets
+   [{label, values}], steps(v) -> [{t, x, m, q: {label, ans, tol}}], viz {aspect, label, legend, draw(ctx, w, h, v, S, k)}. */
+function partSteps(id, spec) {
+  const root = document.getElementById(id); if (!root) return;
+  const v = {}, set = {}, solved = {};
+  spec.inputs.forEach(i => { v[i.key] = i.value; });
+  let k = 0, all = false, S = [], fresh = -1, right = 0;
+  const compute = () => { S = spec.steps(v); if (k > S.length - 1) k = S.length - 1; };
+  const row = h("div", {class: "row"});
+  spec.inputs.forEach(i => {
+    if (i.options) {
+      const sel = h("select", {"aria-label": i.label}, i.options.map((o, j) => h("option", {value: String(j)}, o)));
+      sel.value = String(i.value);
+      sel.addEventListener("change", () => { v[i.key] = +sel.value; update(); });
+      set[i.key] = x => { sel.value = String(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label), sel));
+    } else {
+      const f = x => (i.d == null ? x : (+x).toFixed(i.d)) + (i.unit ? " " + i.unit : "");
+      const out = h("output", {}, f(i.value));
+      const inp = h("input", {type: "range", min: i.min, max: i.max, step: i.step || 1, value: i.value, "aria-label": i.label});
+      inp.addEventListener("input", () => { v[i.key] = parseFloat(inp.value); out.textContent = f(v[i.key]); update(); });
+      set[i.key] = x => { inp.value = x; out.textContent = f(x); };
+      row.append(h("div", {class: "ctl"}, h("label", {}, i.label, " ", out), inp));
+    }
+  });
+  const bench = h("div", {class: "bench"}, row);
+  if (spec.presets) {
+    const pr = h("div", {class: "sc-presets"}, h("span", {class: "small"}, "Start from:"));
+    spec.presets.forEach(p => { const b = h("button", {class: "btn ghost", type: "button"}, p.label);
+      b.addEventListener("click", () => { Object.keys(p.values).forEach(key => { v[key] = p.values[key]; if (set[key]) set[key](p.values[key]); }); k = 0; all = false; update(); });
+      pr.append(b); });
+    bench.append(pr);
+  }
+  root.append(bench);
+  let stg = null;
+  if (spec.viz) {
+    const cv = h("canvas", {class: "paper", role: "img", "aria-label": spec.viz.label || "Figure of the calculation"});
+    root.append(cv); if (spec.viz.legend) legend(root, spec.viz.legend);
+    stg = stage(cv, spec.viz.aspect || 0.4, (ctx, w, hh) => { ctx.clearRect(0, 0, w, hh); if (S.length) spec.viz.draw(ctx, w, hh, v, S, all ? S.length - 1 : k); });
+  }
+  const ol = h("ol", {class: "sc-steps", "aria-live": "polite"});
+  const prev = h("button", {class: "btn ghost", type: "button"}, "Previous");
+  const next = h("button", {class: "btn", type: "button"}, "Next step");
+  const allb = h("button", {class: "btn ghost", type: "button"}, "Show all steps");
+  const cnt = h("span", {class: "sc-count"}), dots = h("div", {class: "sc-dots", "aria-hidden": "true"});
+  const score = h("p", {class: "small"});
+  root.append(ol, h("div", {class: "sc-nav"}, dots, prev, next, allb, cnt), score);
+  function render() {
+    ol.textContent = "";
+    const last = all ? S.length - 1 : k;
+    S.forEach((s, i) => {
+      if (i > last) return;
+      const li = h("li", {class: (!all && i === k ? "cur" : "done") + (i === fresh ? " new" : "")});
+      li.append(h("div", {class: "sc-st"}, h("span", {class: "sc-n"}, "Step " + (i + 1)), " ", s.t));
+      if (s.x) { const d = h("div", {class: "sc-x", html: s.x}); li.append(d); texInline(d); }
+      const hideMath = s.q && !all && !solved[i];
+      if (s.m && !hideMath) li.append(h("div", {class: "sc-m"}, texEl(s.m, true)));
+      if (hideMath) {
+        const inp = h("input", {type: "number", step: "any", "aria-label": s.q.label});
+        const chk = h("button", {class: "btn", type: "button"}, "Check"), rev = h("button", {class: "btn ghost", type: "button"}, "Show the step");
+        const fb = h("span", {class: "small", "aria-live": "polite"});
+        chk.addEventListener("click", () => { const x = parseFloat(inp.value);
+          if (isNaN(x)) { fb.textContent = "Type a number first."; return; }
+          if (Math.abs(x - s.q.ans) <= (s.q.tol == null ? 0.005 : s.q.tol)) { right++; solved[i] = "ok"; render(); }
+          else fb.textContent = "Not yet. Look at the steps above, try again or show the step."; });
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") chk.click(); });
+        rev.addEventListener("click", () => { solved[i] = "shown"; render(); });
+        li.append(h("div", {class: "sc-q"}, h("label", {}, s.q.label), inp, chk, rev, fb));
+      } else if (s.q && solved[i] === "ok") li.append(h("div", {class: "sc-ok"}, "Your value is correct."));
+      ol.append(li);
+    });
+    dots.textContent = ""; S.forEach((s, i) => dots.append(h("i", {class: i <= last ? "on" : ""})));
+    cnt.textContent = `Step ${last + 1} of ${S.length}`;
+    prev.disabled = all || k === 0; next.disabled = all || k >= S.length - 1;
+    allb.textContent = all ? "Step by step" : "Show all steps";
+    const nq = S.filter(s => s.q).length;
+    score.textContent = nq ? `Values typed correctly: ${right} of ${nq} questions in this calculation.` : "";
+    fresh = -1; if (stg) stg.redraw();
+  }
+  function update() { compute(); render(); }
+  prev.addEventListener("click", () => { if (k > 0) { k--; render(); } });
+  next.addEventListener("click", () => { if (k < S.length - 1) { k++; fresh = k; render(); } });
+  allb.addEventListener("click", () => { all = !all; render(); });
+  compute(); render();
+  whenMJ(render);
+}
+
+/* Interactive lab: tabs, self-assessment, reflection and the exported learning log. */
+const labLog = window.labLog = {
+  notes: {}, extra: [],
+  note(part, text) { this.notes[part] = text; store.set("w" + (window.WEEK || 0) + ":notes", this.notes); },
+  add(fn) { this.extra.push(fn); }
+};
+function initLab(week, title, quiz, reflect) {
+  window.WEEK = week;
+  labLog.notes = Object.assign(store.get("w" + week + ":notes", {}), labLog.notes);
+  const tabs = $$(".tabs button"), panels = $$(".tabpanel");
+  tabs.forEach((b, i) => b.addEventListener("click", () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j ? "true" : "false"));
+    panels.forEach((p, j) => { p.hidden = i !== j; });
+  }));
+  const qk = "w" + week + ":quiz", qs = store.get(qk, {});
+  const qroot = $("#quiz");
+  if (qroot) {
+    quiz.forEach((it, i) => {
+      const box = h("div", {class: "sa"}), fb = h("div", {class: "fb", "aria-live": "polite"});
+      box.append(h("p", {class: "q"}, (i + 1) + ". " + it.q));
+      it.options.forEach((o, k) => box.append(h("label", {}, h("input", {type: "radio", name: "sa" + i, value: String(k)}), " " + o)));
+      const conf = h("div", {class: "conf"}, "Confidence:", ["low", "medium", "high"].map(c => h("label", {}, h("input", {type: "radio", name: "cf" + i, value: c}), " " + c)));
+      const btn = h("button", {class: "btn", type: "button"}, "Check");
+      btn.addEventListener("click", () => {
+        const sel = $(`input[name=sa${i}]:checked`, box), cf = $(`input[name=cf${i}]:checked`, box);
+        if (!sel) { fb.className = "fb bad"; fb.textContent = "Select an answer first."; return; }
+        const ok = +sel.value === it.answer; qs[i] = {ok, conf: cf ? cf.value : ""}; store.set(qk, qs);
+        fb.className = "fb " + (ok ? "ok" : "bad");
+        fb.textContent = (ok ? "Correct. " : "Not quite. The answer is: " + it.options[it.answer] + ". ") + (it.why || "");
+        sum();
+      });
+      box.append(conf, h("p", {}, btn), fb); qroot.append(box);
+    });
+    const total = h("p", {class: "small", "aria-live": "polite"}); qroot.append(total);
+    function sum() { const v = Object.values(qs); total.textContent = `Answered: ${v.length} of ${quiz.length}. Correct: ${v.filter(x => x.ok).length}.`; }
+    sum();
+  }
+  const rk = "w" + week + ":reflect", rs = store.get(rk, {});
+  const rroot = $("#reflect");
+  if (rroot) {
+    reflect.forEach((p, i) => {
+      const ta = h("textarea", {"aria-label": p}); ta.value = rs[i] || "";
+      ta.addEventListener("input", () => { rs[i] = ta.value; store.set(rk, rs); });
+      rroot.append(h("p", {html: "<b>" + (i + 1) + ".</b> " + p}), ta);
+    });
+    const ex = h("button", {class: "btn", type: "button"}, "Export the learning log");
+    ex.addEventListener("click", () => {
+      const L = [`# Learning log: Week ${week}, ${title}`, "", `Exported: ${new Date().toLocaleString()}`, "", "## Lab parts", ""];
+      Object.entries(labLog.notes).forEach(([k, v]) => L.push(`- ${k}: ${v}`));
+      labLog.extra.forEach(f => { try { const t = f(); if (t) L.push("", t); } catch (e) {} });
+      L.push("", "## Self-assessment", "");
+      quiz.forEach((q, i) => { const a = qs[i]; L.push(`${i + 1}. ${q.q} ${a ? (a.ok ? "Correct" : "Not correct") + (a.conf ? ", confidence " + a.conf : "") : "Not answered"}`); });
+      L.push("", "## Reflection", "");
+      reflect.forEach((p, i) => { L.push(`**${i + 1}. ${p}**`, "", (rs[i] || "").trim() || "(no answer yet)", ""); });
+      download(`Week${String(week).padStart(2, "0")}_learning_log.md`, L.join("\n"));
+    });
+    rroot.append(h("p", {}, ex));
+  }
+  initCites(); scrollToHashLater();
+}
+
+/* Three.js helpers for the 3D parts. Uses the bundled window.THREE. */
+function has3D() {
+  if (!window.THREE) return false;
+  try { const c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); } catch (e) { return false; }
+}
+function make3D(el, o) {
+  o = o || {};
+  const T = window.THREE;
+  const aspect = o.aspect || 0.62, shadows = o.shadows !== false, tgt = o.target || [0, 0, 0];
+  const renderer = new T.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = o.toneMapping === false ? T.NoToneMapping : T.NeutralToneMapping;
+  renderer.toneMappingExposure = o.exposure || 1.0;
+  renderer.shadowMap.enabled = shadows; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  el.append(renderer.domElement);
+  const scene = new T.Scene(); scene.background = new T.Color(o.bg || 0xDDE3EA);
+  if (o.env !== false && T.RoomEnvironment) {
+    const pm = new T.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = o.envIntensity == null ? 0.6 : o.envIntensity; pm.dispose();
+  }
+  const camera = new T.PerspectiveCamera(o.fov || 45, 1.6, o.near || 0.05, 200);
+  camera.position.set(...(o.camera || [4, 3, 5]));
+  const controls = new T.OrbitControls(camera, renderer.domElement);
+  controls.target.set(...tgt); controls.enableDamping = true; controls.update();
+  if (o.limits) { controls.minDistance = o.limits[0]; controls.maxDistance = o.limits[1]; controls.maxPolarAngle = o.limits[2] || Math.PI / 2.05; }
+  scene.add(new T.HemisphereLight(0xFFFFFF, 0x8A8F98, o.hemi == null ? 1.0 : o.hemi));
+  if (o.fill !== 0) { const fill = new T.DirectionalLight(0xE6EEFF, o.fill == null ? 0.55 : o.fill); fill.position.set(tgt[0] - 5, tgt[1] + 4, tgt[2] - 3); scene.add(fill); }
+  const sun = new T.DirectionalLight(0xFFF4E6, o.sun == null ? 1.7 : o.sun), sp = o.sunPos || [4, 8, 5];
+  sun.position.set(tgt[0] + sp[0], tgt[1] + sp[1], tgt[2] + sp[2]); sun.target.position.set(...tgt);
+  if (shadows) {
+    sun.castShadow = true; const b = o.shadowBox || 6, sc = sun.shadow.camera;
+    sun.shadow.mapSize.set(o.shadowMap || 1024, o.shadowMap || 1024); sc.left = -b; sc.right = b; sc.top = b; sc.bottom = -b; sc.near = 0.1; sc.far = 60;
+    sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02 * b / 6; sun.shadow.radius = 3;
+  }
+  scene.add(sun, sun.target);
+  const ticks = []; let visible = true, dirty = true, fl = null;
+  const fit = () => { const w = el.clientWidth || 600, hh = Math.round(w * aspect); el.style.height = hh + "px";
+    renderer.setSize(w, hh, false); camera.aspect = w / hh; camera.updateProjectionMatrix(); dirty = true; };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(el);
+  fit();
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(el);
+  controls.addEventListener("change", () => { dirty = true; });
+  /* Shadows for every new mesh; screens and labels keep their exact colours. */
+  function shade() {
+    scene.traverse(m => {
+      if (m.userData.sh) return; m.userData.sh = 1;
+      const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
+      mats.forEach(x => { if (x.isMeshBasicMaterial || x.isSpriteMaterial) x.toneMapped = false; });
+      if (!m.isMesh) return;
+      const tr = mats.some(x => x.transparent && x.opacity < 1);
+      m.castShadow = shadows && !tr && !m.userData.noShadow && !mats.some(x => x.isMeshBasicMaterial);
+      m.receiveShadow = shadows && !m.userData.noReceive;
+    });
+  }
+  const clock = new T.Clock();
+  function frameLoop() {
+    requestAnimationFrame(frameLoop);
+    const dt = Math.min(0.05, clock.getDelta());
+    if (!visible) return;
+    let anim = controls.update();
+    if (fl) { fl.u = Math.min(1, fl.u + dt * 1.6); const e = fl.u < 0.5 ? 2 * fl.u * fl.u : 1 - Math.pow(-2 * fl.u + 2, 2) / 2;
+      camera.position.lerpVectors(fl.p0, fl.p1, e); controls.target.lerpVectors(fl.t0, fl.t1, e); controls.update(); if (fl.u >= 1) fl = null; anim = true; }
+    ticks.forEach(f => { if (f(dt)) anim = true; });
+    if (anim || dirty) { shade(); renderer.render(scene, camera); dirty = false; }
+  }
+  frameLoop();
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  function pick(ev, objects) {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(objects, true)[0];
+    return hit || null;
+  }
+  const fly = (pos, target) => { fl = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...target), u: 0}; };
+  const api = {T, scene, camera, renderer, controls, pick, sun, fly, onTick: f => ticks.push(f), redraw: () => { dirty = true; },
+    reset() { fl = null; camera.position.set(...(o.camera || [4, 3, 5])); controls.target.set(...tgt); controls.update(); dirty = true; }};
+  /* View tools: zoom, reset and named views; inactive while a game holds the camera. */
+  if (o.tools !== false) {
+    const bar = document.createElement("div"); bar.className = "tools3d";
+    const mk = (label, title, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label;
+      b.title = title; b.setAttribute("aria-label", title);
+      b.addEventListener("click", e => { e.stopPropagation(); if (!controls.enabled) return; fn(); dirty = true; }); bar.append(b); };
+    const dolly = f => { fl = null; const off = camera.position.clone().sub(controls.target);
+      const d = Math.max(controls.minDistance, Math.min(controls.maxDistance, off.length() * f));
+      camera.position.copy(controls.target).add(off.setLength(d)); controls.update(); };
+    mk("+", "Zoom in", () => dolly(0.8)); mk("−", "Zoom out", () => dolly(1.25)); mk("↺", "Reset the view", () => api.reset());
+    (o.views || []).forEach(v => mk(v.label, "View: " + (v.title || v.label), () => fly(v.camera, v.target)));
+    el.append(bar); api.toolsEl = bar;
+  }
+  return api;
+}
+/* A text label as a sprite. */
+function label3D(text, o) {
+  o = o || {};
+  const T = window.THREE, pad = 10, fs = o.size || 44;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  const w = Math.ceil(ctx.measureText(text).width) + 2 * pad, hh = fs + 2 * pad;
+  c.width = w; c.height = hh;
+  ctx.font = `700 ${fs}px Atkinson Hyperlegible, system-ui, sans-serif`;
+  ctx.fillStyle = o.bg || "rgba(255,255,255,0.92)"; rrect(ctx, 0, 0, w, hh, 12); ctx.fill();
+  ctx.fillStyle = o.color || "#1E2433"; ctx.textBaseline = "middle"; ctx.fillText(text, pad, hh / 2 + 2);
+  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+  const sp = new T.Sprite(new T.SpriteMaterial({map: tex, depthTest: o.depthTest !== false}));
+  const s = o.scale || 0.0045; sp.scale.set(w * s, hh * s, 1);
+  return sp;
+}
+</script><script src="../../assets/vendor/three-bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad:true,theme:"neutral"});</script><script>(function(){
+
+/* Animation: The minimum string distance, cell by cell. The presented text runs along the top and the transcribed text
+   down the left. Cell (i, j) holds the fewest edits that turn the first j units of the presented text into the first i
+   units of the transcribed text; each cell takes the cheapest of three moves. The path back from the last cell shows
+   the substitutions, insertions and deletions. In the mode for words, the units are words and the result is the word
+   error rate of a voice command. */
+(function () {
+  const cv = document.getElementById("ed-cv"); if (!cv) return;
+  const PAIRS = [
+    {label: "Characters: appointment", p: "appointment", t: "appointmnet", words: false},
+    {label: "Characters: monday", p: "monday", t: "mondy", words: false},
+    {label: "Words: the voice command", p: "book cardiology on wednesday at ten thirty", t: "book cardiology wednesday at two thirty", words: true}];
+  const S0 = {k: 0, filled: 0, timer: 0};
+  let P, T, D, n, m;
+  const units = (s, w) => (w ? s.split(" ") : s.split(""));
+  function setup() {
+    const pr = PAIRS[S0.k]; P = units(pr.p, pr.words); T = units(pr.t, pr.words); n = P.length; m = T.length;
+    D = []; for (let i = 0; i <= m; i++) { D.push([]); for (let j = 0; j <= n; j++) D[i].push(i === 0 ? j : (j === 0 ? i : null)); }
+    S0.filled = 0;
+  }
+  const total = () => m * n;
+  function fillOne() {
+    if (S0.filled >= total()) return false;
+    const i = 1 + Math.floor(S0.filled / n), j = 1 + (S0.filled % n), cost = P[j - 1] === T[i - 1] ? 0 : 1;
+    D[i][j] = Math.min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + cost); S0.filled++; return true;
+  }
+  /* the path back from the last cell: diagonal first when it explains the value */
+  function path() {
+    const out = []; let i = m, j = n;
+    while (i > 0 || j > 0) {
+      if (i > 0 && j > 0 && D[i][j] === D[i - 1][j - 1] + (P[j - 1] === T[i - 1] ? 0 : 1)) { out.push([i, j, P[j - 1] === T[i - 1] ? "match" : "substitution"]); i--; j--; }
+      else if (j > 0 && D[i][j] === D[i][j - 1] + 1) { out.push([i, j, "deletion"]); j--; }
+      else { out.push([i, j, "insertion"]); i--; }
+    }
+    return out.reverse();
+  }
+  setup();
+  const ro = readout(document.getElementById("ed-ro"), ["Presented", "Transcribed", "Cells filled", "Edits", "Result"]);
+  function counts() { const c = {substitution: 0, deletion: 0, insertion: 0}; path().forEach(x => { if (x[2] !== "match") c[x[2]]++; }); return c; }
+  function show() {
+    const pr = PAIRS[S0.k], done = S0.filled >= total();
+    ro("Presented", pr.p); ro("Transcribed", pr.t); ro("Cells filled", `${S0.filled} of ${total()}`);
+    if (done) {
+      const c = counts(), d = D[m][n];
+      ro("Edits", `${c.substitution} substitution${c.substitution === 1 ? "" : "s"}, ${c.deletion} deletion${c.deletion === 1 ? "" : "s"}, ${c.insertion} insertion${c.insertion === 1 ? "" : "s"}`);
+      ro("Result", pr.words ? `WER = ${d}/${n} = ${(d / n).toFixed(3)}` : `MSD = ${d}, error rate ${d}/max(${n}, ${m}) = ${(d / Math.max(n, m)).toFixed(3)}`);
+    } else { ro("Edits", "fill the table first"); ro("Result", "fill the table first"); }
+    S.redraw();
+  }
+  const btns = document.getElementById("ed-btn");
+  const pick = PAIRS.map((pr, k) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": k === 0 ? "true" : "false"}, pr.label);
+    b.addEventListener("click", () => set(k)); btns.append(b); return b; });
+  const stepB = h("button", {class: "btn", type: "button"}, "Step"), playB = h("button", {class: "btn", type: "button"}, "Fill the table");
+  btns.append(stepB, playB);
+  function set(k) { clearInterval(S0.timer); S0.timer = 0; S0.k = k; pick.forEach((b, i) => b.setAttribute("aria-pressed", i === k ? "true" : "false")); setup(); show(); }
+  function step() { if (!fillOne()) return; show(); }
+  function play() {
+    if (S0.timer) return;
+    if (reduced()) { while (fillOne()); show(); return; }
+    S0.timer = setInterval(() => { if (!fillOne()) { clearInterval(S0.timer); S0.timer = 0; } show(); }, Math.max(30, 1200 / total()));
+  }
+  stepB.addEventListener("click", step); playB.addEventListener("click", play);
+  const S = stage(cv, 0.62, (ctx, w, hh) => {
+    const C = COL(), pr = PAIRS[S0.k]; ctx.clearRect(0, 0, w, hh);
+    const lw = pr.words ? Math.min(118, w * 0.26) : 26, th = pr.words ? 64 : 26;
+    const cw = Math.min(pr.words ? 74 : 34, (w - lw - 10) / (n + 1)), ch = Math.min(34, (hh - th - 30) / (m + 1));
+    const X = j => lw + j * cw, Y = i => th + i * ch, done = S0.filled >= total(), pth = done ? path() : [];
+    const onPath = {}; pth.forEach(([i, j, op]) => { onPath[i + "," + j] = op; });
+    ctx.font = `${pr.words ? 11 : 13}px Atkinson Hyperlegible, system-ui, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    P.forEach((u, j) => { ctx.save(); ctx.fillStyle = C.c[0]; ctx.translate(X(j + 1) + cw / 2, th - 6);
+      if (pr.words) { ctx.rotate(-Math.PI / 5); ctx.textAlign = "left"; } ctx.fillText(u, 0, pr.words ? 0 : -6); ctx.restore(); });
+    T.forEach((u, i) => { ctx.fillStyle = C.c[1]; ctx.textAlign = pr.words ? "right" : "center"; ctx.fillText(u, pr.words ? lw - 6 : lw / 2, Y(i + 1) + ch / 2); });
+    for (let i = 0; i <= m; i++) for (let j = 0; j <= n; j++) {
+      const v = D[i][j], op = onPath[i + "," + j], idx = (i - 1) * n + (j - 1), isNext = i > 0 && j > 0 && idx === S0.filled;
+      const bg = op ? (op === "match" ? "#DCEFE3" : op === "substitution" ? "#FBE6C8" : "#F6E0DC") : (isNext ? C.band : null);
+      if (bg) { ctx.fillStyle = bg; ctx.fillRect(X(j) + 1, Y(i) + 1, cw - 2, ch - 2); }
+      ctx.strokeStyle = C.line; ctx.strokeRect(X(j) + 0.5, Y(i) + 0.5, cw - 1, ch - 1);
+      if (v !== null) { ctx.fillStyle = C.ink; ctx.textAlign = "center"; ctx.font = `${i === m && j === n ? "700 " : ""}12px Atkinson Hyperlegible, system-ui, sans-serif`;
+        ctx.fillText(String(v), X(j) + cw / 2, Y(i) + ch / 2); }
+    }
+    ctx.textAlign = "left"; ctx.font = "11px Atkinson Hyperlegible, system-ui, sans-serif"; ctx.fillStyle = C.steel;
+    ctx.fillText(done ? "green: match · orange: substitution · red: deletion or insertion" : "each cell: min(above + 1, left + 1, diagonal + 0 or 1)", 6, hh - 10);
+  });
+  show();
+  window.EDIT_TEST = {set, fill() { while (fillOne()); show(); }, state: () => Object.assign({k: S0.k, filled: S0.filled, total: total(), d: S0.filled >= total() ? D[m][n] : null},
+    S0.filled >= total() ? counts() : {})};
+})();
+
+window.W11 = {"phone":{"w":68.0,"h":148.0,"cols":3,"rows":6},"cx":[11.3,34.0,56.7],"cy":[12.3,37.0,61.7,86.3,111.0,135.7],"pivotOut":12.0,"rmin":0.32,"actions":["Book","My visits","Call","Directions"],"grid":[[0.8887,1.0,0.8408],[0.7941,1.0,0.4567],[0.8657,0.9997,0.948],[0.4415,0.8908,0.8093],[0.129,0.171,0.3761],[0.0013,0.0002,0.0046]],"layouts":{"current":{"Book":[2,5],"My visits":[0,5],"Call":[1,5],"Directions":[2,4]},"stage 11":{"Book":[1,1],"My visits":[1,2],"Call":[1,0],"Directions":[2,2]}},"thumbs":[["Ayşe",34,"R",80,30,"holds the phone in her right hand"],["Mehmet",45,"R",90,28,"has large hands"],["Elif",28,"L",81,32,"is left-handed"],["Hasan",71,"R",78,22,"holds the phone low"],["Zeynep",31,"L",76,30,"carries her child on the right arm"],["Can",24,"L",84,34,"has a cast on his right forearm"],["Selin",38,"R",79,30,"carries a bag in her left hand"],["Emine",74,"R",72,36,"has small hands"],["Burak",19,"R",88,40,"holds the phone high"],["Fatma",66,"L",74,26,"holds her rollator with the right hand"]],"templates":{"check":[[10,55],[38,85],[90,15]],"caret":[[10,85],[50,15],[90,85]],"zigzag":[[10,25],[30,75],[50,25],[70,75],[90,25]],"arrow":[[10,50],[88,50],[66,30],[88,50],[66,70]],"circle":[[50.0,12.0],[40.2,13.3],[31.0,17.1],[23.1,23.1],[17.1,31.0],[13.3,40.2],[12.0,50.0],[13.3,59.8],[17.1,69.0],[23.1,76.9],[31.0,82.9],[40.2,86.7],[50.0,88.0],[59.8,86.7],[69.0,82.9],[76.9,76.9],[82.9,69.0],[86.7,59.8],[88.0,50.0],[86.7,40.2],[82.9,31.0],[76.9,23.1],[69.0,17.1],[59.8,13.3],[50.0,12.0]]},"gestureActions":{"check":"confirm the booking","caret":"back to the top","zigzag":"cancel","arrow":"next screen","circle":"refresh"},"nPoints":64,"square":250.0,"phrases":[["my appointment is on monday","please call me after five","i need a new prescription","the pain started last week","can i come earlier tomorrow"],["my test results are ready","i will be ten minutes late","where is the blood test room","please send me a reminder","my daughter will come with me"]],"waiting":[{"call":300,"share":0.5,"browse":[[232,289],[352,432],[450,515],[604,746],[755,788],[796,945],[1052,1056],[1418,1719],[1815,1901],[1916,1918],[1985,1991],[2010,2035],[2038,2094],[2146,2312],[2378,2400]],"notes":[628,1613,2167]},{"call":600,"share":0.75,"browse":[[55,166],[177,201],[211,217],[261,307],[363,407],[502,672],[672,693],[765,822],[940,986],[988,1077],[1123,1151],[1154,1190],[1290,1417],[1421,1447],[1450,1455],[1503,1521],[1545,1599],[1605,1724],[1728,1821],[1824,1874],[1881,1909],[2015,2162],[2173,2367],[2374,2400]],"notes":[1747]},{"call":900,"share":0.35,"browse":[[40,67],[315,350],[409,416],[432,511],[557,640],[718,772],[1306,1366],[1509,1690],[1724,1739],[2138,2291],[2339,2358]],"notes":[]},{"call":1200,"share":0.39,"browse":[[301,384],[461,471],[477,773],[811,921],[963,1119],[1247,1278],[1305,1420],[1430,1453],[1568,1741],[1875,1904],[2255,2276],[2278,2306],[2389,2395]],"notes":[417,1187,1315,1723]},{"call":1500,"share":0.74,"browse":[[0,106],[134,147],[148,150],[226,335],[439,441],[473,532],[573,608],[840,847],[872,993],[1066,1186],[1224,1366],[1444,1483],[1520,1728],[1792,1841],[1890,2070],[2096,2185],[2200,2279],[2308,2316],[2348,2400]],"notes":[1921]},{"call":1800,"share":0.47,"browse":[[88,141],[325,333],[474,477],[570,629],[656,764],[833,919],[1176,1203],[1204,1236],[1351,1372],[1390,1603],[1712,1765],[1991,2026],[2137,2157],[2215,2362]],"notes":[1925,2365]},{"call":2100,"share":0.44,"browse":[[0,62],[270,440],[582,851],[889,905],[974,1003],[1030,1079],[1191,1252],[1296,1460],[1921,1975],[1984,1987],[2223,2227],[2368,2400]],"notes":[335,1757,1774,1907]},{"call":2400,"share":0.31,"browse":[[54,68],[78,167],[285,375],[588,736],[1374,1477],[1522,1580],[1619,1620],[1748,1861],[1901,1929],[2014,2122],[2269,2355]],"notes":[453,1877]}],"waitNames":["Ali","Derya","Kemal","Nur","Okan","Sevgi","Tolga","Leyla"],"lookS":40};
+/* Shared helpers of the 3D games of Weeks 3 to 14: a room, a head-up display, camera flights and the export of
+   results for the Colab notebook. Uses make3D, label3D, h, store and RNG of the course runtime. */
+var LABKIT = window.LABKIT || (function () {
+  /* Materials and canvas textures for the rooms of the clinic. */
+  const std = (G, c, r, m) => new G.T.MeshStandardMaterial({color: c, roughness: r == null ? 0.8 : r, metalness: m || 0});
+  function canvasTex(G, w, hh, draw, rep) {
+    const c = document.createElement("canvas"); c.width = w; c.height = hh; draw(c.getContext("2d"), w, hh);
+    const t = new G.T.CanvasTexture(c); t.colorSpace = G.T.SRGBColorSpace; t.anisotropy = 8;
+    if (rep) { t.wrapS = t.wrapT = G.T.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+  function tiles(G, base, grout, rep, size) {
+    return canvasTex(G, 256, 256, (x, w, hh) => {
+      x.fillStyle = base; x.fillRect(0, 0, w, hh);
+      const r = RNG(7); for (let i = 0; i < 900; i++) { x.fillStyle = `rgba(0,0,0,${0.015 + r() * 0.03})`; x.fillRect(r() * w, r() * hh, 2, 2); }
+      x.strokeStyle = grout; x.lineWidth = size || 3; x.strokeRect(0, 0, w, hh);
+    }, rep);
+  }
+  /* A room of width w and depth d with its back wall at z = z0: tiled floor, walls with a dado band, skirting,
+     ceiling panels and optional windows. Returns the meshes in an object. */
+  function room(G, o) {
+    o = o || {};
+    const T = G.T, S = G.scene, w = o.w || 10, d = o.d || 12, hgt = o.h || 3.2, z0 = o.z0 || -6;
+    const out = {};
+    const fm = std(G, 0xFFFFFF, 0.65); fm.map = tiles(G, o.floorTile || "#D9D5CD", "#B9B3A8", [w / 0.6, d / 0.6]);
+    const fl = new T.Mesh(new T.PlaneGeometry(w, d), fm); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, z0 + d / 2); S.add(fl); out.floor = fl;
+    const wallM = std(G, o.wall || 0xF1EEE8, 0.95), dado = std(G, o.dado || 0xDCE6EC, 0.9), skirt = std(G, 0x8E979F, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, hgt, 0.1), wallM); back.position.set(0, hgt / 2, z0 - 0.05); S.add(back); out.back = back;
+    const bd = new T.Mesh(new T.BoxGeometry(w, 1.0, 0.02), dado); bd.position.set(0, 0.5, z0 + 0.01); S.add(bd);
+    out.sides = [-1, 1].map(sg => { const m = new T.Mesh(new T.BoxGeometry(0.1, hgt, d), std(G, o.side || 0xECE9E2, 0.95)); m.position.set(sg * w / 2, hgt / 2, z0 + d / 2); S.add(m);
+      const b2 = new T.Mesh(new T.BoxGeometry(0.02, 1.0, d), dado); b2.position.set(sg * (w / 2 - 0.06), 0.5, z0 + d / 2); S.add(b2);
+      const k2 = new T.Mesh(new T.BoxGeometry(0.03, 0.1, d), skirt); k2.position.set(sg * (w / 2 - 0.07), 0.05, z0 + d / 2); S.add(k2); return m; });
+    const sk = new T.Mesh(new T.BoxGeometry(w, 0.1, 0.03), skirt); sk.position.set(0, 0.05, z0 + 0.03); S.add(sk);
+    if (o.ceiling !== false) {
+      const c = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({color: o.ceilingColor || 0xE9E6E0})); c.rotation.x = Math.PI / 2; c.position.set(0, hgt, z0 + d / 2); S.add(c); out.ceiling = c;
+      const lm = new T.MeshBasicMaterial({color: 0xFFFDF6});
+      for (let x = -w / 2 + 1.5; x < w / 2 - 0.5; x += 3) for (let z = z0 + 1.5; z < z0 + d - 0.5; z += 3) {
+        const p = new T.Mesh(new T.PlaneGeometry(1.2, 0.6), lm); p.rotation.x = Math.PI / 2; p.position.set(x, hgt - 0.01, z); S.add(p); }
+    }
+    (o.windows || []).forEach(wd => {           /* {x, y, w, h} on the back wall, or {side: -1 | 1, z, y, w, h} */
+      const sky = canvasTex(G, 64, 128, (x, cw, ch) => { const gr = x.createLinearGradient(0, 0, 0, ch); gr.addColorStop(0, "#9CC6E8"); gr.addColorStop(0.7, "#D9ECF7"); gr.addColorStop(1, "#BFD8B0"); x.fillStyle = gr; x.fillRect(0, 0, cw, ch); });
+      const g = new T.Group(), fr = std(G, 0xF7F7F5, 0.5);
+      const glass = new T.Mesh(new T.PlaneGeometry(wd.w, wd.h), new T.MeshBasicMaterial({map: sky})); g.add(glass);
+      [[0, wd.h / 2, wd.w + 0.08, 0.06], [0, -wd.h / 2, wd.w + 0.08, 0.06], [-wd.w / 2, 0, 0.06, wd.h], [wd.w / 2, 0, 0.06, wd.h], [0, 0, 0.04, wd.h]].forEach(([x, y, a, b]) => {
+        const f = new T.Mesh(new T.BoxGeometry(a, b, 0.06), fr); f.position.set(x, y, 0.02); g.add(f); });
+      const sill = new T.Mesh(new T.BoxGeometry(wd.w + 0.16, 0.04, 0.18), fr); sill.position.set(0, -wd.h / 2 - 0.03, 0.07); g.add(sill);
+      if (wd.side) { g.position.set(wd.side * (w / 2 - 0.06), wd.y, wd.z); g.rotation.y = -wd.side * Math.PI / 2; }
+      else g.position.set(wd.x, wd.y, z0 + 0.01);
+      S.add(g);
+    });
+    return out;
+  }
+  /* Furniture and small objects of a waiting room. */
+  function chair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), m = std(G, o.color || 0x3E6F8E, 0.55), mm = std(G, 0xA9B1BA, 0.3, 0.7);
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.07, 0.46, 3, 0.025), m); seat.position.y = 0.43; g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.48, 0.44, 0.05, 3, 0.022), m); back.position.set(0, 0.72, -0.21); back.rotation.x = -0.12; g.add(back);
+    [[-0.21, -0.19], [0.21, -0.19], [-0.21, 0.19], [0.21, 0.19]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.42, 10), mm); l.position.set(a, 0.21, b); g.add(l); });
+    if (o.arms) [-0.25, 0.25].forEach(a => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.04, 0.4, 2, 0.015), mm); r.position.set(a, 0.62, -0.02); g.add(r);
+      const p2 = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.2, 8), mm); p2.position.set(a, 0.52, 0.12); g.add(p2); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function chairRow(G, n, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), gap = o.gap || 0.56;
+    const beam = new T.Mesh(new T.BoxGeometry(gap * n, 0.05, 0.06), std(G, 0x8E979F, 0.35, 0.6)); beam.position.y = 0.36; g.add(beam);
+    for (let i = 0; i < n; i++) { const c = chair(G, {color: o.color, arms: false}); G.scene.remove(c); c.position.x = (i - (n - 1) / 2) * gap; g.add(c); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = i => { const p = new T.Vector3((i - (n - 1) / 2) * gap, 0, 0); return g.localToWorld(p); };
+    return g;
+  }
+  function plant(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), r = RNG(o.seed || 5), s = o.size || 1;
+    const pot = new T.Mesh(new T.CylinderGeometry(0.2 * s, 0.15 * s, 0.4 * s, 24), std(G, o.pot || 0xE9E4DA, 0.55)); pot.position.y = 0.2 * s; g.add(pot);
+    const soil = new T.Mesh(new T.CylinderGeometry(0.185 * s, 0.185 * s, 0.02, 24), std(G, 0x4A3A2C, 0.95)); soil.position.y = 0.39 * s; g.add(soil);
+    const greens = [0x3F7A3A, 0x4E8C45, 0x2F6630, 0x5C9A4E];
+    for (let i = 0; i < 18; i++) {
+      const a = r() * Math.PI * 2, tilt = 0.25 + r() * 0.75, len = (0.35 + r() * 0.35) * s;
+      const leaf = new T.Mesh(new T.SphereGeometry(1, 10, 8), std(G, greens[i % 4], 0.7)); leaf.scale.set(0.07 * s, len / 2, 0.018 * s);
+      const holder = new T.Group(); holder.position.y = 0.4 * s; holder.rotation.set(tilt, a, 0, "YXZ");
+      leaf.position.y = len / 2; holder.add(leaf); g.add(holder);
+    }
+    g.position.set(...(o.at || [0, 0, 0])); G.scene.add(g); return g;
+  }
+  function desk(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 2.4;
+    const body = new T.Mesh(new T.RoundedBoxGeometry(w, 1.05, 0.6, 3, 0.03), std(G, o.color || 0xE8E2D6, 0.6)); body.position.y = 0.525; g.add(body);
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w + 0.08, 0.05, 0.7, 3, 0.02), std(G, 0x8B6E54, 0.45)); top.position.set(0, 1.07, 0.02); g.add(top);
+    const band = new T.Mesh(new T.BoxGeometry(w, 0.12, 0.01), std(G, o.band || 0x2F5D8A, 0.5)); band.position.set(0, 0.85, 0.305); g.add(band);
+    if (o.monitor !== false) { const mon = new T.Mesh(new T.RoundedBoxGeometry(0.5, 0.32, 0.03, 2, 0.01), std(G, 0x1E2128, 0.4)); mon.position.set(w * 0.25, 1.32, -0.12); mon.rotation.y = Math.PI; g.add(mon);
+      const st = new T.Mesh(new T.CylinderGeometry(0.02, 0.05, 0.15, 10), std(G, 0x1E2128, 0.4)); st.position.set(w * 0.25, 1.15, -0.12); g.add(st); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  function sign(G, text, o) {
+    o = o || {}; const T = G.T, w = o.w || 1.2, hh = o.h || 0.3;
+    const tex = canvasTex(G, 512, Math.round(512 * hh / w), (x, cw, ch) => { x.fillStyle = o.bg || "#2F5D8A"; x.fillRect(0, 0, cw, ch);
+      x.fillStyle = o.fg || "#FFFFFF"; x.font = `700 ${Math.round(ch * 0.46)}px Atkinson Hyperlegible, system-ui, sans-serif`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(text, cw / 2, ch / 2 + 2); });
+    const m = new T.Mesh(new T.PlaneGeometry(w, hh), new T.MeshBasicMaterial({map: tex})); m.position.set(...(o.at || [0, 2.3, 0])); m.rotation.y = o.face || 0; G.scene.add(m); return m;
+  }
+  /* A kiosk around a screen of w by h metres whose centre is at o.at; the screen panel itself is made by the caller. */
+  function kiosk(G, o) {
+    const T = G.T, g = new T.Group(), w = o.w, hh = o.h, y = o.at[1];
+    const bez = new T.Mesh(new T.RoundedBoxGeometry(w + 0.05, hh + 0.05, 0.04, 3, 0.012), std(G, 0x1B1E24, 0.4)); bez.position.z = -0.022; g.add(bez);
+    const top = hh / 2 + 0.1, H = top + y, body = new T.Mesh(new T.RoundedBoxGeometry(w + 0.16, H, 0.3, 4, 0.04), std(G, o.color || 0x2F5D8A, 0.45));
+    body.position.set(0, top - H / 2, -0.19); g.add(body);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(w + 0.3, 0.05, 0.5, 3, 0.015), std(G, 0x9AA3AE, 0.35, 0.5)); base.position.set(0, -y + 0.025, -0.19); g.add(base);
+    g.position.set(...o.at); G.scene.add(g); return g;
+  }
+  function clock(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group();
+    const face = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.04, 40), std(G, 0xFFFFFF, 0.4)); face.rotation.x = Math.PI / 2; g.add(face);
+    const rim = new T.Mesh(new T.TorusGeometry(0.2, 0.018, 10, 40), std(G, 0x30343C, 0.4)); g.add(rim);
+    [[0.12, 0.012, -1.0], [0.16, 0.008, 0.6]].forEach(([l, wd, a]) => { const hand = new T.Mesh(new T.BoxGeometry(wd, l, 0.01), std(G, 0x1E2128, 0.5)); hand.geometry.translate(0, l / 2, 0); hand.rotation.z = a; hand.position.z = 0.025; g.add(hand); });
+    g.position.set(...(o.at || [0, 2.3, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A plane with a canvas texture; draw(ctx, W, H) paints it. */
+  function panel(G, wm, hm, px, draw) {
+    const T = G.T, c = document.createElement("canvas"); c.width = px[0]; c.height = px[1];
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mesh = new T.Mesh(new T.PlaneGeometry(wm, hm), new T.MeshBasicMaterial({map: tex}));
+    const api = {mesh, canvas: c, tex, ctx: c.getContext("2d"),
+      redraw() { const x = api.ctx; x.save(); x.textAlign = "left"; x.textBaseline = "alphabetic"; draw(x, c.width, c.height); x.restore(); tex.needsUpdate = true; G.redraw(); }};
+    api.redraw();
+    return api;
+  }
+  /* Head-up display with a top row, a bottom row and a big message in the middle. */
+  function hud(box, n) {
+    const top = h("div", {class: "hud"}), bot = h("div", {class: "hud", style: "top:auto;bottom:8px"}), big0 = h("div", {class: "big", hidden: ""});
+    const spans = []; for (let i = 0; i < (n || 2); i++) { const s = h("span", {}); spans.push(s); top.append(s); }
+    const bottom = h("span", {style: "font-weight:700"}); bot.append(bottom); box.append(top, bot, big0);
+    let timer = 0;
+    return {spans, bottom, set(i, t) { spans[i].textContent = t || ""; }, say(t) { bottom.textContent = t || ""; },
+      big(t, col, ms) { big0.hidden = false; big0.textContent = t; big0.style.color = col || "#1E2433"; clearTimeout(timer); timer = setTimeout(() => { big0.hidden = true; }, ms || 900); }};
+  }
+  /* Smooth camera flights; returns fly(pos, target, callback). */
+  function flyer(G, speed) {
+    let f = null, last = 0;                       /* flights run on real time, also when frames are slow */
+    G.onTick(() => {
+      if (!f) { last = 0; return false; }
+      const now = performance.now(), dt = last ? Math.min(0.25, (now - last) / 1000) : 0.016; last = now;
+      f.u = Math.min(1, f.u + dt * (speed || 1.8)); const e = f.u < 0.5 ? 2 * f.u * f.u : 1 - Math.pow(-2 * f.u + 2, 2) / 2;
+      G.camera.position.lerpVectors(f.p0, f.p1, e); G.controls.target.lerpVectors(f.t0, f.t1, e); G.controls.update();
+      if (f.u >= 1) { const cb = f.cb; f = null; if (cb) cb(); }
+      return true;
+    });
+    return (pos, tgt, cb) => { const T = G.T; f = {p0: G.camera.position.clone(), t0: G.controls.target.clone(), p1: new T.Vector3(...pos), t1: new T.Vector3(...tgt), u: 0, cb}; };
+  }
+  /* Copy rows as comma-separated values for the Colab notebook. */
+  function exporter(btnId, taId, msgId, cols, rowsFn, target, onCopy) {
+    const btn = document.getElementById(btnId), ta = document.getElementById(taId), msg = document.getElementById(msgId);
+    btn.addEventListener("click", () => {
+      const rows = rowsFn();
+      if (!rows.length) { msg.textContent = "Play the game first."; return; }
+      const cell = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };   /* quoted as in CSV files */
+      ta.value = [cols.join(",")].concat(rows.map(r => cols.map(c => cell(r[c])).join(","))).join("\n");
+      ta.hidden = false; ta.select();
+      const ok = () => { msg.textContent = `Copied. Paste it into ${target} of the Colab notebook.`; };
+      try { navigator.clipboard.writeText(ta.value).then(ok, () => { msg.textContent = "Select the text below and copy it."; }); }
+      catch (e) { msg.textContent = "Select the text below and copy it."; }
+      if (onCopy) onCopy();
+    });
+  }
+  const noGL = (box, extra) => { box.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. A recent version of Chrome, Edge, Firefox or Safari runs this part." + (extra || ""))); };
+  const shuffle = (a, r) => { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  /* A simple standing person: body, head; returns the group. */
+  function person(G, col) {
+    const T = G.T, g = new T.Group(), m = new T.MeshLambertMaterial({color: col || 0x5A6E8C});
+    const body = new T.Mesh(new T.CylinderGeometry(0.19, 0.23, 1.1, 16), m); body.position.y = 0.95; g.add(body);
+    const head = new T.Mesh(new T.SphereGeometry(0.15, 16, 12), new T.MeshLambertMaterial({color: 0xE0B48E})); head.position.y = 1.66; g.add(head);
+    [-0.09, 0.09].forEach(x => { const l = new T.Mesh(new T.CylinderGeometry(0.07, 0.07, 0.42, 10), m); l.position.set(x, 0.21, 0); g.add(l); });
+    g.userData.head = head; G.scene.add(g); return g;
+  }
+  /* Point of a ray hit on a panel of wmm x hmm millimetres, in millimetres from its centre with y upwards. */
+  const toMM = (hit, wmm, hmm) => ({x: (hit.uv.x - 0.5) * wmm, y: (hit.uv.y - 0.5) * hmm});
+  /* Fixes the camera during a game, so that drags and taps act on the game and not on the view. */
+  function lock(G, on) { G.controls.enabled = !on; G.renderer.domElement.style.touchAction = on ? "none" : ""; }
+  /* People: rigged human figures built from the CC0 assets of MakeHuman (assets/models). A model is loaded once per
+     page with a script tag, so the pages also work when they are opened from the disk. */
+  const MODELS = {}, MODEL_DIR = (window.COURSE_MODELS || "../../assets/models/");
+  function loadModel(type) {
+    if (MODELS[type]) return MODELS[type];
+    MODELS[type] = new Promise((res, rej) => {
+      const done = () => {
+        const b64 = (window.HUMAN_GLB || {})[type]; if (!b64) { rej(new Error("model " + type)); return; }
+        const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        new THREE.GLTFLoader().parse(buf.buffer, "", res, rej);
+      };
+      if ((window.HUMAN_GLB || {})[type]) { done(); return; }
+      const sc = document.createElement("script"); sc.src = MODEL_DIR + type + ".js"; sc.onload = done; sc.onerror = () => rej(new Error("script " + type));
+      document.head.append(sc);
+    });
+    return MODELS[type];
+  }
+  const LOOKS = {
+    skin: [0xE8C2A4, 0xD9A882, 0xC48A64, 0xA36B4A, 0x7A4E36], hair: [0x2B1E16, 0x3B2416, 0x6B4A2E, 0x8C8780, 0xC9C4BE, 0x111111]};
+  /* human(G, o): o.type man | woman | oldman | oldwoman; o.skin, o.hairColor, o.top, o.bottom, o.shoes as colours;
+     o.hair short | bob | bun | ring | none; o.sleeves long | short; o.coat, o.skirt as booleans; o.pose stand | sit | walk;
+     o.at [x, y, z], o.face angle in radians. Returns a handle at once; the figure appears when its model is loaded. */
+  function human(G, o) {
+    o = o || {};
+    const T = G.T, grp = new T.Group(), V3 = T.Vector3, Q = T.Quaternion;
+    grp.position.set(...(o.at || [0, 0, 0])); grp.rotation.y = o.face || 0; if (o.scale) grp.scale.setScalar(o.scale); G.scene.add(grp);
+    const h = {group: grp, bones: {}, rest: {}, ready: null, state: {pose: o.pose || "stand", t: Math.random() * 10, look: null, reach: null, seat: o.seat || 0.46, lean: o.lean},
+      set(k, v) { h.state[k] = v; h.apply(); G.redraw(); return h; }};
+    const ax = new V3(1, 0, 0);
+    function dirLocal(bone, dirRoot) {           /* a direction in the space of the figure, into the parent of a bone */
+      const qp = new Q(), qr = new Q(); bone.parent.getWorldQuaternion(qp); grp.getWorldQuaternion(qr);
+      return dirRoot.clone().applyQuaternion(qr).applyQuaternion(qp.invert()).normalize();
+    }
+    function aim(name, dirRoot, restName) {
+      const b = h.bones[name]; if (!b) return;
+      b.quaternion.setFromUnitVectors(h.rest[restName || name], dirLocal(b, new V3(...dirRoot)));
+      b.updateMatrixWorld(true);
+    }
+    function seg(a, b) { return h.pos[b].clone().sub(h.pos[a]).normalize(); }
+    function reach(side, targetWorld) {         /* two-bone reach of the arm, with the fingertip on the target */
+      const up = h.bones["upperarm01_" + side], lo = h.bones["lowerarm01_" + side]; if (!up || !lo) return;
+      grp.updateMatrixWorld(true);
+      const S = new V3(); up.getWorldPosition(S);
+      const sc = grp.scale.x, L1 = h.len["arm_" + side] * sc, L2 = (h.len["fore_" + side] + h.len["hand_" + side]) * sc;
+      const v = targetWorld.clone().sub(S); const d = Math.min(v.length(), (L1 + L2) * 0.995), dir = v.normalize();
+      const qr = new Q(); grp.getWorldQuaternion(qr);
+      const pole = new V3(side === "L" ? 0.55 : -0.55, -1, -0.35).applyQuaternion(qr).normalize();
+      const a1 = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))));
+      const axis = new V3().crossVectors(dir, pole).normalize();
+      const upperW = dir.clone().applyAxisAngle(axis, a1);
+      const qp = new Q(); up.parent.getWorldQuaternion(qp);
+      up.quaternion.setFromUnitVectors(h.rest["arm_" + side], upperW.clone().applyQuaternion(qp.invert()).normalize()); up.updateMatrixWorld(true);
+      const E = S.clone().addScaledVector(upperW, L1), foreW = targetWorld.clone().sub(E).normalize();
+      lo.parent.getWorldQuaternion(qp);
+      lo.quaternion.setFromUnitVectors(h.rest["fore_" + side], foreW.applyQuaternion(qp.invert()).normalize()); lo.updateMatrixWorld(true);
+    }
+    function curl(side, amounts) {               /* bends the fingers: amounts for thumb, index, middle, ring, little */
+      for (let f = 1; f <= 5; f++) for (let k = 1; k <= 3; k++) {
+        const b = h.bones[`finger${f}-${k}_${side}`]; if (!b) continue;
+        b.quaternion.setFromAxisAngle(h.curlAxis[side][f], (amounts[f - 1] || 0) * (f === 1 ? 0.6 : 1) * (k === 1 ? 0.8 : 1));
+      }
+    }
+    function look(targetWorld) {
+      const hd = h.bones.head, nk = h.bones.neck01; if (!hd || !nk) return;
+      const P = new V3(); hd.getWorldPosition(P);
+      const d = targetWorld.clone().sub(P), qr = new Q(); grp.getWorldQuaternion(qr); d.applyQuaternion(qr.invert());
+      const yaw = Math.max(-1.1, Math.min(1.1, Math.atan2(d.x, d.z))), pitch = Math.max(-0.7, Math.min(0.55, Math.atan2(d.y, Math.hypot(d.x, d.z))));
+      nk.rotation.set(-pitch * 0.35, yaw * 0.4, 0, "YXZ"); hd.rotation.set(-pitch * 0.65, yaw * 0.6, 0, "YXZ");
+    }
+    h.apply = function () {
+      if (!h.ready || !h.root) return;
+      const st = h.state, b = h.bones, t = st.t;
+      Object.values(b).forEach(x => x.quaternion.identity());
+      h.root.position.set(0, 0, 0);
+      const breath = Math.sin(t * 1.6) * 0.012;
+      if (b.spine02) b.spine02.rotation.x = breath;
+      if (st.pose === "sit") {
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.085 - hip, -0.06);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.10, -0.06, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -1, 0.08], "shin_" + s); });
+        if (b.spine04) b.spine04.rotation.x = -0.06;
+      } else if (st.pose === "bed") {           /* sitting up in bed: legs along the mattress, back against the raised rest */
+        const hip = h.pos["upperleg01_L"].y;
+        h.root.position.set(0, st.seat + 0.02 - hip, 0);
+        ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+          aim("upperleg01_" + s, [sg * 0.05, -0.03, 1], "thigh_" + s); aim("lowerleg01_" + s, [0, -0.02, 1], "shin_" + s); });
+        if (b.spine05) b.spine05.rotation.x = -(st.lean == null ? 0.6 : st.lean);
+        if (b.neck01) b.neck01.rotation.x = 0.25;
+        ["L", "R"].forEach(s => { if (b["foot_" + s]) b["foot_" + s].rotation.x = 1.15; });
+      } else if (st.pose === "walk") {
+        const ph = t * 5.2, sw = Math.sin(ph) * 0.38;
+        h.root.position.y = Math.abs(Math.cos(ph)) * 0.025 - 0.012;
+        ["L", "R"].forEach((s, i) => { const k = i ? -sw : sw;
+          b["upperleg01_" + s].quaternion.setFromAxisAngle(ax, -k);
+          b["lowerleg01_" + s].quaternion.setFromAxisAngle(ax, Math.max(0, Math.sin(ph + (i ? Math.PI : 0) - 0.6)) * 0.75); });
+      }
+      ["L", "R"].forEach(s => { const sg = s === "L" ? 1 : -1;
+        if (st.pose === "sit") { aim("upperarm01_" + s, [sg * 0.14, -0.86, 0.48], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.05, -0.32, 1], "fore_" + s); }
+        else if (st.pose === "bed") { aim("upperarm01_" + s, [sg * 0.22, -0.9, 0.3], "arm_" + s); aim("lowerarm01_" + s, [sg * -0.25, -0.35, 1], "fore_" + s); }
+        else { const swing = st.pose === "walk" ? Math.sin(t * 5.2 + (s === "L" ? Math.PI : 0)) * 0.28 : 0;
+          aim("upperarm01_" + s, [sg * 0.13, -1, 0.03 + swing], "arm_" + s); aim("lowerarm01_" + s, [sg * 0.05, -1, 0.16 + swing * 1.2], "fore_" + s); }
+        curl(s, [0.35, 0.3, 0.38, 0.45, 0.5]); });
+      if (st.reach) { reach(st.reach.side || "R", st.reach.at); curl(st.reach.side || "R", st.reach.point === false ? [0.4, 0.4, 0.45, 0.5, 0.55] : [0.9, 0, 1.4, 1.5, 1.5]); }
+      (h.shoeMeshes || []).forEach(m => { m.visible = st.pose !== "bed"; });
+      if (st.look) look(st.look); else if (b.head) b.head.rotation.set(Math.sin(t * 0.37) * 0.05, Math.sin(t * 0.23) * 0.12, 0, "YXZ");
+      h.root.updateMatrixWorld(true);
+    };
+    h.ready = loadModel(o.type || "man").then(gltf => {
+      const root = T.SkeletonUtils.clone(gltf.scene); h.root = root; grp.add(root);
+      const hair = o.hair || ({man: "short", oldman: "ring", woman: "bob", oldwoman: "bun"}[o.type || "man"]);
+      const show = {top: true, sleeve: o.sleeves !== "short", bottom: !o.skirt, coat: !!o.coat, skirt: !!o.skirt, hair_short: hair === "short" || hair === "bun",
+        hair_bob: hair === "bob", hair_ring: hair === "ring", hair_bun: false, bun: hair === "bun"};
+      const col = {skin: o.skin || LOOKS.skin[1], hair: o.hairColor || LOOKS.hair[o.type && o.type.startsWith("old") ? 4 : 0], top: o.top || 0x3F6E8C,
+        bottom: o.bottom || 0x2B3340, shoes: o.shoes || 0x1C1C1E, coat: o.coatColor || 0xF4F6F8, skirt: o.skirtColor || o.bottom || 0x4A3B5C};
+      root.traverse(m => {
+        if (m.isBone) h.bones[m.name] = m;
+        if (!m.isMesh) return;
+        m.frustumCulled = false; m.castShadow = true; m.receiveShadow = true;
+        if (m.name in show) m.visible = show[m.name];
+        if (m.name.startsWith("shoe_")) (h.shoeMeshes = h.shoeMeshes || []).push(m);
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const cl = mats.map(x => { const c = x.clone(), n = x.name;
+          if (n === "skin") c.color.setHex(col.skin); else if (n === "lips") c.color.setHex(col.skin).multiply(new T.Color(0.93, 0.78, 0.76));
+          else if (n === "hair" || n === "brows") { c.color.setHex(col.hair); c.roughness = 0.55; }
+          else if (col[n] !== undefined) c.color.setHex(col[n]);
+          return c; });
+        m.material = Array.isArray(m.material) ? cl : cl[0];
+      });
+      root.updateMatrixWorld(true);
+      h.pos = {}; Object.entries(h.bones).forEach(([n, b]) => { const p = new V3(); b.getWorldPosition(p); h.pos[n] = grp.worldToLocal(p); });
+      Object.entries(gltf.scene.userData.restDir || {}).forEach(([n, d]) => { h.rest[n] = new V3(...d).normalize(); });
+      h.len = {};
+      ["L", "R"].forEach(s => {
+        h.rest["arm_" + s] = seg("upperarm01_" + s, "lowerarm01_" + s); h.rest["fore_" + s] = seg("lowerarm01_" + s, "wrist_" + s);
+        h.rest["thigh_" + s] = seg("upperleg01_" + s, "lowerleg01_" + s); h.rest["shin_" + s] = seg("lowerleg01_" + s, "foot_" + s);
+        h.len["arm_" + s] = h.pos["lowerarm01_" + s].distanceTo(h.pos["upperarm01_" + s]);
+        h.len["fore_" + s] = h.pos["wrist_" + s].distanceTo(h.pos["lowerarm01_" + s]);
+        h.len["hand_" + s] = h.pos["finger2-3_" + s] ? h.pos["finger2-3_" + s].distanceTo(h.pos["wrist_" + s]) + 0.025 : 0.17;
+      });
+      /* Axes for curling the fingers, from the plane of the palm */
+      h.curlAxis = {};
+      ["L", "R"].forEach(s => { h.curlAxis[s] = {};
+        const across = h.pos["finger2-1_" + s].clone().sub(h.pos["finger5-1_" + s]).normalize();
+        const along = h.pos["finger3-1_" + s].clone().sub(h.pos["wrist_" + s]).normalize();
+        const palm = new V3().crossVectors(along, across).normalize().multiplyScalar(s === "L" ? 1 : -1);
+        for (let f = 1; f <= 5; f++) { const r = h.rest[`finger${f}-1_${s}`] || along; h.curlAxis[s][f] = new V3().crossVectors(r, palm).normalize(); } });
+      h.apply(); G.redraw(); return h;
+    });
+    /* Only walking figures, or figures created with o.idle, move all the time; the others are posed once. */
+    G.onTick(dt => { if (!h.root || reduced() || !(h.state.pose === "walk" || o.idle) || !h.group.visible) return false;
+      h.state.t += dt; h.apply(); return true; });
+    return h;
+  }
+  /* A hospital bed whose head end is at o.at and which points along o.face (0 = toward +z), with a raised back rest,
+     side rails, a blanket and, with o.iv, a drip stand. bed.userData.seat is the height of the mattress, and
+     bed.userData.hips the place of a patient's hips in world coordinates; a human with pose "bed" sits there. */
+  function bed(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), L = 2.05, W = 0.95, H = 0.56, P = 0.78, rest = o.rest == null ? 0.95 : o.rest;
+    const frame = std(G, 0xD9DEE3, 0.35, 0.45), sheet = std(G, 0xF5F7F9, 0.9), cover = std(G, o.blanket || 0x8FB3C9, 0.85), dark = std(G, 0x5E6670, 0.5, 0.3);
+    const base = new T.Mesh(new T.RoundedBoxGeometry(W, 0.1, L, 3, 0.03), frame); base.position.set(0, H - 0.21, L / 2); g.add(base);
+    [[-1, 0.12], [1, 0.12], [-1, L - 0.12], [1, L - 0.12]].forEach(([sx, z]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.025, 0.025, H - 0.3, 10), dark); leg.position.set(sx * (W / 2 - 0.08), (H - 0.3) / 2 + 0.09, z); g.add(leg);
+      const wh = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.04, 14), dark); wh.rotation.z = Math.PI / 2; wh.position.set(sx * (W / 2 - 0.08), 0.05, z); g.add(wh); });
+    const flat = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, L - P, 3, 0.05), sheet); flat.position.set(0, H - 0.08, P + (L - P) / 2); g.add(flat);
+    const back = new T.Group(); back.position.set(0, H - 0.08, P); back.rotation.x = rest; g.add(back);
+    const bm = new T.Mesh(new T.RoundedBoxGeometry(W - 0.06, 0.13, P, 3, 0.05), sheet); bm.position.set(0, 0, -P / 2); back.add(bm);
+    const pillow = new T.Mesh(new T.RoundedBoxGeometry(0.6, 0.1, 0.36, 3, 0.05), sheet); pillow.position.set(0, 0.1, -P + 0.24); back.add(pillow);
+    const blanket = new T.Mesh(new T.RoundedBoxGeometry(W - 0.02, 0.2, L - P - 0.05, 3, 0.07), cover); blanket.position.set(0, H + 0.04, P + 0.05 + (L - P - 0.05) / 2); g.add(blanket);
+    const tent = new T.Mesh(new T.RoundedBoxGeometry(W - 0.1, 0.22, 0.42, 4, 0.1), cover); tent.position.set(0, H + 0.1, L - 0.36); g.add(tent);
+    const head = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.55, 0.05, 3, 0.02), frame); head.position.set(0, H + 0.12, 0.0); g.add(head);
+    const foot = new T.Mesh(new T.RoundedBoxGeometry(W + 0.04, 0.4, 0.05, 3, 0.02), frame); foot.position.set(0, H + 0.04, L); g.add(foot);
+    [-1, 1].forEach(sx => { const r = new T.Mesh(new T.RoundedBoxGeometry(0.03, 0.2, 0.75, 2, 0.012), frame); r.position.set(sx * (W / 2 + 0.01), H + 0.12, 0.62); g.add(r); });
+    if (o.iv) { const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.9, 8), frame); pole.position.set(o.iv * (W / 2 + 0.22), 0.95, 0.35); g.add(pole);
+      const bag = new T.Mesh(new T.RoundedBoxGeometry(0.12, 0.2, 0.04, 2, 0.02), new T.MeshStandardMaterial({color: 0xE8F2F8, roughness: 0.3, transparent: true, opacity: 0.75}));
+      bag.position.set(o.iv * (W / 2 + 0.22), 1.75, 0.35); g.add(bag);
+      const foot2 = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.02, 5), dark); foot2.position.set(o.iv * (W / 2 + 0.22), 0.02, 0.35); g.add(foot2); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g);
+    g.userData.seat = H - 0.015; g.updateMatrixWorld(true); g.userData.hips = g.localToWorld(new T.Vector3(0, 0, P + 0.06));
+    return g;
+  }
+  /* A hospital curtain with folds from o.from = [x, z] to o.to = [x, z], hanging from a rail at the height o.top. */
+  function curtain(G, o) {
+    const T = G.T, [x0, z0] = o.from, [x1, z1] = o.to, len = Math.hypot(x1 - x0, z1 - z0), hh = o.h || 1.95, top = o.top || 2.3;
+    const geo = new T.PlaneGeometry(len, hh, Math.max(8, Math.round(len * 30)), 1), pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) pos.setZ(i, 0.035 * Math.sin(pos.getX(i) * 28));
+    geo.computeVertexNormals();
+    const m = new T.Mesh(geo, new T.MeshStandardMaterial({color: o.color || 0xB9D3DE, roughness: 0.92, side: T.DoubleSide}));
+    m.position.set((x0 + x1) / 2, top - hh / 2, (z0 + z1) / 2); m.rotation.y = -Math.atan2(z1 - z0, x1 - x0); G.scene.add(m);
+    const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, len + 0.1, 8), std(G, 0xC9CED4, 0.3, 0.6));
+    rail.position.set(m.position.x, top + 0.02, m.position.z); rail.rotation.set(0, m.rotation.y, Math.PI / 2); G.scene.add(rail);
+    return m;
+  }
+  /* The lobby of the outpatient clinics around a kiosk at the origin that faces +z: walls with windows, signs, a
+     clock, plants, chairs with waiting patients, a reception desk with a nurse and a short queue behind the kiosk.
+     o.player adds the patient who stands at the kiosk; returns {player, people}. */
+  function lobby(G, o) {
+    o = o || {}; const T = G.T, V = (x, y, z) => new T.Vector3(x, y, z), people = [];
+    room(G, {w: 9, d: 9, z0: -1.5, h: 3.1, windows: [{x: -2.7, y: 1.75, w: 1.5, h: 1.15}, {x: 2.5, y: 1.75, w: 1.5, h: 1.15}]});
+    sign(G, o.title || "Outpatient clinics", {at: [0.3, 2.2, -1.44], w: 1.4, h: 0.28});
+    clock(G, {at: [1.55, 2.2, -1.44]});
+    plant(G, {at: [0.8, 0, -1.05], seed: 11, size: 0.9}); plant(G, {at: [-4.0, 0, -1.1], seed: 4});
+    people.push(...seats(G, 4, {at: [-2.3, 0, -1.0], color: 0x4A7A96}, [
+      {chair: 0, type: "oldwoman", top: 0x7B5E8C, skirt: true, skirtColor: 0x3E4658},
+      {chair: 2, type: "man", top: 0x55606E, bottom: 0x23283A, skin: LOOKS.skin[3], hairColor: 0x111111}]));
+    desk(G, {w: 1.4, at: [2.35, 0, -0.45], face: -Math.PI / 2});
+    const nurse = human(G, {type: "woman", at: [2.9, 0, -0.45], face: -Math.PI / 2, coat: true, top: 0x4FA3A5, bottom: 0x4FA3A5, hair: "bun", skin: LOOKS.skin[1]});
+    nurse.set("look", V(1.0, 1.5, 1.2)); people.push(nurse);
+    people.push(human(G, {type: "oldman", at: [0.3, 0, 1.15], face: Math.PI + 0.2, top: 0x6B7B5A, bottom: 0x3A3F48}).set("look", V(0, 1.3, 0)));
+    people.push(human(G, {type: "woman", at: [0.55, 0, 1.85], face: Math.PI + 0.35, top: 0xB8664A, bottom: 0x2E3440, skin: LOOKS.skin[2], hair: "bun"}));
+    let player = null;
+    if (o.player !== false) { player = human(G, Object.assign({type: "woman", at: [-0.08, 0, 0.44], face: Math.PI, top: 0x3F6E8C, bottom: 0x2B3340, hairColor: 0x3B2416}, o.player || {}));
+      player.set("look", V(0, (o.screenY || 1.25), 0)).set("reach", {side: "R", at: V(0.03, (o.screenY || 1.25) + 0.02, 0.008)}); }
+    return {player, people};
+  }
+  /* A patient sitting up in a bed made by bed(); o holds the options of human(). */
+  function patientIn(G, b, o) {
+    const p = b.userData.hips;
+    return human(G, Object.assign({pose: "bed", seat: b.userData.seat, at: [p.x, 0, p.z], face: b.rotation.y}, o || {}));
+  }
+  /* A wheelchair whose seat is at o.at and which faces o.face (0 = toward +z); o.power gives a power chair with small
+     wheels, a battery box and a joystick. A human with pose "sit" and seat 0.5 sits on it at the same place. */
+  function wheelchair(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), frame = std(G, o.frame || 0x5E6670, 0.35, 0.7), dark = std(G, 0x1E2128, 0.6);
+    const cushion = std(G, o.color || 0x2B3340, 0.85), R = o.power ? 0.17 : 0.3;
+    const seat = new T.Mesh(new T.RoundedBoxGeometry(0.44, 0.06, 0.42, 3, 0.02), cushion); seat.position.set(0, 0.47, 0); g.add(seat);
+    const back = new T.Mesh(new T.RoundedBoxGeometry(0.42, 0.44, 0.04, 3, 0.015), cushion); back.position.set(0, 0.74, -0.22); back.rotation.x = -0.08; g.add(back);
+    [-1, 1].forEach(sx => {
+      const wheel = new T.Mesh(new T.TorusGeometry(R, o.power ? 0.045 : 0.022, 10, 36), dark); wheel.rotation.y = Math.PI / 2; wheel.position.set(sx * 0.27, R, -0.08); g.add(wheel);
+      const hub = new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.05, 12), frame); hub.rotation.z = Math.PI / 2; hub.position.set(sx * 0.27, R, -0.08); g.add(hub);
+      if (!o.power) { const rim = new T.Mesh(new T.TorusGeometry(R - 0.03, 0.008, 6, 36), frame); rim.rotation.y = Math.PI / 2; rim.position.set(sx * 0.3, R, -0.08); g.add(rim);
+        for (let k = 0; k < 6; k++) { const sp = new T.Mesh(new T.CylinderGeometry(0.004, 0.004, 2 * R - 0.05, 4), frame); sp.rotation.set(k * Math.PI / 6, 0, 0); sp.position.set(sx * 0.27, R, -0.08); g.add(sp); } }
+      const caster = new T.Mesh(new T.TorusGeometry(0.055, 0.018, 8, 18), dark); caster.rotation.y = Math.PI / 2; caster.position.set(sx * 0.2, 0.075, 0.3); g.add(caster);
+      const fork = new T.Mesh(new T.CylinderGeometry(0.01, 0.01, 0.38, 6), frame); fork.position.set(sx * 0.2, 0.28, 0.25); fork.rotation.x = -0.15; g.add(fork);
+      const rail = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.5, 8), frame); rail.rotation.x = Math.PI / 2; rail.position.set(sx * 0.21, 0.44, 0.02); g.add(rail);
+      const post = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 0.62, 8), frame); post.position.set(sx * 0.21, 0.7, -0.24); g.add(post);
+      const grip = new T.Mesh(new T.CylinderGeometry(0.016, 0.016, 0.1, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.21, 1.0, -0.29); g.add(grip);
+      const rest = new T.Mesh(new T.BoxGeometry(0.13, 0.015, 0.09), dark); rest.position.set(sx * 0.1, 0.12, 0.38); g.add(rest);
+      const arm = new T.Mesh(new T.RoundedBoxGeometry(0.05, 0.03, 0.3, 2, 0.01), dark); arm.position.set(sx * 0.23, 0.66, -0.04); g.add(arm); });
+    if (o.power) { const bat = new T.Mesh(new T.RoundedBoxGeometry(0.36, 0.2, 0.36, 3, 0.03), dark); bat.position.set(0, 0.25, -0.03); g.add(bat);
+      const joy = new T.Mesh(new T.SphereGeometry(0.025, 12, 10), std(G, 0x111111, 0.4)); joy.position.set(0.24, 0.73, 0.08); g.add(joy); }
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A rollator (walker on wheels) in front of a person at o.at who faces o.face. */
+  function rollator(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), fr = std(G, o.color || 0x8C3B3B, 0.4, 0.4), dark = std(G, 0x1E2128, 0.6);
+    [-1, 1].forEach(sx => { [[0.0, -0.05], [0.42, 0.06]].forEach(([z, lean]) => {
+      const leg = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.86, 8), fr); leg.position.set(sx * 0.27, 0.45, z); leg.rotation.x = lean; g.add(leg);
+      const wh = new T.Mesh(new T.TorusGeometry(0.07, 0.02, 8, 18), dark); wh.rotation.y = Math.PI / 2; wh.position.set(sx * 0.27, 0.075, z); g.add(wh); });
+      const grip = new T.Mesh(new T.CylinderGeometry(0.018, 0.018, 0.14, 8), dark); grip.rotation.x = Math.PI / 2; grip.position.set(sx * 0.27, 0.88, -0.02); g.add(grip); });
+    const seat = new T.Mesh(new T.BoxGeometry(0.5, 0.02, 0.3), dark); seat.position.set(0, 0.56, 0.2); g.add(seat);
+    const basket = new T.Mesh(new T.BoxGeometry(0.4, 0.14, 0.24), std(G, 0x30343C, 0.8)); basket.position.set(0, 0.38, 0.22); g.add(basket);
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A stick from a hand at o.from to the floor at o.to: a white cane for blind people (o.white) or a walking stick. */
+  function stick(G, o) {
+    const T = G.T, a = new T.Vector3(...o.from), b = new T.Vector3(...o.to), len = a.distanceTo(b), g = new T.Group();
+    const m = new T.Mesh(new T.CylinderGeometry(o.white ? 0.008 : 0.012, o.white ? 0.008 : 0.012, len, 8), std(G, o.white ? 0xF4F4F2 : 0x6B4A2E, 0.5)); g.add(m);
+    if (o.white) { const band = new T.Mesh(new T.CylinderGeometry(0.0085, 0.0085, 0.18, 8), std(G, 0xC0392B, 0.5)); band.position.y = -len / 2 + 0.16; g.add(band); }
+    g.position.copy(a).add(b).multiplyScalar(0.5); g.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+    G.scene.add(g); return g;
+  }
+  /* A pair of underarm crutches beside a person standing at o.at, facing o.face. */
+  function crutches(G, o) {
+    const T = G.T, g = new T.Group(), m = std(G, 0xA9B1BA, 0.3, 0.7), pad = std(G, 0x30343C, 0.8);
+    [-1, 1].forEach(sx => { const c = new T.Group();
+      const pole = new T.Mesh(new T.CylinderGeometry(0.012, 0.012, 1.3, 8), m); pole.position.y = 0.65; c.add(pole);
+      const top = new T.Mesh(new T.RoundedBoxGeometry(0.06, 0.04, 0.16, 2, 0.015), pad); top.position.y = 1.31; c.add(top);
+      const hand = new T.Mesh(new T.CylinderGeometry(0.014, 0.014, 0.12, 8), pad); hand.rotation.x = Math.PI / 2; hand.position.y = 0.86; c.add(hand);
+      c.position.set(sx * 0.27, 0, 0.05); c.rotation.z = sx * 0.1; g.add(c); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A white cast on the right forearm of a figure, between elbow and wrist. It hangs on the bone of the forearm, so it
+     follows every pose of the arm. */
+  function cast(G, hum) {
+    const T = G.T; return hum.ready.then(() => { hum.group.updateMatrixWorld(true);
+      const a = new T.Vector3(), b = new T.Vector3(); hum.bones.lowerarm01_R.getWorldPosition(a); hum.bones.wrist_R.getWorldPosition(b);
+      const sc = hum.group.getWorldScale(new T.Vector3()).x;
+      const m = new T.Mesh(new T.CapsuleGeometry(0.045 * sc, a.distanceTo(b) * 0.8, 4, 10), std(G, 0xF6F6F4, 0.9));
+      m.position.copy(a).lerp(b, 0.55); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize());
+      G.scene.add(m); hum.bones.lowerarm01_R.attach(m); G.redraw(); return m; });
+  }
+  /* A table with four legs; o.w, o.d and o.h in metres. */
+  function table(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.2, d = o.d || 0.7, ht = o.h || 0.74;
+    const top = new T.Mesh(new T.RoundedBoxGeometry(w, 0.04, d, 3, 0.012), std(G, o.color || 0xC8A27A, 0.5)); top.position.y = ht - 0.02; g.add(top);
+    const lm = std(G, o.legs || 0x8E979F, 0.35, 0.6);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => { const l = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, ht - 0.04, 10), lm);
+      l.position.set(a * (w / 2 - 0.06), (ht - 0.04) / 2, b * (d / 2 - 0.06)); g.add(l); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A shelf unit with boxes of medicine; o.at is the middle of its front edge on the floor. */
+  function shelf(G, o) {
+    o = o || {}; const T = G.T, g = new T.Group(), w = o.w || 1.6, ht = o.h || 1.9, d = o.d || 0.34, n = o.rows || 5, r = RNG(o.seed || 3);
+    const wood = std(G, o.color || 0xEDEAE4, 0.6);
+    const back = new T.Mesh(new T.BoxGeometry(w, ht, 0.02), wood); back.position.set(0, ht / 2, -d + 0.01); g.add(back);
+    [-1, 1].forEach(s => { const p = new T.Mesh(new T.BoxGeometry(0.025, ht, d), wood); p.position.set(s * (w / 2 - 0.0125), ht / 2, -d / 2); g.add(p); });
+    const cols = o.boxes || [0xFFFFFF, 0xD9E8F5, 0xF4D6CC, 0xE3F0DA, 0xF7EBC8, 0xE8E0F2, 0xFFFFFF], parts = cols.map(() => []);
+    for (let i = 0; i <= n; i++) {
+      const y = 0.06 + i * (ht - 0.1) / n, b = new T.Mesh(new T.BoxGeometry(w - 0.05, 0.022, d - 0.02), wood); b.position.set(0, y, -d / 2); g.add(b);
+      if (i === n) break;
+      let x = -w / 2 + 0.05;
+      while (x < w / 2 - 0.13) {
+        const bw = 0.045 + r() * 0.075, bh = 0.07 + r() * Math.min(0.15, (ht - 0.1) / n - 0.1), bd = 0.1 + r() * 0.13;
+        if (r() < 0.1) { x += bw + 0.03; continue; }
+        const geo = new T.BoxGeometry(bw, bh, bd); geo.translate(x + bw / 2, y + 0.011 + bh / 2, -0.03 - bd / 2);
+        parts[Math.floor(r() * cols.length)].push(geo); x += bw + 0.006;
+      }
+    }
+    parts.forEach((p, i) => { if (p.length) g.add(new T.Mesh(T.mergeGeometries(p), std(G, cols[i], 0.7))); });
+    g.position.set(...(o.at || [0, 0, 0])); g.rotation.y = o.face || 0; G.scene.add(g); return g;
+  }
+  /* A row of n chairs with people seated on some of them; who is a list of human options, each with the index of its
+     chair. */
+  function seats(G, n, o, who) {
+    const row = chairRow(G, n, o);
+    return (who || []).map(w => { const p = row.userData.seat(w.chair), q = Object.assign({}, w); delete q.chair;
+      return human(G, Object.assign({pose: "sit", at: [p.x, 0, p.z], face: o.face || 0}, q)); });
+  }
+  /* A game is first seen from the room. play(true) flies the camera to the play view o.view and fixes it there, and
+     play(false) flies back to the view of the room. The objects in o.hide, such as the figure that stands where the
+     camera goes, are hidden while the game runs. jump(view) sets a view at once, for the screenshots. */
+  function stage(G, o) {
+    const fly = flyer(G, o.speed || 1.5), home = {camera: G.camera.position.toArray(), target: G.controls.target.toArray()};
+    const st = {on: false, home,
+      play(v, cb) {
+        if (v === st.on) { if (cb) cb(); return; }
+        st.on = v; (o.hide || []).forEach(x => { (x.group || x).visible = !v; });
+        lock(G, v); if (G.toolsEl) G.toolsEl.classList.toggle("off", v);
+        const t = v ? o.view : home; fly(t.camera, t.target, cb); G.redraw();
+      },
+      jump(view) { G.camera.position.set(...view.camera); G.controls.target.set(...view.target); G.controls.update(); G.redraw(); }};
+    return st;
+  }
+  return {room, panel, hud, flyer, exporter, noGL, shuffle, person, toMM, lock, human, loadModel, LOOKS, std, canvasTex, tiles, chair, chairRow, plant, desk, sign, clock, kiosk,
+    table, shelf, seats, stage, bed, patientIn, curtain, lobby, wheelchair, rollator, stick, crutches, cast};
+})();
+window.LABKIT = LABKIT;
+
+/* Scene of Week 11: Called while looking down. Eight patients wait in two rows of the waiting room and look at their
+   phones in the meantime: Browsing at times, and for 40 s after each notification of another app. Patient k is called
+   at minute 5 (k + 1) on the display. A patient who looks at the phone at that moment misses the call and notices it
+   only when looking up again. Two features of stage 11 can be switched on: The call also goes to the phone, and the
+   notifications of other apps wait until the call. The schedule is the waiting room of Section 5 of the Colab
+   notebook, generated with the same seed. */
+(function () {
+  const el = document.getElementById("wr-3d"); if (!el) return;
+  const W = window.W11, ROOM = W.waiting, NAMES = W.waitNames, LOOK = W.lookS, END = 2400;
+  const on = {phone: false, hold: false};
+  const FEAT = [["phone", "The call also goes to the phone"], ["hold", "Other apps wait until the call"]];
+  const looking = (p, t, hold) => p.browse.some(([a, b]) => a <= t && t < b) || p.notes.some(a => !(hold && a < p.call) && a <= t && t < a + LOOK);
+  function result() {
+    const missed = [], delays = []; let delivered = 0;
+    ROOM.forEach((p, k) => {
+      delivered += p.notes.filter(a => a < p.call && !on.hold).length + (on.phone ? 1 : 0);
+      if (!on.phone && looking(p, p.call, on.hold)) { let t = p.call; while (looking(p, t, on.hold)) t++; missed.push(k); delays.push(t - p.call); }
+    });
+    return {missed, delays, delivered};
+  }
+  const btnBox = document.getElementById("wr-feat"), say = document.getElementById("wr-say"), ro = document.getElementById("wr-ro");
+  const playB = h("button", {class: "btn", type: "button"}, "Play the 40 minutes");
+  const btns = FEAT.map(([k, lab]) => { const b = h("button", {class: "btn ghost", type: "button", "aria-pressed": "false"}, lab);
+    b.addEventListener("click", () => toggle(k)); return b; });
+  btnBox.append(playB, ...btns);
+  function text() {
+    const r = result(); ro.textContent = "";
+    ro.append(h("span", {}, "Missed calls ", h("b", {}, `${r.missed.length} of 8`)),
+      h("span", {}, "Noticed late ", h("b", {}, r.missed.length ? r.missed.map((k, i) => `${NAMES[k]} +${r.delays[i]} s`).join(", ") : "nobody")),
+      h("span", {}, "Notifications before the calls ", h("b", {}, String(r.delivered))));
+  }
+  function toggle(k) {
+    on[k] = !on[k]; btns.forEach((b, i) => b.setAttribute("aria-pressed", on[FEAT[i][0]] ? "true" : "false"));
+    const r = result(), lab = FEAT.find(f => f[0] === k)[1];
+    say.textContent = (on[k] ? `${lab}: switched on. ` : `${lab}: switched off. `) + (r.missed.length ? `${r.missed.map(x => NAMES[x]).join(" and ")} still miss${r.missed.length === 1 ? "es" : ""} the call.`
+      : "Nobody misses the call.") + " Play the 40 minutes to watch it.";
+    text(); if (G) finalView();
+  }
+  let G = null;
+  if (!has3D()) { el.append(h("p", {class: "no3d"}, "3D graphics are not available in this browser. The buttons still count the missed calls."));
+    playB.disabled = true; text();
+    window.SCENE_TEST = {toggle, state: () => Object.assign({on: Object.assign({}, on)}, result())}; return; }
+  G = make3D(el, {camera: [2.45, 1.8, 0.3], target: [-0.45, 0.95, 2.05], limits: [1.2, 12, 1.45], aspect: 0.62, bg: 0xE6EAF0, shadowBox: 6});
+  const T = G.T, SC = G.scene, L = LABKIT, V = (x, y, z) => new T.Vector3(x, y, z), FONT = "Atkinson Hyperlegible, system-ui, sans-serif";
+  L.room(G, {w: 9, d: 8, z0: -1.0, h: 3.1, windows: [{side: 1, z: 2.0, y: 1.75, w: 1.6, h: 1.15}]});
+  L.plant(G, {at: [-3.9, 0, -0.6], seed: 8}); L.plant(G, {at: [3.9, 0, 4.2], seed: 2, size: 0.9});
+  L.sign(G, "Laboratory", {at: [-2.4, 2.45, -0.94], w: 1.2, h: 0.26});
+  /* the displays of the calls: one above the door in front of the rows, one on the left wall */
+  let now = -1;
+  const drawCall = (c, w, hh) => { c.fillStyle = "#0E2C4A"; c.fillRect(0, 0, w, hh); c.fillStyle = "#9FB6CC"; c.font = `600 52px ${FONT}`; c.textBaseline = "middle";
+    c.fillText("Now calling", 40, 80); c.fillStyle = "#FFFFFF"; c.font = `700 120px ${FONT}`;
+    c.fillText(now < 0 ? "–" : `L-0${now + 1}`, 40, 230); c.font = `500 48px ${FONT}`; c.fillStyle = "#9FE0B4"; if (now >= 0) c.fillText("Room 3", 40, 380); };
+  const CALL1 = L.panel(G, 0.9, 0.5, [900, 500], drawCall); CALL1.mesh.position.set(0.2, 2.15, -0.93); SC.add(CALL1.mesh);
+  const CALL2 = L.panel(G, 0.9, 0.5, [900, 500], drawCall); CALL2.mesh.position.set(-4.43, 2.0, 1.9); CALL2.mesh.rotation.y = Math.PI / 2; SC.add(CALL2.mesh);
+  const door = new T.Mesh(new T.BoxGeometry(1.0, 2.1, 0.06), L.std(G, 0xC9B79C, 0.6)); door.position.set(1.6, 1.05, -0.96); SC.add(door);
+  const DISP = V(0.2, 2.15, -0.93);
+  /* two rows of four chairs facing the display */
+  const LOOKS = [{type: "man", top: 0x3F6E8C}, {type: "woman", top: 0xB8664A, hair: "bob"}, {type: "oldman", top: 0x6B7B5A}, {type: "woman", top: 0x2E8B57, hair: "bun"},
+    {type: "man", top: 0x7B5E8C}, {type: "oldwoman", top: 0x8C6D5A, skirt: true, skirtColor: 0x3E4658}, {type: "man", top: 0xC07A3A}, {type: "woman", top: 0x4A6FA5}];
+  const people = [];
+  [[1.5, [0, 1, 2, 3]], [2.6, [4, 5, 6, 7]]].forEach(([z, ks]) => {
+    const who = ks.map((k, i) => Object.assign({chair: i, bottom: 0x2B3340, skin: L.LOOKS.skin[(k * 2 + 1) % 5], hairColor: L.LOOKS.hair[k % 3]}, LOOKS[k]));
+    const hs = L.seats(G, 4, {at: [-0.2, 0, z], face: Math.PI, color: 0x4A7A96}, who);
+    hs.forEach((hu, i) => people[ks[i]] = {hu});
+  });
+  const ringMat = c => new T.MeshBasicMaterial({color: c});
+  /* a small phone above each lap shows what the phone does: blue for browsing, orange for a notification, green for the call */
+  const icon = (col, mark) => { const c = document.createElement("canvas"); c.width = 64; c.height = 96; const x = c.getContext("2d");
+    x.fillStyle = "#1B1E24"; x.beginPath(); x.roundRect(8, 4, 48, 88, 10); x.fill(); x.fillStyle = col; x.beginPath(); x.roundRect(13, 12, 38, 70, 6); x.fill();
+    if (mark) { x.fillStyle = "#1B1E24"; x.font = "700 40px DejaVu Sans, system-ui, sans-serif"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(mark, 32, 48); }
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; return new T.SpriteMaterial({map: t, depthTest: false}); };
+  const ICONS = {browse: icon("#8EC9FF"), note: icon("#FFB347", "!"), turn: icon("#4CD97B", "✓")};
+  people.forEach((P, k) => {
+    const g = P.hu.group.position, phone = new T.Group();
+    const body = new T.Mesh(new T.RoundedBoxGeometry(0.11, 0.21, 0.012, 3, 0.006), L.std(G, 0x1B1E24, 0.35)); phone.add(body);
+    P.scr = new T.Mesh(new T.PlaneGeometry(0.096, 0.19), new T.MeshBasicMaterial({color: 0x23272E})); P.scr.position.z = 0.0065; phone.add(P.scr);
+    P.at = V(g.x + 0.05, 0.76, g.z - 0.28); phone.position.copy(P.at); SC.add(phone); P.phone = phone;
+    P.ring = new T.Mesh(new T.TorusGeometry(0.24, 0.022, 8, 40), ringMat(0x9AA3AE)); P.ring.rotation.x = Math.PI / 2; P.ring.position.set(g.x, 0.02, g.z - 0.55); SC.add(P.ring);
+    P.lab = label3D(NAMES[k], {scale: 0.0019}); P.lab.position.set(g.x, 1.44, g.z - 0.02); SC.add(P.lab);
+    P.ico = new T.Sprite(ICONS.browse); P.ico.scale.set(0.07, 0.105, 1); P.ico.position.set(g.x + 0.03, 1.6, g.z - 0.02); P.ico.renderOrder = 4; P.ico.visible = false; SC.add(P.ico);
+    P.hu.ready.then(() => { const c = V(0, 0, 0); P.hu.bones.head.getWorldPosition(c); phone.lookAt(c); phone.updateMatrixWorld(true);
+      const corner = V(0.05, -0.09, 0.008).applyMatrix4(phone.matrixWorld), S = V(0, 0, 0); P.hu.bones.upperarm01_R.getWorldPosition(S);
+      P.hu.set("reach", {side: "R", at: corner.clone().add(corner.clone().sub(S).normalize().multiplyScalar(0.08)), point: false}); G.redraw(); });
+    P.look = null;
+  });
+  const COLS = {off: 0x23272E, browse: 0x8EC9FF, note: 0xFFB347, turn: 0x4CD97B};
+  function pose(P, k, t) {
+    const p = ROOM[k], hold = on.hold, called = t >= p.call;
+    let screen = "off", look;
+    const held = hold && p.notes.some(a => a < p.call && t >= p.call + 30 && t < p.call + 30 + LOOK);
+    if (!called) { const br = p.browse.some(([a, b]) => a <= t && t < b), nt = p.notes.some(a => !(hold && a < p.call) && a <= t && t < a + LOOK);
+      screen = nt ? "note" : (br ? "browse" : "off"); look = br || nt; }
+    else {
+      const missed = !on.phone && looking(p, p.call, hold); let back = p.call; if (missed) while (looking(p, back, hold)) back++;
+      if (on.phone && t < p.call + 40) screen = "turn";
+      else if (missed && t < back) screen = p.notes.some(a => a <= t && t < a + LOOK) ? "note" : "browse";
+      else if (held) screen = "note";
+      look = missed && t < back;
+      P.ring.material.color.setHex(missed ? (t < back ? 0xB53F2E : 0xC98510) : 0x2E8B57);
+    }
+    if (!called) P.ring.material.color.setHex(0x9AA3AE);
+    P.scr.material.color.setHex(COLS[screen]); P.ico.visible = screen !== "off"; if (P.ico.visible) P.ico.material = ICONS[screen];
+    const key = look ? "phone" : "display";
+    if (P.look !== key) { P.look = key; P.hu.set("look", look ? P.at : DISP); }
+  }
+  let simT = END, playing = false, last = 0;
+  function setTime(t) { simT = t; const c = Math.floor(t / 300) - 1; if (c !== now) { now = Math.min(7, c); CALL1.redraw(); CALL2.redraw(); }
+    people.forEach((P, k) => pose(P, k, t)); G.redraw(); }
+  function finalView() { if (playing) return; setTime(END); }
+  G.onTick(() => {
+    if (!playing) { last = 0; return false; }
+    const n = performance.now(), dt = last ? Math.min(0.25, (n - last) / 1000) : 0.016; last = n;
+    let t = simT + dt * 100; if (t >= END) { t = END; playing = false; playB.disabled = false; text(); say.textContent = "The 40 minutes are over. " + say.textContent.replace(/^The 40 minutes are over\. /, ""); }
+    setTime(t); return true;
+  });
+  playB.addEventListener("click", () => { if (playing) return; if (reduced()) { setTime(END); return; } playing = true; playB.disabled = true; setTime(0); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { CALL1.redraw(); CALL2.redraw(); });
+  G.renderer.domElement.setAttribute("aria-label", "A waiting room with two rows of patients who look at their phones, a display that calls their numbers and a door to room 3.");
+  text(); setTime(END);
+  say.textContent = "The display calls a new number every five minutes. Play the 40 minutes, then switch on the features of stage 11.";
+  window.SHOT_PREP = window.SHOT_PREP || {};
+  window.SHOT_PREP.scene = () => { playing = false; setTime(1205); };
+  window.SCENE_TEST = {toggle, play() { playB.click(); }, at: t => setTime(t), state: () => Object.assign({on: Object.assign({}, on), t: simT, playing}, result())};
+})();
+
+initLecture(11);
+})();</script></body></html>
