@@ -9,7 +9,7 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 </div>
 
-System-centred and user-centred design, the loop of execution and evaluation, usability in four numbers, three experiments in three dimensions (3D) and a first baseline of the clinic app. **Estimated study time:** 8 to 9 hours.
+The logic and the disciplines of human-computer interaction, system-centred and user-centred design and the loop of execution and evaluation. Usability in four numbers, three experiments in three dimensions (3D) and a first baseline of the clinic app. **Estimated study time:** 8 to 9 hours.
 
 ## Materials of the week
 
@@ -26,7 +26,7 @@ Each material has its own role. Start with the lecture page; the study path belo
 
 ## Learning outcomes
 
-By the end of the week, students are expected to define human-computer interaction, usability and user-centred design with their standard definitions. They should be able to contrast user-centred with system-centred design and estimate the cost of a design decision in the time of its users. They should describe the interaction loop with its gulfs of execution and evaluation. They should also compute the completion rate, the mean time on task, the efficiency and the score of the System Usability Scale (SUS) of a usability test. They should explain affordances, signifiers, constraints, mapping and feedback with examples from real interfaces. Finally, they should be able to model a task as a chain of steps and compute its probability of completion and its expected time. With the model, they should find the weakest step of an app. In Python, students are expected to use values, variables, decisions, lists, loops, functions and dictionaries.
+By the end of the week, students are expected to define human-computer interaction, usability and user-centred design with their standard definitions. They should be able to describe the field as an interdisciplinary one and name the disciplines that it draws on. They should also tell it apart from neighbouring fields such as human factors and user experience design. They should be able to contrast user-centred with system-centred design and estimate the cost of a design decision in the time of its users. They should describe the interaction loop with its gulfs of execution and evaluation. They should also compute the completion rate, the mean time on task, the efficiency and the score of the System Usability Scale (SUS) of a usability test. They should explain affordances, signifiers, constraints, mapping and feedback with examples from real interfaces. Finally, they should be able to model a task as a chain of steps and compute its probability of completion and its expected time. With the model, they should find the weakest step of an app. In Python, students are expected to use values, variables, decisions, lists, loops, functions and dictionaries.
 
 ## Study path
 
@@ -46,8 +46,8 @@ The week runs as one synchronous session of about three hours in class or online
 
 | Time | Activity |
 |---|---|
-| 0:00 to 0:15 | Opening: What human-computer interaction (HCI) studies, the plan of the course and the clinic app. Students open the Colab notebook, save a copy in Drive and run Section 0 |
-| 0:15 to 0:50 | Lecture page, part 1: What is HCI, then system-centred and user-centred design with its discussion questions in pairs. Everybody plays Part A of the interactive lab, the kiosk race in 3D, and the class compares the first results |
+| 0:00 to 0:10 | Opening: What human-computer interaction (HCI) studies, the plan of the course and the clinic app. Students open the Colab notebook, save a copy in Drive and run Section 0 |
+| 0:10 to 0:50 | Lecture page, part 1: What is HCI, its four parts and its disciplines, then system-centred and user-centred design with its discussion questions in pairs. Everybody plays Part A of the interactive lab, the kiosk race in 3D, and the class compares the first results |
 | 0:50 to 1:10 | Colab, together: Python step 1, ending with the comparison of two groups of patients |
 | 1:10 to 1:20 | Break |
 | 1:20 to 1:50 | Lecture page, part 2: The interaction loop with the 3D scene Two gulfs, then usability and the System Usability Scale (SUS) with Part B. Section 1 in Colab with each student's own kiosk results |
@@ -71,7 +71,7 @@ The task is optional and supports self-learning and a personal portfolio. During
 
 **Do conversational assistants widen the gulfs?** How do the gulfs of execution and evaluation appear in studies of today's conversational and voice assistants?
 
-**What to do.** Select eight studies published since 2018 that evaluate a conversational or voice assistant with users. For each study, note the problems that the users met and classify each problem as a gulf of execution or a gulf of evaluation &#91;[15](https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#ref-15)&#93;. Compare your classification with the guidelines of Amershi and colleagues &#91;[24](https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#ref-24)&#93; and discuss which guideline would have prevented each problem.
+**What to do.** Select eight studies published since 2018 that evaluate a conversational or voice assistant with users. For each study, note the problems that the users met and classify each problem as a gulf of execution or a gulf of evaluation &#91;[20](https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#ref-20)&#93;. Compare your classification with the guidelines of Amershi and colleagues &#91;[16](https://utkukose.github.io/human-computer-interaction-NB-lecture/weeks/week-01/lecture.html#ref-16)&#93; and discuss which guideline would have prevented each problem.
 
 **Where to start.** Lecture: Sections "The interaction loop: Execution and evaluation" and "Toward human-AI interaction". The references of the lecture page give a first entry to the literature.
 
